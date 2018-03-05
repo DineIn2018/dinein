@@ -1,0 +1,55 @@
+page-tables {
+
+    .no-scroll .scroll-content{
+        overflow: hidden;
+    }
+
+    #topleft {
+        float: left;
+        padding-top: 0px;
+        padding-left: 20px;
+        width: 80%;
+    }
+
+    #topright {
+        float:right;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 20%;
+    }
+
+	#tablelayout {
+        background-color: color($colors, darkest);
+        width: 80%;
+        height: 100%;
+        float: left;
+        border-right: 2px solid color($colors, primary);
+    }
+
+    #waitlist {
+        background-color: color($colors, darkest);
+        width: 20%;
+        height: 100%;
+        float: left;
+    }
+
+    #resparty {
+        margin: 0px;
+        border-radius: 0px;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+    }
+
+    #waitparty {
+        color: color($colors, medium);
+        margin: 0px;
+        border-radius: 0px;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+    }
+
+}

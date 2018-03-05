@@ -1,0 +1,68 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+.md, .ios {
+
+	// MAIN TITLE STYLING
+	.maintitle {
+        color: color($colors, primary);
+        padding-bottom: 10px;
+        font-size: 70px;
+        font-weight: 500;
+    }
+
+    // SUBTITLE STYLING
+	.subtitle {
+        color: color($colors, primary);
+        padding-bottom: 5px;
+        font-size: 40px;
+        font-weight: 475;
+    }
+
+    // HEADER STYLING
+    .header {
+        color: color($colors, midlight);
+        font-size: 30px;
+        font-weight: 450;
+    }
+
+    .background {
+        background-color: color($colors, darkest);
+        width: 100%;
+        height: 100%;
+    }
+
+    // TEXT INPUT BOX Styling
+    .inputfield {
+        border: 2px solid color($colors, primary);
+        background-color: color($colors, darkest);
+        width: 100%;
+        height: 50px;
+        margin:20px auto;
+        border-radius: 3px;
+    }
+
+	// Changes color of text in text input box
+	.item-inner {
+        color: color($colors, primary);
+    }
+    // Changes color of placeholder in text input box
+	.text-input::-webkit-input-placeholder {
+		color: color($colors, middark);
+	}
+
+}
