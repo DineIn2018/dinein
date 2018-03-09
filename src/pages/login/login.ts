@@ -28,7 +28,19 @@ export class LoginPage {
 
   executeLogin() {
     console.log(this.username.value, this.password.value);
-  	this.navCtrl.push(TabsPage);
+
+    if (this.loginSuccess(this.username, this.password)) {
+      console.log('Login Successful');
+      this.navCtrl.push(TabsPage);
+    } 
+    else {
+      console.log('Login Unsuccessful');
+    }
+
+  }
+
+  loginSuccess(username: string, password: string) {
+    return true;
   }
 
   goToCreateUser() {
