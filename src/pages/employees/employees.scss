@@ -1,3 +1,77 @@
 page-employees {
+    .no-scroll .scroll-content{
+        overflow: hidden;
+    }
 
+    #topleft {
+        float: left;
+        padding-top: 0px;
+        padding-left: 20px;
+        width: 80%;
+    }
+
+    #topright {
+        float: right;
+        display: block;
+        width: 20%;
+        height: 5%;
+        position: sticky;
+        position: -webkit-sticky; /* Safari */
+        margin-top: 0.1%;
+        top: 0;
+        color: color($colors, primary);
+        background-color: color($colors, darker);
+        text-align: center;
+        font-size: 190%;
+    }
+
+    #employeelist {
+        display: block;
+        position: absolute;
+        background-color: color($colors, darkest);
+        width: 20%;
+        margin-top: 5%;
+        height: 95%;
+        margin-right: 0%;
+        margin-left: 80%;
+    }
+
+	#employeeprofile {
+        background-color: color($colors, darkest);
+        width: 80%;
+        height: 100%;
+        float: left;
+        border-right: 2px solid color($colors, primary);
+        position: fixed;
+    }
+    #employeeimage {
+        padding-top: 15%;
+        width: 35%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        
+    
+    }
+    #employeename {
+        color: color($colors, primary);
+        text-align: center;
+        font-size: 400%;
+        font-family: Times;
+    }
+    #employeeinfo {
+        color: color($colors, primary);
+        width: 50%;
+        display: block;
+        margin: auto;
+        text-align: left;
+        font-size: 200%;
+        font-family: Times;
+        outline-style: solid;
+        outline-color: color($colors, primary);
+        
+    }
+
+
+ 
 }

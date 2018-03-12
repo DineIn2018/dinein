@@ -1,4 +1,33 @@
-<ion-content>
+<!--<ion-menu side="right" type="overlay" persistent="true" [content]="content">-->
+
+  
+  <ion-content>
+    <div id="employeeprofile" main scroll="true">
+      <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
+      <h1 id="employeename">{{selectedEmployee.getName()}}</h1>
+      <div id="employeeinfo">
+        Employee ID: {{selectedEmployee.getID()}}
+        <br />Title: {{selectedEmployee.getTitle()}}
+        <br />Pay: {{selectedEmployee.getPay()}}
+        <br />Phone: {{selectedEmployee.getPhone()}}
+      </div>
+    </div>
+    </ion-content>
+  
+  <ion-content>
+    <div id="topright">
+      EMPLOYEES
+    </div>
+    <div id="employeelist"> 
+      <ion-list scroll="true">
+          <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+            {{ employee.getName() }} 
+          </button>
+      </ion-list>
+    </div>
+  </ion-content>
+
+<!--<ion-content>
   <ion-list>
     <ion-list-header>Follow us on Twitter</ion-list-header>
     <ion-item>
@@ -6,4 +35,4 @@
       @ionicframework
     </ion-item>
   </ion-list>
-</ion-content>
+</ion-content>-->
