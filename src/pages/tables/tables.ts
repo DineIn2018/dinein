@@ -118,7 +118,7 @@ export class TablesPage {
 class Table {
 	ID: number;
 	capacity: number;
-	free: bool;
+	free: boolean;
 	partySize: number;
 	server: string;
 
@@ -151,9 +151,9 @@ class Party {
 	size: number;
 	time: string;
 	contact: string;
-	reservation: bool;
+	reservation: boolean;
 
-	constructor (ID:number, name: string, size: number, time: string, contact: string, reservation: bool) {
+	constructor (ID:number, name: string, size: number, time: string, contact: string, reservation: boolean) {
 		this.ID = ID;
 		this.name = name;
 		this.size = size;
