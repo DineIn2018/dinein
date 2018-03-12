@@ -23,6 +23,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     LoginPage,
     CreateUserPage,
+
     TablesPage,
     EmployeesPage,
     TimePunchPage,
@@ -39,6 +40,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     LoginPage,
     CreateUserPage,
+
     TablesPage,
     EmployeesPage,
     TimePunchPage,

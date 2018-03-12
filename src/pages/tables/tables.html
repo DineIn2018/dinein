@@ -9,17 +9,20 @@
 </ion-header>
 
 <ion-content>
-	<div id="tablelayout">
+	<div id="tablelayout" main scroll="true">
+    <button *ngFor="let table of tables" class="table" ion-button outline
+            (click)="presentTableActions(table.ID)">
+      {{table.capacity}}
+    </button>
 	</div>
 
 	<div id="waitlist">
 		<ion-list scroll="true">
-			<button id="resparty" ion-button block outline>Kass, 6, 8:30PM</button>
-      		<button id="resparty" ion-button block outline>Casey, 2, 3:35PM</button>
-      		<button id="waitparty" ion-button block outline>Jimmie, 4, 4:00PM</button>
-      		<button id="waitparty" ion-button block outline>Kameron, 3, 4:05PM</button>
-      		<button id="waitparty" ion-button block outline>Bryan, 7, 4:45PM</button>
-      		<button id="waitparty" ion-button block outline>Suzy, 2, 5:00PM</button>
+
+      <button *ngFor="let party of parties" id="waitparty" ion-button block outline
+              (click)="presentPartyActions(party.ID)">
+        {{party.display()}}
+      </button>
 		</ion-list>
 	</div>
 </ion-content>

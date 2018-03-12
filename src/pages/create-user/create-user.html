@@ -8,31 +8,50 @@
 
 </ion-header>
 
-<div class="background">
-  <div id="container">
-    <ion-list>
+<<<<<<< HEAD
+<ion-content no-bounce>
+  <div class="background">
+    <div id="container">
+      <ion-list>
 
-      <ion-label class="subtitle">Create User</ion-label>
+        <ion-label class="subtitle">Create User</ion-label>
 
-      <ion-item class="inputfield">
-        <ion-input type="Text" placeholder="Username"></ion-input>
-      </ion-item>
+        <ion-item class="inputfield">
+          <ion-input type="Text" placeholder="e-mail"></ion-input>
+        </ion-item>
 
-      <ion-item class="inputfield">
-        <ion-input type="Password" placeholder="Password"></ion-input>
-      </ion-item>
+        <ion-item class="inputfield">
+          <ion-input type="Password" placeholder="Password"></ion-input>
+        </ion-item>
 
-      <ion-item class="inputfield">
-        <ion-input type="Password" placeholder="Confirm Password"></ion-input>
-      </ion-item>
+        <ion-item class="inputfield">
+          <ion-input type="Password" placeholder="Confirm Password"></ion-input>
+        </ion-item>
 
-      <ion-item class="inputfield">
-        <ion-input type="Text" placeholder="Restaurant Name"></ion-input>
-      </ion-item> 
+        <ion-item class="inputfield">
+          <ion-input type="Text" placeholder="First Name"></ion-input>
+        </ion-item>
 
-      <button id="buttons" ion-button block (click)="done()">Done</button>
-      <button id="buttons" ion-button outline block (click)="goToLogin()">Cancel</button>
-    
-    </ion-list>
+        <ion-item class="inputfield">
+          <ion-input type="Text" placeholder="Last Name (optional)"></ion-input>
+        </ion-item>
+
+        <ion-item class="inputfield">
+          <ion-input type="number" placeholder="Phone # (optional)"></ion-input>
+        </ion-item>
+        
+        <ion-item class="inputfield">
+          <ion-label>Restaurant</ion-label>
+          <ion-select okText="Select" cancelText="Cancel">
+            <ion-option>CREATE NEW RESTAURANT</ion-option>
+            <ion-option>Placeholder Restaurant</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <button id="buttons" ion-button block (click)="goToLogin()">Next</button>
+        <button id="buttons" ion-button outline block (click)="goToLogin()">Cancel</button>
+      
+      </ion-list>
+    </div>
   </div>
-</div>
+</ion-content>

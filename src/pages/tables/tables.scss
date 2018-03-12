@@ -1,9 +1,5 @@
 page-tables {
 
-    .no-scroll .scroll-content{
-        overflow: hidden;
-    }
-
     #topleft {
         float: left;
         padding-top: 0px;
@@ -26,13 +22,14 @@ page-tables {
         height: 100%;
         float: left;
         border-right: 2px solid color($colors, primary);
+        //position: fixed;
     }
 
     #waitlist {
         background-color: color($colors, darkest);
         width: 20%;
         height: 100%;
-        float: left;
+        float: right;
     }
 
     #resparty {
@@ -41,6 +38,8 @@ page-tables {
         border-top: 0px;
         border-right: 0px;
         border-left: 0px;
+        font-size: 18px;
+        font-weight: 450;
     }
 
     #waitparty {
@@ -50,6 +49,18 @@ page-tables {
         border-top: 0px;
         border-right: 0px;
         border-left: 0px;
+        font-size: 18px;
+        font-weight: 450;
+    }
+
+    .table {
+        margin: 20px;
+        height: 65px;
+        width: 65px;
+        font-size: 40px;
+        font-weight: 550;
+        color: color($colors, primary);
+        border-width: 3px;
     }
 
 }
