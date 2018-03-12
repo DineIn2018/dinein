@@ -13,6 +13,7 @@ import { TablesPage } from '../pages/tables/tables';
 import { EmployeesPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { SettingsPage } from '../pages/settings/settings';
+import { HomePage } from '../pages/home/home';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,6 +27,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     EmployeesPage,
     TimePunchPage,
     SettingsPage,
+    HomePage,
     TabsPage
   ],
   imports: [
@@ -41,6 +43,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     EmployeesPage,
     TimePunchPage,
     SettingsPage,
+    HomePage,
     TabsPage
   ],
   providers: [
