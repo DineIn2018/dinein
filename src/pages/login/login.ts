@@ -17,7 +17,7 @@ import { CreateUserPage } from '../create-user/create-user';
 })
 export class LoginPage {
 
-  @ViewChild('username') username;
+  @ViewChild('email') email;
   @ViewChild('password') password;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
@@ -27,9 +27,9 @@ export class LoginPage {
   }
 
   executeLogin() {
-    console.log(this.username.value, this.password.value);
+    console.log(this.email.value, this.password.value);
 
-    if (this.loginSuccess(this.username, this.password)) {
+    if (this.loginSuccess(this.email, this.password)) {
       console.log('Login Successful');
       this.navCtrl.push(TabsPage);
     } 
@@ -39,7 +39,7 @@ export class LoginPage {
 
   }
 
-  loginSuccess(username: string, password: string) {
+  loginSuccess(email: string, password: string) {
     return true;
   }
 

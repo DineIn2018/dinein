@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'create-user.html',
 })
 export class CreateUserPage {
-
+  
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -23,11 +23,11 @@ export class CreateUserPage {
   }
 
   goToLogin() {
-  	this.navCtrl.pop({animate: false});
+  	this.navCtrl.pop();
   }
 
-  done() {
-  	this.goToLogin();
+  goToSelectRestaurant() {
+  	
   }
 
 }

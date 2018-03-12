@@ -8,23 +8,25 @@
 
 </ion-header>
 
-<div class="background">
-  <div id="container">
-    <ion-list>
+<ion-content no-bounce>
+  <div class="background">
+    <div id="container">
+      <ion-list>
 
-      <ion-label class="maintitle">DineIn</ion-label>
+        <ion-label class="maintitle">DineIn</ion-label>
 
-      <ion-item class="inputfield">
-        <ion-input clearInput type="Username" placeholder="Username" #username></ion-input>
-      </ion-item>
+        <ion-item class="inputfield">
+          <ion-input clearInput type="Text" placeholder="e-mail" #email></ion-input>
+        </ion-item>
 
-      <ion-item class="inputfield">
-        <ion-input clearInput type="Password" placeholder="Password" #password></ion-input>
-      </ion-item>   
+        <ion-item class="inputfield">
+          <ion-input clearInput type="Password" placeholder="Password" #password></ion-input>
+        </ion-item>   
+        
+        <button id="buttons" ion-button block (click)="executeLogin()">Login</button>
+        <button id="buttons" ion-button outline block (click)="goToCreateUser()">Create User</button>
       
-      <button id="buttons" ion-button block (click)="executeLogin()">Login</button>
-      <button id="buttons" ion-button outline block (click)="goToCreateUser()">Create User</button>
-    
-    </ion-list>
+      </ion-list>
+    </div>
   </div>
-</div>
+</ion-content>

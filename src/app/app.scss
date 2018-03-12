@@ -40,6 +40,13 @@
         font-weight: 450;
     }
 
+    // Regular Text STYLING
+    .regularText {
+        color: color($colors, primary);
+        font-size: 10px;
+        font-weight: 350;
+    }
+
     .background {
         background-color: color($colors, darkest);
         width: 100%;
