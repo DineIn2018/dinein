@@ -1,4 +1,61 @@
-<ion-content>
+<!--<ion-menu side="right" type="overlay" persistent="true" [content]="content">-->
+
+<ion-split-pane>   
+  <ion-content>
+    <div id="employeeprofile" main scroll="false">
+      <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
+      <h1 id="employeename">{{selectedEmployee.getName()}}</h1>
+    </div>
+  
+     
+    <div id="employeelist"> 
+      <ion-list scroll="true">
+            <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+              {{ employee.getName() }} 
+            </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+            <button ion-button block outline> TESTING 1 </button>
+            <button ion-button block outline> TESTING 2 </button>
+            <button ion-button block outline> TESTING 3 </button>
+            <button ion-button block outline> TESTING 4 </button>
+
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-split-pane>  
+
+<!--<ion-content>
   <ion-list>
     <ion-list-header>Follow us on Twitter</ion-list-header>
     <ion-item>
@@ -6,4 +63,4 @@
       @ionicframework
     </ion-item>
   </ion-list>
-</ion-content>
+</ion-content>-->
