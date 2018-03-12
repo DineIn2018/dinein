@@ -14,6 +14,13 @@ export class TablesPage {
   					  public alertCtrl: AlertController) { }
 
   tables: Table[] = [ new Table(0,2), new Table(1,4), new Table(2,6)];
+  parties: Party[] = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
+  										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
+  										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
+  										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
+  										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
+  										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false),
+  									 ]
 
 	presentTableActions(ID: number) {
 
@@ -63,13 +70,43 @@ export class TablesPage {
 		tableActions.present();
 	}
 
+	presentPartyActions(ID: number) {
+
+		let partyActions = this.actionSheetCtrl.create({
+			title: 'Party Actions',
+			buttons: [
+				{
+					text: 'Seat Party',
+					handler: () => {
+						console.log('Party ' + ID + ' seated');
+					}
+				},
+				{
+					text: 'Party Information',
+					handler: () => {
+						console.log('Party ' + ID + ' info tappped');
+					}
+				},
+				{
+					text: 'Cancel',
+					role: 'cancel',
+					handler: () => {
+						console.log('Cancel clicked');
+					}
+				}
+			]
+		});
+
+		partyActions.present();
+	}
+
 	displayInfo(t: Table) {
     let alert = this.alertCtrl.create({
       title: 'Table: ' + t.ID,
-      subTitle: 'Capacity: ' + t.capacity,
-      subTitle:	'Status: ' + t.free,
-      subTitle:	'Current Party: ' + t.partySize,
-      subTitle: 'Server: ' + t.server,
+      subTitle: 'Capacity: ' + t.capacity +
+      					'\nStatus: ' + t.free + 
+      					'\nCurrent Party: ' + t.partySize +
+      					'\nServer: ' + t.server,
       buttons: ['Dismiss']
     });
     alert.present();
@@ -105,5 +142,27 @@ class Table {
 		this.free = false;
 		this.partySize = size;
 		this.server = "Manager";
+	}
+}
+
+class Party {
+	ID: number;
+	name: string;
+	size: number;
+	time: string;
+	contact: string;
+	reservation: bool;
+
+	constructor (ID:number, name: string, size: number, time: string, contact: string, reservation: bool) {
+		this.ID = ID;
+		this.name = name;
+		this.size = size;
+		this.time = time;
+		this.contact = contact;
+		this.reservation = reservation;
+	}
+
+	display(): string {
+		return this.name + ', ' + this.size + ', ' + this.time;
 	}
 }
