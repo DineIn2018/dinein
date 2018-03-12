@@ -11,12 +11,29 @@ page-employees {
     }
 
     #topright {
-        float:right;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
+        float: right;
+        display: block;
         width: 20%;
+        height: 5%;
+        position: sticky;
+        position: -webkit-sticky; /* Safari */
+        margin-top: 0.1%;
+        top: 0;
+        color: color($colors, primary);
+        background-color: color($colors, darker);
+        text-align: center;
+        font-size: 190%;
+    }
+
+    #employeelist {
+        display: block;
+        position: absolute;
+        background-color: color($colors, darkest);
+        width: 20%;
+        margin-top: 5%;
+        height: 95%;
+        margin-right: 0%;
+        margin-left: 80%;
     }
 
 	#employeeprofile {
@@ -25,6 +42,7 @@ page-employees {
         height: 100%;
         float: left;
         border-right: 2px solid color($colors, primary);
+        position: fixed;
     }
     #employeeimage {
         padding-top: 15%;
@@ -32,6 +50,8 @@ page-employees {
         display: block;
         margin-left: auto;
         margin-right: auto;
+        
+    
     }
     #employeename {
         color: color($colors, primary);
@@ -39,13 +59,19 @@ page-employees {
         font-size: 400%;
         font-family: Times;
     }
-
-    #employeelist {
-        background-color: color($colors, darkest);
-        width: 20%;
-        height: 100%;
-        float: left;
+    #employeeinfo {
+        color: color($colors, primary);
+        width: 50%;
+        display: block;
+        margin: auto;
+        text-align: left;
+        font-size: 200%;
+        font-family: Times;
+        outline-style: solid;
+        outline-color: color($colors, primary);
+        
     }
+
 
  
 }
