@@ -44,7 +44,6 @@
     "typescript": "2.4.2"
   },
   "devDependencies": {
-
   },
   "description": "An Ionic project",
   "cordova": {
