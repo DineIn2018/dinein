@@ -13,6 +13,7 @@ export class EmployeesPage {
   employee1: Employee;
   employee2 = new Employee("Carl", 4321,"Manager","$50/hr","(608) 345-1209", "http://www.math.uni-frankfurt.de/~person/_4170854.jpg");
   employee3: Employee;
+  employee4: Employee;
   selectedEmployee: Employee;
 
   constructor(public navCtrl: NavController){
@@ -20,7 +21,8 @@ export class EmployeesPage {
       
       this.employee1 = new Employee("Kevin", 1234,"Server","$5/hr","(608) 329-4565","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl");
       this.employee3 = new Employee("Tina", 5678,"Chef","$500/hr","(414) 921-4980", "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg")
-      this.employees.push(this.employee1, this.employee2, this.employee3);
+      this.employee4 = new Employee("Bryan", 666, "DJ", "$0.03/hr","1-800-436-3230", "../../assets/imgs/bryan.jpg")
+      this.employees.push(this.employee1, this.employee2, this.employee3, this.employee4);
       this.employees.sort(this.sortByName);
       this.selectedEmployee = this.employees[0];
   }
