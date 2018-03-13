@@ -17,7 +17,7 @@
 
     <ion-item>
         <ion-label>ID</ion-label>
-        <ion-input type="number" [(ngModel)]="newID"></ion-input>
+        <ion-input type="text" [(ngModel)]="newID"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -37,8 +37,11 @@
 
 </ion-list>
 
-<button ion-button block outline (click)="confirmExit()">
+<button ion-button inline outline (click)="confirmExit()">
     Exit Without Saving
+</button>
+<button ion-button inline outline (click)="confirmDelete()">
+    Delete Employee Profile
 </button>
 
 <!--<ion-split-pane when="xs">

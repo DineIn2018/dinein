@@ -17,9 +17,10 @@ import { EmployeesPage, Employee } from '../employees/employees';
 export class EditEmployeePage {
 
   selectedEmployee: Employee;
+  employees: Array<Employee>;
   employeePage: any;
   newTitle: string;
-  newID: number;
+  newID: string;
   newPay: string;
   newPhone: string;
   newName: string;
@@ -27,8 +28,9 @@ export class EditEmployeePage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
-    this.employeePage = EmployeesPage;
+    this.employeePage = navParams.get('employeesPage');
     this.selectedEmployee = navParams.get('selectedEmployee');
+    this.employees = navParams.get('employees');
 
     this.newTitle = this.selectedEmployee.getTitle();
     this.newID = this.selectedEmployee.getID();
@@ -41,10 +43,59 @@ export class EditEmployeePage {
 
   }
 
+  confirmDelete() {
+    let confirm = this.alertCtrl.create({
+      title: 'Delete this employee profile and exit?',
+      message: 'Warning: this action cannot be undone!',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            //do nothing
+          }
+        },
+        {
+          text: 'Delete and Exit',
+          handler: () => {
+            this.secondConfirmDelete();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+  secondConfirmDelete() {
+    let confirm = this.alertCtrl.create({
+      title: 'Are you <em>really</em> sure you want to delete this employee profile and exit?',
+      message: 'Warning: this action cannot be undone!',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            //do nothing
+          }
+        },
+        {
+          text: 'Delete and Exit',
+          handler: () => {
+            //TODO: delete profile from list of employees
+            this.employees.splice(this.employees.indexOf(this.selectedEmployee),1);
+            this.employeePage.refreshSelectedEmployee();
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
   confirmExit() {
     let confirm = this.alertCtrl.create({
       title: 'Exit without saving?',
       message: 'Are you sure you want to exit without saving your changes?',
+      enableBackdropDismiss: false,
       buttons: [
         {
           text: 'Cancel',

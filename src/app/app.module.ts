@@ -17,6 +17,7 @@ import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TimePunchPage,
     SettingsPage,
     TabsPage,
-    EditEmployeePage
+    EditEmployeePage,
+    CreateEmployeePage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TimePunchPage,
     SettingsPage,
     TabsPage,
-    EditEmployeePage
+    EditEmployeePage,
+    CreateEmployeePage
   ],
   providers: [
     StatusBar,

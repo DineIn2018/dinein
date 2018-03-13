@@ -4,7 +4,13 @@
       <button ion-button block outline (click)="openEditPage()">
         Edit Info
       </button>
+      
+        <button id="addButton" ion-button outline (click)="openCreatePage()">
+            Add New Employee
+        </button>
+      
     </div>
+    
     <div id="mainbody">
       <div id="employeeprofile">
         <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">

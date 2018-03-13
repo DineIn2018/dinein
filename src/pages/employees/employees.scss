@@ -13,12 +13,21 @@ page-employees {
         width:auto;
         /*margin-top: 0%;*/
         position: fixed;
+        left: 2%;
+        top: 2%;
         z-index: 1;
         font-family: palatino;
         /*color: color($colors, primary);
         background-color: color($colors, darker);
         outline-style: solid;
         outline-color: color($colors, primary);*/
+    }
+    #addButton {
+        width: auto;
+        position: fixed;
+        display: inline;
+        z-index: 1;
+        font-family: palatino;
     }
     #viewpunchbutton {
         width: auto;
