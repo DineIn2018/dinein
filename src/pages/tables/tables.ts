@@ -79,6 +79,7 @@ export class TablesPage {
 					text: 'Seat Party',
 					handler: () => {
 						console.log('Party ' + ID + ' seated');
+						this.parties.splice(ID, 1);
 					}
 				},
 				{
@@ -118,7 +119,7 @@ export class TablesPage {
 class Table {
 	ID: number;
 	capacity: number;
-	free: bool;
+	free: boolean;
 	partySize: number;
 	server: string;
 
@@ -151,7 +152,7 @@ class Party {
 	size: number;
 	time: string;
 	contact: string;
-	reservation: bool;
+	reservation: boolean;
 
 	constructor (ID:number, name: string, size: number, time: string, contact: string, reservation: bool) {
 		this.ID = ID;
