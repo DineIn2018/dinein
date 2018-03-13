@@ -10,28 +10,31 @@ page-employees {
         width: 80%;
     }
     #editbutton {
-        width:10%;
+        width:auto;
         /*margin-top: 0%;*/
         position: fixed;
         z-index: 1;
+        font-family: palatino;
         /*color: color($colors, primary);
         background-color: color($colors, darker);
         outline-style: solid;
         outline-color: color($colors, primary);*/
     }
     #viewpunchbutton {
-        width: 10%;
+        width: auto;
         z-index: 1;
         position: fixed;
         left: 2%;
         bottom: 10%;
+        font-family: palatino;
+        font-size: 2vh;
     }
     #mainbody {
         width: 80%;
         height: 100%;
         margin-left: 0%;
         /*margin-bottom: 10%;
-        background-color: color($colors, darker);*/
+        background-color: color($colors,darker);*/
     }
     #sidebar {
         width:20%;
@@ -41,14 +44,17 @@ page-employees {
         background-color: color($colors, darker);
         overflow: scroll;
     }
-    #EmployeeListTitle {
+    h2 {
+        /*padding-top: 0%;*/
         /*float: right;*/
         display: block;
-        /*width: 20%;*/
-        height: 6%;
-        position: sticky;
+        width: 20%;
+        /*height: 6%;*/
+        position: fixed;
+        /*position: sticky;
         position: -webkit-sticky; /* Safari */
-        top: 0;
+        /*top: 0;*/
+        margin-top: 0;
         color: color($colors, primary);
         background-color: color($colors, darker);
         text-align: center;
@@ -59,13 +65,15 @@ page-employees {
    
     #employeelist {
         display: block;
+        padding-top: 20%;
         /*position: fixed;*/
         background-color: color($colors, darker);
         /*width: 20%;*/
-        margin-top: 6%;
-        height: 94%;
+       /* margin-top: 16%;*/
+        /*height: 94%;*/
         font-family: palatino;
         z-index: -1;
+        padding-bottom: 18%;
         /*margin-left: 80%;*/
     }
 
@@ -77,6 +85,7 @@ page-employees {
         /*border-right: 2px solid color($colors, primary);*/
         position: fixed;
         overflow: scroll;
+        padding-bottom: 10%;
     }
     #employeeimage {
         padding-top: 10%;
@@ -86,7 +95,7 @@ page-employees {
         margin-right: auto;
 
     }
-    #employeename {
+    h1 {
         color: color($colors, primary);
         text-align: center;
         font-size: 400%;
