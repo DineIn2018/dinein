@@ -77,6 +77,13 @@ page-employees {
         /*margin-left: 80%;*/
     }
 
+    .label {
+        /*text-decoration: underline;*/
+        font-style: italic;
+        
+        float: left;
+        /*color: color($colors, tertiary);*/
+    }
 	#employeeprofile {
         /*background-color: color($colors, darkest);*/
         width: 80%;
@@ -108,7 +115,7 @@ page-employees {
         width: 50%;
         display: block;
         margin: auto;
-        text-align: left;
+        text-align: right;
         font-size: 200%;
         font-family: palatino;
         outline-style: solid;
