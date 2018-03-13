@@ -1,0 +1,22 @@
+<ion-header>
+
+</ion-header>
+
+<div class="background">
+<div id="container">
+  <ion-list>
+
+    <ion-label class="subtitle">Punch In/Out</ion-label>
+    <ion-label class="header">{{currDateTime | date: 'EEE MMM d, yyyy'}}</ion-label>
+    <ion-label class="header">{{currDateTime | date: 'hh:mm:ss aa'}}</ion-label>
+
+    <ion-item class="inputfield">
+      <ion-input type="tel" placeholder="Employee ID"></ion-input>
+    </ion-item>
+  
+    <button id="buttons" ion-button block>Submit</button>
+    <button id="buttons" ion-button outline block>Clear</button>
+
+  </ion-list>
+</div>
+</div>

@@ -1,15 +1,8 @@
 {
   "name": "DineIn",
-  "app_id": "930fe25e",
-  "type": "ionic1",
+  "app_id": "",
+  "type": "ionic-angular",
   "integrations": {
-    "gulp": {},
     "cordova": {}
-  },
-  "watchPatterns": [
-    "scss/**/*",
-    "www/**/*",
-    "!www/lib/**/*",
-    "!www/**/*.map"
-  ]
+  }
 }

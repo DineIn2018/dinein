@@ -187,49 +187,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var EditEmployeePage = (function () {
-    function EditEmployeePage(navCtrl, navParams, alertCtrl) {
+    function EditEmployeePage(navCtrl, navParams) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.alertCtrl = alertCtrl;
         this.employeePage = __WEBPACK_IMPORTED_MODULE_2__employees_employees__["a" /* EmployeesPage */];
         this.selectedEmployee = navParams.get('selectedEmployee');
-        this.newTitle = this.selectedEmployee.getTitle();
-        this.newID = this.selectedEmployee.getID();
-        this.newPay = this.selectedEmployee.getPay();
-        this.newName = this.selectedEmployee.getName();
-        this.newPhone = this.selectedEmployee.getPhone();
-        this.newSrc = this.selectedEmployee.getSrc();
+        this.selectedImageSrc = this.selectedEmployee.getSrc();
     }
-    EditEmployeePage.prototype.confirmExit = function () {
-        var _this = this;
-        var confirm = this.alertCtrl.create({
-            title: 'Exit without saving?',
-            message: 'Are you sure you want to exit without saving your changes?',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: function () {
-                        //do nothing
-                    }
-                },
-                {
-                    text: 'Exit',
-                    handler: function () {
-                        _this.navCtrl.pop();
-                    }
-                }
-            ]
-        });
-        confirm.present();
-    };
     EditEmployeePage.prototype.saveNewValues = function () {
         this.selectedEmployee.setID(this.newID);
         this.selectedEmployee.setName(this.newName);
         this.selectedEmployee.setTitle(this.newTitle);
         this.selectedEmployee.setPay(this.newPay);
         this.selectedEmployee.setPhone(this.newPhone);
-        this.selectedEmployee.setSrc(this.newSrc);
-        this.navCtrl.pop();
     };
     EditEmployeePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad EditEmployeePage');
@@ -238,10 +208,9 @@ var EditEmployeePage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-edit-employee',template:/*ion-inline-start:"/Users/kameronyoung/dinein/src/pages/edit-employee/edit-employee.html"*/'<button ion-button block outline (click)="saveNewValues()">\n    Save and Exit\n</button>\n\n\n<ion-list inset>\n\n    <ion-item>\n        <ion-label>Image src</ion-label>\n        <ion-input type="text" [(ngModel)]="newSrc"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label>Name</ion-label>\n        <ion-input type="text" [(ngModel)]="newName"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label>ID</ion-label>\n        <ion-input type="number" [(ngModel)]="newID"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label>Title</ion-label>\n        <ion-input type="text" [(ngModel)]="newTitle"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label>Pay</ion-label>\n        <ion-input type="text" [(ngModel)]="newPay"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label>Phone</ion-label>\n        <ion-input type="text" [(ngModel)]="newPhone"></ion-input>\n    </ion-item>\n\n</ion-list>\n\n<button ion-button block outline (click)="confirmExit()">\n    Exit Without Saving\n</button>\n\n<!--<ion-split-pane when="xs">\n    <div main>\n        <div id="editbutton">\n            <button ion-button block outline>\n                DoneEditing\n            </button>\n        </div>\n        <div id="mainbody">\n            <div id="employeeprofile">\n                <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">\n                <h1 id="employeename">{{selectedEmployee.getName()}}</h1>\n                <div id="employeeinfo">\n                    <ion-item>\n                        <ion-label color="primary">Employee ID</ion-label>\n                        <ion-input placeholder="{{selectedEmployee.getID()}}" [[ngModel]]="selectedEmployee.ID"></ion-input>\n                    </ion-item>\n                    Employee ID: {{selectedEmployee.getID()}}\n                    <br />Title: {{selectedEmployee.getTitle()}}\n                    <br />Pay: {{selectedEmployee.getPay()}}\n                    <br />Phone: {{selectedEmployee.getPhone()}}\n                </div>\n            </div>\n        </div>\n        <div id="viewpunchbutton">\n            <button ion-button block outline (click)="selectEmployee($event, employees[0])">\n                View Punch\n            </button>\n        </div>\n    </div>\n\n    <div id="sidebar">\n        <div id="EmployeeListTitle">\n            EMPLOYEES\n        </div>\n        <div id="employeelist">\n            <ion-list>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">\n                    {{ employee.getName() }}\n                </button>\n            </ion-list>\n        </div>\n    </div>\n</ion-split-pane>-->'/*ion-inline-end:"/Users/kameronyoung/dinein/src/pages/edit-employee/edit-employee.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* AlertController */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
     ], EditEmployeePage);
     return EditEmployeePage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=edit-employee.js.map

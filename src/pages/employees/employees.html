@@ -1,0 +1,50 @@
+<ion-split-pane when="xs">
+  <div main>
+    <div id="editbutton">
+      <button ion-button block outline (click)="openEditPage()">
+        Edit Info
+      </button>
+    </div>
+    <div id="mainbody">
+      <div id="employeeprofile">
+        <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
+        <h1>{{selectedEmployee.getName()}}</h1>
+        <div id="employeeinfo">
+          <span class="label">Employee ID:</span> {{selectedEmployee.getID()}}
+          <br>
+          <span class="label">Title:</span> {{selectedEmployee.getTitle()}}
+          <br>
+          <span class="label">Pay:</span> {{selectedEmployee.getPay()}}
+          <br>
+          <span class="label">Phone:</span> {{selectedEmployee.getPhone()}}
+        </div>
+      </div>
+    </div>
+    <div id="viewpunchbutton">
+      <button ion-button block outline (click)="selectEmployee($event, employees[1])">
+        View Punch
+      </button>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div>
+      <h2>
+        EMPLOYEES
+      </h2>
+    </div>
+    <div id="employeelist">
+      <ion-list>
+        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+          {{ employee.getName() }}
+        </button>
+        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+          {{ employee.getName() }}
+        </button>
+        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+          {{ employee.getName() }}
+        </button>
+      </ion-list>
+    </div>
+  </div>
+</ion-split-pane>

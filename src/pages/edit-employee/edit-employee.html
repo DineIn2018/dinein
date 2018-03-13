@@ -1,0 +1,107 @@
+<button ion-button block outline (click)="saveNewValues()">
+    Save and Exit
+</button>
+
+
+<ion-list inset>
+
+    <ion-item>
+        <ion-label>Image src</ion-label>
+        <ion-input type="text" [(ngModel)]="newSrc"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="newName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>ID</ion-label>
+        <ion-input type="number" [(ngModel)]="newID"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Title</ion-label>
+        <ion-input type="text" [(ngModel)]="newTitle"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Pay</ion-label>
+        <ion-input type="text" [(ngModel)]="newPay"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Phone</ion-label>
+        <ion-input type="text" [(ngModel)]="newPhone"></ion-input>
+    </ion-item>
+
+</ion-list>
+
+<button ion-button block outline (click)="confirmExit()">
+    Exit Without Saving
+</button>
+
+<!--<ion-split-pane when="xs">
+    <div main>
+        <div id="editbutton">
+            <button ion-button block outline>
+                DoneEditing
+            </button>
+        </div>
+        <div id="mainbody">
+            <div id="employeeprofile">
+                <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
+                <h1 id="employeename">{{selectedEmployee.getName()}}</h1>
+                <div id="employeeinfo">
+                    <ion-item>
+                        <ion-label color="primary">Employee ID</ion-label>
+                        <ion-input placeholder="{{selectedEmployee.getID()}}" [[ngModel]]="selectedEmployee.ID"></ion-input>
+                    </ion-item>
+                    Employee ID: {{selectedEmployee.getID()}}
+                    <br />Title: {{selectedEmployee.getTitle()}}
+                    <br />Pay: {{selectedEmployee.getPay()}}
+                    <br />Phone: {{selectedEmployee.getPhone()}}
+                </div>
+            </div>
+        </div>
+        <div id="viewpunchbutton">
+            <button ion-button block outline (click)="selectEmployee($event, employees[0])">
+                View Punch
+            </button>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <div id="EmployeeListTitle">
+            EMPLOYEES
+        </div>
+        <div id="employeelist">
+            <ion-list>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+                <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+                    {{ employee.getName() }}
+                </button>
+            </ion-list>
+        </div>
+    </div>
+</ion-split-pane>-->

@@ -1,0 +1,66 @@
+page-tables {
+
+    #topleft {
+        float: left;
+        padding-top: 0px;
+        padding-left: 20px;
+        width: 80%;
+    }
+
+    #topright {
+        float:right;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 20%;
+    }
+
+	#tablelayout {
+        background-color: color($colors, darkest);
+        width: 80%;
+        height: 100%;
+        float: left;
+        border-right: 2px solid color($colors, primary);
+        //position: fixed;
+    }
+
+    #waitlist {
+        background-color: color($colors, darkest);
+        width: 20%;
+        height: 100%;
+        float: right;
+    }
+
+    #resparty {
+        margin: 0px;
+        border-radius: 0px;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+        font-size: 18px;
+        font-weight: 450;
+    }
+
+    #waitparty {
+        color: color($colors, medium);
+        margin: 0px;
+        border-radius: 0px;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+        font-size: 18px;
+        font-weight: 450;
+    }
+
+    .table {
+        margin: 20px;
+        height: 65px;
+        width: 65px;
+        font-size: 40px;
+        font-weight: 550;
+        color: color($colors, primary);
+        border-width: 3px;
+    }
+
+}

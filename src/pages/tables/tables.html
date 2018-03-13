@@ -1,0 +1,30 @@
+<ion-header>
+  <div id="topleft">
+    <ion-label class="header">Placeholder's Restaurant</ion-label>
+  </div>
+
+  <div id="topright">
+  	<button ion-button outline block>Edit Layout</button>
+  </div>
+</ion-header>
+
+<ion-content>
+	<div id="tablelayout" main scroll="true">
+    <button *ngFor="let table of tables" class="table" ion-button outline
+            (click)="presentTableActions(table.ID)">
+      {{table.capacity}}
+    </button>
+	</div>
+
+	<div id="waitlist">
+		<ion-list scroll="true">
+
+      <button *ngFor="let party of parties" id="waitparty" ion-button block outline
+              (click)="presentPartyActions(party.ID)">
+        {{party.display()}}
+      </button>
+		</ion-list>
+	</div>
+</ion-content>
+
+

@@ -1,0 +1,128 @@
+page-employees {
+    .no-scroll .scroll-content{
+        overflow: hidden;
+    }
+
+    #topleft {
+        float: left;
+        padding-top: 0px;
+        padding-left: 20px;
+        width: 80%;
+    }
+    #editbutton {
+        width:auto;
+        /*margin-top: 0%;*/
+        position: fixed;
+        z-index: 1;
+        font-family: palatino;
+        /*color: color($colors, primary);
+        background-color: color($colors, darker);
+        outline-style: solid;
+        outline-color: color($colors, primary);*/
+    }
+    #viewpunchbutton {
+        width: auto;
+        z-index: 1;
+        position: fixed;
+        left: 2%;
+        bottom: 10%;
+        font-family: palatino;
+        font-size: 2vh;
+    }
+    #mainbody {
+        width: 80%;
+        height: 100%;
+        margin-left: 0%;
+        /*margin-bottom: 10%;
+        background-color: color($colors,darker);*/
+    }
+    #sidebar {
+        width:20%;
+        height: 100%;
+        margin-top: 0%;
+        margin-left: 80%;
+        background-color: color($colors, darker);
+        overflow: scroll;
+    }
+    h2 {
+        /*padding-top: 0%;*/
+        /*float: right;*/
+        display: block;
+        width: 20%;
+        /*height: 6%;*/
+        position: fixed;
+        /*position: sticky;
+        position: -webkit-sticky; /* Safari */
+        /*top: 0;*/
+        margin-top: 0;
+        color: color($colors, primary);
+        background-color: color($colors, darker);
+        text-align: center;
+        font-size: 3vw;
+        font-family: impact;
+        z-index: 1;
+    }
+   
+    #employeelist {
+        display: block;
+        padding-top: 20%;
+        /*position: fixed;*/
+        background-color: color($colors, darker);
+        /*width: 20%;*/
+       /* margin-top: 16%;*/
+        /*height: 94%;*/
+        font-family: palatino;
+        z-index: -1;
+        padding-bottom: 18%;
+        /*margin-left: 80%;*/
+    }
+
+    .label {
+        /*text-decoration: underline;*/
+        font-style: italic;
+        
+        float: left;
+        /*color: color($colors, tertiary);*/
+    }
+	#employeeprofile {
+        /*background-color: color($colors, darkest);*/
+        width: 80%;
+        height: 100%;
+        float: left;
+        /*border-right: 2px solid color($colors, primary);*/
+        position: fixed;
+        overflow: scroll;
+        padding-bottom: 10%;
+    }
+    #employeeimage {
+        padding-top: 10%;
+        height: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+    h1 {
+        color: color($colors, primary);
+        text-align: center;
+        font-size: 400%;
+        font-family: palatino;
+        
+    }
+    #employeeinfo {
+        padding: 10px;
+        color: color($colors, primary);
+        width: 50%;
+        display: block;
+        margin: auto;
+        text-align: right;
+        font-size: 200%;
+        font-family: palatino;
+        outline-style: solid;
+        outline-color: color($colors, primary);
+        
+    }
+
+
+ 
+}
