@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { List } from 'ionic-angular';
 import { EditEmployeePage } from '../edit-employee/edit-employee';
 
@@ -33,7 +33,9 @@ export class EmployeesPage {
     this.employees.sort(this.sortByName);
     this.selectedEmployee = this.employees[0];
   }
-
+  openEditPage() {
+    this.navCtrl.push(this.editPage, {selectedEmployee : this.selectedEmployee });
+  }
   selectEmployee(myEvent, employee) {
     this.selectedEmployee = employee;
   }
@@ -67,21 +69,38 @@ export class Employee {
   getName(): string {
     return this.name;
   }
-
+  setName(name: string) {
+    this.name = name;
+  }
   getSrc(): string {
     return this.imageSrc;
+  }
+  setSrc(src: string) {
+    this.imageSrc = src;
   }
   getID(): number {
     return this.ID;
   }
+  setID(id: number) {
+    this.ID = id;
+  }
   getTitle(): string {
     return this.title;
+  }
+  setTitle(title: string) {
+    this.title = title;
   }
   getPhone(): string {
     return this.phone;
   }
+  setPhone(phone: string) {
+    this.phone = phone;
+  }
   getPay(): string {
     return this.pay;
+  }
+  setPay(pay: string) {
+    this.pay = pay;
   }
 }
 

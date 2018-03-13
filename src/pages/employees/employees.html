@@ -1,7 +1,7 @@
 <ion-split-pane when="xs">
   <div main>
     <div id="editbutton">
-      <button ion-button block outline [navPush]="editPage">
+      <button ion-button block outline (click)="openEditPage()">
         Edit Info
       </button>
     </div>
@@ -10,9 +10,12 @@
         <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
         <h1>{{selectedEmployee.getName()}}</h1>
         <div id="employeeinfo">
-          <span class="label">Employee ID:</span> {{selectedEmployee.getID()}}<br>
-          <span class="label">Title:</span> {{selectedEmployee.getTitle()}}<br>
-          <span class="label">Pay:</span> {{selectedEmployee.getPay()}}<br>
+          <span class="label">Employee ID:</span> {{selectedEmployee.getID()}}
+          <br>
+          <span class="label">Title:</span> {{selectedEmployee.getTitle()}}
+          <br>
+          <span class="label">Pay:</span> {{selectedEmployee.getPay()}}
+          <br>
           <span class="label">Phone:</span> {{selectedEmployee.getPhone()}}
         </div>
       </div>

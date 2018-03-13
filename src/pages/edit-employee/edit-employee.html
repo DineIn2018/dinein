@@ -1,6 +1,46 @@
-<button ion-button block outline id="editbutton" [navPush]="employeePage">
-  Testing 123
+<button ion-button block outline (click)="saveNewValues()">
+    Save and Exit
 </button>
+
+
+<ion-list inset>
+
+    <ion-item>
+        <ion-label>Image src</ion-label>
+        <ion-input type="text" [(ngModel)]="newSrc"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="newName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>ID</ion-label>
+        <ion-input type="number" [(ngModel)]="newID"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Title</ion-label>
+        <ion-input type="text" [(ngModel)]="newTitle"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Pay</ion-label>
+        <ion-input type="text" [(ngModel)]="newPay"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Phone</ion-label>
+        <ion-input type="text" [(ngModel)]="newPhone"></ion-input>
+    </ion-item>
+
+</ion-list>
+
+<button ion-button block outline (click)="confirmExit()">
+    Exit Without Saving
+</button>
+
 <!--<ion-split-pane when="xs">
     <div main>
         <div id="editbutton">
