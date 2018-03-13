@@ -1,38 +1,47 @@
-<!--<ion-menu side="right" type="overlay" persistent="true" [content]="content">-->
-
-  
-  <ion-content>
-    <div id="employeeprofile" main scroll="true">
-      <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
-      <h1 id="employeename">{{selectedEmployee.getName()}}</h1>
-      <div id="employeeinfo">
-        Employee ID: {{selectedEmployee.getID()}}
-        <br />Title: {{selectedEmployee.getTitle()}}
-        <br />Pay: {{selectedEmployee.getPay()}}
-        <br />Phone: {{selectedEmployee.getPhone()}}
+<ion-split-pane when="xs">
+  <div main>
+    <div id="editbutton">
+      <button ion-button block outline [navPush]="editPage">
+        Edit Info
+      </button>
+    </div>
+    <div id="mainbody">
+      <div id="employeeprofile">
+        <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
+        <h1>{{selectedEmployee.getName()}}</h1>
+        <div id="employeeinfo">
+          <span class="label">Employee ID:</span> {{selectedEmployee.getID()}}<br>
+          <span class="label">Title:</span> {{selectedEmployee.getTitle()}}<br>
+          <span class="label">Pay:</span> {{selectedEmployee.getPay()}}<br>
+          <span class="label">Phone:</span> {{selectedEmployee.getPhone()}}
+        </div>
       </div>
     </div>
-    </ion-content>
-  
-  <ion-content>
-    <div id="topright">
-      EMPLOYEES
+    <div id="viewpunchbutton">
+      <button ion-button block outline (click)="selectEmployee($event, employees[1])">
+        View Punch
+      </button>
     </div>
-    <div id="employeelist"> 
-      <ion-list scroll="true">
-          <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
-            {{ employee.getName() }} 
-          </button>
+  </div>
+
+  <div id="sidebar">
+    <div>
+      <h2>
+        EMPLOYEES
+      </h2>
+    </div>
+    <div id="employeelist">
+      <ion-list>
+        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+          {{ employee.getName() }}
+        </button>
+        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+          {{ employee.getName() }}
+        </button>
+        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
+          {{ employee.getName() }}
+        </button>
       </ion-list>
     </div>
-  </ion-content>
-
-<!--<ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
-</ion-content>-->
+  </div>
+</ion-split-pane>
