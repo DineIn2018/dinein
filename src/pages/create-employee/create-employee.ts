@@ -29,7 +29,7 @@ export class CreateEmployeePage {
   }
 
   createAndExit(){
-    let employeesPage = new EmployeesPage(null);
+    let employeesPage = new EmployeesPage(null, null);
     this.employees.push(new Employee(this.name, this.ID, this.title, this.pay, this.phone, this.src));
     this.employees.sort(employeesPage.sortByName);
 

@@ -37,9 +37,9 @@ export class EmployeesPage {
     this.selectedEmployee = this.employees[0];
   }
 
-  presentPunchPopover (anEvent) {
+  presentPunchPopover(anEvent) {
     let popover = this.popCtrl.create(PunchPopoverPage);
-    
+
     popover.present({
       ev: anEvent
     });
@@ -70,28 +70,43 @@ export class EmployeesPage {
   template: `
     <ion-item>
       <ion-label>Start Date</ion-label>
-      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="startDate"></ion-datetime>
+      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" max="{{currentDate}}" [(ngModel)]="startDate"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>End Date</ion-label>
-      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="endDate"></ion-datetime>
+      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" min="{{startDate}}" max="{{currentDate}}" [(ngModel)]="endDate"></ion-datetime>
     </ion-item>
     <button ion-item (click)="close()">GO</button>
   `
 })
 export class PunchPopoverPage {
-  
-  startDate: String;
-  endDate: String;
-  
-  constructor(public viewCtrl: ViewController, public popCtl: PopoverController, public appCtrl: App){
 
+  startDate: string;
+  currentDate: string;
+  endDate: string;
+  dd: any;
+  mm: any;
+
+  constructor(public viewCtrl: ViewController, public popCtl: PopoverController, public appCtrl: App) {
+    let currDate = new Date(); //initialized to current date
+    this.dd = currDate.getDate();
+    this.mm = currDate.getMonth() + 1; //January is 0
+    let yyyy = currDate.getFullYear();
+    if (this.dd < 10) {
+      this.dd = '0' + this.dd;
+    }
+    if (this.mm < 10) {
+      this.mm = '0' + this.mm;
+    }
+    this.startDate = yyyy + "-" + this.mm + "-" + this.dd;
+    this.endDate = this.startDate;
+    this.currentDate = this.startDate;
   }
-    
+
+
   close() {
     this.viewCtrl.dismiss();
   }
- 
 }
 
 export class Employee {
