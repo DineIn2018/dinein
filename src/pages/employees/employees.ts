@@ -38,7 +38,7 @@ export class EmployeesPage {
   }
 
   presentPunchPopover(anEvent) {
-    let popover = this.popCtrl.create(PunchPopoverPage);
+    let popover = this.popCtrl.create(PunchPopoverPage,{selectedEmployee: this.selectedEmployee});
 
     popover.present({
       ev: anEvent
@@ -69,6 +69,9 @@ export class EmployeesPage {
 @Component({
   template: `
     <ion-item>
+    <h3>View {{selectedEmployee.getName()}}'s punchcard</h3>
+    </ion-item>
+    <ion-item>
       <ion-label>Start Date</ion-label>
       <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" max="{{currentDate}}" [(ngModel)]="startDate"></ion-datetime>
     </ion-item>
@@ -86,8 +89,11 @@ export class PunchPopoverPage {
   endDate: string;
   dd: any;
   mm: any;
+  selectedEmployee: Employee;
 
-  constructor(public viewCtrl: ViewController, public popCtl: PopoverController, public appCtrl: App) {
+  constructor(public viewCtrl: ViewController, public popCtl: PopoverController, public appCtrl: App, public navParams: NavParams) {
+    
+    this.selectedEmployee = this.navParams.get("selectedEmployee");
     let currDate = new Date(); //initialized to current date
     this.dd = currDate.getDate();
     this.mm = currDate.getMonth() + 1; //January is 0
