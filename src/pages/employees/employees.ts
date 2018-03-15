@@ -7,8 +7,10 @@ import { EditEmployeePage } from '../edit-employee/edit-employee';
   selector: 'page-employees',
   templateUrl: 'employees.html'
 })
-export class EmployeesPage {
 
+export class EmployeesPage {
+  searchQuery: string = '';
+  items: Employee[];
   editPage: any;
   listPage: any;
   employees: Array<Employee>;
@@ -32,6 +34,27 @@ export class EmployeesPage {
     this.employees.push(this.employee1, this.employee2, this.employee3, this.employee4, this.employee5, this.employee6, this.employee7, this.employee8);
     this.employees.sort(this.sortByName);
     this.selectedEmployee = this.employees[0];
+    this.initializeItems();
+  }
+  initializeItems() {
+    this.items = [
+      this.selectedEmployee
+    ];
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    // if (val && val.trim() != '') {
+    //   this.items = this.items.filter((item) => {
+    //     return (item.getName.toString.toLowerCase().indexOf(val.toLowerCase()) > -1);
+    //   })
+    // }
   }
   openEditPage() {
     this.navCtrl.push(this.editPage, {selectedEmployee : this.selectedEmployee });
@@ -103,4 +126,3 @@ export class Employee {
     this.pay = pay;
   }
 }
-
