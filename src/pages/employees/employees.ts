@@ -57,14 +57,11 @@ export class EmployeesPage {
   selectEmployee(myEvent, employee) {
     this.selectedEmployee = employee;
   }
-  sortByName(a: Employee, b: Employee): number {
+  /*sortByName(a: Employee, b: Employee): number {
     return a.getName().localeCompare(b.getName());
-  }
+  }*/
   sortByLastName(a: Employee, b: Employee): number {
     return a.getLastName().localeCompare(b.getLastName());
-  }
-  editEmployee() {
-
   }
 
 }
@@ -72,17 +69,17 @@ export class EmployeesPage {
 @Component({
   template: `
     <ion-item>
-    <h3>View {{selectedEmployee.getName()}}'s punchcard</h3>
+    <h3>{{selectedEmployee.getName()}}'s punches</h3>
     </ion-item>
     <ion-item>
-      <ion-label>Start Date</ion-label>
+      <ion-label>From:</ion-label>
       <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" max="{{currentDate}}" [(ngModel)]="startDate"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label>End Date</ion-label>
+      <ion-label>To:</ion-label>
       <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" min="{{startDate}}" max="{{currentDate}}" [(ngModel)]="endDate"></ion-datetime>
     </ion-item>
-    <button ion-item (click)="close()">GO</button>
+    <button ion-item (click)="close()">VIEW</button>
   `
 })
 export class PunchPopoverPage {
@@ -142,9 +139,9 @@ export class Employee {
   getName(): string {
     return this.firstName+" "+this.lastName;
   }
-  setName(name: string) {
+  /*setName(name: string) {
     this.name = name;
-  }
+  }*/
   getFirstName(): string {
     return this.firstName;
   }

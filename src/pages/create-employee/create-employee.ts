@@ -27,11 +27,19 @@ export class CreateEmployeePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     this.employees = navParams.get("employees");
+    this.firstName="";
+    this.lastName="";
+    this.ID="";
+    this.phone="";
+    this.pay="";
+    this.src="";
+    this.title="";
+
   }
 
   createAndExit(){
     let employeesPage = new EmployeesPage(null, null);
-    this.employees.push(new Employee(this.firstName,this.lastName, this.ID, this.title, this.pay, this.phone, this.src));
+    this.employees.push(new Employee(this.firstName, this.lastName, this.ID, this.title, this.pay, this.phone, this.src));
     this.employees.sort(employeesPage.sortByLastName);
 
     let alert = this.alertCtrl.create({
