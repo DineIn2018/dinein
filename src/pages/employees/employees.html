@@ -29,19 +29,21 @@
 
   <div id="sidebar">
     <div>
-      
-        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-        <ion-list>
-          <ion-item *ngFor="let item of items">
-            {{ item }}
-          </ion-item>
-        </ion-list>
 
       <h2>
         EMPLOYEES
       </h2>
+
+      <ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
+
+      <ion-list id="myList">
+        <ion-item *ngFor="let item of items">
+          {{ item.getName() }}
+        </ion-item>
+      </ion-list>
+
     </div>
-    <div id="employeelist">
+    <div hidden id="employeelist">
       <ion-list>
         <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
           {{ employee.getName() }}

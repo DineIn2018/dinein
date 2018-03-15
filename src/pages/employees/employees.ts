@@ -49,12 +49,12 @@ export class EmployeesPage {
     // set val to the value of the searchbar
     let val = ev.target.value;
 
-    // if the value is an empty string don't filter the items
-    // if (val && val.trim() != '') {
-    //   this.items = this.items.filter((item) => {
-    //     return (item.getName.toString.toLowerCase().indexOf(val.toLowerCase()) > -1);
-    //   })
-    // }
+    //if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (item.getName().toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
   openEditPage() {
     this.navCtrl.push(this.editPage, {selectedEmployee : this.selectedEmployee });
