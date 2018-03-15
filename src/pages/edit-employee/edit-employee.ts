@@ -23,7 +23,8 @@ export class EditEmployeePage {
   newID: string;
   newPay: string;
   newPhone: string;
-  newName: string;
+  newFirstName: string;
+  newLastName: string;
   newSrc: string;
 
 
@@ -35,7 +36,8 @@ export class EditEmployeePage {
     this.newTitle = this.selectedEmployee.getTitle();
     this.newID = this.selectedEmployee.getID();
     this.newPay = this.selectedEmployee.getPay();
-    this.newName = this.selectedEmployee.getName();
+    this.newFirstName = this.selectedEmployee.getFirstName();
+    this.newLastName = this.selectedEmployee.getLastName();
     this.newPhone = this.selectedEmployee.getPhone();
     this.newSrc = this.selectedEmployee.getSrc();
 
@@ -116,11 +118,14 @@ export class EditEmployeePage {
 
   saveNewValues() {
     this.selectedEmployee.setID(this.newID);
-    this.selectedEmployee.setName(this.newName);
+    this.selectedEmployee.setFirstName(this.newFirstName);
+    this.selectedEmployee.setLastName(this.newLastName);
     this.selectedEmployee.setTitle(this.newTitle);
     this.selectedEmployee.setPay(this.newPay);
     this.selectedEmployee.setPhone(this.newPhone);
     this.selectedEmployee.setSrc(this.newSrc);
+    let employeesPage = new EmployeesPage(null, null);
+    this.employees.sort(employeesPage.sortByLastName);
     this.navCtrl.pop();
   }
   ionViewDidLoad() {
