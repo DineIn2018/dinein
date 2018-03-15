@@ -10,7 +10,7 @@ import { CreateUserPage } from '../pages/create-user/create-user';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { TablesPage } from '../pages/tables/tables';
-import { EmployeesPage } from '../pages/employees/employees';
+import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { SettingsPage } from '../pages/settings/settings';
 import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
@@ -31,7 +31,8 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     SettingsPage,
     TabsPage,
     EditEmployeePage,
-    CreateEmployeePage
+    CreateEmployeePage,
+    PunchPopoverPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,8 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     SettingsPage,
     TabsPage,
     EditEmployeePage,
-    CreateEmployeePage
+    CreateEmployeePage,
+    PunchPopoverPage
   ],
   providers: [
     StatusBar,

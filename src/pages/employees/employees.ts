@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, PopoverController, ViewController, App } from 'ionic-angular';
 import { List } from 'ionic-angular';
 import { EditEmployeePage } from '../edit-employee/edit-employee';
 import { CreateEmployeePage } from '../create-employee/create-employee';
@@ -23,10 +23,11 @@ export class EmployeesPage {
   employee4: Employee;
   selectedEmployee: Employee;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public popCtrl: PopoverController) {
     this.editPage = EditEmployeePage;
     this.createEmployeePage = CreateEmployeePage;
     this.employees = new Array<Employee>();
+
 
     this.employee1 = new Employee("Kevin Anderson", "1234", "Server", "$5/hr", "(608) 329-4565", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl");
     this.employee3 = new Employee("Tina Russo", "5678", "Head Chef", "$500/hr", "(414) 921-4980", "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg")
@@ -36,6 +37,13 @@ export class EmployeesPage {
     this.selectedEmployee = this.employees[0];
   }
 
+  presentPunchPopover (anEvent) {
+    let popover = this.popCtrl.create(PunchPopoverPage);
+    
+    popover.present({
+      ev: anEvent
+    });
+  }
 
   refreshSelectedEmployee() {
     this.selectedEmployee = this.employees[0];
@@ -56,6 +64,34 @@ export class EmployeesPage {
 
   }
 
+}
+//@IonicPage()
+@Component({
+  template: `
+    <ion-item>
+      <ion-label>Start Date</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="startDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>End Date</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="endDate"></ion-datetime>
+    </ion-item>
+    <button ion-item (click)="close()">GO</button>
+  `
+})
+export class PunchPopoverPage {
+  
+  startDate: String;
+  endDate: String;
+  
+  constructor(public viewCtrl: ViewController, public popCtl: PopoverController, public appCtrl: App){
+
+  }
+    
+  close() {
+    this.viewCtrl.dismiss();
+  }
+ 
 }
 
 export class Employee {
