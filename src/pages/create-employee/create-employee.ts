@@ -15,7 +15,8 @@ import { Employee, EmployeesPage } from '../employees/employees';
   templateUrl: 'create-employee.html',
 })
 export class CreateEmployeePage {
-  name: string;
+  firstName: string;
+  lastName: string;
   ID: string;
   phone: string;
   pay: string;
@@ -26,12 +27,20 @@ export class CreateEmployeePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
     this.employees = navParams.get("employees");
+    this.firstName="";
+    this.lastName="";
+    this.ID="";
+    this.phone="";
+    this.pay="";
+    this.src="";
+    this.title="";
+
   }
 
   createAndExit(){
     let employeesPage = new EmployeesPage(null, null);
-    this.employees.push(new Employee(this.name, this.ID, this.title, this.pay, this.phone, this.src));
-    this.employees.sort(employeesPage.sortByName);
+    this.employees.push(new Employee(this.firstName, this.lastName, this.ID, this.title, this.pay, this.phone, this.src));
+    this.employees.sort(employeesPage.sortByLastName);
 
     let alert = this.alertCtrl.create({
       title: 'Employee Successfully Created',
