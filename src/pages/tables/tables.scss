@@ -1,38 +1,52 @@
 page-tables {
 
-    #topleft {
+    #headerleft {
         float: left;
-        padding-top: 0px;
-        padding-left: 20px;
         width: 80%;
-    }
-
-    #topright {
-        float:right;
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 10px;
         padding-right: 10px;
+    }
+
+    #headerright {
+        float:right;
+        width: 20%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #resname {
+        float: left;
+        width: 80%;
+        padding-top: 0px;
+        padding-left: 20px;
+        margin: 0px;
+    }
+
+    #editlayout {
+        float: right;
         width: 20%;
     }
 
 	#tablelayout {
-        background-color: color($colors, darkest);
-        width: 80%;
+        width: 100%;
         height: 100%;
-        float: left;
-        border-right: 2px solid color($colors, primary);
-        //position: fixed;
+        padding: 20px;
+        border-right: 1px;
+        background-color: color($colors, darkest);
+        //border-right: 2px solid color($colors, primary);
     }
 
     #waitlist {
-        background-color: color($colors, darkest);
-        width: 20%;
+        width: 100%;
         height: 100%;
-        float: right;
+        background-color: color($colors, darkest);
     }
 
-    #resparty {
+    .resparty {
         margin: 0px;
         border-radius: 0px;
         border-top: 0px;
@@ -42,7 +56,7 @@ page-tables {
         font-weight: 450;
     }
 
-    #waitparty {
+    .waitparty {
         color: color($colors, medium);
         margin: 0px;
         border-radius: 0px;
@@ -53,14 +67,67 @@ page-tables {
         font-weight: 450;
     }
 
+    .layoutview {
+        margin-right: 20%;
+        width:80%;
+    }
+
+    .sideview {
+        margin-left: 80%;
+        width:20%;
+    }
+
     .table {
         margin: 20px;
         height: 65px;
         width: 65px;
-        font-size: 40px;
-        font-weight: 550;
-        color: color($colors, primary);
-        border-width: 3px;
+        font-size: 36px;
+        font-weight: 600;
+        color: color($colors, darker);
     }
 
+    .tablenotfree {
+        margin: 20px;
+        height: 65px;
+        width: 65px;
+        font-size: 36px;
+        font-weight: 600;
+        background-color: color($colors, secondary);
+        color: color($colors, darker);
+    }
+
+
+    #tablemodal {
+        background-color: color($colors, dark);
+        border-radius: 5px;
+        margin-top: 20%;
+        margin-left: 25%;
+        margin-right: 25%;
+        padding-top: 15px;
+        padding-bottom: 2px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    #partymodal {
+        background-color: color($colors, dark);
+        border-radius: 5px;
+        margin-top: 22%;
+        margin-left: 15%;
+        margin-right: 15%;
+        padding-top: 15px;
+        padding-bottom: 2px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .modalbuttons {
+        padding-top: 20px;
+    }
+
+    .modalbutton {
+        font-size: 18px;
+        font-weight: 750;
+
+    }
 }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { ModalController, NavParams } from 'ionic-angular';
+//import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-tables',
@@ -10,10 +11,10 @@ import { AlertController } from 'ionic-angular';
 export class TablesPage {
 
   constructor(public navCtrl: NavController,
-  					  public actionSheetCtrl: ActionSheetController,
-  					  public alertCtrl: AlertController) { }
+  					  public modalCtrl: ModalController,
+  					  public actionSheetCtrl: ActionSheetController) { }
 
-  tables: Table[] = [ new Table(0,2), new Table(1,4), new Table(2,6)];
+  tables: Table[] = [ new Table(0,4), new Table(1,4), new Table(2,6), new Table(3,2), new Table(4,8), new Table(5,2)];
   parties: Party[] = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
   										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
   										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
@@ -22,11 +23,11 @@ export class TablesPage {
   										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false),
   									 ]
 
-	presentTableActions(ID: number) {
+	presentTableActions(table: Table) {
 
-		var seatOrFree:string;
+		var seatOrFree: string;
 
-		if (this.tables[ID].free) {
+		if (table.free) {
 			seatOrFree = "Seat Party";
 		} else {
 			seatOrFree = "Free Table";
@@ -38,23 +39,22 @@ export class TablesPage {
 				{
 					text: seatOrFree,
 					handler: () => {
-						if (this.tables[ID].free) {
-							console.log('Seat Party tapped on table ' + ID);
+						if (table.free) {
+							console.log('Seat Party tapped on table ' + table.ID);
 							// TODO: Let user select party size
-							this.tables[ID].seatParty(1);
+							table.seatParty(1);
 						} else {
-							console.log('Free Table tapped on table ' + ID);
+							console.log('Free Table tapped on table ' + table.ID);
 							// TODO: Let user select party size
-							this.tables[ID].freeTable();
-						}
-						
+							table.freeTable();
+						}		
 					}
 				},
 				{
 					text: 'Table Information',
 					handler: () => {
-						console.log('Table ' + ID + ' info tappped');
-						this.displayInfo(this.tables[ID]);
+						console.log('Table ' + table.ID + ' info tappped');
+						this.displayTableInfo(table);
 					}
 				},
 				{
@@ -70,7 +70,7 @@ export class TablesPage {
 		tableActions.present();
 	}
 
-	presentPartyActions(ID: number) {
+	presentPartyActions(party: Party) {
 
 		let partyActions = this.actionSheetCtrl.create({
 			title: 'Party Actions',
@@ -78,14 +78,21 @@ export class TablesPage {
 				{
 					text: 'Seat Party',
 					handler: () => {
-						console.log('Party ' + ID + ' seated');
-						this.parties.splice(ID, 1);
+						console.log('Party ' + party.ID + ' seated');
+						// Find corresponding party in list and remove
+						var i;
+						for (i = 0; i < this.parties.length; i++) {
+							if (this.parties[i].ID == party.ID) {
+								this.parties.splice(i, 1);
+							}
+						}
 					}
 				},
 				{
 					text: 'Party Information',
 					handler: () => {
-						console.log('Party ' + ID + ' info tappped');
+						console.log('Party ' + party.ID + ' info tappped');
+						this.displayPartyInfo(party)
 					}
 				},
 				{
@@ -101,20 +108,156 @@ export class TablesPage {
 		partyActions.present();
 	}
 
-	displayInfo(t: Table) {
-    let alert = this.alertCtrl.create({
-      title: 'Table: ' + t.ID,
-      subTitle: 'Capacity: ' + t.capacity +
-      					'\nStatus: ' + t.free + 
-      					'\nCurrent Party: ' + t.partySize +
-      					'\nServer: ' + t.server,
-      buttons: ['Dismiss']
-    });
-    alert.present();
+	displayTableInfo(t: Table) {
+		let modal = this.modalCtrl.create(TableInfo, {table: t});
+		modal.present();
 	}
 
+	displayPartyInfo(p: Party) {
+		let modal = this.modalCtrl.create(PartyInfo, {party: p});
+		modal.present();
+	}
+
+	editLayout() {
+		console.log('Edit Layout Pressed');
+		// Make layout editable
+	}
+
+	addParty() {
+		console.log('Add Party Pressed');
+		let modal = this.modalCtrl.create(AddParty);
+		modal.present();
+		// Show popup to get party info, then add party
+	}
 
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Sub-Views
+////////////////////////////////////////////////////////////////////////////////
+
+//------------------------------------------------------------------------------
+// Sub-View: TableInfo
+//------------------------------------------------------------------------------
+@Component({
+	selector: 'page-tables',
+  template: `
+    <div id="tablemodal">
+    	<ion-list id="modalcontent">
+	    	<ion-label class="subsubtitle">Table {{t.ID}}</ion-label>
+	    	<ion-label class="regularText">Capacity: {{t.capacity}}</ion-label>
+	    	<ion-label class="regularText">Status: {{t.getStatus()}}</ion-label>
+	    	<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
+	    	<ion-label class="regularText">Server: {{t.server}}</ion-label>
+	    	<div class="modalbuttons">
+					<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
+	    	</div>
+	    </ion-list>
+    </div>
+  `
+})
+export class TableInfo {
+
+	t: Table
+
+	constructor(public navCtrl: NavController,
+  					  params: NavParams) {
+		this.t = params.get('table');
+   	console.log('Passed Table ID: ', this.t.ID);
+ 	}
+
+ 	dismiss() {
+    this.navCtrl.pop();
+  }
+
+  editInfo() {
+  	console.log('Edit Table ID ', this.t.ID);
+  }
+}
+
+//------------------------------------------------------------------------------
+// Sub-View: PartyInfo
+//------------------------------------------------------------------------------
+@Component({
+	selector: 'page-tables',
+  template: `
+    <div id="partymodal">
+    	<ion-list id="modalcontent">
+	    	<ion-label class="subsubtitle">{{p.name}}'s {{p.getKind()}}</ion-label>
+	    	<ion-label class="regularText">Size: {{p.size}}</ion-label>
+	    	<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
+	    	<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
+	    	<ion-label class="regularText">ID: {{p.ID}}</ion-label>
+	    	<div class="modalbuttons">
+	    		<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
+	    		<button class="modalbutton" ion-button block outline (click)="editInfo()">Edit</button>
+	    	</div>
+	    </ion-list>
+    </div>
+  `
+})
+export class PartyInfo {
+
+	p: Party
+
+	constructor(public navCtrl: NavController,
+  					  params: NavParams) {
+		this.p = params.get('party');
+   	console.log('Passed Party ID: ', this.p.ID);
+ 	}
+
+ 	editInfo() {
+
+ 	}
+ 	
+ 	dismiss() {
+    this.navCtrl.pop();
+  }
+}
+
+//------------------------------------------------------------------------------
+// Sub-View: AddParty
+//------------------------------------------------------------------------------
+@Component({
+	selector: 'page-tables',
+  template: `
+    <div id="partymodal">
+    	<ion-list id="modalcontent">
+	    	<ion-label class="subsubtitle">Party Information</ion-label>
+				<ion-input class="inputfield" clearInput type="Text" placeholder="Name"></ion-input>
+				<ion-input class="inputfield" clearInput type="Text" placeholder="Size"></ion-input>
+				<ion-input class="inputfield" clearInput type="Number" placeholder="Contact"></ion-input>
+				<ion-item>
+    			<ion-label>Reservation?</ion-label>
+					<ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
+				</ion-item>
+	    	<div class="modalbuttons">
+	    		<button class="modalbutton" ion-button block (click)="submit()">Submit</button>
+	    		<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
+	    	</div>
+	    </ion-list>
+    </div>
+  `
+})
+export class AddParty {
+
+	constructor(public navCtrl: NavController) {
+		console.log('Pop-up: Add Party');
+	}
+
+	submit(){
+		// Get entered user info and create party object, then add to party list
+		this.navCtrl.pop();
+	}
+
+	cancel() {
+		this.navCtrl.pop();
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Classes
+////////////////////////////////////////////////////////////////////////////////
 
 class Table {
 	ID: number;
@@ -131,6 +274,13 @@ class Table {
 		this.server = "N/A";
 	}
 
+	getStatus() {
+		if (this.free) {
+			return "Free";
+		} else {
+			return "Occupied";
+		}
+	}
 	freeTable() {
 		console.log('Table ' + this.ID + ' freed');
 		this.free = true;
@@ -154,13 +304,22 @@ class Party {
 	contact: string;
 	reservation: boolean;
 
-	constructor (ID:number, name: string, size: number, time: string, contact: string, reservation: boolean) {
+	constructor (ID:number, name: string, size: number, time: string,
+							 contact: string, reservation: boolean) {
 		this.ID = ID;
 		this.name = name;
 		this.size = size;
 		this.time = time;
 		this.contact = contact;
 		this.reservation = reservation;
+	}
+
+	getKind(): string {
+		if (this.reservation) {
+			return "Reservation";
+		} else {
+			return "Party";
+		}
 	}
 
 	display(): string {

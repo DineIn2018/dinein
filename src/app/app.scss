@@ -33,6 +33,14 @@
         font-weight: 475;
     }
 
+    // SUBSUBTITLE STYLING
+    .subsubtitle {
+        color: color($colors, primary);
+        padding-bottom: 5px;
+        font-size: 35px;
+        font-weight: 450;
+    }
+
     // HEADER STYLING
     .header {
         color: color($colors, medium);
@@ -43,7 +51,7 @@
     // Regular Text STYLING
     .regularText {
         color: color($colors, medium);
-        font-size: 10px;
+        font-size: 24px;
         font-weight: 350;
     }
 

@@ -1,30 +1,35 @@
 <ion-header>
-  <div id="topleft">
-    <ion-label class="header">Placeholder's Restaurant</ion-label>
+  <div id="headerleft">
+    <div id="resname">
+      <ion-label class="header">Placeholder Restaurant</ion-label>
+    </div>
+    <div id="editlayout">
+      <button ion-button outline block (click)="editLayout()">Edit Layout</button>
+    </div>
   </div>
 
-  <div id="topright">
-  	<button ion-button outline block>Edit Layout</button>
+  <div id="headerright">
+  	<button ion-button outline block (click)="addParty()">Add Party</button>
   </div>
 </ion-header>
 
-<ion-content>
-	<div id="tablelayout" main scroll="true">
-    <button *ngFor="let table of tables" class="table" ion-button outline
-            (click)="presentTableActions(table.ID)">
-      {{table.capacity}}
-    </button>
-	</div>
-
-	<div id="waitlist">
-		<ion-list scroll="true">
-
-      <button *ngFor="let party of parties" id="waitparty" ion-button block outline
-              (click)="presentPartyActions(party.ID)">
-        {{party.display()}}
+<ion-content no-bounce class="layoutview">
+  <div id="tablelayout">
+      <button *ngFor="let table of tables" [ngClass]="{'table': table.free, 'tablenotfree': !table.free}" ion-button 
+            (click)="presentTableActions(table)">
+        {{table.capacity}}
       </button>
-		</ion-list>
-	</div>
+  </div>
 </ion-content>
 
+<ion-content class="sideview">
+  <div id="waitlist">
+    <ion-list scroll="true" id="listscroll">
+      <button *ngFor="let party of parties" class="waitparty" ion-button block outline
+              (click)="presentPartyActions(party)">
+        {{party.display()}}
+      </button>
+    </ion-list>
+  </div>
 
+</ion-content>
