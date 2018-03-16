@@ -10,18 +10,46 @@ import { ModalController, NavParams } from 'ionic-angular';
 })
 export class TablesPage {
 
-  constructor(public navCtrl: NavController,
-  					  public modalCtrl: ModalController,
-  					  public actionSheetCtrl: ActionSheetController) { }
+	selectingTable: any = {active: false, party: null};
 
-  tables: Table[] = [ new Table(0,4), new Table(1,4), new Table(2,6), new Table(3,2), new Table(4,8), new Table(5,2)];
+	tables: Table[] = [ new Table(0,4), new Table(1,4), new Table(2,6),
+  										new Table(3,2), new Table(4,8), new Table(5,2)];
   parties: Party[] = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
   										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
   										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
   										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
   										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
-  										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false),
-  									 ]
+  										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ]
+
+  constructor(public navCtrl: NavController,
+  					  public modalCtrl: ModalController,
+  					  public actionSheetCtrl: ActionSheetController) { }
+
+  onTablePress(table: Table) {
+
+  		// If currently selecting a table to seat party
+  		if (this.selectingTable.active) {
+  			if (table.free) {
+  				// Find corresponding party in list and remove
+					var i;
+					for (i = 0; i < this.parties.length; i++) {
+						if (this.parties[i].ID == this.selectingTable.party.ID) {
+							this.parties.splice(i, 1);
+						}
+					}
+					// Seat number of party size at table
+	  			table.seat(this.selectingTable.party.size);
+	  			// Deactivate table selecting mode
+	  			this.selectingTable.active = false;
+	  			this.selectingTable.party = null;
+  			} else {
+  				// Tried to seat to occupied table
+  			}
+  		// Regular table presses
+  		} else {
+  			this.presentTableActions(table);
+  		}
+  }
 
 	presentTableActions(table: Table) {
 
@@ -41,8 +69,7 @@ export class TablesPage {
 					handler: () => {
 						if (table.free) {
 							console.log('Seat Party tapped on table ' + table.ID);
-							// TODO: Let user select party size
-							table.seatParty(1);
+							this.seatTable(table);
 						} else {
 							console.log('Free Table tapped on table ' + table.ID);
 							// TODO: Let user select party size
@@ -78,14 +105,11 @@ export class TablesPage {
 				{
 					text: 'Seat Party',
 					handler: () => {
-						console.log('Party ' + party.ID + ' seated');
-						// Find corresponding party in list and remove
-						var i;
-						for (i = 0; i < this.parties.length; i++) {
-							if (this.parties[i].ID == party.ID) {
-								this.parties.splice(i, 1);
-							}
-						}
+						console.log('Selected Party ' + party.ID + ' to seat');
+
+						// Enable seating party to table mode
+						this.selectingTable.active = true;
+						this.selectingTable.party = party;
 					}
 				},
 				{
@@ -115,6 +139,11 @@ export class TablesPage {
 
 	displayPartyInfo(p: Party) {
 		let modal = this.modalCtrl.create(PartyInfo, {party: p});
+		modal.present();
+	}
+
+	seatTable(t: Table) {
+		let modal = this.modalCtrl.create(NumToSeat, {table: t});
 		modal.present();
 	}
 
@@ -200,16 +229,15 @@ export class PartyInfo {
 
 	p: Party
 
-	constructor(public navCtrl: NavController,
-  					  params: NavParams) {
+	constructor(public navCtrl: NavController, params: NavParams) {
 		this.p = params.get('party');
-   	console.log('Passed Party ID: ', this.p.ID);
+		console.log('Passed Party ID: ', this.p.ID);
  	}
 
  	editInfo() {
 
  	}
- 	
+
  	dismiss() {
     this.navCtrl.pop();
   }
@@ -255,6 +283,81 @@ export class AddParty {
 	}
 }
 
+//------------------------------------------------------------------------------
+// Sub-View: NumToSeat
+//------------------------------------------------------------------------------
+@Component({
+	selector: 'page-tables',
+  template: `
+    <div class="modalbase" id="numpadmodal">
+	    	<ion-label class="header">Party Size</ion-label>
+	    	<ion-label class="subtitle">{{numToSeat}}</ion-label>
+	    	<div style="height:300px;width:100%;">
+		    	<table class="numpad">
+					  <tr>
+					    <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
+					    <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
+					    <td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
+					  </tr>
+					  <tr>
+					    <td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
+					    <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
+					    <td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
+					  </tr>
+					  <tr>
+					    <td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
+					    <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
+					    <td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
+					  </tr>
+					  <tr>
+					    <td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
+					    <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
+					    <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
+					  </tr>
+					</table>
+				</div>
+	    	<div class="modalbuttons">
+	    		<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
+	    		<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
+	    	</div>
+    </div>
+  `
+})
+export class NumToSeat {
+
+	table: Table;
+	numToSeat: number;
+
+	constructor(public navCtrl: NavController, params: NavParams) {
+		this.table = params.get('table');
+		this.numToSeat = 0;
+		console.log('Pop-up: Num To Seat');
+	}
+
+	pressButton(n: number) {
+		this.numToSeat = this.numToSeat * 10 + n;
+	}
+
+	deleteButton() {
+		this.numToSeat = Math.floor(this.numToSeat / 10);;
+	}
+
+	clearButton() {
+		this.numToSeat = 0;
+	}
+
+	seat() {
+		if (this.numToSeat > 0) {
+			this.table.seat(this.numToSeat)
+		}
+		this.navCtrl.pop();
+	}
+
+	cancel() {
+		this.navCtrl.pop();
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Classes
 ////////////////////////////////////////////////////////////////////////////////
@@ -281,6 +384,15 @@ class Table {
 			return "Occupied";
 		}
 	}
+
+	getButtonText(): string {
+		if (this.free) {
+			return this.capacity.toString();
+		} else {
+			return this.partySize + '/' + this.capacity;
+		}
+	}
+
 	freeTable() {
 		console.log('Table ' + this.ID + ' freed');
 		this.free = true;
@@ -288,7 +400,8 @@ class Table {
 		this.server = "N/A";
 	}
 
-	seatParty(size: number) {
+	seat(size: number) {
+
 		console.log('Seated ' + size +' people at Table ' + this.ID);
 		this.free = false;
 		this.partySize = size;

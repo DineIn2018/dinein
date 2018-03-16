@@ -90,9 +90,19 @@ page-tables {
         margin: 20px;
         height: 65px;
         width: 65px;
+        font-size: 28px;
+        font-weight: 650;
+        background-color: color($colors, secondary);
+        color: color($colors, darker);
+    }
+
+    .tablechooseme {
+        margin: 20px;
+        height: 65px;
+        width: 65px;
         font-size: 36px;
         font-weight: 600;
-        background-color: color($colors, secondary);
+        background-color: color($colors, tertiary);
         color: color($colors, darker);
     }
 
@@ -121,8 +131,14 @@ page-tables {
         padding-right: 30px;
     }
 
+    #numpadmodal {
+        height: 100%;
+        margin-left: 22%;
+        margin-right: 22%;
+    }
+
     .modalbuttons {
-        padding-top: 20px;
+        margin-top: 20px;
     }
 
     .modalbutton {
@@ -130,4 +146,15 @@ page-tables {
         font-weight: 750;
 
     }
+
+    .numkey {
+        width: 100%;
+        height: 100%;
+        font-size: 28px;
+        font-weight: 600;
+        margin: 2px;
+        color: color($colors, primary);
+        background-color: color($colors, darkest);
+    }
+
 }

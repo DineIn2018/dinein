@@ -80,4 +80,18 @@
 		color: color($colors, middark);
 	}
 
+    .modalbase {
+        background-color: color($colors, dark);
+        padding-top: 15px;
+        padding-bottom: 2px;
+        padding-left: 30px;
+        padding-right: 30px;
+        border-radius: 5px;
+    }
+
+    .numpad {
+        table-layout: fixed;
+        width: 100%;
+        height: 100%;
+    }
 }
