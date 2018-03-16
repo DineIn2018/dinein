@@ -20,15 +20,25 @@ page-tables {
 
     #resname {
         float: left;
-        width: 80%;
+        width: 55%;
         padding-top: 0px;
         padding-left: 20px;
         margin: 0px;
     }
 
-    #editlayout {
+    #headerbuttoncontainer {
         float: right;
-        width: 20%;
+        width: 40%;
+    }
+
+    #cancelseatparty {
+        width: 45%;
+        margin-right: 0px;
+    }
+
+    #editlayout {
+        width: 45%;
+        margin-right: 0px;
     }
 
 	#tablelayout {
@@ -80,18 +90,20 @@ page-tables {
     .table {
         margin: 20px;
         height: 65px;
-        width: 65px;
+        width: 75px;
         font-size: 36px;
         font-weight: 600;
+        padding: 2px;
         color: color($colors, darker);
     }
 
     .tablenotfree {
         margin: 20px;
         height: 65px;
-        width: 65px;
-        font-size: 28px;
+        width: 75px;
+        font-size: 30px;
         font-weight: 650;
+        padding: 2px;
         background-color: color($colors, secondary);
         color: color($colors, darker);
     }
@@ -99,9 +111,10 @@ page-tables {
     .tablechooseme {
         margin: 20px;
         height: 65px;
-        width: 65px;
+        width: 75px;
         font-size: 36px;
         font-weight: 600;
+        padding: 2px;
         background-color: color($colors, tertiary);
         color: color($colors, darker);
     }

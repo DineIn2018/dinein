@@ -45,6 +45,7 @@ export class TablesPage {
   			} else {
   				// Tried to seat to occupied table
   			}
+  			
   		// Regular table presses
   		} else {
   			this.presentTableActions(table);
@@ -157,6 +158,11 @@ export class TablesPage {
 		let modal = this.modalCtrl.create(AddParty);
 		modal.present();
 		// Show popup to get party info, then add party
+	}
+
+	cancelSeatParty() {
+		this.selectingTable.active = false;
+	  this.selectingTable.party = null;
 	}
 
 }

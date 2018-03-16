@@ -1,0 +1,21 @@
+page-punchcard {
+
+	#topleft {
+		float: left;
+		padding-top: 10px;
+		padding-left: 25px;
+		width: 75%;
+    }
+
+    #topright {
+    	float:right;
+    	padding-top: 25px;
+    	padding-right: 20px;
+    	width: 25%;
+    }
+
+    #container {
+    	float: bottom;
+    }
+
+}

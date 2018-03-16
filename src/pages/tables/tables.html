@@ -3,8 +3,13 @@
     <div id="resname">
       <ion-label class="header">Placeholder Restaurant</ion-label>
     </div>
-    <div id="editlayout">
-      <button ion-button outline block (click)="editLayout()">Edit Layout</button>
+    <div id="headerbuttoncontainer">
+      <div id="cancelseatparty">
+        <button *ngIf="selectingTable.active" ion-button outline block (click)="cancelSeatParty()">Cancel</button>
+      </div>
+      <div id="editlayout">
+        <button ion-button outline block (click)="editLayout()">Edit Layout</button>
+      </div>
     </div>
   </div>
 
