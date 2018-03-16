@@ -1,14 +1,19 @@
 <ion-header>
   <div id="headerleft">
-    <div id="resname">
+    <div id="restaurantname">
       <ion-label class="header">Placeholder Restaurant</ion-label>
     </div>
     <div id="headerbuttoncontainer">
-      <div id="cancelseatparty">
-        <button *ngIf="selectingTable.active" ion-button outline block (click)="cancelSeatParty()">Cancel</button>
+      <div id="cancelseatpartybutton">
+        <button *ngIf="selectingTable.active"
+                ion-button color="tertiary" outline block (click)="cancelSeatParty()">
+          Cancel
+        </button>
       </div>
-      <div id="editlayout">
-        <button ion-button outline block (click)="editLayout()">Edit Layout</button>
+      <div id="editlayoutbutton">
+        <button ion-button outline block (click)="editLayout()">
+          Edit Layout
+        </button>
       </div>
     </div>
   </div>
@@ -20,8 +25,11 @@
 
 <ion-content no-bounce class="layoutview">
   <div id="tablelayout">
-      <button *ngFor="let table of tables" [ngClass]="{'table': table.free && !selectingTable.active, 'tablechooseme': table.free && selectingTable.active, 'tablenotfree': !table.free}" ion-button 
-            (click)="onTablePress(table)">
+      <button *ngFor="let table of tables"
+              [ngClass]="{'table': table.free && !selectingTable.active,
+                          'tablechooseme': table.free && selectingTable.active,
+                          'tablenotfree': !table.free}"
+              ion-button (click)="onTablePress(table)">
         {{table.getButtonText()}}
       </button>
   </div>
@@ -30,8 +38,8 @@
 <ion-content class="sideview">
   <div id="waitlist">
     <ion-list scroll="true" id="listscroll">
-      <button *ngFor="let party of parties" class="waitparty" ion-button block outline
-              (click)="presentPartyActions(party)">
+      <button *ngFor="let party of parties" class="waitparty"
+              ion-button block outline (click)="presentPartyActions(party)">
         {{party.display()}}
       </button>
     </ion-list>

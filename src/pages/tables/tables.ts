@@ -10,20 +10,23 @@ import { ModalController, NavParams } from 'ionic-angular';
 })
 export class TablesPage {
 
-	selectingTable: any = {active: false, party: null};
-
-	tables: Table[] = [ new Table(0,4), new Table(1,4), new Table(2,6),
-  										new Table(3,2), new Table(4,8), new Table(5,2)];
-  parties: Party[] = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
-  										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
-  										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
-  										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
-  										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
-  										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ]
+	selectingTable: any;
+	tables: Table[];
+  parties: Party[];
 
   constructor(public navCtrl: NavController,
   					  public modalCtrl: ModalController,
-  					  public actionSheetCtrl: ActionSheetController) { }
+  					  public actionSheetCtrl: ActionSheetController) {
+  	this.selectingTable = {active: false, party: null};
+  	this.tables = [ new Table(0,4), new Table(1,4), new Table(2,6),
+  									new Table(3,2), new Table(4,8), new Table(5,2)];
+  	this.parties = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
+										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
+										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
+										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
+										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
+										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ];
+  }
 
   onTablePress(table: Table) {
 
@@ -45,7 +48,7 @@ export class TablesPage {
   			} else {
   				// Tried to seat to occupied table
   			}
-  			
+
   		// Regular table presses
   		} else {
   			this.presentTableActions(table);
