@@ -33,13 +33,7 @@ export class TablesPage {
   		// If currently selecting a table to seat party
   		if (this.selectingTable.active) {
   			if (table.free) {
-  				// Find corresponding party in list and remove
-					var i;
-					for (i = 0; i < this.parties.length; i++) {
-						if (this.parties[i].ID == this.selectingTable.party.ID) {
-							this.parties.splice(i, 1);
-						}
-					}
+  				this.deleteParty(this.selectingTable.party);
 					// Seat number of party size at table
 	  			table.seat(this.selectingTable.party.size);
 	  			// Deactivate table selecting mode
@@ -110,7 +104,6 @@ export class TablesPage {
 					text: 'Seat Party',
 					handler: () => {
 						console.log('Selected Party ' + party.ID + ' to seat');
-
 						// Enable seating party to table mode
 						this.selectingTable.active = true;
 						this.selectingTable.party = party;
@@ -120,7 +113,14 @@ export class TablesPage {
 					text: 'Party Information',
 					handler: () => {
 						console.log('Party ' + party.ID + ' info tappped');
-						this.displayPartyInfo(party)
+						this.displayPartyInfo(party);
+					}
+				},
+				{
+					text: 'Delete Party',
+					handler: () => {
+						console.log('Party ' + party.ID + ' delete tappped');
+						this.deleteParty(party);
 					}
 				},
 				{
@@ -166,6 +166,16 @@ export class TablesPage {
 	cancelSeatParty() {
 		this.selectingTable.active = false;
 	  this.selectingTable.party = null;
+	}
+
+	deleteParty(party: Party) {
+		// Find corresponding party in list and remove
+		var i;
+		for (i = 0; i < this.parties.length; i++) {
+			if (this.parties[i].ID == party.ID) {
+				this.parties.splice(i, 1);
+			}
+		}
 	}
 
 }

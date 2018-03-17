@@ -158,8 +158,16 @@ page-tables {
 
     }
 
-    .numkey {
+    .numpad {
+        table-layout: fixed;
+        background-color: color($colors, darkest);
+        border-radius: 5px;
         width: 100%;
+        height: 100%;
+    }
+
+    .numkey {
+        width: 98%;
         height: 100%;
         font-size: 28px;
         font-weight: 600;

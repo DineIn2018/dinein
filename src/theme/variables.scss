@@ -38,7 +38,7 @@ $colors: (
   middark:	  #696763,
   dark:       #2E2D2C,
   darker:	    #252423,
-  darkest:	  #1E1C19
+  darkest:	  #1A1815
 );
 
 
@@ -71,8 +71,8 @@ $button-ios-outline-border-width: 2px;
 $tabs-ios-background: color($colors, dark);
 $tabs-ios-tab-color-active: color($colors, primary);
 $tabs-ios-tab-color-inactive: color($colors, medium);
-$tabs-ios-border: 1px solid color($colors, primary);
-$tabs-ios-tab-padding-top: 3px;
+//$tabs-ios-border: 1px solid color($colors, primary);
+$tabs-ios-tab-padding-top: 5px;
 
 //
 // ACTION SHEET STYLING
@@ -89,6 +89,7 @@ $action-sheet-ios-button-text-color: color($colors, primary);
 $action-sheet-ios-button-font-size: 2.8rem;
 $action-sheet-ios-title-color: color($colors, medium);
 $action-sheet-ios-title-font-size: 2rem;
+
 //
 // ALERT STYLING
 //

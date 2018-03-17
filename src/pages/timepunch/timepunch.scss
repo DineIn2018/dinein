@@ -12,12 +12,20 @@ page-timepunch {
     }
 
     .numkey {
-        width: 100%;
+        width: 98%;
         height: 100%;
-        font-size: 28px;
+        font-size: 34px;
         font-weight: 600;
         margin: 2px;
         color: color($colors, primary);
         background-color: color($colors, dark);
+    }
+
+    .numpad {
+        table-layout: fixed;
+        background-color: color($colors, dark);
+        border-radius: 5px;
+        width: 100%;
+        height: 100%;
     }
 }
