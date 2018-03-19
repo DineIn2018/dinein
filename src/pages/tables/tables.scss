@@ -44,7 +44,7 @@ page-tables {
 	#tablelayout {
         width: 100%;
         height: 100%;
-        padding: 20px;
+        padding: 5px;
         background-color: color($colors, darkest);
     }
 
@@ -85,34 +85,61 @@ page-tables {
         width:20%;
     }
 
-    .table {
+    .tablediv {
+        float: left;
         margin: 20px;
-        height: 70px;
-        width: 105px;
-        font-size: 36px;
+        height: 100px;
+        width: 15%;
+    }
+
+    .tablelabels {
+        width: 100%;
+        height: 25%;
+        float: bottom;
+    }
+
+    .table {
+        width: 100%;
+        height: 70%;
+        float: top;
+        font-size: 28px;
         font-weight: 600;
-        padding: 2px;
+        padding: 0px;
         color: color($colors, darker);
     }
 
+    .tablebuttoncapacity {
+        float: right;
+        height: 100%;
+        width: 75%;
+        margin: 0px;
+    }
+
+    .tablebuttonID {
+        float: left;
+        height: 100%;
+        width: 25%;
+        margin: 0px;
+    }
+
     .tablenotfree {
-        margin: 20px;
-        height: 70px;
-        width: 105px;
-        font-size: 30px;
-        font-weight: 650;
-        padding: 2px;
+        width: 100%;
+        height: 70%;
+        float: top;
+        font-size: 28px;
+        font-weight: 600;
+        padding: 0px;
         background-color: color($colors, secondary);
         color: color($colors, darker);
     }
 
     .tablechooseme {
-        margin: 20px;
-        height: 70px;
-        width: 105px;
-        font-size: 36px;
+        width: 100%;
+        height: 70%;
+        float: top;
+        font-size: 28px;
         font-weight: 600;
-        padding: 2px;
+        padding: 0px;
         background-color: color($colors, tertiary);
         color: color($colors, darker);
     }

@@ -5,49 +5,50 @@ import { ModalController, NavParams } from 'ionic-angular';
 //import { AlertController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-tables',
-  templateUrl: 'tables.html'
+	selector: 'page-tables',
+	templateUrl: 'tables.html'
 })
 export class TablesPage {
 
 	selectingTable: any;
 	tables: Table[];
-  parties: Party[];
+	parties: Party[];
 
-  constructor(public navCtrl: NavController,
-  					  public modalCtrl: ModalController,
-  					  public actionSheetCtrl: ActionSheetController) {
-  	this.selectingTable = {active: false, party: null};
-  	this.tables = [ new Table(0,4), new Table(1,4), new Table(2,6),
-  									new Table(3,2), new Table(4,8), new Table(5,2)];
-  	this.parties = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
+	constructor(public navCtrl: NavController,
+							public modalCtrl: ModalController,
+							public actionSheetCtrl: ActionSheetController) {
+		this.selectingTable = {active: false, party: null};
+		this.tables = [ new Table(0,4), new Table(1,4), new Table(2,6),
+										new Table(3,2), new Table(4,8), new Table(5,2)];
+		this.parties = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
 										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
 										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
 										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
 										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
 										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ];
-  }
+	}
 
-  onTablePress(table: Table) {
+	onTablePress(table: Table) {
 
-  		// If currently selecting a table to seat party
-  		if (this.selectingTable.active) {
-  			if (table.free) {
-  				this.deleteParty(this.selectingTable.party);
+			// If currently selecting a table to seat party
+			if (this.selectingTable.active) {
+				if (table.free) {
+					this.deleteParty(this.selectingTable.party);
 					// Seat number of party size at table
-	  			table.seat(this.selectingTable.party.size);
-	  			// Deactivate table selecting mode
-	  			this.selectingTable.active = false;
-	  			this.selectingTable.party = null;
-  			} else {
-  				// Tried to seat to occupied table
-  			}
+					table.seat(this.selectingTable.party.size,
+										 this.selectingTable.party.name);
+					// Deactivate table selecting mode
+					this.selectingTable.active = false;
+					this.selectingTable.party = null;
+				} else {
+					// Tried to seat to occupied table
+				}
 
-  		// Regular table presses
-  		} else {
-  			this.presentTableActions(table);
-  		}
-  }
+			// Regular table presses
+			} else {
+				this.presentTableActions(table);
+			}
+	}
 
 	presentTableActions(table: Table) {
 
@@ -165,7 +166,7 @@ export class TablesPage {
 
 	cancelSeatParty() {
 		this.selectingTable.active = false;
-	  this.selectingTable.party = null;
+		this.selectingTable.party = null;
 	}
 
 	deleteParty(party: Party) {
@@ -189,38 +190,39 @@ export class TablesPage {
 //------------------------------------------------------------------------------
 @Component({
 	selector: 'page-tables',
-  template: `
-    <div id="tablemodal">
-    	<ion-list id="modalcontent">
-	    	<ion-label class="subsubtitle">Table {{t.ID}}</ion-label>
-	    	<ion-label class="regularText">Capacity: {{t.capacity}}</ion-label>
-	    	<ion-label class="regularText">Status: {{t.getStatus()}}</ion-label>
-	    	<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
-	    	<ion-label class="regularText">Server: {{t.server}}</ion-label>
-	    	<div class="modalbuttons">
+	template: `
+		<div id="tablemodal">
+			<ion-list id="modalcontent">
+				<ion-label class="subsubtitle">Table {{t.ID}}</ion-label>
+				<ion-label class="regularText">Capacity: {{t.capacity}}</ion-label>
+				<ion-label class="regularText">Status: {{t.getStatus()}}</ion-label>
+				<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
+				<ion-label class="regularText">Server: {{t.server}}</ion-label>
+				<ion-label class="regularText">Guest: {{t.guestName}}</ion-label>
+				<div class="modalbuttons">
 					<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
-	    	</div>
-	    </ion-list>
-    </div>
-  `
+				</div>
+			</ion-list>
+		</div>
+	`
 })
 export class TableInfo {
 
 	t: Table
 
 	constructor(public navCtrl: NavController,
-  					  params: NavParams) {
+							params: NavParams) {
 		this.t = params.get('table');
-   	console.log('Passed Table ID: ', this.t.ID);
- 	}
+		console.log('Passed Table ID: ', this.t.ID);
+	}
 
- 	dismiss() {
-    this.navCtrl.pop();
-  }
+	dismiss() {
+		this.navCtrl.pop();
+	}
 
-  editInfo() {
-  	console.log('Edit Table ID ', this.t.ID);
-  }
+	editInfo() {
+		console.log('Edit Table ID ', this.t.ID);
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -228,21 +230,21 @@ export class TableInfo {
 //------------------------------------------------------------------------------
 @Component({
 	selector: 'page-tables',
-  template: `
-    <div id="partymodal">
-    	<ion-list id="modalcontent">
-	    	<ion-label class="subsubtitle">{{p.name}}'s {{p.getKind()}}</ion-label>
-	    	<ion-label class="regularText">Size: {{p.size}}</ion-label>
-	    	<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
-	    	<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
-	    	<ion-label class="regularText">ID: {{p.ID}}</ion-label>
-	    	<div class="modalbuttons">
-	    		<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
-	    		<button class="modalbutton" ion-button block outline (click)="editInfo()">Edit</button>
-	    	</div>
-	    </ion-list>
-    </div>
-  `
+	template: `
+		<div id="partymodal">
+			<ion-list id="modalcontent">
+				<ion-label class="subsubtitle">{{p.name}}'s {{p.getKind()}}</ion-label>
+				<ion-label class="regularText">Size: {{p.size}}</ion-label>
+				<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
+				<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
+				<ion-label class="regularText">ID: {{p.ID}}</ion-label>
+				<div class="modalbuttons">
+					<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
+					<button class="modalbutton" ion-button block outline (click)="editInfo()">Edit</button>
+				</div>
+			</ion-list>
+		</div>
+	`
 })
 export class PartyInfo {
 
@@ -251,15 +253,15 @@ export class PartyInfo {
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.p = params.get('party');
 		console.log('Passed Party ID: ', this.p.ID);
- 	}
+	}
 
- 	editInfo() {
+	editInfo() {
 
- 	}
+	}
 
- 	dismiss() {
-    this.navCtrl.pop();
-  }
+	dismiss() {
+		this.navCtrl.pop();
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -267,24 +269,24 @@ export class PartyInfo {
 //------------------------------------------------------------------------------
 @Component({
 	selector: 'page-tables',
-  template: `
-    <div id="partymodal">
-    	<ion-list id="modalcontent">
-	    	<ion-label class="subsubtitle">Party Information</ion-label>
+	template: `
+		<div id="partymodal">
+			<ion-list id="modalcontent">
+				<ion-label class="subsubtitle">Party Information</ion-label>
 				<ion-input class="inputfield" clearInput type="Text" placeholder="Name"></ion-input>
 				<ion-input class="inputfield" clearInput type="Text" placeholder="Size"></ion-input>
 				<ion-input class="inputfield" clearInput type="Number" placeholder="Contact"></ion-input>
 				<ion-item>
-    			<ion-label>Reservation?</ion-label>
+					<ion-label>Reservation?</ion-label>
 					<ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
 				</ion-item>
-	    	<div class="modalbuttons">
-	    		<button class="modalbutton" ion-button block (click)="submit()">Submit</button>
-	    		<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-	    	</div>
-	    </ion-list>
-    </div>
-  `
+				<div class="modalbuttons">
+					<button class="modalbutton" ion-button block (click)="submit()">Submit</button>
+					<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
+				</div>
+			</ion-list>
+		</div>
+	`
 })
 export class AddParty {
 
@@ -307,40 +309,40 @@ export class AddParty {
 //------------------------------------------------------------------------------
 @Component({
 	selector: 'page-tables',
-  template: `
-    <div class="modalbase" id="numpadmodal">
-	    	<ion-label class="header">Party Size</ion-label>
-	    	<ion-label class="subtitle">{{numToSeat}}</ion-label>
-	    	<div style="height:300px;width:100%;">
-		    	<table class="numpad">
-					  <tr>
-					    <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-					    <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
-					    <td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-					  </tr>
-					  <tr>
-					    <td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-					    <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
-					    <td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-					  </tr>
-					  <tr>
-					    <td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-					    <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
-					    <td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-					  </tr>
-					  <tr>
-					    <td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-					    <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
-					    <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-					  </tr>
+	template: `
+		<div class="modalbase" id="numpadmodal">
+				<ion-label class="header">Party Size</ion-label>
+				<ion-label class="subtitle">{{numToSeat}}</ion-label>
+				<div style="height:300px;width:100%;">
+					<table class="numpad">
+						<tr>
+							<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
+							<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
+							<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
+						</tr>
+						<tr>
+							<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
+							<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
+							<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
+						</tr>
+						<tr>
+							<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
+							<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
+							<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
+						</tr>
+						<tr>
+							<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
+							<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
+							<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
+						</tr>
 					</table>
 				</div>
-	    	<div class="modalbuttons">
-	    		<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
-	    		<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-	    	</div>
-    </div>
-  `
+				<div class="modalbuttons">
+					<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
+					<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
+				</div>
+		</div>
+	`
 })
 export class NumToSeat {
 
@@ -358,7 +360,7 @@ export class NumToSeat {
 	}
 
 	deleteButton() {
-		this.numToSeat = Math.floor(this.numToSeat / 10);;
+		this.numToSeat = Math.floor(this.numToSeat / 10);
 	}
 
 	clearButton() {
@@ -367,7 +369,7 @@ export class NumToSeat {
 
 	seat() {
 		if (this.numToSeat > 0) {
-			this.table.seat(this.numToSeat)
+			this.table.seat(this.numToSeat, null);
 		}
 		this.navCtrl.pop();
 	}
@@ -387,6 +389,7 @@ class Table {
 	free: boolean;
 	partySize: number;
 	server: string;
+	guestName: string;
 
 	constructor (IDin: number, capacityIn: number) {
 		this.ID = IDin;
@@ -394,6 +397,7 @@ class Table {
 		this.free = true;
 		this.partySize = 0;
 		this.server = "N/A";
+		this.guestName = "N/A";
 	}
 
 	getStatus() {
@@ -417,14 +421,20 @@ class Table {
 		this.free = true;
 		this.partySize = 0;
 		this.server = "N/A";
+		this.guestName = "N/A";
 	}
 
-	seat(size: number) {
+	seat(size: number, name: string) {
 
 		console.log('Seated ' + size +' people at Table ' + this.ID);
 		this.free = false;
 		this.partySize = size;
 		this.server = "Manager";
+		if (name != null) {
+			this.guestName = name;
+		} else {
+			this.guestName = "N/A";
+		}
 	}
 }
 

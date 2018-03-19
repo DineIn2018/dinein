@@ -25,13 +25,20 @@
 
 <ion-content no-bounce class="layoutview">
   <div id="tablelayout">
-      <button *ngFor="let table of tables"
-              [ngClass]="{'table': table.free && !selectingTable.active,
+    <div *ngFor="let table of tables" class="tablediv">
+      <button [ngClass]="{'table': table.free && !selectingTable.active,
                           'tablechooseme': table.free && selectingTable.active,
                           'tablenotfree': !table.free}"
               ion-button (click)="onTablePress(table)">
-        {{table.getButtonText()}}
+        <div style="height:100%;width:100%;">
+        <ion-label class="smalltext tablebuttonID">{{table.ID}}</ion-label>
+        <ion-label class="tablebuttoncapacity">{{table.getButtonText()}}</ion-label>
+      </div>
       </button>
+      <div id="tablelabels">
+        <ion-label class="smalltext">{{table.server}}</ion-label>
+      </div>
+    </div>
   </div>
 </ion-content>
 
