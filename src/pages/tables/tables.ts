@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ActionSheetController, ModalController } from 'ionic-angular';
 import { AddPartyPage } from './add-party/add-party';
 //import { AlertController } from 'ionic-angular';
@@ -15,18 +15,19 @@ export class TablesPage {
 	parties: Party[];
 
 	constructor(public navCtrl: NavController,
-							public modalCtrl: ModalController,
-							public actionSheetCtrl: ActionSheetController) {
+		public modalCtrl: ModalController,
+		public actionSheetCtrl: ActionSheetController,
+		public alertCtrl: AlertController) {
 
-		this.selectingTable = {active: false, party: null};
-		this.tables = [ new Table(0,4), new Table(1,4), new Table(2,6),
-										new Table(3,2), new Table(4,8), new Table(5,2)];
-		this.parties = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
-										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
-										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
-										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
-										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
-										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ];
+		this.selectingTable = { active: false, party: null };
+		this.tables = [new Table(0, 4), new Table(1, 4), new Table(2, 6),
+		new Table(3, 2), new Table(4, 8), new Table(5, 2)];
+		this.parties = [new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
+		new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
+		new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
+		new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
+		new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
+		new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false),];
 	}
 
 	//----------------------------------------------------------------------------
@@ -34,23 +35,57 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	onTablePress(table: Table) {
 
-			// If currently selecting a table to seat party
-			if (this.selectingTable.active) {
-				if (table.free) {
-					this.deleteParty(this.selectingTable.party);
+		// If currently selecting a table to seat party
+		if (this.selectingTable.active) {
+			if (table.free) {
+
+				if (this.selectingTable.party != null && table.capacity < this.selectingTable.party.size) {
+					let confirm = this.alertCtrl.create({
+						title: 'Table Too Small',
+						message: 'This table is not large enough to seat that many people. Are you sure you want to seat them here?',
+						enableBackdropDismiss: false,
+						buttons: [
+							{
+								text: 'Cancel',
+								handler: () => {
+									//do nothing
+									// Deactivate table selection mode
+									this.deactivateTableSelectionMode();
+								}
+							},
+							{
+								text: 'Seat',
+								handler: () => {
+									// Seat number of party size at table
+									table.seat(this.selectingTable.party.size,
+										this.selectingTable.party.name);
+									this.deleteParty(this.selectingTable.party);
+									// Deactivate table selection mode
+									this.deactivateTableSelectionMode();
+								}
+							}
+						]
+					});
+					confirm.present();
+				} else {
 					// Seat number of party size at table
 					table.seat(this.selectingTable.party.size,
-										 this.selectingTable.party.name);
+						this.selectingTable.party.name);
+					this.deleteParty(this.selectingTable.party);
 					// Deactivate table selection mode
 					this.deactivateTableSelectionMode();
-				} else {
-					// Tried to seat to occupied table
 				}
 
-			// Show table actions
+				// // Deactivate table selection mode
+				// this.deactivateTableSelectionMode();
 			} else {
-				this.presentTableActions(table);
+				// Tried to seat to occupied table
 			}
+
+			// Show table actions
+		} else {
+			this.presentTableActions(table);
+		}
 	}
 
 	//----------------------------------------------------------------------------
@@ -79,7 +114,7 @@ export class TablesPage {
 							console.log('Free Table tapped on table ' + table.ID);
 							// TODO: Let user select party size
 							table.freeTable();
-						}		
+						}
 					}
 				},
 				{
@@ -156,7 +191,7 @@ export class TablesPage {
 	// Modal Trigger: displayTableInfo
 	//----------------------------------------------------------------------------
 	displayTableInfo(t: Table) {
-		let modal = this.modalCtrl.create(TableInfo, {table: t});
+		let modal = this.modalCtrl.create(TableInfo, { table: t });
 		modal.present();
 	}
 
@@ -164,7 +199,7 @@ export class TablesPage {
 	// Modal Trigger: displayPartyInfo
 	//----------------------------------------------------------------------------
 	displayPartyInfo(p: Party) {
-		let modal = this.modalCtrl.create(PartyInfo, {party: p});
+		let modal = this.modalCtrl.create(PartyInfo, { party: p });
 		modal.present();
 	}
 
@@ -172,7 +207,7 @@ export class TablesPage {
 	// Modal Trigger: seatTable
 	//----------------------------------------------------------------------------
 	seatTable(t: Table) {
-		let modal = this.modalCtrl.create(NumToSeat, {table: t});
+		let modal = this.modalCtrl.create(NumToSeat, { table: t });
 		modal.present();
 	}
 
@@ -191,7 +226,7 @@ export class TablesPage {
 		console.log('Add Party Pressed');
 		//let modal = this.modalCtrl.create(AddParty);
 		//modal.present();
-		this.navCtrl.push(AddPartyPage, {"parties" : this.parties});
+		this.navCtrl.push(AddPartyPage, { "parties": this.parties });
 		// Show popup to get party info, then add party
 	}
 
@@ -247,7 +282,7 @@ export class TableInfo {
 	t: Table
 
 	constructor(public navCtrl: NavController,
-							params: NavParams) {
+		params: NavParams) {
 		this.t = params.get('table');
 		console.log('Passed Table ID: ', this.t.ID);
 	}
@@ -340,7 +375,7 @@ export class NumToSeat {
 	table: Table;
 	numToSeat: number;
 
-	constructor(public navCtrl: NavController, params: NavParams) {
+	constructor(public navCtrl: NavController, params: NavParams, public alertCtrl: AlertController) {
 		this.table = params.get('table');
 		this.numToSeat = 0;
 		console.log('Pop-up: Num To Seat');
@@ -359,8 +394,29 @@ export class NumToSeat {
 	}
 
 	seat() {
-		if (this.numToSeat > 0) {
+		if (this.numToSeat > 0 && this.numToSeat <= this.table.capacity) {
 			this.table.seat(this.numToSeat, null);
+		} else if (this.numToSeat > this.table.capacity) {
+			let confirm = this.alertCtrl.create({
+				title: 'Table Too Small',
+				message: 'This table is not large enough to seat that many people. Are you sure you want to seat them here?',
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: 'Cancel',
+						handler: () => {
+							//do nothing
+						}
+					},
+					{
+						text: 'Seat',
+						handler: () => {
+							this.table.seat(this.numToSeat, null);
+						}
+					}
+				]
+			});
+			confirm.present();
 		}
 		this.navCtrl.pop();
 	}
@@ -382,7 +438,7 @@ export class Table {
 	server: string;
 	guestName: string;
 
-	constructor (IDin: number, capacityIn: number) {
+	constructor(IDin: number, capacityIn: number) {
 		this.ID = IDin;
 		this.capacity = capacityIn;
 		this.free = true;
@@ -417,7 +473,7 @@ export class Table {
 
 	seat(size: number, name: string) {
 
-		console.log('Seated ' + size +' people at Table ' + this.ID);
+		console.log('Seated ' + size + ' people at Table ' + this.ID);
 		this.free = false;
 		this.partySize = size;
 		this.server = "Manager";
@@ -437,8 +493,8 @@ export class Party {
 	contact: string;
 	reservation: boolean;
 
-	constructor (ID:number, name: string, size: number, time: string,
-							 contact: string, reservation: boolean) {
+	constructor(ID: number, name: string, size: number, time: string,
+		contact: string, reservation: boolean) {
 		this.ID = ID;
 		this.name = name;
 		this.size = size;
