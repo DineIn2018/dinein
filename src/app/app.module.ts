@@ -9,7 +9,8 @@ import { CreateUserPage } from '../pages/create-user/create-user';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { TablesPage, TableInfo, PartyInfo, AddParty, NumToSeat } from '../pages/tables/tables';
+import { TablesPage, TableInfo, PartyInfo, NumToSeat } from '../pages/tables/tables';
+import { AddPartyPage, Numpad } from '../pages/tables/add-party/add-party';
 import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { PunchCardPage } from '../pages/punchcard/punchcard';
@@ -29,8 +30,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     TablesPage,
     TableInfo,
     PartyInfo,
-    AddParty,
     NumToSeat,
+    AddPartyPage,
+    Numpad,
 
     EmployeesPage,
 
@@ -55,8 +57,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     TablesPage,
     TableInfo,
     PartyInfo,
-    AddParty,
     NumToSeat,
+    AddPartyPage,
+    Numpad,
 
     EmployeesPage,
     TimePunchPage,

@@ -57,7 +57,7 @@
 
     // small Text STYLING
     .smalltext {
-        color: color($colors, medium);
+        //color: color($colors, medium);
         font-size: 16px;
         font-weight: 500;
     }
@@ -74,12 +74,14 @@
         background-color: color($colors, darkest);
         width: 100%;
         height: 50px;
-        margin:20px auto;
+        margin: 20px auto;
         border-radius: 3px;
+        font-size: 15px;
+        font-weight: 475;
     }
 
 	// Changes color of text in text input box
-	.item-inner {
+	.item-inner, .text-input {
         color: color($colors, primary);
     }
     // Changes color of placeholder in text input box
@@ -97,5 +99,32 @@
         
     }
 
+    .modalbutton {
+         margin-top: 20px;
+    }
 
+    .numpad {
+        table-layout: fixed;
+        //background-color: color($colors, darkest);
+        border-radius: 5px;
+        margin-bottom: 15px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .numkey {
+        width: 98%;
+        height: 100%;
+        font-size: 28px;
+        font-weight: 600;
+        border-radius: 5px;
+        margin: 0px;
+        //color: color($colors, primary);
+        //background-color: color($colors, darkest);
+    }
+
+    .localbutton {
+        font-size: 15px;
+        font-weight: 475;
+    }
 }

@@ -86,13 +86,15 @@ $action-sheet-ios-button-border-width: 5px;
 $action-sheet-ios-button-border-color: color($colors, primary);
 $action-sheet-ios-button-cancel-background: color($colors, dark);
 $action-sheet-ios-button-text-color: color($colors, primary);
-$action-sheet-ios-button-font-size: 2.8rem;
+$action-sheet-ios-button-font-size: 2.6rem;
 $action-sheet-ios-title-color: color($colors, medium);
 $action-sheet-ios-title-font-size: 2rem;
 
 //
 // ALERT STYLING
 //
+
+$datetime-ios-placeholder-color: color($colors, middark);
 
 // App Material Design Variables
 // --------------------------------------------------

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { ActionSheetController } from 'ionic-angular';
-import { ModalController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
+import { ActionSheetController, ModalController } from 'ionic-angular';
+import { AddPartyPage } from './add-party/add-party';
 //import { AlertController } from 'ionic-angular';
 
 @Component({
@@ -17,6 +17,7 @@ export class TablesPage {
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
 							public actionSheetCtrl: ActionSheetController) {
+
 		this.selectingTable = {active: false, party: null};
 		this.tables = [ new Table(0,4), new Table(1,4), new Table(2,6),
 										new Table(3,2), new Table(4,8), new Table(5,2)];
@@ -28,6 +29,9 @@ export class TablesPage {
 										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ];
 	}
 
+	//----------------------------------------------------------------------------
+	// Button Action: onTablePress
+	//----------------------------------------------------------------------------
 	onTablePress(table: Table) {
 
 			// If currently selecting a table to seat party
@@ -37,19 +41,21 @@ export class TablesPage {
 					// Seat number of party size at table
 					table.seat(this.selectingTable.party.size,
 										 this.selectingTable.party.name);
-					// Deactivate table selecting mode
-					this.selectingTable.active = false;
-					this.selectingTable.party = null;
+					// Deactivate table selection mode
+					this.deactivateTableSelectionMode();
 				} else {
 					// Tried to seat to occupied table
 				}
 
-			// Regular table presses
+			// Show table actions
 			} else {
 				this.presentTableActions(table);
 			}
 	}
 
+	//----------------------------------------------------------------------------
+	// Action Sheet: presentTableActions
+	//----------------------------------------------------------------------------
 	presentTableActions(table: Table) {
 
 		var seatOrFree: string;
@@ -96,6 +102,9 @@ export class TablesPage {
 		tableActions.present();
 	}
 
+	//----------------------------------------------------------------------------
+	// Action Sheet: presentPartyActions
+	//----------------------------------------------------------------------------
 	presentPartyActions(party: Party) {
 
 		let partyActions = this.actionSheetCtrl.create({
@@ -106,8 +115,7 @@ export class TablesPage {
 					handler: () => {
 						console.log('Selected Party ' + party.ID + ' to seat');
 						// Enable seating party to table mode
-						this.selectingTable.active = true;
-						this.selectingTable.party = party;
+						this.activateTableSelectionMode(party);
 					}
 				},
 				{
@@ -117,6 +125,13 @@ export class TablesPage {
 						this.displayPartyInfo(party);
 					}
 				},
+				/*{
+					text: 'Edit Party',
+					handler: () => {
+						console.log('Party ' + party.ID + ' edit tappped');
+						this.deleteParty(party);
+					}
+				},*/
 				{
 					text: 'Delete Party',
 					handler: () => {
@@ -137,34 +152,55 @@ export class TablesPage {
 		partyActions.present();
 	}
 
+	//----------------------------------------------------------------------------
+	// Modal Trigger: displayTableInfo
+	//----------------------------------------------------------------------------
 	displayTableInfo(t: Table) {
 		let modal = this.modalCtrl.create(TableInfo, {table: t});
 		modal.present();
 	}
 
+	//----------------------------------------------------------------------------
+	// Modal Trigger: displayPartyInfo
+	//----------------------------------------------------------------------------
 	displayPartyInfo(p: Party) {
 		let modal = this.modalCtrl.create(PartyInfo, {party: p});
 		modal.present();
 	}
 
+	//----------------------------------------------------------------------------
+	// Modal Trigger: seatTable
+	//----------------------------------------------------------------------------
 	seatTable(t: Table) {
 		let modal = this.modalCtrl.create(NumToSeat, {table: t});
 		modal.present();
 	}
 
-	editLayout() {
+	//----------------------------------------------------------------------------
+	// Button Action: onEditLayoutPress
+	//----------------------------------------------------------------------------
+	onEditLayoutPress() {
 		console.log('Edit Layout Pressed');
 		// Make layout editable
 	}
 
-	addParty() {
+	//----------------------------------------------------------------------------
+	// Button Action: onAddPartyPress
+	//----------------------------------------------------------------------------
+	onAddPartyPress() {
 		console.log('Add Party Pressed');
-		let modal = this.modalCtrl.create(AddParty);
-		modal.present();
+		//let modal = this.modalCtrl.create(AddParty);
+		//modal.present();
+		this.navCtrl.push(AddPartyPage, {"parties" : this.parties});
 		// Show popup to get party info, then add party
 	}
 
-	cancelSeatParty() {
+	activateTableSelectionMode(party: Party) {
+		this.selectingTable.active = true;
+		this.selectingTable.party = party;
+	}
+
+	deactivateTableSelectionMode() {
 		this.selectingTable.active = false;
 		this.selectingTable.party = null;
 	}
@@ -238,10 +274,7 @@ export class TableInfo {
 				<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
 				<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
 				<ion-label class="regularText">ID: {{p.ID}}</ion-label>
-				<div class="modalbuttons">
 					<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
-					<button class="modalbutton" ion-button block outline (click)="editInfo()">Edit</button>
-				</div>
 			</ion-list>
 		</div>
 	`
@@ -260,46 +293,6 @@ export class PartyInfo {
 	}
 
 	dismiss() {
-		this.navCtrl.pop();
-	}
-}
-
-//------------------------------------------------------------------------------
-// Sub-View: AddParty
-//------------------------------------------------------------------------------
-@Component({
-	selector: 'page-tables',
-	template: `
-		<div id="partymodal">
-			<ion-list id="modalcontent">
-				<ion-label class="subsubtitle">Party Information</ion-label>
-				<ion-input class="inputfield" clearInput type="Text" placeholder="Name"></ion-input>
-				<ion-input class="inputfield" clearInput type="Text" placeholder="Size"></ion-input>
-				<ion-input class="inputfield" clearInput type="Number" placeholder="Contact"></ion-input>
-				<ion-item>
-					<ion-label>Reservation?</ion-label>
-					<ion-checkbox [(ngModel)]="pepperoni"></ion-checkbox>
-				</ion-item>
-				<div class="modalbuttons">
-					<button class="modalbutton" ion-button block (click)="submit()">Submit</button>
-					<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-				</div>
-			</ion-list>
-		</div>
-	`
-})
-export class AddParty {
-
-	constructor(public navCtrl: NavController) {
-		console.log('Pop-up: Add Party');
-	}
-
-	submit(){
-		// Get entered user info and create party object, then add to party list
-		this.navCtrl.pop();
-	}
-
-	cancel() {
 		this.navCtrl.pop();
 	}
 }
@@ -337,10 +330,8 @@ export class AddParty {
 						</tr>
 					</table>
 				</div>
-				<div class="modalbuttons">
-					<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
-					<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-				</div>
+				<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
+				<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
 		</div>
 	`
 })
@@ -383,7 +374,7 @@ export class NumToSeat {
 // Classes
 ////////////////////////////////////////////////////////////////////////////////
 
-class Table {
+export class Table {
 	ID: number;
 	capacity: number;
 	free: boolean;
@@ -438,7 +429,7 @@ class Table {
 	}
 }
 
-class Party {
+export class Party {
 	ID: number;
 	name: string;
 	size: number;
