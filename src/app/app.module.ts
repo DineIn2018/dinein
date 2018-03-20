@@ -14,7 +14,8 @@ import { AddPartyPage, Numpad } from '../pages/tables/add-party/add-party';
 import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { PunchCardPage } from '../pages/punchcard/punchcard';
-import { SettingsPage } from '../pages/settings/settings';
+import { CalendarPage } from '../pages/calendar/calendar';
+import { ManagementPage } from '../pages/management/management';
 import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -38,7 +39,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
     TimePunchPage,
     PunchCardPage,
-    SettingsPage,
+    CalendarPage,
+    ManagementPage,
+
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,
@@ -64,7 +67,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     EmployeesPage,
     TimePunchPage,
     PunchCardPage,
-    SettingsPage,
+    CalendarPage,
+    ManagementPage,
+
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,

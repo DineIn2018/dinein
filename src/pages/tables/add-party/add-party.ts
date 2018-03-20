@@ -15,6 +15,8 @@ export class AddPartyPage {
   buttonTextSize: string;
   buttonTextContact: string;
 
+  editMode: boolean;
+
   ID: number;
   name: string;
   size: number;
@@ -22,25 +24,83 @@ export class AddPartyPage {
   time: string;
   reservation: boolean;
 
+  party: Party;
   parties: Party[];
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public viewCtrl: ViewController,
               public navParams: NavParams) {
-    this.parties = navParams.get("parties");
+
     this.FIELD_SIZE = "Party Size";
     this.FIELD_CONTACT = "Contact Number";
-    this.buttonTextSize = "Size";
-    this.buttonTextContact = "Contact Number";
-    this.name = null;
-    this.size = null;
-    this.contact = null;
-    this.reservation = false;
-    this.time = null;
+    
+    this.editMode = navParams.get("edit");
+    console.log("PARTY MODE: " + this.editMode);
+
+    if (this.editMode) {
+      this.party = navParams.get("edit_party");
+      this.buttonTextSize = String(this.party.size);
+      this.buttonTextContact = String(this.party.contact);
+      this.ID = this.party.ID;
+      this.name = this.party.name;
+      this.size = this.party.size;
+      this.contact = this.party.contact;
+      this.reservation = this.party.reservation;
+      this.time = this.party.time;
+    } else {
+      this.parties = navParams.get("parties");
+      this.buttonTextSize = "Size";
+      this.buttonTextContact = "Contact Number";
+      this.ID = null;
+      this.name = null;
+      this.size = null;
+      this.contact = null;
+      this.reservation = false;
+      this.time = null;      
+    }
+
   }
 
   submit() {
+    if (this.editMode) {
+      this.saveEditedParty();
+    } else {
+      this.addParty();
+    }
+    console.log("about to pop add party page");
+    this.navCtrl.pop();
+  }
+
+  presentNumpad(field: string) {
+    let modal = this.modalCtrl.create(Numpad, {field: field});
+    modal.onDidDismiss(data => {
+      if (data != null) {
+        if (field == this.FIELD_SIZE) {
+          this.size = data;
+          this.buttonTextSize = String(this.size);
+        } else if (field == this.FIELD_CONTACT) {
+          this.contact = String(data);
+          this.buttonTextContact = String(this.contact);
+        }  
+      }
+      
+    });
+    modal.present();
+  }
+
+  validData() {
+    return ((this.name != null) &&
+            (this.size != null) &&
+            (this.contact != null) &&
+            (this.reservation != null));
+  }
+
+  cancel() {
+    this.navCtrl.pop();
+  }
+
+  addParty() {
     this.ID = 7;
     var partyTime: string;
 
@@ -72,35 +132,15 @@ export class AddPartyPage {
       this.parties.push(party);
       console.log("PUSHED PARTY");
     }
-    console.log("about to pop add party page");
-    this.navCtrl.pop();
   }
 
-  presentNumpad(field: string) {
-    let modal = this.modalCtrl.create(Numpad, {field: field});
-    modal.onDidDismiss(data => {
-      if (data != null) {
-        if (field == this.FIELD_SIZE) {
-          this.size = data;
-          this.buttonTextSize = String(this.size);
-        } else if (field == this.FIELD_CONTACT) {
-          this.contact = String(data);
-          this.buttonTextContact = String(this.contact);
-        }  
-      }
-      
-    });
-    modal.present();
-  }
-
-  validData() {
-    return ((this.name != null) &&
-            (this.size != null) &&
-            (this.contact != null) &&
-            (this.reservation != null));
-  }
-  cancel() {
-    this.navCtrl.pop();
+  saveEditedParty() {
+    this.party.ID = this.ID;
+    this.party.name = this.name;
+    this.party.size = this.size;
+    this.party.contact = this.contact;
+    this.party.reservation = this.reservation;
+    this.party.time = this.time;
   }
 }
 

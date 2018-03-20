@@ -60,7 +60,7 @@ $background-color: color($colors, darkest);
 //
 $button-ios-text-color: color($colors, darkest);
 $button-ios-border-radius: 3px;
-$button-ios-background-color-activated: color-shade(color($colors, primary), 50%);
+$button-ios-background-color-activated: color-shade(color($colors, primary), 75%);
 
 $button-ios-outline-text-color-activated: color($colors, darkest);
 $button-ios-outline-border-width: 2px;
@@ -73,6 +73,7 @@ $tabs-ios-tab-color-active: color($colors, primary);
 $tabs-ios-tab-color-inactive: color($colors, medium);
 //$tabs-ios-border: 1px solid color($colors, primary);
 $tabs-ios-tab-padding-top: 5px;
+$tabs-ios-border: 0px;
 
 //
 // ACTION SHEET STYLING

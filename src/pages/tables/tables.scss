@@ -65,26 +65,26 @@ page-tables {
         width: 100%;
         height: 100%;
         background-color: color($colors, dark);
-        padding-left: 15px;
-        padding-right: 15px;
+        padding: 10px;
     }
 
 
     .resparty, .waitparty {
-        .button-inner{
-            justify-content:flex-start;
-        }
         padding-left: 5px;
         margin: 0px;
         border-radius: 0px;
         border-top: 0px;
         border-right: 0px;
         border-left: 0px;
-        border-bottom: solid 0.5px;
-        border-radius: 3px;
+        border-bottom: solid 0.7px;
+        border-radius: 2px;
         border-color: color($colors, middark);
-        font-size: 16px;
-        font-weight: 475;
+        font-size: 15px;
+        font-weight: 450;
+
+        .button-inner{
+            justify-content:flex-start;
+        }
     }
 
     .waitparty {
@@ -94,19 +94,14 @@ page-tables {
     .tablediv {
         float: left;
         margin: 20px;
-        height: 90px;
+        height: 80px;
         width: 14%;
     }
 
-    .tablelabels {
-        width: 100%;
-        height: 25%;
-        float: bottom;
-    }
 
     .tablebuttoncapacity {
         float: right;
-        height: 100%;
+        height: 65%;
         width: 75%;
         margin: 0px;
         padding: auto;
@@ -114,18 +109,28 @@ page-tables {
 
     .tablebuttonID {
         float: left;
-        height: 100%;
+        height: 65%;
         width: 25%;
         margin: 0px;
         padding: auto;
-        color: color($colors, darkest);
+        color: color($colors, medium);
     }
+
+    .tablebuttonserver {
+        width: 100%;
+        height: 35%;
+        float: bottom;
+        margin: 0px;
+        padding: auto;
+        color: color($colors, medium);
+        justify-content:flex-start;
+    }
+
 
 
     .table, .tablenotfree, .tablechooseme {
         width: 100%;
-        height: 70%;
-        float: top;
+        height: 100%;
         font-size: 28px;
         font-weight: 600;
         padding: 0px;
@@ -133,15 +138,15 @@ page-tables {
     }
 
     .tablenotfree {
-        background-color: color($colors, secondary);
-        //color: color($colors, secondary);
-        //border-color: color($colors, secondary);
+        //background-color: color($colors, secondary);
+        color: color($colors, secondary);
+        border-color: color($colors, secondary);
     }
 
     .tablechooseme {
-        background-color: color($colors, tertiary);
-        //color: color($colors, tertiary);
-        //border-color: color($colors, tertiary);
+        //background-color: color($colors, tertiary);
+        color: color($colors, tertiary);
+        border-color: color($colors, tertiary);
     }
 
     #tablemodal {

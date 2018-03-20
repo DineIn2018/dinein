@@ -100,7 +100,9 @@
     }
 
     .modalbutton {
-         margin-top: 20px;
+        margin-top: 20px;
+        font-size: 15px;
+        font-weight: 475;
     }
 
     .numpad {
@@ -126,5 +128,9 @@
     .localbutton {
         font-size: 15px;
         font-weight: 475;
+    }
+
+    .tabs-ios .tab-button[aria-selected=true] {
+        background-color: color($colors, darkest);
     }
 }

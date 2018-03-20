@@ -20,37 +20,17 @@ export class TablesPage {
 
 		this.selectingTable = {active: false, party: null};
 		this.tables = [ new Table(0,4), new Table(1,4), new Table(2,6),
-										new Table(3,2), new Table(4,8), new Table(5,2)];
+										new Table(3,2), new Table(4,8), new Table(5,2),
+										new Table(6,2), new Table(7,4), new Table(8,6),
+										new Table(9,8), new Table(10,4), new Table(11,6)];
 		this.parties = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
 										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
 										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
 										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
 										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
 										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ];
-	}
 
-	//----------------------------------------------------------------------------
-	// Button Action: onTablePress
-	//----------------------------------------------------------------------------
-	onTablePress(table: Table) {
-
-			// If currently selecting a table to seat party
-			if (this.selectingTable.active) {
-				if (table.free) {
-					this.deleteParty(this.selectingTable.party);
-					// Seat number of party size at table
-					table.seat(this.selectingTable.party.size,
-										 this.selectingTable.party.name);
-					// Deactivate table selection mode
-					this.deactivateTableSelectionMode();
-				} else {
-					// Tried to seat to occupied table
-				}
-
-			// Show table actions
-			} else {
-				this.presentTableActions(table);
-			}
+		// TODO: get tables and parties from DB
 	}
 
 	//----------------------------------------------------------------------------
@@ -125,13 +105,14 @@ export class TablesPage {
 						this.displayPartyInfo(party);
 					}
 				},
-				/*{
+				// TODO: Add edit party page
+				{
 					text: 'Edit Party',
 					handler: () => {
 						console.log('Party ' + party.ID + ' edit tappped');
-						this.deleteParty(party);
+						this.navCtrl.push(AddPartyPage, {"parties" : null, "edit": true, "edit_party": party});
 					}
-				},*/
+				},
 				{
 					text: 'Delete Party',
 					handler: () => {
@@ -177,6 +158,30 @@ export class TablesPage {
 	}
 
 	//----------------------------------------------------------------------------
+	// Button Action: onTablePress
+	//----------------------------------------------------------------------------
+	onTablePress(table: Table) {
+
+			// If currently selecting a table to seat party
+			if (this.selectingTable.active) {
+				if (table.free) {
+					this.deleteParty(this.selectingTable.party);
+					// Seat number of party size at table
+					table.seat(this.selectingTable.party.size,
+										 this.selectingTable.party.name);
+					// Deactivate table selection mode
+					this.deactivateTableSelectionMode();
+				} else {
+					// Tried to seat to occupied table
+				}
+
+			// Show table actions
+			} else {
+				this.presentTableActions(table);
+			}
+	}
+	
+	//----------------------------------------------------------------------------
 	// Button Action: onEditLayoutPress
 	//----------------------------------------------------------------------------
 	onEditLayoutPress() {
@@ -191,7 +196,7 @@ export class TablesPage {
 		console.log('Add Party Pressed');
 		//let modal = this.modalCtrl.create(AddParty);
 		//modal.present();
-		this.navCtrl.push(AddPartyPage, {"parties" : this.parties});
+		this.navCtrl.push(AddPartyPage, {"parties" : this.parties, "edit": false, "edit_party": null});
 		// Show popup to get party info, then add party
 	}
 
@@ -456,6 +461,6 @@ export class Party {
 	}
 
 	display(): string {
-		return this.name + ', ' + this.size + ', ' + this.time;
+		return this.time + ' | ' + this.name + ' | ' + this.size;
 	}
 }
