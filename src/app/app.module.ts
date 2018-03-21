@@ -15,6 +15,7 @@ import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { SettingsPage } from '../pages/settings/settings';
 import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
