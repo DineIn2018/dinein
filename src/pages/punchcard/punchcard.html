@@ -7,7 +7,32 @@
 <ion-content padding>
 
   <div id="container">
-
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Shift Start</th>
+        <th>Shift End</th>
+        <th>Hours Worked</th>
+      </tr>
+      <tr *ngFor="let entry of employeeShiftsList">
+        <td>{{entry.getName()}}</td>
+        <td>{{entry.getStartTime()}}</td>
+        <td>{{entry.getEndTime()}}</td>
+        <td>{{entry.getTotalTime()}}</td>
+      </tr>
+      <tr *ngFor="let entry of employeeShiftsList">
+        <td>{{entry.getName()}}</td>
+        <td>{{entry.getStartTime()}}</td>
+        <td>{{entry.getEndTime()}}</td>
+        <td>{{entry.getTotalTime()}}</td>
+      </tr>
+      <tr *ngFor="let entry of employeeShiftsList">
+        <td>{{entry.getName()}}</td>
+        <td>{{entry.getStartTime()}}</td>
+        <td>{{entry.getEndTime()}}</td>
+        <td>{{entry.getTotalTime()}}</td>
+      </tr>
+    </table>
   </div>
 
 </ion-content>
