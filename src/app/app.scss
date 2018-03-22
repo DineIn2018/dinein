@@ -67,18 +67,6 @@
         width: 100%;
         height: 100%;
     }
-
-    // TEXT INPUT BOX Styling
-    .inputfield {
-        border: 2px solid color($colors, primary);
-        background-color: color($colors, darkest);
-        width: 100%;
-        height: 50px;
-        margin: 20px auto;
-        border-radius: 3px;
-        font-size: 15px;
-        font-weight: 475;
-    }
    
     .modalbase {
         background-color: color($colors, dark);
@@ -116,6 +104,19 @@
     .localbutton {
         font-size: 15px;
         font-weight: 475;
+    }
+
+    // TEXT INPUT BOX Styling
+    .inputfield {
+        border: 2px solid color($colors, primary);
+        background-color: color($colors, darkest);
+        width: 100%;
+        height: 50px;
+        margin: 20px auto;
+        border-radius: 3px;
+        font-size: 15px;
+        font-weight: 475;
+        //padding-left: 15px;
     }
 
     // Tab styling, darkens when selected

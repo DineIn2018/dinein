@@ -60,7 +60,7 @@ $background-color: color($colors, darkest);
 //
 $button-ios-text-color: color($colors, darkest);
 $button-ios-border-radius: 3px;
-$button-ios-background-color-activated: color-shade(color($colors, primary), 75%);
+$button-ios-background-color-activated: color-shade(color($colors, primary), 50%);
 
 $button-ios-outline-text-color-activated: color($colors, darkest);
 $button-ios-outline-border-width: 2px;
@@ -94,7 +94,9 @@ $action-sheet-ios-title-font-size: 2rem;
 //
 // ALERT STYLING
 //
-
+$alert-ios-background: color($colors, dark);
+$alert-ios-border-radius: 5px;
+$alert-ios-message-text-color: color($colors, medium);
 $datetime-ios-placeholder-color: color($colors, middark);
 
 // App Material Design Variables

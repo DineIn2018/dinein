@@ -1,21 +1,25 @@
 <ion-content no-bounce>	
 	<div id="container">
 
+		<ion-list>
 			<ion-label class="subsubtitle">Party Information</ion-label>
-			<ion-input class="inputfield" clearInput type="Text" placeholder="Name"
-								 [(ngModel)]="name"></ion-input>
-			<button ion-button outline block
+			<ion-item class="inputfield">
+				<ion-input clearInput type="Text" placeholder="Name"
+								 	 [(ngModel)]="name"></ion-input>
+			</ion-item>
+			<button class="inputbutton" ion-button outline block
 							[ngClass]="{'numpadinput': size == null,
 													'numpadinputhasval': size != null}"
               (click)="presentNumpad(FIELD_SIZE)">
         {{buttonTextSize}}
       </button>
-			<button ion-button outline block
+			<button class="inputbutton" ion-button outline block
 							[ngClass]="{'numpadinput': contact == null,
 													'numpadinputhasval': contact != null}"
                (click)="presentNumpad(FIELD_CONTACT)">
         {{buttonTextContact}}
       </button>
+
 			<ion-item id="reservationcheckbox">
 				<ion-label>Reservation?</ion-label>
 				<ion-checkbox [(ngModel)]="reservation"></ion-checkbox>
@@ -24,10 +28,11 @@
 			  <ion-datetime displayFormat="hh:mm a" placeholder="Select Time"
 			  							[(ngModel)]="time"></ion-datetime>
 			</ion-item>
+
 			<button class="localbutton" ion-button block
 							(click)="submit()">Submit</button>
 			<button class="localbutton" ion-button block outline
 							(click)="cancel()">Cancel</button>
-
+		</ion-list>
 	</div>
 </ion-content>
