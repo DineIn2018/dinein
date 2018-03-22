@@ -8,8 +8,10 @@ import { CreateEmployeePage } from '../create-employee/create-employee';
   selector: 'page-employees',
   templateUrl: 'employees.html'
 })
-export class EmployeesPage {
 
+export class EmployeesPage {
+  searchQuery: string = '';
+  items: Employee[];
   editPage: any;
   createEmployeePage: any;
   employees: Array<Employee>;
@@ -47,6 +49,27 @@ export class EmployeesPage {
 
   refreshSelectedEmployee() {
     this.selectedEmployee = this.employees[0];
+    this.initializeItems();
+  }
+  initializeItems() {
+    this.items = [
+      this.selectedEmployee
+    ];
+  }
+
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    this.initializeItems();
+
+    // set val to the value of the searchbar
+    let val = ev.target.value;
+
+    //if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (item.getName().toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
   openEditPage() {
     this.navCtrl.push(this.editPage, { selectedEmployee: this.selectedEmployee, employees: this.employees, employeesPage: this });
@@ -185,4 +208,3 @@ export class Employee {
     this.pay = pay;
   }
 }
-
