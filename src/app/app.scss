@@ -15,10 +15,10 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.md, .ios {
+.md, .ios, .wp {
 
-	// MAIN TITLE STYLING
-	.maintitle {
+    // MAIN TITLE STYLING
+    .maintitle {
         color: color($colors, primary);
         padding-bottom: 10px;
         font-size: 70px;
@@ -26,7 +26,7 @@
     }
 
     // SUBTITLE STYLING
-	.subtitle {
+    .subtitle {
         color: color($colors, primary);
         padding-bottom: 5px;
         font-size: 45px;
@@ -79,22 +79,50 @@
         font-size: 15px;
         font-weight: 475;
     }
-
-    .item {
-        .item-inner {
-            color: color($colors, primary);
-        }
+   
+    .modalbase {
+        background-color: color($colors, dark);
+        padding-top: 15px;
+        padding-bottom: 2px;
+        padding-left: 30px;
+        padding-right: 30px;
+        border-radius: 5px;
+        
     }
-	// Changes color of text in text input box
-	.text-input {
-        color: color($colors, primary);
-    }
-    // Changes color of placeholder in text input box
-	.text-input::-webkit-input-placeholder {
-		color: color($colors, middark);
-	}
 
-    
+    .modalbutton {
+        margin-top: 20px;
+        font-size: 15px;
+        font-weight: 475;
+    }
+
+    .numpad {
+        table-layout: fixed;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .numkey {
+        width: 98%;
+        height: 100%;
+        font-size: 28px;
+        font-weight: 600;
+        border-radius: 5px;
+        margin: 0px;
+    }
+
+    .localbutton {
+        font-size: 15px;
+        font-weight: 475;
+    }
+
+    // Tab styling, darkens when selected
+    .tabs-ios .tab-button[aria-selected=true] {
+        background-color: color($colors, darkest);
+    }
+
     .picker-wrapper {
         border-radius: 3px;
         border-color: color($colors, dark);
@@ -122,49 +150,27 @@
             background-color: color($colors, primary);
         }
     }
-   
-    .modalbase {
-        background-color: color($colors, dark);
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
-        border-radius: 5px;
-        
+    
+    .datetime {
+        .datetime-placeholder {
+            color: color($colors, middark);
+        }
+        // Color for selected datetime
+        color: color($colors, primary);
     }
 
-    .modalbutton {
-        margin-top: 20px;
-        font-size: 15px;
-        font-weight: 475;
+    // Checkbox inner
+    .item-checkbox {
+        .item-inner {
+            color: color($colors, primary);
+        }
     }
-
-    .numpad {
-        table-layout: fixed;
-        //background-color: color($colors, darkest);
-        border-radius: 5px;
-        margin-bottom: 15px;
-        width: 100%;
-        height: 100%;
+    // Changes color of text in text input box
+    .text-input {
+        color: color($colors, primary);
     }
-
-    .numkey {
-        width: 98%;
-        height: 100%;
-        font-size: 28px;
-        font-weight: 600;
-        border-radius: 5px;
-        margin: 0px;
-        //color: color($colors, primary);
-        //background-color: color($colors, darkest);
-    }
-
-    .localbutton {
-        font-size: 15px;
-        font-weight: 475;
-    }
-
-    .tabs-ios .tab-button[aria-selected=true] {
-        background-color: color($colors, darkest);
+    // Changes color of placeholder in text input box
+    .text-input::-webkit-input-placeholder {
+        color: color($colors, middark);
     }
 }

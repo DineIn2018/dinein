@@ -32,7 +32,7 @@ export class TablesPage {
 										 new Party("Kameron", 2, "6:15pm", "506 506 5006", false),
 										 new Party("Jimmie", 3, "8:01pm", "999 999 9999", false),
 										 new Party("Suzy", 1000, "9:00pm", "012 345 6789", false),
-										 new Party("Bryan", 1, "11:59pm", "666 666 6666", false), ];
+										 new Party("Bryan", 1, "11:59pm", "666 666 6666", false)];
 
 		// TODO: get tables and parties from DB
 	}
@@ -61,7 +61,6 @@ export class TablesPage {
 							this.displaySeatTableNumpad(table);
 						} else {
 							console.log('Free Table tapped on table ' + table.ID);
-							// TODO: Let user select party size
 							table.freeTable();
 						}
 					}
@@ -76,13 +75,10 @@ export class TablesPage {
 				{
 					text: 'Cancel',
 					role: 'cancel',
-					handler: () => {
-						console.log('Cancel clicked');
-					}
+					handler: () => { }
 				}
 			]
 		});
-
 		tableActions.present();
 	}
 
@@ -113,7 +109,9 @@ export class TablesPage {
 					text: 'Edit Party',
 					handler: () => {
 						console.log('Party ' + party.ID + ' edit tappped');
-						this.navCtrl.push(AddPartyPage, {"parties" : null, "edit": true, "edit_party": party});
+						this.navCtrl.push(AddPartyPage, {"parties" : null,
+																						 "edit": true,
+																						 "edit_party": party});
 					}
 				},
 				{
@@ -126,9 +124,7 @@ export class TablesPage {
 				{
 					text: 'Cancel',
 					role: 'cancel',
-					handler: () => {
-						console.log('Cancel clicked');
-					}
+					handler: () => { }
 				}
 			]
 		});
@@ -169,9 +165,10 @@ export class TablesPage {
 		// Seat the party at table
 		//
 		if (this.seatingPartyMode()) {
-			
+			console.log('Table tapped in seating party mode');
 			if (table.free) {
 				if (this.selectedParty.size > table.capacity) {
+					console.log('Presented table overcapacity warning');
 					let confirm = this.alertCtrl.create({
 						title: 'Table Too Small',
 						message: 'This table is not large enough to seat that many people.Are you sure you want to seat them here?',
@@ -179,11 +176,12 @@ export class TablesPage {
 						buttons: [
 							{
 								text: 'Cancel',
-								handler: () => { }
+								handler: () => { console.log('Cancelled seating overcapacity'); }
 							},
 							{
 								text: 'Seat',
 								handler: () => {
+									console.log('Selected to seat overcapacity');
 									// Seat number of party size at table
 									table.seat(this.selectedParty.size, this.selectedParty.name);
 									this.deleteParty(this.selectedParty);
@@ -193,7 +191,7 @@ export class TablesPage {
 						]
 					});
 					confirm.present();
-				// 
+
 				} else {
 					// Seat number of party size at table
 					table.seat(this.selectedParty.size, this.selectedParty.name);
@@ -203,6 +201,7 @@ export class TablesPage {
 
 			// Table is Occupied
 			} else {
+				console.log('Tried to seat at occupied table');
 				let alert = this.alertCtrl.create({
 					title: 'This table is currently occupied',
 					enableBackdropDismiss: false,
@@ -238,7 +237,9 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	onAddPartyPress() {
 		console.log('Add Party Pressed');
-		this.navCtrl.push(AddPartyPage, {"parties" : this.parties, "edit": false, "edit_party": null});
+		this.navCtrl.push(AddPartyPage, {"parties" : this.parties,
+																		 "edit": false,
+																		 "edit_party": null});
 	}
 
 	activateSeatingPartyMode(p: Party) {
@@ -297,8 +298,7 @@ export class TableInfo {
 
 	t: Table
 
-	constructor(public navCtrl: NavController,
-		params: NavParams) {
+	constructor(public navCtrl: NavController, params: NavParams) {
 		this.t = params.get('table');
 		console.log('Passed Table ID: ', this.t.ID);
 	}
@@ -388,7 +388,9 @@ export class NumToSeat {
 	table: Table;
 	numToSeat: number;
 
-	constructor(public navCtrl: NavController, params: NavParams, public alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController,
+							public alertCtrl: AlertController,
+							params: NavParams) {
 		this.table = params.get('table');
 		this.numToSeat = 0;
 		console.log('Pop-up: Num To Seat');
@@ -466,7 +468,7 @@ export class Table {
 		this.guestName = "N/A";
 	}
 
-	getStatus() {
+	getStatus(): string {
 		if (this.free) {
 			return "Free";
 		} else {
