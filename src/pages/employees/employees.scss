@@ -53,6 +53,13 @@ page-employees {
         background-color: color($colors, darker);
         overflow: scroll;
     }
+    #searchbar {
+        position: fixed;
+        margin-top: 40px;
+    }
+    #myList {
+        margin-top: 40px;
+    }
     h2 {
         /*padding-top: 0%;*/
         /*float: right;*/
