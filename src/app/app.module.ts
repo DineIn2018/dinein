@@ -5,7 +5,7 @@ import { MyApp } from './app.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { LoginPage } from '../pages/login/login';
-import { CreateUserPage } from '../pages/create-user/create-user';
+import { CreateUserPage } from '../pages/login/create-user/create-user';
 
 import { TabsPage } from '../pages/tabs/tabs';
 

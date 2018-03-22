@@ -80,8 +80,13 @@
         font-weight: 475;
     }
 
+    .item {
+        .item-inner {
+            color: color($colors, primary);
+        }
+    }
 	// Changes color of text in text input box
-	.item-inner, .text-input {
+	.text-input {
         color: color($colors, primary);
     }
     // Changes color of placeholder in text input box
@@ -89,6 +94,35 @@
 		color: color($colors, middark);
 	}
 
+    
+    .picker-wrapper {
+        border-radius: 3px;
+        border-color: color($colors, dark);
+        border-width: 0px;
+        .picker-opt{ 
+            color: color($colors, medium);
+        }
+        .picker-opt-selected {
+            color: color($colors, primary);
+        }
+    }
+
+    .item-checkbox {
+        border: solid 2px;
+        border-radius: 3px;
+        border-color: color($colors, primary);
+        background-color: color($colors, darkest);
+        .checkbox-icon {
+            border: solid 1px;
+            border-radius: 3px;
+            border-color: color($colors, primary);
+            background-color: color($colors, darkest);
+        }
+        .checkbox-checked {
+            background-color: color($colors, primary);
+        }
+    }
+   
     .modalbase {
         background-color: color($colors, dark);
         padding-top: 15px;

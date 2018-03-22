@@ -6,15 +6,19 @@
         <ion-label class="maintitle">DineIn</ion-label>
 
         <ion-item class="inputfield">
-          <ion-input clearInput type="Text" placeholder="e-mail" #email></ion-input>
+          <ion-input clearInput type="Text" placeholder="e-mail"
+                     [(ngModel)]="email"></ion-input>
         </ion-item>
 
         <ion-item class="inputfield">
-          <ion-input clearInput type="Password" placeholder="Password" #password></ion-input>
+          <ion-input clearInput type="Password" placeholder="Password"
+                     [(ngModel)]="password"></ion-input>
         </ion-item>   
         
-        <button class="localbutton" ion-button block (click)="executeLogin()">Login</button>
-        <button class="localbutton" ion-button outline block (click)="goToCreateUser()">Create User</button>
+        <button class="localbutton" ion-button block
+                (click)="executeLogin()">Login</button>
+        <button class="localbutton" ion-button outline block
+                (click)="goToCreateUser()">Create User</button>
       
       </ion-list>
     </div>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ActionSheetController, ModalController } from 'ionic-angular';
 import { AddPartyPage } from './add-party/add-party';
-//import { AlertController } from 'ionic-angular';
 
 @Component({
 	selector: 'page-tables',
@@ -10,87 +9,32 @@ import { AddPartyPage } from './add-party/add-party';
 })
 export class TablesPage {
 
-	selectingTable: any;
+	mode: Mode;
+	selectedParty: Party;
+
 	tables: Table[];
 	parties: Party[];
 
 	constructor(public navCtrl: NavController,
-		public modalCtrl: ModalController,
-		public actionSheetCtrl: ActionSheetController,
-		public alertCtrl: AlertController) {
+							public modalCtrl: ModalController,
+							public alertCtrl: AlertController,
+							public actionSheetCtrl: ActionSheetController) {
 
-		this.selectingTable = {active: false, party: null};
-		this.tables = [ new Table(0,4), new Table(1,4), new Table(2,6),
-										new Table(3,2), new Table(4,8), new Table(5,2),
-										new Table(6,2), new Table(7,4), new Table(8,6),
-										new Table(9,8), new Table(10,4), new Table(11,6)];
-		this.parties = [ new Party(0, "Kass", 7, "4:20pm", "608 609 5186", true),
-										 new Party(1, "Casey", 4, "5:55pm", "608 608 6006", true),
-										 new Party(2, "Kameron", 2, "6:15pm", "506 506 5006", false),
-										 new Party(3, "Jimmie", 3, "8:01pm", "999 999 9999", false),
-										 new Party(4, "Suzy", 1000, "9:00pm", "012 345 6789", false),
-										 new Party(5, "Bryan", 1, "11:59pm", "666 666 6666", false), ];
+		this.mode = Mode.Default;
+		this.selectedParty = null;
+
+		this.tables = [ new Table(4), new Table(4), new Table(6),
+										new Table(2), new Table(8), new Table(2),
+										new Table(2), new Table(4), new Table(6),
+										new Table(8), new Table(4), new Table(6)];
+		this.parties = [ new Party("Kass", 7, "4:20pm", "608 609 5186", true),
+										 new Party("Casey", 4, "5:55pm", "608 608 6006", true),
+										 new Party("Kameron", 2, "6:15pm", "506 506 5006", false),
+										 new Party("Jimmie", 3, "8:01pm", "999 999 9999", false),
+										 new Party("Suzy", 1000, "9:00pm", "012 345 6789", false),
+										 new Party("Bryan", 1, "11:59pm", "666 666 6666", false), ];
 
 		// TODO: get tables and parties from DB
-	}
-
-	//----------------------------------------------------------------------------
-	// Button Action: onTablePress
-	//----------------------------------------------------------------------------
-	onTablePress(table: Table) {
-
-		// If currently selecting a table to seat party
-		if (this.selectingTable.active) {
-			if (table.free) {
-
-				if (this.selectingTable.party != null && table.capacity < this.selectingTable.party.size) {
-					let confirm = this.alertCtrl.create({
-						title: 'Table Too Small',
-						message: 'This table is not large enough to seat that many people. Are you sure you want to seat them here?',
-						enableBackdropDismiss: false,
-						buttons: [
-							{
-								text: 'Cancel',
-								handler: () => {
-									//do nothing
-									// Deactivate table selection mode
-									this.deactivateTableSelectionMode();
-								}
-							},
-							{
-								text: 'Seat',
-								handler: () => {
-									// Seat number of party size at table
-									table.seat(this.selectingTable.party.size,
-										this.selectingTable.party.name);
-									this.deleteParty(this.selectingTable.party);
-									// Deactivate table selection mode
-									this.deactivateTableSelectionMode();
-								}
-							}
-						]
-					});
-					confirm.present();
-				} else {
-					// Seat number of party size at table
-					table.seat(this.selectingTable.party.size,
-						this.selectingTable.party.name);
-					this.deleteParty(this.selectingTable.party);
-					// Deactivate table selection mode
-					this.deactivateTableSelectionMode();
-				}
-
-				// // Deactivate table selection mode
-				// this.deactivateTableSelectionMode();
-			} else {
-				// Tried to seat to occupied table
-			}
-
-			// Show table actions
-		} else {
-			this.presentTableActions(table);
-		}
-
 	}
 
 	//----------------------------------------------------------------------------
@@ -114,7 +58,7 @@ export class TablesPage {
 					handler: () => {
 						if (table.free) {
 							console.log('Seat Party tapped on table ' + table.ID);
-							this.seatTable(table);
+							this.displaySeatTableNumpad(table);
 						} else {
 							console.log('Free Table tapped on table ' + table.ID);
 							// TODO: Let user select party size
@@ -155,7 +99,7 @@ export class TablesPage {
 					handler: () => {
 						console.log('Selected Party ' + party.ID + ' to seat');
 						// Enable seating party to table mode
-						this.activateTableSelectionMode(party);
+						this.activateSeatingPartyMode(party);
 					}
 				},
 				{
@@ -165,7 +109,6 @@ export class TablesPage {
 						this.displayPartyInfo(party);
 					}
 				},
-				// TODO: Add edit party page
 				{
 					text: 'Edit Party',
 					handler: () => {
@@ -189,7 +132,6 @@ export class TablesPage {
 				}
 			]
 		});
-
 		partyActions.present();
 	}
 
@@ -210,9 +152,9 @@ export class TablesPage {
 	}
 
 	//----------------------------------------------------------------------------
-	// Modal Trigger: seatTable
+	// Modal Trigger: displaySeatTableNumpad
 	//----------------------------------------------------------------------------
-	seatTable(t: Table) {
+	displaySeatTableNumpad(t: Table) {
 		let modal = this.modalCtrl.create(NumToSeat, { table: t });
 		modal.present();
 	}
@@ -222,23 +164,65 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	onTablePress(table: Table) {
 
-			// If currently selecting a table to seat party
-			if (this.selectingTable.active) {
-				if (table.free) {
-					this.deleteParty(this.selectingTable.party);
-					// Seat number of party size at table
-					table.seat(this.selectingTable.party.size,
-										 this.selectingTable.party.name);
-					// Deactivate table selection mode
-					this.deactivateTableSelectionMode();
+		//
+		// In seating party mode
+		// Seat the party at table
+		//
+		if (this.seatingPartyMode()) {
+			
+			if (table.free) {
+				if (this.selectedParty.size > table.capacity) {
+					let confirm = this.alertCtrl.create({
+						title: 'Table Too Small',
+						message: 'This table is not large enough to seat that many people.Are you sure you want to seat them here?',
+						enableBackdropDismiss: false,
+						buttons: [
+							{
+								text: 'Cancel',
+								handler: () => { }
+							},
+							{
+								text: 'Seat',
+								handler: () => {
+									// Seat number of party size at table
+									table.seat(this.selectedParty.size, this.selectedParty.name);
+									this.deleteParty(this.selectedParty);
+									this.deactivateSeatingPartyMode();
+								}
+							}
+						]
+					});
+					confirm.present();
+				// 
 				} else {
-					// Tried to seat to occupied table
+					// Seat number of party size at table
+					table.seat(this.selectedParty.size, this.selectedParty.name);
+					this.deleteParty(this.selectedParty);
+					this.deactivateSeatingPartyMode();
 				}
 
-			// Show table actions
+			// Table is Occupied
 			} else {
-				this.presentTableActions(table);
+				let alert = this.alertCtrl.create({
+					title: 'This table is currently occupied',
+					enableBackdropDismiss: false,
+					buttons: [
+						{
+							text: 'Dismiss',
+							handler: () => { }
+						}
+					]
+				});
+				alert.present();
 			}
+
+		//
+		// Not in seating party at table mode
+		// Show table action sheet
+		//
+		} else {
+			this.presentTableActions(table);
+		}
 	}
 	
 	//----------------------------------------------------------------------------
@@ -254,20 +238,17 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	onAddPartyPress() {
 		console.log('Add Party Pressed');
-		//let modal = this.modalCtrl.create(AddParty);
-		//modal.present();
 		this.navCtrl.push(AddPartyPage, {"parties" : this.parties, "edit": false, "edit_party": null});
-		// Show popup to get party info, then add party
 	}
 
-	activateTableSelectionMode(party: Party) {
-		this.selectingTable.active = true;
-		this.selectingTable.party = party;
+	activateSeatingPartyMode(p: Party) {
+		this.mode = Mode.SeatingParty;
+		this.selectedParty = p;
 	}
 
-	deactivateTableSelectionMode() {
-		this.selectingTable.active = false;
-		this.selectingTable.party = null;
+	deactivateSeatingPartyMode() {
+		this.mode = Mode.Default;
+		this.selectedParty = null;
 	}
 
 	deleteParty(party: Party) {
@@ -278,6 +259,10 @@ export class TablesPage {
 				this.parties.splice(i, 1);
 			}
 		}
+	}
+
+	seatingPartyMode(): boolean {
+		return this.mode == Mode.SeatingParty;
 	}
 
 }
@@ -301,7 +286,8 @@ export class TablesPage {
 				<ion-label class="regularText">Server: {{t.server}}</ion-label>
 				<ion-label class="regularText">Guest: {{t.guestName}}</ion-label>
 				<div class="modalbuttons">
-					<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
+					<button class="modalbutton" ion-button block
+									(click)="dismiss()">Dismiss</button>
 				</div>
 			</ion-list>
 		</div>
@@ -339,7 +325,8 @@ export class TableInfo {
 				<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
 				<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
 				<ion-label class="regularText">ID: {{p.ID}}</ion-label>
-					<button class="modalbutton" ion-button block (click)="dismiss()">Dismiss</button>
+					<button class="modalbutton" ion-button block
+									(click)="dismiss()">Dismiss</button>
 			</ion-list>
 		</div>
 	`
@@ -351,10 +338,6 @@ export class PartyInfo {
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.p = params.get('party');
 		console.log('Passed Party ID: ', this.p.ID);
-	}
-
-	editInfo() {
-
 	}
 
 	dismiss() {
@@ -424,9 +407,7 @@ export class NumToSeat {
 	}
 
 	seat() {
-		if (this.numToSeat > 0 && this.numToSeat <= this.table.capacity) {
-			this.table.seat(this.numToSeat, null);
-		} else if (this.numToSeat > this.table.capacity) {
+		if (this.numToSeat > this.table.capacity) {
 			let confirm = this.alertCtrl.create({
 				title: 'Table Too Small',
 				message: 'This table is not large enough to seat that many people. Are you sure you want to seat them here?',
@@ -435,20 +416,24 @@ export class NumToSeat {
 					{
 						text: 'Cancel',
 						handler: () => {
-							//do nothing
+							this.clearButton();
 						}
 					},
 					{
 						text: 'Seat',
 						handler: () => {
+							// Seat number of party size at table
 							this.table.seat(this.numToSeat, null);
+							this.navCtrl.pop();
 						}
 					}
 				]
 			});
 			confirm.present();
+		} else {
+			this.table.seat(this.numToSeat, null);
+			this.navCtrl.pop();
 		}
-		this.navCtrl.pop();
 	}
 
 	cancel() {
@@ -461,6 +446,9 @@ export class NumToSeat {
 ////////////////////////////////////////////////////////////////////////////////
 
 export class Table {
+
+	static ID_runner: number = 1;
+
 	ID: number;
 	capacity: number;
 	free: boolean;
@@ -468,8 +456,9 @@ export class Table {
 	server: string;
 	guestName: string;
 
-	constructor(IDin: number, capacityIn: number) {
-		this.ID = IDin;
+	constructor(capacityIn: number) {
+		this.ID = Table.ID_runner;
+		Table.ID_runner += 1;
 		this.capacity = capacityIn;
 		this.free = true;
 		this.partySize = 0;
@@ -502,7 +491,6 @@ export class Table {
 	}
 
 	seat(size: number, name: string) {
-
 		console.log('Seated ' + size + ' people at Table ' + this.ID);
 		this.free = false;
 		this.partySize = size;
@@ -516,6 +504,9 @@ export class Table {
 }
 
 export class Party {
+
+	static ID_runner: number = 0;
+
 	ID: number;
 	name: string;
 	size: number;
@@ -523,9 +514,12 @@ export class Party {
 	contact: string;
 	reservation: boolean;
 
-	constructor(ID: number, name: string, size: number, time: string,
-		contact: string, reservation: boolean) {
-		this.ID = ID;
+	constructor(name: string, size: number, time: string,
+							contact: string, reservation: boolean) {
+		this.ID = Party.ID_runner;
+		Party.ID_runner += 1;
+		console.log('created party ID: '+ this.ID);
+		console.log('curr ID_runner: '+ Party.ID_runner);
 		this.name = name;
 		this.size = size;
 		this.time = time;
@@ -544,4 +538,10 @@ export class Party {
 	display(): string {
 		return this.time + ' | ' + this.name + ' | ' + this.size;
 	}
+}
+
+enum Mode {
+	Default = 0,
+	SeatingParty = 1,
+	EditingLayout = 2
 }

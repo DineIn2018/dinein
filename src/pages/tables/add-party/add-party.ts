@@ -36,7 +36,7 @@ export class AddPartyPage {
     this.FIELD_CONTACT = "Contact Number";
     
     this.editMode = navParams.get("edit");
-    console.log("PARTY MODE: " + this.editMode);
+    console.log("EDIT PARTY MODE: " + this.editMode);
 
     if (this.editMode) {
       this.party = navParams.get("edit_party");
@@ -47,7 +47,7 @@ export class AddPartyPage {
       this.size = this.party.size;
       this.contact = this.party.contact;
       this.reservation = this.party.reservation;
-      this.time = this.party.time;
+      this.time = String(this.party.time);
     } else {
       this.parties = navParams.get("parties");
       this.buttonTextSize = "Size";
@@ -101,7 +101,6 @@ export class AddPartyPage {
   }
 
   addParty() {
-    this.ID = 7;
     var partyTime: string;
 
     if (this.reservation) {
@@ -126,8 +125,9 @@ export class AddPartyPage {
     }
 
     console.log(this.name + " " + this.size + " " + this.contact + " " + this.reservation);
+    
     if (this.validData()) {
-      var party = new Party(this.ID, this.name, this.size, partyTime,
+      var party = new Party(this.name, this.size, partyTime,
                           this.contact, this.reservation);
       this.parties.push(party);
       console.log("PUSHED PARTY");

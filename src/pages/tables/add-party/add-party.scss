@@ -7,6 +7,24 @@ page-add-party {
         margin-right: auto;
     }
 
+    #reservationcheckbox {
+        border-style: solid;
+        border-radius: 2px;
+        border-width: 2px;
+        border-color: color($colors, primary);
+        background-color: color($colors, darkest);
+    }
+
+    #timeselect {
+        margin-top: 10px;
+        border-style: solid;
+        border-radius: 2px;
+        border-width: 2px;
+        padding-left: 0px;
+        border-color: color($colors, primary);
+        background-color: color($colors, darkest);
+    }
+
     .numpadinput .button-inner {
     	justify-content:flex-start;
     	color: color($colors, middark);
@@ -38,14 +56,6 @@ page-add-party {
     }
 
     .numpad {
-        background-color: color($colors, darkest);
-    }
-
-    .reservationcheckbox {
-        border-style: solid;
-        border-radius: 2px;
-        border-width: 2px;
-        border-color: color($colors, primary);
         background-color: color($colors, darkest);
     }
     
