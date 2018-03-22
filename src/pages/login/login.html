@@ -5,15 +5,11 @@
 
         <ion-label class="maintitle">DineIn</ion-label>
 
-        <ion-item class="inputfield">
-          <ion-input clearInput type="Text" placeholder="e-mail"
-                     [(ngModel)]="email"></ion-input>
-        </ion-item>
+        <ion-input class="inputfield" clearInput type="Text" placeholder="e-mail"
+                   [(ngModel)]="email"></ion-input>
 
-        <ion-item class="inputfield">
-          <ion-input clearInput type="Password" placeholder="Password"
-                     [(ngModel)]="password"></ion-input>
-        </ion-item>   
+        <ion-input class="inputfield" clearInput type="Password" placeholder="Password"
+                   [(ngModel)]="password"></ion-input>
         
         <button class="localbutton" ion-button block
                 (click)="executeLogin()">Login</button>
