@@ -8,8 +8,13 @@ import { LoginPage } from '../login/login';
 })
 export class ManagementPage {
 
+  restaurantName: string;
+  capacity: number;
+  numEmployees: number;
   constructor(public navCtrl: NavController) {
-
+    this.restaurantName = "Osteria Francescana";
+    this.numEmployees = 23;
+    this.capacity = 100;
   }
 
   executeLogout() {

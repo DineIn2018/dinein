@@ -18,4 +18,21 @@ page-management {
     	float: bottom;
     }
 
+	#restaurantInfo {
+        padding: 10px;
+        color: color($colors, primary);
+        width: 65%;
+        display: block;
+        margin: auto;
+        text-align: right;
+        font-size: 200%;
+        font-family: palatino;
+        outline-style: solid;
+        outline-color: color($colors, primary);
+        
+	}
+	.label {
+        font-style: italic;
+        float: left;
+    }
 }
