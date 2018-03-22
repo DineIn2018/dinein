@@ -217,29 +217,29 @@ export class TablesPage {
 		modal.present();
 	}
 
-	//----------------------------------------------------------------------------
-	// Button Action: onTablePress
-	//----------------------------------------------------------------------------
-	onTablePress(table: Table) {
+	// //----------------------------------------------------------------------------
+	// // Button Action: onTablePress
+	// //----------------------------------------------------------------------------
+	// onTablePress(table: Table) {
 
-			// If currently selecting a table to seat party
-			if (this.selectingTable.active) {
-				if (table.free) {
-					this.deleteParty(this.selectingTable.party);
-					// Seat number of party size at table
-					table.seat(this.selectingTable.party.size,
-										 this.selectingTable.party.name);
-					// Deactivate table selection mode
-					this.deactivateTableSelectionMode();
-				} else {
-					// Tried to seat to occupied table
-				}
+	// 		// If currently selecting a table to seat party
+	// 		if (this.selectingTable.active) {
+	// 			if (table.free) {
+	// 				this.deleteParty(this.selectingTable.party);
+	// 				// Seat number of party size at table
+	// 				table.seat(this.selectingTable.party.size,
+	// 									 this.selectingTable.party.name);
+	// 				// Deactivate table selection mode
+	// 				this.deactivateTableSelectionMode();
+	// 			} else {
+	// 				// Tried to seat to occupied table
+	// 			}
 
-			// Show table actions
-			} else {
-				this.presentTableActions(table);
-			}
-	}
+	// 		// Show table actions
+	// 		} else {
+	// 			this.presentTableActions(table);
+	// 		}
+	// }
 	
 	//----------------------------------------------------------------------------
 	// Button Action: onEditLayoutPress
