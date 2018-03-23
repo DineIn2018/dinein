@@ -1,3 +1,5 @@
+NOTE: You must have Node.js installed 
+
 To download Ionic, run
 npm install -g ionic
 
