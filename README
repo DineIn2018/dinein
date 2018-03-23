@@ -1,0 +1,11 @@
+To download Ionic, run
+npm install -g ionic
+
+From within the repository, run
+npm install
+to install the dependencies. Then, still in the repository, run
+ionic serve
+
+This will open a tab in your browser, running the app.
+
+Note: from the login page, it is not necessary to enter a username or password.
