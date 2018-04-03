@@ -1,4 +1,4 @@
-<ion-content no-bounce>	
+<ion-content no-bounce>
 	<div id="container">
 
 		<ion-list>
@@ -25,14 +25,16 @@
 				<ion-checkbox [(ngModel)]="reservation"></ion-checkbox>
 			</ion-item>
 			<ion-item *ngIf="reservation" id="timeselect">
-			  <ion-datetime displayFormat="hh:mm a" placeholder="Select Time"
+			  <ion-datetime displayFormat="HH:mm"
+			  							pickerFormat="HH mm"
+			  							placeholder="Select Time"
 			  							[(ngModel)]="time"></ion-datetime>
 			</ion-item>
 
 			<button class="localbutton" ion-button block
 							(click)="submit()">Submit</button>
 			<button class="localbutton" ion-button block outline
-							(click)="cancel()">Cancel</button>
+							(click)="exit()">Cancel</button>
 		</ion-list>
 	</div>
 </ion-content>

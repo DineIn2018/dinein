@@ -50,9 +50,9 @@
 <ion-content id="sideview">
   <div id="waitlist">
     <ion-list scroll="true" id="listscroll">
-      <button *ngFor="let party of parties" 
+      <button *ngFor="let party of parties"
               [ngClass]="{'resparty': party.reservation,
-                          'waitparty': !party.reservation}" 
+                          'waitparty': !party.reservation}"
               ion-button block outline
               (click)="presentPartyActions(party)">
         {{party.display()}}

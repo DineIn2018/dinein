@@ -22,7 +22,7 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
-// old primary #DEBB58
+// old primary #DEBB58 #DEC06B #7DB9B9
 
 $colors: (
   primary:    #DEC06B,
@@ -96,7 +96,12 @@ $action-sheet-ios-title-font-size: 2rem;
 //
 $alert-ios-background: color($colors, dark);
 $alert-ios-border-radius: 5px;
-$alert-ios-message-text-color: color($colors, medium);
+$alert-ios-message-text-color: color($colors, middark);
+$alert-ios-button-background-color-activated: color($colors, darkest);
+$alert-ios-button-border-color: color($colors, middark);
+//$alert-ios-button-border-width: 1px;
+$alert-ios-max-width: 100%;
+
 $datetime-ios-placeholder-color: color($colors, middark);
 
 // App Material Design Variables

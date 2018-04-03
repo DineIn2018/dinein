@@ -67,7 +67,7 @@
         width: 100%;
         height: 100%;
     }
-   
+
     .modalbase {
         background-color: color($colors, dark);
         padding-top: 15px;
@@ -75,7 +75,7 @@
         padding-left: 30px;
         padding-right: 30px;
         border-radius: 5px;
-        
+
     }
 
     .modalbutton {
@@ -128,7 +128,7 @@
         border-radius: 3px;
         border-color: color($colors, dark);
         border-width: 0px;
-        .picker-opt{ 
+        .picker-opt{
             color: color($colors, medium);
         }
         .picker-opt-selected {
@@ -151,7 +151,7 @@
             background-color: color($colors, primary);
         }
     }
-    
+
     .datetime {
         .datetime-placeholder {
             color: color($colors, middark);
@@ -173,5 +173,17 @@
     // Changes color of placeholder in text input box
     .text-input::-webkit-input-placeholder {
         color: color($colors, middark);
+    }
+
+    .alert-wrapper {
+        border-width: 2px;
+        //border-style: solid;
+        border-color: color($colors, primary);
+    }
+
+    .alert-ios {
+        .alert-title {
+            color: color($colors, medium);
+        }
     }
 }

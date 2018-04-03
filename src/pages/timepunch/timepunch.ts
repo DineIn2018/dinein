@@ -17,30 +17,7 @@ export class TimePunchPage {
 
 		var source = Observable.interval(1000); // 1 second subscription
 		this.subscription = source.subscribe((x) => this.currDateTime = new Date());
-		
-	}
 
-	presentPunchConfirmation() {
-		let alert = this.alertCtrl.create({
-			title: 'Confirm purchase',
-			message: 'Do you want to buy this book?',
-			buttons: [
-				{
-					text: 'Cancel',
-					role: 'cancel',
-					handler: () => {
-						console.log('Cancel clicked');
-					}
-				},
-				{
-					text: 'Confirm',
-					handler: () => {
-						this.punch(this.ID)
-					}
-				}
-			]
-		});
-		alert.present();
 	}
 
 	pressButton(n: number) {
@@ -55,15 +32,51 @@ export class TimePunchPage {
 		this.ID = 0;
 	}
 
-	punch(ID: number) {
-		if (this.validID(ID)) {
-			var time: any = new Date();
-			console.log('Punched time for Employee: ' + ID + ' at ' + time);
-			this.ID = 0;
+	submit() {
+		if (this.validID(this.ID)) {
+			let alert = this.alertCtrl.create({
+				title: 'Punch for Employee ID: ' + this.ID + '?',
+				buttons: [
+					{
+						text: 'Cancel',
+						role: 'cancel',
+						handler: () => {
+							console.log('Cancel clicked');
+						}
+					},
+					{
+						text: 'Confirm',
+						handler: () => {
+							console.log('Punched time for Employee: ' + this.ID + ' at ' + this.currDateTime);
+							this.submitPunch();
+						}
+					}
+				]
+			});
+			alert.present();
+
+		} else {
+			let alert = this.alertCtrl.create({
+			title: 'Invalid Employee ID',
+			buttons: [
+				{
+					text: 'Dismiss',
+					role: 'cancel',
+					handler: () => { }
+				}
+			]
+		});
+		alert.present();
 		}
 	}
 
-	validID(ID: number) {
-		return ID > 0;
+	validID() {
+		// TODO: Change to check for ID in database
+		return this.ID > 0;
+	}
+
+	submitPunch() {
+		console.log('Successfully punched for employee: ' + this.ID);
+		this.ID = 0;
 	}
 }

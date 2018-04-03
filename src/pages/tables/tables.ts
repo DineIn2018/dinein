@@ -27,12 +27,12 @@ export class TablesPage {
 										new Table(2), new Table(8), new Table(2),
 										new Table(2), new Table(4), new Table(6),
 										new Table(8), new Table(4), new Table(6)];
-		this.parties = [ new Party("Kass", 7, "4:20pm", "608 609 5186", true),
-										 new Party("Casey", 4, "5:55pm", "608 608 6006", true),
-										 new Party("Kameron", 2, "6:15pm", "506 506 5006", false),
-										 new Party("Jimmie", 3, "8:01pm", "999 999 9999", false),
-										 new Party("Suzy", 1000, "9:00pm", "012 345 6789", false),
-										 new Party("Bryan", 1, "11:59pm", "666 666 6666", false)];
+		this.parties = [ new Party("Kass", 7, "04:20", "608 609 5186", true),
+										 new Party("Casey", 4, "05:55", "608 608 6006", true),
+										 new Party("Kameron", 2, "18:15", "506 506 5006", false),
+										 new Party("Jimmie", 3, "21:01", "999 999 9999", false),
+										 new Party("Suzy", 1000, "09:00", "012 345 6789", false),
+										 new Party("Bryan", 1, "11:59", "666 666 6666", false)];
 
 		// TODO: get tables and parties from DB
 	}
@@ -42,19 +42,11 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	presentTableActions(table: Table) {
 
-		var seatOrFree: string;
-
-		if (table.free) {
-			seatOrFree = "Seat Party";
-		} else {
-			seatOrFree = "Free Table";
-		}
-
 		let tableActions = this.actionSheetCtrl.create({
-			title: 'Table Actions',
+			title: 'Table ' + table.ID,
 			buttons: [
 				{
-					text: seatOrFree,
+					text: (table.free? "Seat Party" : "Free Table"),
 					handler: () => {
 						if (table.free) {
 							console.log('Seat Party tapped on table ' + table.ID);
@@ -88,7 +80,7 @@ export class TablesPage {
 	presentPartyActions(party: Party) {
 
 		let partyActions = this.actionSheetCtrl.create({
-			title: 'Party Actions',
+			title: party.name + '\'s ' + (party.reservation? "Reservation" : "Party"),
 			buttons: [
 				{
 					text: 'Seat Party',
@@ -223,7 +215,7 @@ export class TablesPage {
 			this.presentTableActions(table);
 		}
 	}
-	
+
 	//----------------------------------------------------------------------------
 	// Button Action: onEditLayoutPress
 	//----------------------------------------------------------------------------
@@ -358,22 +350,22 @@ export class PartyInfo {
 					<table class="numpad">
 						<tr>
 							<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
+							<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
 							<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
 						</tr>
 						<tr>
 							<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
+							<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
 							<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
 						</tr>
 						<tr>
 							<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
+							<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
 							<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
 						</tr>
 						<tr>
 							<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
+							<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
 							<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
 						</tr>
 					</table>
@@ -432,6 +424,20 @@ export class NumToSeat {
 				]
 			});
 			confirm.present();
+
+		} else if (this.numToSeat < 1) {
+      let alert = this.alertCtrl.create({
+        title: 'Invalid Party Size',
+        enableBackdropDismiss: false,
+        buttons: [
+          {
+            text: 'Dismiss',
+            handler: () => { }
+          }
+        ]
+      });
+      alert.present();
+
 		} else {
 			this.table.seat(this.numToSeat, null);
 			this.navCtrl.pop();
@@ -469,19 +475,11 @@ export class Table {
 	}
 
 	getStatus(): string {
-		if (this.free) {
-			return "Free";
-		} else {
-			return "Occupied";
-		}
+		return this.free? "Free" : "Occupied";
 	}
 
 	getButtonText(): string {
-		if (this.free) {
-			return this.capacity.toString();
-		} else {
-			return this.partySize + '/' + this.capacity;
-		}
+		return this.free? String(this.capacity) : this.partySize + '/' + this.capacity
 	}
 
 	freeTable() {
@@ -497,17 +495,13 @@ export class Table {
 		this.free = false;
 		this.partySize = size;
 		this.server = "Manager";
-		if (name != null) {
-			this.guestName = name;
-		} else {
-			this.guestName = "N/A";
-		}
+		this.guestName = (name != null)? name : "N/A";
 	}
 }
 
 export class Party {
 
-	static ID_runner: number = 0;
+	static ID_runner: number = 1;
 
 	ID: number;
 	name: string;
@@ -520,8 +514,6 @@ export class Party {
 							contact: string, reservation: boolean) {
 		this.ID = Party.ID_runner;
 		Party.ID_runner += 1;
-		console.log('created party ID: '+ this.ID);
-		console.log('curr ID_runner: '+ Party.ID_runner);
 		this.name = name;
 		this.size = size;
 		this.time = time;
@@ -530,11 +522,7 @@ export class Party {
 	}
 
 	getKind(): string {
-		if (this.reservation) {
-			return "Reservation";
-		} else {
-			return "Party";
-		}
+		return this.reservation? "Reservation" : "Party";
 	}
 
 	display(): string {

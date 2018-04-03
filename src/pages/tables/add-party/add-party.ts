@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
-import { ModalController, ViewController } from 'ionic-angular';;
+import { ModalController, ViewController, AlertController } from 'ionic-angular';;
 import { Party } from '../tables';
 
 @IonicPage()
@@ -10,8 +10,9 @@ import { Party } from '../tables';
 })
 export class AddPartyPage {
 
-  FIELD_SIZE: string;
-  FIELD_CONTACT: string;
+  FIELD_SIZE = "Party Size";
+  FIELD_CONTACT: string = "Contact Number";
+
   buttonTextSize: string;
   buttonTextContact: string;
 
@@ -30,45 +31,104 @@ export class AddPartyPage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public viewCtrl: ViewController,
+              public alertCtrl: AlertController,
               public navParams: NavParams) {
 
-    this.FIELD_SIZE = "Party Size";
-    this.FIELD_CONTACT = "Contact Number";
-    
     this.editMode = navParams.get("edit");
-    console.log("EDIT PARTY MODE: " + this.editMode);
+    console.log("Entered in: " + (this.editMode? "Edit":"Add") + " Party mode");
 
+    //
+    // Editing party mode
+    //
     if (this.editMode) {
       this.party = navParams.get("edit_party");
+
+      // Sets the button text
       this.buttonTextSize = String(this.party.size);
       this.buttonTextContact = String(this.party.contact);
+
+      // Set user inputs automatically to the values of party being edited
       this.ID = this.party.ID;
       this.name = this.party.name;
       this.size = this.party.size;
       this.contact = this.party.contact;
       this.reservation = this.party.reservation;
-      this.time = String(this.party.time);
+      this.time = this.party.time;
+
+    //
+    // Adding new party mode
+    //
     } else {
       this.parties = navParams.get("parties");
+
+      // Sets the button text to their default place holders
       this.buttonTextSize = "Size";
       this.buttonTextContact = "Contact Number";
+
+      // All inputs initially empty
       this.ID = null;
       this.name = null;
       this.size = null;
       this.contact = null;
       this.reservation = false;
-      this.time = null;      
+      this.time = null;
     }
 
   }
 
   submit() {
-    if (this.editMode) {
-      this.saveEditedParty();
+    //
+    // Invalid Input data
+    //
+    if (!this.validData()) {
+      let alert = this.alertCtrl.create({
+        title: 'Some Information is Missing!',
+        enableBackdropDismiss: false,
+        buttons: [
+          {
+            text: 'Dismiss',
+            handler: () => { }
+          }
+        ]
+      });
+      alert.present();
+
+    //
+    // Valid Input Data
+    //
     } else {
-      this.addParty();
+
+      if (this.editMode) {
+        this.party.ID = this.ID;
+        this.party.name = this.name;
+        this.party.size = this.size;
+        this.party.contact = this.contact;
+        this.party.reservation = this.reservation;
+        this.party.time = this.time;
+        console.log("Saved edited Party ID: " + this.party.ID);
+
+      // Adding Party Mode
+      } else {
+        var partyTime: string;
+
+        if (this.reservation) {
+          partyTime = this.time;
+        } else {
+          var d = new Date();
+          partyTime = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
+        }
+        var party = new Party(this.name, this.size, partyTime,
+                            this.contact, this.reservation);
+        this.parties.push(party);
+        console.log("Added Party ID: " + party.ID);
+      }
+
+      this.exit();
     }
-    console.log("about to pop add party page");
+  }
+
+  exit() {
+    console.log("Exiting Add/Edit Party Page...");
     this.navCtrl.pop();
   }
 
@@ -82,9 +142,9 @@ export class AddPartyPage {
         } else if (field == this.FIELD_CONTACT) {
           this.contact = String(data);
           this.buttonTextContact = String(this.contact);
-        }  
+        }
       }
-      
+
     });
     modal.present();
   }
@@ -93,54 +153,11 @@ export class AddPartyPage {
     return ((this.name != null) &&
             (this.size != null) &&
             (this.contact != null) &&
-            (this.reservation != null));
+            (this.reservation != null))
   }
 
-  cancel() {
-    this.navCtrl.pop();
-  }
-
-  addParty() {
-    var partyTime: string;
-
-    if (this.reservation) {
-      partyTime = this.time;
-    } else {
-      var d = new Date();
-      var curr_hour = d.getHours();
-      var curr_min = d.getMinutes();
-      var a_p: string;
-      if (curr_hour < 12) {
-        a_p = "AM";
-      } else {
-        a_p = "PM";
-      }
-      if (curr_hour == 0) {
-        curr_hour = 12;
-      }
-      if (curr_hour > 12) {
-        curr_hour = curr_hour - 12;
-      }
-      partyTime = (curr_hour + ":" + curr_min + " " + a_p);
-    }
-
-    console.log(this.name + " " + this.size + " " + this.contact + " " + this.reservation);
-    
-    if (this.validData()) {
-      var party = new Party(this.name, this.size, partyTime,
-                          this.contact, this.reservation);
-      this.parties.push(party);
-      console.log("PUSHED PARTY");
-    }
-  }
-
-  saveEditedParty() {
-    this.party.ID = this.ID;
-    this.party.name = this.name;
-    this.party.size = this.size;
-    this.party.contact = this.contact;
-    this.party.reservation = this.reservation;
-    this.party.time = this.time;
+  pad(n) {
+    return (n < 10)? ('0' + n) : n;
   }
 }
 
@@ -157,22 +174,22 @@ export class AddPartyPage {
           <table class="numpad">
             <tr>
               <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
+              <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
               <td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
             </tr>
             <tr>
               <td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
+              <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
               <td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
             </tr>
             <tr>
               <td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
+              <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
               <td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
             </tr>
             <tr>
               <td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
+              <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
               <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
             </tr>
           </table>
@@ -189,6 +206,7 @@ export class Numpad {
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
+              public alertCtrl: AlertController,
               params: NavParams) {
     this.field = params.get('field');
     this.userInput = 0;
@@ -208,10 +226,19 @@ export class Numpad {
 
   OK() {
     if (this.userInput > 0) {
-      //let data = {'userInput': this.userInput};
       this.viewCtrl.dismiss(this.userInput);
     } else {
-      this.viewCtrl.dismiss(null);
+      let alert = this.alertCtrl.create({
+        title: 'Invalid ' + this.field,
+        enableBackdropDismiss: false,
+        buttons: [
+          {
+            text: 'Dismiss',
+            handler: () => { }
+          }
+        ]
+      });
+      alert.present();
     }
   }
 
