@@ -115,11 +115,12 @@ export class AddPartyPage {
           partyTime = this.time;
         } else {
           var d = new Date();
-          partyTime = this.pad(d.getUTCHours()) + ":" + this.pad(d.getUTCMinutes());
+          partyTime = this.pad(d.getHours()) + ":" + this.pad(d.getMinutes());
         }
         var party = new Party(this.name, this.size, partyTime,
                             this.contact, this.reservation);
         this.parties.push(party);
+        this.parties.sort(Party.compare);
         console.log("Added Party ID: " + party.ID);
       }
 
@@ -128,6 +129,7 @@ export class AddPartyPage {
   }
 
   exit() {
+    console.log(this.time);
     console.log("Exiting Add/Edit Party Page...");
     this.navCtrl.pop();
   }
@@ -153,7 +155,8 @@ export class AddPartyPage {
     return ((this.name != null) &&
             (this.size != null) &&
             (this.contact != null) &&
-            (this.reservation != null))
+            (this.reservation != null) &&
+            (!this.reservation || (this.time != null)))
   }
 
   pad(n) {

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import { Employee } from '../employees/employees';
+import { EmployeeShift } from '../punchcard/punchcard';
 
 @Component({
 	selector: 'page-timepunch',
@@ -33,7 +35,7 @@ export class TimePunchPage {
 	}
 
 	submit() {
-		if (this.validID(this.ID)) {
+		if (this.validID()) {
 			let alert = this.alertCtrl.create({
 				title: 'Punch for Employee ID: ' + this.ID + '?',
 				buttons: [
@@ -47,8 +49,12 @@ export class TimePunchPage {
 					{
 						text: 'Confirm',
 						handler: () => {
-							console.log('Punched time for Employee: ' + this.ID + ' at ' + this.currDateTime);
-							this.submitPunch();
+							if (this.isCurrentlyWorking(this.ID)) {
+								this.punchOut();
+							} else {
+								this.punchIn();
+							}
+							this.ID = 0;
 						}
 					}
 				]
@@ -75,8 +81,22 @@ export class TimePunchPage {
 		return this.ID > 0;
 	}
 
-	submitPunch() {
+	isCurrentlyWorking(ID: number): boolean {
+		// TODO: check database to see if employee is working or not
+		return true;
+	}
+
+	punchIn() {
+		// Instantiate shift object with only shift start time, no shift end time
+		// Mark new shift as incompleted/in progress
+		// Set employee status to "Currently working"
+		// Add the shift object to the employee
+	}
+
+	punchOut() {
+		// Add shift end time to the latest shift object
+		// Mark shift as completed
+
 		console.log('Successfully punched for employee: ' + this.ID);
-		this.ID = 0;
 	}
 }

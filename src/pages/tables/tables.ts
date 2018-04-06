@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ActionSheetController, ModalController } from 'ionic-angular';
 import { AddPartyPage } from './add-party/add-party';
+import { Employee } from '../employees/employees';
 
 @Component({
 	selector: 'page-tables',
@@ -14,6 +15,7 @@ export class TablesPage {
 
 	tables: Table[];
 	parties: Party[];
+	servers: Employee[];
 
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
@@ -27,124 +29,29 @@ export class TablesPage {
 										new Table(2), new Table(8), new Table(2),
 										new Table(2), new Table(4), new Table(6),
 										new Table(8), new Table(4), new Table(6)];
-		this.parties = [ new Party("Kass", 7, "04:20", "608 609 5186", true),
-										 new Party("Casey", 4, "05:55", "608 608 6006", true),
+		this.parties = [
+										 new Party("Kass", 7, "04:20", "608 609 5186", true),
 										 new Party("Kameron", 2, "18:15", "506 506 5006", false),
 										 new Party("Jimmie", 3, "21:01", "999 999 9999", false),
 										 new Party("Suzy", 1000, "09:00", "012 345 6789", false),
-										 new Party("Bryan", 1, "11:59", "666 666 6666", false)];
+										 new Party("Casey", 4, "05:55", "608 608 6006", true),
+										 new Party("Pete", 7, "05:54", "666 666 6969", false),
+										 new Party("Kay", 2, "00:59", "666 666 6969", false),
+										 new Party("Magaret", 4, "05:20", "666 666 6969", true),
+										 new Party("Joyce", 3, "05:55", "666 666 6969", false),
+										 new Party("Ivan", 10, "11:59", "666 666 6969", false),
+										 new Party("Jason", 12, "11:59", "666 666 6969", false),
+										 new Party("Ben", 5, "00:00", "666 666 6969", true),
+										 new Party("Issac", 6, "23:59", "666 666 6969", true),
+										 new Party("Leslie", 6, "24:59", "666 666 6969", false)
+									 ];
 
-		// TODO: get tables and parties from DB
-	}
+		this.parties.sort(Party.compare);
 
-	//----------------------------------------------------------------------------
-	// Action Sheet: presentTableActions
-	//----------------------------------------------------------------------------
-	presentTableActions(table: Table) {
-
-		let tableActions = this.actionSheetCtrl.create({
-			title: 'Table ' + table.ID,
-			buttons: [
-				{
-					text: (table.free? "Seat Party" : "Free Table"),
-					handler: () => {
-						if (table.free) {
-							console.log('Seat Party tapped on table ' + table.ID);
-							this.displaySeatTableNumpad(table);
-						} else {
-							console.log('Free Table tapped on table ' + table.ID);
-							table.freeTable();
-						}
-					}
-				},
-				{
-					text: 'Table Information',
-					handler: () => {
-						console.log('Table ' + table.ID + ' info tappped');
-						this.displayTableInfo(table);
-					}
-				},
-				{
-					text: 'Cancel',
-					role: 'cancel',
-					handler: () => { }
-				}
-			]
-		});
-		tableActions.present();
-	}
-
-	//----------------------------------------------------------------------------
-	// Action Sheet: presentPartyActions
-	//----------------------------------------------------------------------------
-	presentPartyActions(party: Party) {
-
-		let partyActions = this.actionSheetCtrl.create({
-			title: party.name + '\'s ' + (party.reservation? "Reservation" : "Party"),
-			buttons: [
-				{
-					text: 'Seat Party',
-					handler: () => {
-						console.log('Selected Party ' + party.ID + ' to seat');
-						// Enable seating party to table mode
-						this.activateSeatingPartyMode(party);
-					}
-				},
-				{
-					text: 'Party Information',
-					handler: () => {
-						console.log('Party ' + party.ID + ' info tappped');
-						this.displayPartyInfo(party);
-					}
-				},
-				{
-					text: 'Edit Party',
-					handler: () => {
-						console.log('Party ' + party.ID + ' edit tappped');
-						this.navCtrl.push(AddPartyPage, {"parties" : null,
-																						 "edit": true,
-																						 "edit_party": party});
-					}
-				},
-				{
-					text: 'Delete Party',
-					handler: () => {
-						console.log('Party ' + party.ID + ' delete tappped');
-						this.deleteParty(party);
-					}
-				},
-				{
-					text: 'Cancel',
-					role: 'cancel',
-					handler: () => { }
-				}
-			]
-		});
-		partyActions.present();
-	}
-
-	//----------------------------------------------------------------------------
-	// Modal Trigger: displayTableInfo
-	//----------------------------------------------------------------------------
-	displayTableInfo(t: Table) {
-		let modal = this.modalCtrl.create(TableInfo, { table: t });
-		modal.present();
-	}
-
-	//----------------------------------------------------------------------------
-	// Modal Trigger: displayPartyInfo
-	//----------------------------------------------------------------------------
-	displayPartyInfo(p: Party) {
-		let modal = this.modalCtrl.create(PartyInfo, { party: p });
-		modal.present();
-	}
-
-	//----------------------------------------------------------------------------
-	// Modal Trigger: displaySeatTableNumpad
-	//----------------------------------------------------------------------------
-	displaySeatTableNumpad(t: Table) {
-		let modal = this.modalCtrl.create(NumToSeat, { table: t });
-		modal.present();
+		// TODO: get tables and parties from Database
+		// Filter "parties" by date, get only the ones for today
+		// Only reservations are going persist in database, grab those from database
+		// TODO: write sorting algorithm for the whole list
 	}
 
 	//----------------------------------------------------------------------------
@@ -234,6 +141,121 @@ export class TablesPage {
 																		 "edit_party": null});
 	}
 
+	//----------------------------------------------------------------------------
+	// Action Sheet: presentTableActions
+	//----------------------------------------------------------------------------
+	presentTableActions(table: Table) {
+
+		let tableActions = this.actionSheetCtrl.create({
+			title: 'Table ' + table.ID,
+			buttons: [
+				{
+					text: (table.free? "Seat Party" : "Free Table"),
+					handler: () => {
+						if (table.free) {
+							console.log('Seat Party tapped on table ' + table.ID);
+							this.displaySeatTableNumpad(table);
+							this.displayServerSelector(table);
+						} else {
+							console.log('Free Table tapped on table ' + table.ID);
+							table.freeTable();
+						}
+					}
+				},
+				{
+					text: 'Table Information',
+					handler: () => {
+						console.log('Table ' + table.ID + ' info tappped');
+						this.displayTableInfo(table);
+					}
+				},
+				{
+					text: 'Cancel',
+					role: 'cancel',
+					handler: () => { }
+				}
+			]
+		});
+		tableActions.present();
+	}
+
+	//----------------------------------------------------------------------------
+	// Action Sheet: presentPartyActions
+	//----------------------------------------------------------------------------
+	presentPartyActions(party: Party) {
+
+		let partyActions = this.actionSheetCtrl.create({
+			title: party.name + '\'s ' + (party.reservation? "Reservation" : "Party"),
+			buttons: [
+				{
+					text: 'Seat Party',
+					handler: () => {
+						console.log('Selected Party ' + party.ID + ' to seat');
+						// Enable seating party to table mode
+						this.activateSeatingPartyMode(party);
+					}
+				},
+				{
+					text: 'Party Information',
+					handler: () => {
+						console.log('Party ' + party.ID + ' info tappped');
+						this.displayPartyInfo(party);
+					}
+				},
+				{
+					text: 'Edit Party',
+					handler: () => {
+						console.log('Party ' + party.ID + ' edit tappped');
+						this.navCtrl.push(AddPartyPage, {"parties" : null,
+																						 "edit": true,
+																						 "edit_party": party});
+					}
+				},
+				{
+					text: 'Delete Party',
+					handler: () => {
+						console.log('Party ' + party.ID + ' delete tappped');
+						this.deleteParty(party);
+					}
+				},
+				{
+					text: 'Cancel',
+					role: 'cancel',
+					handler: () => { }
+				}
+			]
+		});
+		partyActions.present();
+	}
+
+	//----------------------------------------------------------------------------
+	// MODAL TRIGGERS
+	//----------------------------------------------------------------------------
+	displayTableInfo(t: Table) {
+		let modal = this.modalCtrl.create(TableInfo, { table: t });
+		modal.present();
+	}
+
+	displayPartyInfo(p: Party) {
+		let modal = this.modalCtrl.create(PartyInfo, { party: p });
+		modal.present();
+	}
+
+	displaySeatTableNumpad(t: Table) {
+		let modal = this.modalCtrl.create(NumToSeat, { table: t });
+		modal.onDidDismiss(data => {
+			console.log(data);
+		});
+		modal.present();
+	}
+
+	displayServerSelector(t: Table) {
+		// TODO: Make Server Selector
+	}
+
+	//----------------------------------------------------------------------------
+	// AUXILLARY FUNCTIONS
+	//----------------------------------------------------------------------------
 	activateSeatingPartyMode(p: Party) {
 		this.mode = Mode.SeatingParty;
 		this.selectedParty = p;
@@ -344,34 +366,34 @@ export class PartyInfo {
 	selector: 'page-tables',
 	template: `
 		<div class="modalbase" id="numpadmodal">
-				<ion-label class="header">Party Size</ion-label>
-				<ion-label class="subtitle">{{numToSeat}}</ion-label>
-				<div style="height:300px;width:100%;">
-					<table class="numpad">
-						<tr>
-							<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-						</tr>
-						<tr>
-							<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-						</tr>
-						<tr>
-							<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-						</tr>
-						<tr>
-							<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
-							<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-						</tr>
-					</table>
-				</div>
-				<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
-				<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
+			<ion-label class="header">Party Size</ion-label>
+			<ion-label class="subtitle">{{numToSeat}}</ion-label>
+			<div style="height:300px;width:100%;">
+				<table class="numpad">
+					<tr>
+						<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
+						<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
+						<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
+					</tr>
+					<tr>
+						<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
+						<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
+						<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
+					</tr>
+					<tr>
+						<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
+						<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
+						<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
+					</tr>
+					<tr>
+						<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
+						<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
+						<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
+					</tr>
+				</table>
+			</div>
+			<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
+			<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
 		</div>
 	`
 })
@@ -455,6 +477,7 @@ export class NumToSeat {
 
 export class Table {
 
+	// TODO: change from static ID runner to getting current ID runner from DB
 	static ID_runner: number = 1;
 
 	ID: number;
@@ -527,6 +550,29 @@ export class Party {
 
 	display(): string {
 		return this.time + ' | ' + this.name + ' | ' + this.size;
+	}
+
+	static compare(p1, p2) {
+		if (p1.reservation && !p2.reservation)
+		  return -1;
+		if (!p1.reservation && p2.reservation)
+		  return 1;
+		else {
+			var h1 = parseInt(p1.time.substring(0,2));
+			var h2 = parseInt(p2.time.substring(0,2));
+			if (h1 < h2)
+				return -1;
+			if (h1 > h2)
+				return 1;
+
+			var m1 = parseInt(p1.time.substring(3,5));
+			var m2 = parseInt(p2.time.substring(3,5));
+			if (m1 < m2)
+				return -1;
+			if (m1 > m2)
+				return 1;
+		}
+		return 0;
 	}
 }
 

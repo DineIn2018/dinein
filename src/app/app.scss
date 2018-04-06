@@ -80,8 +80,6 @@
 
     .modalbutton {
         margin-top: 20px;
-        font-size: 15px;
-        font-weight: 475;
     }
 
     .numpad {
@@ -101,7 +99,7 @@
         margin: 0px;
     }
 
-    .localbutton {
+    .localbutton, .modalbutton {
         font-size: 15px;
         font-weight: 475;
     }
@@ -119,9 +117,9 @@
         //padding-left: 15px;
     }
 
-    // Tab styling, darkens when selected
+    // Tab styling, darkens when selected, unused
     .tabs-ios .tab-button[aria-selected=true] {
-        background-color: color($colors, darkest);
+        //background-color: color($colors, darkest);
     }
 
     .picker-wrapper {
