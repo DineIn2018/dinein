@@ -22,7 +22,8 @@
 
 			<ion-item id="reservationcheckbox">
 				<ion-label>Reservation?</ion-label>
-				<ion-checkbox [(ngModel)]="reservation"></ion-checkbox>
+				<ion-checkbox [(ngModel)]="reservation"
+											[disabled]="editMode"></ion-checkbox>
 			</ion-item>
 			<ion-item *ngIf="reservation" id="timeselect">
 			  <ion-datetime displayFormat="HH:mm"

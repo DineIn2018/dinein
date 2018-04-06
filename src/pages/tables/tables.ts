@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { ActionSheetController, ModalController } from 'ionic-angular';
 import { AddPartyPage } from './add-party/add-party';
-import { Employee } from '../employees/employees';
+//import { Employee } from '../employees/employees';
+
+/*
+	BUGS:
+	1) Static ID for party and tables keep counting after login-logout
+		 should be solved once we use ID's from DB
+	2)
+*/
 
 @Component({
 	selector: 'page-tables',
@@ -20,15 +27,18 @@ export class TablesPage {
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
 							public alertCtrl: AlertController,
-							public actionSheetCtrl: ActionSheetController) {
+							public actionSheetCtrl: ActionSheetController,
+							public viewCtrl: ViewController) {
 
 		this.mode = Mode.Default;
 		this.selectedParty = null;
 
-		this.tables = [ new Table(4), new Table(4), new Table(6),
+		this.tables = [
+										new Table(4), new Table(4), new Table(6),
 										new Table(2), new Table(8), new Table(2),
 										new Table(2), new Table(4), new Table(6),
-										new Table(8), new Table(4), new Table(6)];
+										new Table(8), new Table(4), new Table(6)
+									];
 		this.parties = [
 										 new Party("Kass", 7, "04:20", "608 609 5186", true),
 										 new Party("Kameron", 2, "18:15", "506 506 5006", false),
@@ -48,6 +58,20 @@ export class TablesPage {
 
 		this.parties.sort(Party.compare);
 
+		this.servers = [
+										new Employee("Spongebob"),
+										new Employee("Squidward"),
+										new Employee("Patrick"),
+										new Employee("Mr. Krabs"),
+										new Employee("Plankton"),
+										new Employee("Sandy"),
+										new Employee("Pearl"),
+										new Employee("Rick"),
+										new Employee("Morty"),
+										new Employee("Beth"),
+										new Employee("Jerry"),
+										new Employee("Bird Person")
+									 ];
 		// TODO: get tables and parties from Database
 		// Filter "parties" by date, get only the ones for today
 		// Only reservations are going persist in database, grab those from database
@@ -83,6 +107,7 @@ export class TablesPage {
 									console.log('Selected to seat overcapacity');
 									// Seat number of party size at table
 									table.seat(this.selectedParty.size, this.selectedParty.name);
+									this.displaySelectServer(table);
 									this.deleteParty(this.selectedParty);
 									this.deactivateSeatingPartyMode();
 								}
@@ -155,7 +180,6 @@ export class TablesPage {
 						if (table.free) {
 							console.log('Seat Party tapped on table ' + table.ID);
 							this.displaySeatTableNumpad(table);
-							this.displayServerSelector(table);
 						} else {
 							console.log('Free Table tapped on table ' + table.ID);
 							table.freeTable();
@@ -244,8 +268,16 @@ export class TablesPage {
 	displaySeatTableNumpad(t: Table) {
 		let modal = this.modalCtrl.create(NumToSeat, { table: t });
 		modal.onDidDismiss(data => {
-			console.log(data);
+			if (data) {
+				this.displaySelectServer(t);
+			}
 		});
+		modal.present();
+	}
+
+	displaySelectServer(t: Table) {
+		let modal = this.modalCtrl.create(SelectServer, { table: t,
+																											servers: this.servers });
 		modal.present();
 	}
 
@@ -298,6 +330,7 @@ export class TablesPage {
 				<ion-label class="regularText">Capacity: {{t.capacity}}</ion-label>
 				<ion-label class="regularText">Status: {{t.getStatus()}}</ion-label>
 				<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
+				<ion-label class="regularText">Time In: {{t.timeIn}}</ion-label>
 				<ion-label class="regularText">Server: {{t.server}}</ion-label>
 				<ion-label class="regularText">Guest: {{t.guestName}}</ion-label>
 				<div class="modalbuttons">
@@ -310,7 +343,7 @@ export class TablesPage {
 })
 export class TableInfo {
 
-	t: Table
+	t: Table;
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.t = params.get('table');
@@ -339,15 +372,15 @@ export class TableInfo {
 				<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
 				<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
 				<ion-label class="regularText">ID: {{p.ID}}</ion-label>
-					<button class="modalbutton" ion-button block
-									(click)="dismiss()">Dismiss</button>
+				<button class="modalbutton" ion-button block
+								(click)="dismiss()">Dismiss</button>
 			</ion-list>
 		</div>
 	`
 })
 export class PartyInfo {
 
-	p: Party
+	p: Party;
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.p = params.get('party');
@@ -404,6 +437,7 @@ export class NumToSeat {
 
 	constructor(public navCtrl: NavController,
 							public alertCtrl: AlertController,
+							public viewCtrl: ViewController,
 							params: NavParams) {
 		this.table = params.get('table');
 		this.numToSeat = 0;
@@ -462,13 +496,68 @@ export class NumToSeat {
 
 		} else {
 			this.table.seat(this.numToSeat, null);
-			this.navCtrl.pop();
+			this.viewCtrl.dismiss(true);
 		}
 	}
 
 	cancel() {
+		this.viewCtrl.dismiss(false);
+	}
+}
+
+//------------------------------------------------------------------------------
+// Sub-View: SelectServer
+//------------------------------------------------------------------------------
+@Component({
+	selector: 'page-tables',
+	template: `
+		<div id="servermodal">
+			<ion-list id="modalcontent">
+				<ion-label class="header">Select Server</ion-label>
+				<ion-content id="serverlist">
+					<ion-list scroll="true" id="listscroll">
+			      <button *ngFor="let server of servers"
+			      				[ngClass]="{'selectedserver': server === selectedServer,
+			      										'server': server !== selectedServer}"
+			      				ion-button block outline
+			              (click)="selectServer(server)">
+			        {{server.name}}
+			      </button>
+		    	</ion-list>
+		    </ion-content>
+	    	<button class="modalbutton" ion-button block
+									(click)="OK()">OK</button>
+	    	<button class="modalbutton" ion-button block outline
+									(click)="dismiss()">Dismiss</button>
+			</ion-list>
+		</div>
+	`
+})
+export class SelectServer {
+
+	t: Table;
+	servers: Employee[];
+	selectedServer: Employee;
+
+	constructor(public navCtrl: NavController, params: NavParams) {
+		this.t = params.get('table');
+		this.servers = params.get('servers');
+		this.selectedServer = this.servers[0];
+	}
+
+	selectServer(s: Employee) {
+		this.selectedServer = s;
+	}
+
+	OK() {
+		this.t.server = this.selectedServer.name;
+		this.dismiss();
+	}
+
+	dismiss() {
 		this.navCtrl.pop();
 	}
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -484,6 +573,7 @@ export class Table {
 	capacity: number;
 	free: boolean;
 	partySize: number;
+	timeIn: string;
 	server: string;
 	guestName: string;
 
@@ -493,6 +583,7 @@ export class Table {
 		this.capacity = capacityIn;
 		this.free = true;
 		this.partySize = 0;
+		this.timeIn = "N/A";
 		this.server = "N/A";
 		this.guestName = "N/A";
 	}
@@ -509,6 +600,7 @@ export class Table {
 		console.log('Table ' + this.ID + ' freed');
 		this.free = true;
 		this.partySize = 0;
+		this.timeIn = "N/A";
 		this.server = "N/A";
 		this.guestName = "N/A";
 	}
@@ -517,9 +609,15 @@ export class Table {
 		console.log('Seated ' + size + ' people at Table ' + this.ID);
 		this.free = false;
 		this.partySize = size;
-		this.server = "Manager";
+		var d = new Date();
+    this.timeIn = this.pad(d.getHours()) + ":" + this.pad(d.getMinutes());
+		//this.server = "Manager";
 		this.guestName = (name != null)? name : "N/A";
 	}
+
+	pad(n) {
+    return (n < 10)? ('0' + n) : n;
+  }
 }
 
 export class Party {
@@ -580,4 +678,12 @@ enum Mode {
 	Default = 0,
 	SeatingParty = 1,
 	EditingLayout = 2
+}
+
+// Place holder server
+class Employee {
+	name:string;
+	constructor(name: string) {
+		this.name = name;
+	}
 }

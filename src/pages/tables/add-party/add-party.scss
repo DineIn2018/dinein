@@ -3,7 +3,7 @@ page-add-party {
     #container {
         width: 325px;
         padding-top: 70px;
-        margin-left: auto; 
+        margin-left: auto;
         margin-right: auto;
     }
 
@@ -11,7 +11,6 @@ page-add-party {
         border-style: solid;
         border-radius: 2px;
         border-width: 2px;
-        border-color: color($colors, primary);
         background-color: color($colors, darkest);
     }
 
@@ -58,7 +57,7 @@ page-add-party {
     .numpad {
         background-color: color($colors, darkest);
     }
-    
+
     .localbutton {
         margin-top: 20px;
     }

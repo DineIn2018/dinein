@@ -83,7 +83,7 @@ page-tables {
         font-weight: 450;
 
         .button-inner{
-            justify-content:flex-start;
+            justify-content: flex-start;
         }
     }
 
@@ -97,7 +97,6 @@ page-tables {
         height: 80px;
         width: 14%;
     }
-
 
     .tablebuttoncapacity {
         float: right;
@@ -125,8 +124,6 @@ page-tables {
         color: color($colors, medium);
         justify-content:flex-start;
     }
-
-
 
     .table, .tablenotfree, .tablechooseme {
         width: 100%;
@@ -171,6 +168,48 @@ page-tables {
         padding-bottom: 2px;
         padding-left: 30px;
         padding-right: 30px;
+    }
+
+    #servermodal {
+        background-color: color($colors, dark);
+        border-radius: 5px;
+        padding-top: 15px;
+        padding-bottom: 2px;
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 45%;
+        height: 100%;
+        margin: auto;
+    }
+
+    #serverlist {
+        width: 100%;
+        height: 370px;
+        margin-bottom: 25px;
+        background-color: color($colors, dark);
+    }
+
+    .server, .selectedserver {
+        padding-left: 5px;
+        border-radius: 0px;
+        border-top: 0px;
+        border-right: 0px;
+        border-left: 0px;
+        border-bottom: solid 0.7px;
+        border-radius: 2px;
+        border-color: color($colors, middark);
+        font-size: 15px;
+        font-weight: 450;
+        height: 40px;
+        margin: 0px;
+
+        .button-inner{
+            justify-content: flex-start;
+        }
+    }
+
+    .server {
+        color: color($colors, middark);
     }
 
     #numpadmodal {
