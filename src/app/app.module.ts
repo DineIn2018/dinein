@@ -22,6 +22,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
+import { NgCalendarModule  } from 'ionic2-calendar';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -50,7 +52,8 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgCalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
