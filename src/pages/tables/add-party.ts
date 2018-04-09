@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import { ModalController, ViewController, AlertController } from 'ionic-angular';;
-import { Party } from '../tables';
+import { Party } from './tables';
+import { DateTimeService } from '../util/date-time';
 
 @IonicPage()
 @Component({
@@ -32,7 +33,8 @@ export class AddPartyPage {
               public modalCtrl: ModalController,
               public viewCtrl: ViewController,
               public alertCtrl: AlertController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              private datetime: DateTimeService) {
 
     this.editMode = navParams.get("edit");
     console.log("Entered in: " + (this.editMode? "Edit":"Add") + " Party mode");
@@ -114,8 +116,7 @@ export class AddPartyPage {
         if (this.reservation) {
           partyTime = this.time;
         } else {
-          var d = new Date();
-          partyTime = this.pad(d.getHours()) + ":" + this.pad(d.getMinutes());
+          partyTime = this.datetime.getTime();
         }
         var party = new Party(this.name, this.size, partyTime,
                             this.contact, this.reservation);

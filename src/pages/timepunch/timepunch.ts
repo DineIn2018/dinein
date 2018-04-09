@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { Employee } from '../employees/employees';
 import { EmployeeShift } from '../punchcard/punchcard';
+import { DateTimeService } from '../util/date-time';
 
 @Component({
 	selector: 'page-timepunch',
@@ -15,7 +16,9 @@ export class TimePunchPage {
 
 	ID:number = 0;
 
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController,
+							public alertCtrl: AlertController,
+							private datetime: DateTimeService) {
 
 		var source = Observable.interval(1000); // 1 second subscription
 		this.subscription = source.subscribe((x) => this.currDateTime = new Date());
@@ -35,9 +38,10 @@ export class TimePunchPage {
 	}
 
 	submit() {
+		var punchTime: string = datetime.getFullDateTime();
 		if (this.validID()) {
 			let alert = this.alertCtrl.create({
-				title: 'Punch for Employee ID: ' + this.ID + '?',
+				title: 'Punch for Employee ID: ' + this.ID + ' at ' + ?',
 				buttons: [
 					{
 						text: 'Cancel',
@@ -100,3 +104,4 @@ export class TimePunchPage {
 		console.log('Successfully punched for employee: ' + this.ID);
 	}
 }
+

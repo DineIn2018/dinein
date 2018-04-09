@@ -1,27 +1,27 @@
 <div class="modalbase" id="numpadmodal">
 	<ion-label class="header">{{title}}</ion-label>
 	<ion-label class="subtitle">{{input}}</ion-label>
-	
-	<div id="numpadcontainer">
+
+	<div style="height:300px;width:100%;margin-bottom:15px;">
 		<table class="numpad">
 			<tr>
 				<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-				<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
+				<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
 				<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
 			</tr>
 			<tr>
 				<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-				<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
+				<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
 				<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
 			</tr>
 			<tr>
 				<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-				<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
+				<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
 				<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
 			</tr>
 			<tr>
 				<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-				<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
+				<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
 				<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
 			</tr>
 		</table>

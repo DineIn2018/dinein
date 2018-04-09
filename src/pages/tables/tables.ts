@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { ActionSheetController, ModalController } from 'ionic-angular';
-import { AddPartyPage } from './add-party/add-party';
+import { AddPartyPage } from './add-party';
+import { DateTimeService } from '../util/date-time';
 //import { Employee } from '../employees/employees';
 
 /*
@@ -28,7 +29,8 @@ export class TablesPage {
 							public modalCtrl: ModalController,
 							public alertCtrl: AlertController,
 							public actionSheetCtrl: ActionSheetController,
-							public viewCtrl: ViewController) {
+							public viewCtrl: ViewController,
+							private datetime: DateTimeService) {
 
 		this.mode = Mode.Default;
 		this.selectedParty = null;
@@ -106,10 +108,7 @@ export class TablesPage {
 								handler: () => {
 									console.log('Selected to seat overcapacity');
 									// Seat number of party size at table
-									table.seat(this.selectedParty.size, this.selectedParty.name);
-									this.displaySelectServer(table);
-									this.deleteParty(this.selectedParty);
-									this.deactivateSeatingPartyMode();
+									this.displaySelectServer(table, this.selectedParty.size);
 								}
 							}
 						]
@@ -118,9 +117,7 @@ export class TablesPage {
 
 				} else {
 					// Seat number of party size at table
-					table.seat(this.selectedParty.size, this.selectedParty.name);
-					this.deleteParty(this.selectedParty);
-					this.deactivateSeatingPartyMode();
+					this.displaySelectServer(table, this.selectedParty.size);
 				}
 
 			// Table is Occupied
@@ -178,7 +175,6 @@ export class TablesPage {
 					text: (table.free? "Seat Party" : "Free Table"),
 					handler: () => {
 						if (table.free) {
-							console.log('Seat Party tapped on table ' + table.ID);
 							this.displaySeatTableNumpad(table);
 						} else {
 							console.log('Free Table tapped on table ' + table.ID);
@@ -268,21 +264,27 @@ export class TablesPage {
 	displaySeatTableNumpad(t: Table) {
 		let modal = this.modalCtrl.create(NumToSeat, { table: t });
 		modal.onDidDismiss(data => {
-			if (data) {
-				this.displaySelectServer(t);
+			if (data != null) {
+				console.log('NumToSeat returned: ' + data);
+				this.displaySelectServer(t, data);
 			}
 		});
 		modal.present();
 	}
 
-	displaySelectServer(t: Table) {
-		let modal = this.modalCtrl.create(SelectServer, { table: t,
-																											servers: this.servers });
+	displaySelectServer(t: Table, numToSeat: number) {
+		let modal = this.modalCtrl.create(SelectServer, {servers: this.servers});
+		modal.onDidDismiss(data => {
+			if (data != null) {
+				console.log('SelectServer returned: ' + data.name);
+				t.seat(numToSeat, data.name, this.datetime.getTime(), null);
+				if (this.seatingPartyMode) {
+					this.deleteParty(this.selectedParty);
+					this.deactivateSeatingPartyMode();
+				}
+			}
+		});
 		modal.present();
-	}
-
-	displayServerSelector(t: Table) {
-		// TODO: Make Server Selector
 	}
 
 	//----------------------------------------------------------------------------
@@ -332,7 +334,7 @@ export class TablesPage {
 				<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
 				<ion-label class="regularText">Time In: {{t.timeIn}}</ion-label>
 				<ion-label class="regularText">Server: {{t.server}}</ion-label>
-				<ion-label class="regularText">Guest: {{t.guestName}}</ion-label>
+				<ion-label class="regularText">Guest: {{t.guest}}</ion-label>
 				<div class="modalbuttons">
 					<button class="modalbutton" ion-button block
 									(click)="dismiss()">Dismiss</button>
@@ -435,10 +437,9 @@ export class NumToSeat {
 	table: Table;
 	numToSeat: number;
 
-	constructor(public navCtrl: NavController,
-							public alertCtrl: AlertController,
+	constructor(public alertCtrl: AlertController,
 							public viewCtrl: ViewController,
-							params: NavParams) {
+							private params: NavParams) {
 		this.table = params.get('table');
 		this.numToSeat = 0;
 		console.log('Pop-up: Num To Seat');
@@ -472,9 +473,7 @@ export class NumToSeat {
 					{
 						text: 'Seat',
 						handler: () => {
-							// Seat number of party size at table
-							this.table.seat(this.numToSeat, null);
-							this.navCtrl.pop();
+							this.viewCtrl.dismiss(this.numToSeat);
 						}
 					}
 				]
@@ -495,13 +494,12 @@ export class NumToSeat {
       alert.present();
 
 		} else {
-			this.table.seat(this.numToSeat, null);
-			this.viewCtrl.dismiss(true);
+			this.viewCtrl.dismiss(this.numToSeat);
 		}
 	}
 
 	cancel() {
-		this.viewCtrl.dismiss(false);
+		this.viewCtrl.dismiss(null);
 	}
 }
 
@@ -528,19 +526,18 @@ export class NumToSeat {
 	    	<button class="modalbutton" ion-button block
 									(click)="OK()">OK</button>
 	    	<button class="modalbutton" ion-button block outline
-									(click)="dismiss()">Dismiss</button>
+									(click)="cancel()">Cancel</button>
 			</ion-list>
 		</div>
 	`
 })
 export class SelectServer {
 
-	t: Table;
 	servers: Employee[];
 	selectedServer: Employee;
 
-	constructor(public navCtrl: NavController, params: NavParams) {
-		this.t = params.get('table');
+	constructor(public viewCtrl: ViewController,
+							params: NavParams) {
 		this.servers = params.get('servers');
 		this.selectedServer = this.servers[0];
 	}
@@ -550,12 +547,11 @@ export class SelectServer {
 	}
 
 	OK() {
-		this.t.server = this.selectedServer.name;
-		this.dismiss();
+		this.viewCtrl.dismiss(this.selectedServer);
 	}
 
-	dismiss() {
-		this.navCtrl.pop();
+	cancel() {
+		this.viewCtrl.dismiss(null);
 	}
 
 }
@@ -575,7 +571,7 @@ export class Table {
 	partySize: number;
 	timeIn: string;
 	server: string;
-	guestName: string;
+	guest: string;
 
 	constructor(capacityIn: number) {
 		this.ID = Table.ID_runner;
@@ -585,7 +581,7 @@ export class Table {
 		this.partySize = 0;
 		this.timeIn = "N/A";
 		this.server = "N/A";
-		this.guestName = "N/A";
+		this.guest = "N/A";
 	}
 
 	getStatus(): string {
@@ -602,22 +598,19 @@ export class Table {
 		this.partySize = 0;
 		this.timeIn = "N/A";
 		this.server = "N/A";
-		this.guestName = "N/A";
+		this.guest = "N/A";
 	}
 
-	seat(size: number, name: string) {
-		console.log('Seated ' + size + ' people at Table ' + this.ID);
+	seat(size: number, server: string, timeIn: string, guest: string) {
 		this.free = false;
 		this.partySize = size;
-		var d = new Date();
-    this.timeIn = this.pad(d.getHours()) + ":" + this.pad(d.getMinutes());
-		//this.server = "Manager";
-		this.guestName = (name != null)? name : "N/A";
+    this.timeIn = timeIn;
+		this.server = server;
+		this.guest = (guest != null)? guest : "N/A";
+		console.log('Seated ' + size + ' people at Table ' + this.ID);
 	}
 
-	pad(n) {
-    return (n < 10)? ('0' + n) : n;
-  }
+
 }
 
 export class Party {
