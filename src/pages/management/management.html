@@ -10,20 +10,15 @@
 
 <ion-content padding>
 
-  <!--<div id="container">
-    <ion-list outline>
-      <ion-item>Restaurant Name: {{restaurantName}}</ion-item>
-      <ion-item>Total Capacity:</ion-item>
-      <ion-item>Total Employees:</ion-item>
-    </ion-list>
-  </div> -->
   <div id="restaurantInfo">
-    <span class="label">Restaurant Name:</span> {{restaurantName}}
+    <span class="label">Restaurant Name:</span> {{management_info.restaurantName}}
     <br>
-    <span class="label">Restaurant Capacity:</span> {{capacity}}
+    <span class="label">Restaurant Capacity:</span> {{management_info.capacity}}
     <br>
-    <span class="label">Total Employees:</span> {{numEmployees}}
+    <span class="label">Total Employees:</span> {{management_info.numEmployees}}
+    <br>
+    <button ion-button block class="button" (click)="openEditPage()">Edit Information</button>
   </div>
-
+  
 
 </ion-content>
