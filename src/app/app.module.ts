@@ -5,7 +5,7 @@ import { MyApp } from './app.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { LoginPage } from '../pages/login/login';
-import { CreateUserPage } from '../pages/login/create-user/create-user';
+import { CreateUserPage } from '../pages/login/create-user';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -18,15 +18,16 @@ import { CalendarPage } from '../pages/calendar/calendar';
 import { ManagementPage } from '../pages/management/management';
 import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 
+import { DateTimeService } from '../pages/util/date-time';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
-import { DateTimeService } from '../pages/util/date-time';
-
 @NgModule({
   declarations: [
     MyApp,
+
     LoginPage,
     CreateUserPage,
 
@@ -57,6 +58,7 @@ import { DateTimeService } from '../pages/util/date-time';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+
     LoginPage,
     CreateUserPage,
 
