@@ -38,6 +38,10 @@ export class CalendarPage {
     });
   }
 
+  goToToday() {
+    this.calendar.currentDate= new Date();
+  }
+
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
