@@ -96,11 +96,11 @@ export class EmployeesPage {
     </ion-item>
     <ion-item>
       <ion-label>From:</ion-label>
-      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" max="{{currentDate}}" [(ngModel)]="startDate"></ion-datetime>
+      <ion-datetime displayFormat="YYYY-MMM-DD" pickerFormat="DD-MMMM-YYYY" max="{{currentDate}}" [(ngModel)]="startDate"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label>To:</ion-label>
-      <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="DD-MMMM-YYYY" min="{{startDate}}" max="{{currentDate}}" [(ngModel)]="endDate"></ion-datetime>
+      <ion-datetime displayFormat="YYYY-MMM-DD" pickerFormat="DD-MMMM-YYYY" min="{{startDate}}" max="{{currentDate}}" [(ngModel)]="endDate"></ion-datetime>
     </ion-item>
     <button ion-item (click)="close()">VIEW</button>
   `
