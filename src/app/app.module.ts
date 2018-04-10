@@ -14,7 +14,9 @@ import { AddPartyPage, Numpad } from '../pages/tables/add-party/add-party';
 import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { PunchCardPage } from '../pages/punchcard/punchcard';
+
 import { CalendarPage } from '../pages/calendar/calendar';
+
 import { ManagementPage } from '../pages/management/management';
 import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 
@@ -43,6 +45,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     TimePunchPage,
     PunchCardPage,
     CalendarPage,
+
     ManagementPage,
 
     TabsPage,
@@ -73,6 +76,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     TimePunchPage,
     PunchCardPage,
     CalendarPage,
+
     ManagementPage,
 
     TabsPage,

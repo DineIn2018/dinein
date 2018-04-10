@@ -7,7 +7,6 @@ import * as moment from 'moment';
   templateUrl: 'calendar.html'
 })
 export class CalendarPage {
-
   eventSource = [];
   viewTitle: string;
   selectedDay = new Date();
@@ -20,7 +19,7 @@ export class CalendarPage {
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController) { }
 
   addEvent() {
-    let modal = this.modalCtrl.create('EventModalPage', { selectedDay: this.selectedDay });
+    let modal = this.modalCtrl.create('EventModalPage', {selectedDay: this.selectedDay});
     modal.present();
     modal.onDidDismiss(data => {
       if (data) {
@@ -36,7 +35,6 @@ export class CalendarPage {
           this.eventSource = events;
         });
       }
-
     });
   }
 
