@@ -11,8 +11,10 @@ export class EventModalPage {
 
   event = { startTime: new Date().toISOString(), endTime: new Date().toISOString(), allDay: false };
   minDate = new Date().toISOString(); //ISO string format: YYYY-MM-DDTHH:mm:ss.sssZ
+  
 
   constructor(public navCtrl: NavController, private navParams: NavParams, public viewCtrl: ViewController) {
+    this.minDate = moment(this.minDate).format();
     let preselectedDate = moment(this.navParams.get('selectedDay')).format();
     this.event.startTime = preselectedDate;
     this.event.endTime = preselectedDate;
