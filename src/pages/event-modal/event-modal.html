@@ -16,6 +16,14 @@
     </ion-item>
 
     <ion-item>
+      <ion-input type="text" placeholder="Description" [(ngModel)]="event.description"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Organizer" [(ngModel)]="event.organizer"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label>Start</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
     </ion-item>
