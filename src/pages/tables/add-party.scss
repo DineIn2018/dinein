@@ -24,25 +24,6 @@ page-add-party {
         background-color: color($colors, darkest);
     }
 
-    .numpadinput .button-inner {
-    	justify-content:flex-start;
-    	color: color($colors, middark);
-	}
-	.numpadinputhasval .button-inner{
-    	justify-content:flex-start;
-    	color: color($colors, primary);
-	}
-
-    .numpadinput {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-   .numpadinputhasval {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
 	#numpadmodal {
         height: 100%;
         margin-left: 20%;
@@ -60,9 +41,5 @@ page-add-party {
 
     .localbutton {
         margin-top: 20px;
-    }
-
-    .inputbutton {
-        height: 50px;
     }
 }

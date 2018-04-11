@@ -12,8 +12,8 @@ import { CreateEmployeePage } from '../create-employee/create-employee';
 export class EmployeesPage {
   searchQuery: string = '';
   items: Employee[];
-  editPage: any;
-  createEmployeePage: any;
+  //editPage: any;
+  //createEmployeePage: any;
   employees: Array<Employee>;
   employee1: Employee;
   employee2 = new Employee("Carl", "Robins", "4321", "Assistant Manager", "$30/hr", "(608) 345-1209", "http://www.math.uni-frankfurt.de/~person/_4170854.jpg");
@@ -26,8 +26,8 @@ export class EmployeesPage {
   selectedEmployee: Employee;
 
   constructor(public navCtrl: NavController, public popCtrl: PopoverController) {
-    this.editPage = EditEmployeePage;
-    this.createEmployeePage = CreateEmployeePage;
+    //this.editPage = EditEmployeePage;
+    //this.createEmployeePage = CreateEmployeePage;
     this.employees = new Array<Employee>();
 
     this.employee1 = new Employee("Kevin", "Anderson", "1234", "Server", "$5/hr", "(608) 329-4565", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl");
@@ -71,10 +71,10 @@ export class EmployeesPage {
     }
   }
   openEditPage() {
-    this.navCtrl.push(this.editPage, { selectedEmployee: this.selectedEmployee, employees: this.employees, employeesPage: this });
+    this.navCtrl.push(EditEmployeePage, { selectedEmployee: this.selectedEmployee, employees: this.employees, employeesPage: this });
   }
   openCreatePage() {
-    this.navCtrl.push(this.createEmployeePage, { employees: this.employees });
+    this.navCtrl.push(CreateEmployeePage, { employees: this.employees });
   }
   selectEmployee(myEvent, employee) {
     this.selectedEmployee = employee;
@@ -114,7 +114,7 @@ export class PunchPopoverPage {
   selectedEmployee: Employee;
 
   constructor(public viewCtrl: ViewController, public popCtl: PopoverController, public appCtrl: App, public navParams: NavParams) {
-    
+
     this.selectedEmployee = this.navParams.get("selectedEmployee");
     let currDate = new Date(); //initialized to current date
     this.dd = currDate.getDate();

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
-import { CreateUserPage } from './create-user/create-user';
+import { CreateUserPage } from './create-user';
 
 /**
  * Generated class for the LoginPage page.
@@ -32,7 +32,7 @@ export class LoginPage {
     if (this.loginSuccess(this.email, this.password)) {
       console.log('Login Successful');
       this.navCtrl.push(TabsPage);
-    } 
+    }
     else {
       console.log('Login Unsuccessful');
     }

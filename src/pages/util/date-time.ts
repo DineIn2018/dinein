@@ -18,7 +18,7 @@ export class DateTimeService {
 
 	getDate() {
 		var d = new Date();
-		return this.parseDateTime(d.getFullYear(), d.getMonth() + 1, d.getDate());
+		return this.parseDate(d.getFullYear(), d.getMonth() + 1, d.getDate());
 	}
 
 	parseDate(year: number, month: number, day: number) {

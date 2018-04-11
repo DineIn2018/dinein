@@ -11,37 +11,52 @@
 
         <ion-label class="subtitle">Create User</ion-label>
         <ion-item class="inputfield">
-          <ion-input type="Text" placeholder="e-mail" required></ion-input>
+          <ion-input type="Text" placeholder="e-mail" required
+                     [(ngModel)]="email"></ion-input>
         </ion-item>
         <ion-item class="inputfield">
-          <ion-input type="Password" placeholder="Password" required></ion-input>
+          <ion-input type="Password" placeholder="Password" required
+                     [(ngModel)]="password"></ion-input>
         </ion-item>
         <ion-item class="inputfield">
-          <ion-input type="Password" placeholder="Confirm Password" required></ion-input>
+          <ion-input type="Password" placeholder="Confirm Password" required
+                     [(ngModel)]="confirmPassword"></ion-input>
         </ion-item>
         <ion-item class="inputfield">
-          <ion-input type="Text" placeholder="First Name"></ion-input>
+          <ion-input type="Text" placeholder="First Name"
+                     [(ngModel)]="firstName"></ion-input>
         </ion-item>
         <ion-item class="inputfield">
-          <ion-input type="Text" placeholder="Last Name (optional)"></ion-input>
+          <ion-input type="Text" placeholder="Last Name (optional)"
+                     [(ngModel)]="lastName"></ion-input>
         </ion-item>
-        <ion-item class="inputfield">
-          <ion-input type="number" placeholder="Phone # (optional)"></ion-input>
-        </ion-item>
-        
+        <button class="inputbutton" ion-button outline block
+                [ngClass]="{'inputbuttonnoval': phone == null,
+                            'inputbuttonhasval': phone != null}"
+                (click)="presentNumpad()">
+          {{buttonTextPhone}}
+        </button>
+        <button class="inputbutton" ion-button outline block
+                [ngClass]="{'inputbuttonnoval': restaurant == null,
+                            'inputbuttonhasval': restaurant != null}"
+                 (click)="presentRestaurantSelector()">
+          {{buttonTextRestaurant}}
+        </button>
+
+        <!--
         <ion-item class="inputfield">
           <ion-label>Restaurant</ion-label>
           <ion-select okText="Select" cancelText="Cancel">
             <ion-option>CREATE NEW RESTAURANT</ion-option>
             <ion-option>Placeholder Restaurant</ion-option>
           </ion-select>
-        </ion-item>
+        </ion-item> -->
 
         <button class="localbutton" ion-button block
                 (click)="goToLogin()">Next</button>
         <button class="localbutton" ion-button outline block
                 (click)="goToLogin()">Cancel</button>
-      
+
       </ion-list>
     </div>
   </div>

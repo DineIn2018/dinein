@@ -38,10 +38,10 @@ export class TimePunchPage {
 	}
 
 	submit() {
-		var punchTime: string = datetime.getFullDateTime();
+		var punchTime: string = this.datetime.getFullDateTime();
 		if (this.validID()) {
 			let alert = this.alertCtrl.create({
-				title: 'Punch for Employee ID: ' + this.ID + ' at ' + ?',
+				title: 'Punch for Employee ID: ' + this.ID + ' at ' + '?',
 				buttons: [
 					{
 						text: 'Cancel',

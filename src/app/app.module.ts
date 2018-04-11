@@ -5,7 +5,8 @@ import { MyApp } from './app.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { LoginPage } from '../pages/login/login';
-import { CreateUserPage } from '../pages/login/create-user';
+import { CreateUserPage, SelectRestaurant, PhoneNumpad } from '../pages/login/create-user';
+import { CreateRestaurantPage } from '../pages/login/create-restaurant';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -31,6 +32,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
     LoginPage,
     CreateUserPage,
+    SelectRestaurant,
+    PhoneNumpad,
+    CreateRestaurantPage,
 
     TablesPage,
     TableInfo,
@@ -62,6 +66,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
     LoginPage,
     CreateUserPage,
+    SelectRestaurant,
+    PhoneNumpad,
+    CreateRestaurantPage,
 
     TablesPage,
     TableInfo,

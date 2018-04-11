@@ -8,14 +8,14 @@
 								 	 [(ngModel)]="name"></ion-input>
 			</ion-item>
 			<button class="inputbutton" ion-button outline block
-							[ngClass]="{'numpadinput': size == null,
-													'numpadinputhasval': size != null}"
+							[ngClass]="{'inputbuttonnoval': size == null,
+													'inputbuttonhasval': size != null}"
               (click)="presentNumpad(FIELD_SIZE)">
         {{buttonTextSize}}
       </button>
 			<button class="inputbutton" ion-button outline block
-							[ngClass]="{'numpadinput': contact == null,
-													'numpadinputhasval': contact != null}"
+							[ngClass]="{'inputbuttonnoval': contact == null,
+													'inputbuttonhasval': contact != null}"
                (click)="presentNumpad(FIELD_CONTACT)">
         {{buttonTextContact}}
       </button>
