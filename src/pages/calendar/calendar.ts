@@ -39,30 +39,33 @@ export class CalendarPage {
     }
 
 
-    // not sure how to do this
-    editEvent() {
-        let modal = this.modalCtrl.create('EditEventPage');
+        // not sure how to do this
+        editEvent() {
+            let modal = this.modalCtrl.create('EditEventPage');
 
-        modal.present();
+            modal.present();
 
-        modal.onDidDismiss(data => {
-            if (data) {
-                let eventData = data;
+            modal.onDidDismiss(data => {
+                if (data) {
+                    let eventData = data;
 
-                eventData.startTime = new Date(data.startTime);
-                eventData.endTime = new Date(data.endTime);
+                    eventData.startTime = new Date(data.startTime);
+                    eventData.endTime = new Date(data.endTime);
 
-                let events = this.eventSource;
-                events.push(eventData);
-                this.eventSource = [];
-                setTimeout(() => {
-                    this.eventSource = events;
-                });
-            }
-        })
+                    let events = this.eventSource;
+                    events.push(eventData);
+                    this.eventSource = [];
+                    setTimeout(() => {
+                        this.eventSource = events;
+                    });
+                }
+            })
 
+        }
+
+    goToToday() {
+      this.calendar.currentDate= new Date();
     }
-
 
     onViewTitleChanged(title) {
         this.viewTitle = title;
