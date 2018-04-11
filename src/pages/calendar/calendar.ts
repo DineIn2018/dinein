@@ -38,6 +38,32 @@ export class CalendarPage {
         });
     }
 
+
+    // not sure how to do this
+    editEvent() {
+        let modal = this.modalCtrl.create('EditEventPage');
+
+        modal.present();
+
+        modal.onDidDismiss(data => {
+            if (data) {
+                let eventData = data;
+
+                eventData.startTime = new Date(data.startTime);
+                eventData.endTime = new Date(data.endTime);
+
+                let events = this.eventSource;
+                events.push(eventData);
+                this.eventSource = [];
+                setTimeout(() => {
+                    this.eventSource = events;
+                });
+            }
+        })
+
+    }
+
+
     onViewTitleChanged(title) {
         this.viewTitle = title;
     }
@@ -50,7 +76,14 @@ export class CalendarPage {
             title: '' + event.title,
             subTitle: 'From: ' + start + '<br>To: ' + end + '<br>Organizer: ' + event.organizer,
             message: 'Description: ' + event.description,
-            buttons: ['OK', 'Edit', 'Delete'],
+            buttons: ['OK',
+                {
+                    text: 'Edit',
+                    handler: () => {
+                        editEvent()
+                },
+                }
+            ],
             cssClass: 'alertCSS'
         })
         alert.present();
