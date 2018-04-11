@@ -41,25 +41,16 @@ export class CalendarPage {
 
     // not sure how to do this
     editEvent(event) {
-        let modal = this.modalCtrl.create('EditEventPage', {event : event});
+        let modal = this.modalCtrl.create('EditEventPage', {event : event, events : this.eventSource});
 
         modal.present();
 
-       /* modal.onDidDismiss(data => {
+        modal.onDidDismiss(data => {
             if (data) {
-                let eventData = data;
-
-                eventData.startTime = new Date(data.startTime);
-                eventData.endTime = new Date(data.endTime);
-
-                let events = this.eventSource;
-                events.push(eventData);
-                this.eventSource = [];
-                setTimeout(() => {
-                    this.eventSource = events;
-                });
+                //delete the event passed back
+                this.eventSource = this.eventSource.filter(e => e !== event);
             }
-        })*/
+        })
 
     }
 

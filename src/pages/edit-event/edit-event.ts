@@ -18,14 +18,16 @@ export class EditEventPage {
     startTime: string;
     endTime: string;
     myEvent: any;
+    events: any[];
 
     constructor(public navCtrl: NavController, private navParams: NavParams, public viewCtrl: ViewController, private alertCtrl: AlertController) {
         this.minDate = moment(this.minDate).format();
         let preselectedDate = moment(this.navParams.get('selectedDay')).format();
         this.event.startTime = preselectedDate;
         this.event.endTime = preselectedDate;
-        
+
         this.myEvent = navParams.get('event');
+        this.events = navParams.get('events');
         this.title = this.myEvent.title;
         this.description = this.myEvent.description;
         this.organizer = this.myEvent.organizer;
@@ -47,7 +49,7 @@ export class EditEventPage {
         this.myEvent.startTime = new Date(this.startTime);
         this.myEvent.endTime = new Date(this.endTime);
 
-        this.viewCtrl.dismiss(this.event);
+        this.viewCtrl.dismiss(); //don't pass back the event, so it won't be deleted
     }
 
     delete() {
@@ -62,7 +64,13 @@ export class EditEventPage {
                 {
                     text: 'Yes',
                     handler: data => {
-                        this.viewCtrl.dismiss(this.event);
+                        /*let index = this.events.indexOf(event, 0);
+                        if (index > -1) {
+                            this.events.splice(index, 1);
+                        }*/
+                        this.events = this.events.filter(e => e !== event);
+
+                        this.viewCtrl.dismiss(this.event); //pass back the event to be deleteds
                     }
                 }
             ]
