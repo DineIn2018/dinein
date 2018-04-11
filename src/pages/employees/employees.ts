@@ -30,7 +30,6 @@ export class EmployeesPage {
     this.createEmployeePage = CreateEmployeePage;
     this.employees = new Array<Employee>();
 
-
     this.employee1 = new Employee("Kevin", "Anderson", "1234", "Server", "$5/hr", "(608) 329-4565", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl");
     this.employee3 = new Employee("Tina", "Russo", "5678", "Head Chef", "$500/hr", "(414) 921-4980", "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg")
     this.employee4 = new Employee("Bryan", "Suzan", "666", "DJ", "$0.03/hr", "1-866-436-5706", "../../assets/imgs/bryan.jpg")

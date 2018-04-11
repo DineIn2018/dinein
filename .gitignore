@@ -34,3 +34,9 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 *.js.map
+.DS_Store
+.sourcemaps/0.js.map
+.sourcemaps/1.js.map
+.sourcemaps/2.js.map
+.sourcemaps/main.js.map
+src/.DS_Store

@@ -17,6 +17,7 @@ import { PunchCardPage } from '../pages/punchcard/punchcard';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { ManagementPage } from '../pages/management/management';
 import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
+import { UpdateManagementPage } from '../pages/update-management/update-management';
 
 import { DateTimeService } from '../pages/util/date-time';
 
@@ -45,7 +46,7 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     PunchCardPage,
     CalendarPage,
     ManagementPage,
-
+    UpdateManagementPage,
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,
@@ -75,7 +76,7 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     PunchCardPage,
     CalendarPage,
     ManagementPage,
-
+    UpdateManagementPage,
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,

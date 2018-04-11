@@ -2,13 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { EmployeesPage, Employee } from '../employees/employees';
 
-/**
- * Generated class for the EditEmployeePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-edit-employee',
@@ -40,9 +33,6 @@ export class EditEmployeePage {
     this.newLastName = this.selectedEmployee.getLastName();
     this.newPhone = this.selectedEmployee.getPhone();
     this.newSrc = this.selectedEmployee.getSrc();
-
-    
-
   }
 
   confirmDelete() {
