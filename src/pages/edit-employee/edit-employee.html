@@ -5,10 +5,13 @@
 
 <ion-list inset>
 
-    <ion-item>
+    <!--<ion-item>
         <ion-label>Image src</ion-label>
         <ion-input type="text" [(ngModel)]="newSrc"></ion-input>
-    </ion-item>
+    </ion-item>-->
+
+
+
 
     <ion-item>
         <ion-label>First Name</ion-label>
@@ -48,3 +51,14 @@
 <button ion-button inline outline (click)="confirmDelete()">
     Delete Employee Profile
 </button>
+<ion-item>
+    <p>{{imageURI}}</p>
+    <button ion-button color="secondary" (click)="getImage()">Get Image</button>
+</ion-item>
+<ion-item>
+    <h4>Image Preview</h4>
+    <img src="{{imageFileName}}" alt="Employee Image" width="300" />
+</ion-item>
+<ion-item>
+    <button ion-button (click)="uploadFile()">Upload</button>
+</ion-item>

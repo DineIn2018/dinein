@@ -83,7 +83,7 @@ export class CalendarPage {
                 {
                     text: 'Edit',
                     handler: () => {
-                        editEvent()
+                        this.editEvent();
                 },
                 }
             ],

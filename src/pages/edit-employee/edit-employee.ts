@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { EmployeesPage, Employee } from '../employees/employees';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 /**
  * Generated class for the EditEmployeePage page.
@@ -27,8 +29,15 @@ export class EditEmployeePage {
   newLastName: string;
   newSrc: string;
 
+  imageURI: any;
+  imageFileName: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private transfer: FileTransfer,
+    private camera: Camera,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController) {
+
     this.employeePage = navParams.get('employeesPage');
     this.selectedEmployee = navParams.get('selectedEmployee');
     this.employees = navParams.get('employees');
@@ -41,9 +50,75 @@ export class EditEmployeePage {
     this.newPhone = this.selectedEmployee.getPhone();
     this.newSrc = this.selectedEmployee.getSrc();
 
-    
+
 
   }
+
+
+  ///////////////////////////////////////////////////////////////////////////////
+  getImage() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      this.imageURI = imageData;
+    }, (err) => {
+      console.log(err);
+      this.showAlert(err);
+    });
+  }
+
+  uploadFile() {
+    let loader = this.loadingCtrl.create({
+      content: "Uploading..."
+    });
+    loader.present();
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    let options: FileUploadOptions = {
+      chunkedMode: false,
+      headers: {}
+    }
+
+    fileTransfer.upload(this.imageURI, encodeURI('http://localhost:8100/Users/kameronyoung/dinein/src/assets/imgs/img.jpg'), options)
+      .then((data) => {
+        console.log(data + " Uploaded Successfully");
+        this.imageFileName = "http://localhost:8100/static/images/ionicfile.jpg"
+        loader.dismiss();
+        this.showAlert("Image uploaded successfully");
+      }, (err) => {
+        console.log("Code: "+err.code+"\nSource: "+err.source+"\nTarget: "+err.target+"\nHttp_Status: "+err.http_status+"\nBody: "+err.body+"\nException: "+err.exception);
+        loader.dismiss();
+        this.showAlert(err);
+      });
+  }
+  /*presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }*/
+  showAlert(msg) {
+    let alert = this.alertCtrl.create({
+      subTitle: msg,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  //////////////////////////////////////////////////////////////////////////
+
+
 
   confirmDelete() {
     let confirm = this.alertCtrl.create({
@@ -83,7 +158,7 @@ export class EditEmployeePage {
           text: 'Delete and Exit',
           handler: () => {
             //TODO: delete profile from list of employees
-            this.employees.splice(this.employees.indexOf(this.selectedEmployee),1);
+            this.employees.splice(this.employees.indexOf(this.selectedEmployee), 1);
             this.employeePage.refreshSelectedEmployee();
             this.navCtrl.pop();
           }

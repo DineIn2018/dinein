@@ -26,6 +26,10 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
 import { NgCalendarModule  } from 'ionic2-calendar';
 
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -88,7 +92,12 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     StatusBar,
     SplashScreen,
     ScreenOrientation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FileTransfer,
+    //FileUploadOptions, //commented b/c kept causing errors
+    FileTransferObject, 
+    File,
+    Camera
   ]
 })
 export class AppModule {}

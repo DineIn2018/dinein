@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import * as moment from 'moment';
 
 @IonicPage()
@@ -31,7 +31,7 @@ export class EditEventPage {
     delete() {
         let alert = this.alertCtrl.create({
             title: 'Confirm Delete',
-            message: 'Are you sure you want to delete the event?'
+            message: 'Are you sure you want to delete the event?',
             buttons: [
                 {
                     text: 'No',
