@@ -12,25 +12,25 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-input type="text" placeholder="event.title" [(ngModel)]="event.title"></ion-input>
+      <ion-input type="text" [(ngModel)]="title"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input type="text" placeholder="event.description" [(ngModel)]="event.description"></ion-input>
+      <ion-input type="text"  [(ngModel)]="description"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input type="text" placeholder="event.organizer" [(ngModel)]="event.organizer"></ion-input>
+      <ion-input type="text"  [(ngModel)]="organizer"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Start</ion-label>
-      <ion-datetime placeholder="event.startTime" displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY MMM D:HH:mmZ" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+      <ion-datetime  displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY MMM D:HH:mmZ" [(ngModel)]="startTime" [min]="minDate"></ion-datetime>
     </ion-item>
 
     <ion-item>
       <ion-label>End</ion-label>
-      <ion-datetime placeholder="event.endTime" displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY MMM D:HH:mmZ" [(ngModel)]="event.endTime" [min]="event.startTime"></ion-datetime>
+      <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="YYYY MMM D:HH:mmZ" [(ngModel)]="endTime" [min]="event.startTime"></ion-datetime>
     </ion-item>
 
     <ion-item>

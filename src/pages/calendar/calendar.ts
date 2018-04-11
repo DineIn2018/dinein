@@ -19,7 +19,7 @@ export class CalendarPage {
     constructor(public navCtrl: NavController, private modalCtrl: ModalController, private alertCtrl: AlertController) { }
 
     addEvent() {
-        let modal = this.modalCtrl.create('EventModalPage', {selectedDay: this.selectedDay});
+        let modal = this.modalCtrl.create('EventModalPage', { selectedDay: this.selectedDay });
         modal.present();
         modal.onDidDismiss(data => {
             if (data) {
@@ -39,32 +39,32 @@ export class CalendarPage {
     }
 
 
-        // not sure how to do this
-        editEvent() {
-            let modal = this.modalCtrl.create('EditEventPage');
+    // not sure how to do this
+    editEvent(event) {
+        let modal = this.modalCtrl.create('EditEventPage', {event : event});
 
-            modal.present();
+        modal.present();
 
-            modal.onDidDismiss(data => {
-                if (data) {
-                    let eventData = data;
+       /* modal.onDidDismiss(data => {
+            if (data) {
+                let eventData = data;
 
-                    eventData.startTime = new Date(data.startTime);
-                    eventData.endTime = new Date(data.endTime);
+                eventData.startTime = new Date(data.startTime);
+                eventData.endTime = new Date(data.endTime);
 
-                    let events = this.eventSource;
-                    events.push(eventData);
-                    this.eventSource = [];
-                    setTimeout(() => {
-                        this.eventSource = events;
-                    });
-                }
-            })
+                let events = this.eventSource;
+                events.push(eventData);
+                this.eventSource = [];
+                setTimeout(() => {
+                    this.eventSource = events;
+                });
+            }
+        })*/
 
-        }
+    }
 
     goToToday() {
-      this.calendar.currentDate= new Date();
+        this.calendar.currentDate = new Date();
     }
 
     onViewTitleChanged(title) {
@@ -83,8 +83,8 @@ export class CalendarPage {
                 {
                     text: 'Edit',
                     handler: () => {
-                        this.editEvent();
-                },
+                        this.editEvent(event);
+                    },
                 }
             ],
             cssClass: 'alertCSS'
