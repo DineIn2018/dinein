@@ -86,17 +86,24 @@ export class TablesPage {
 	onTablePress(table: Table) {
 
 		//
+		// Not in seating party at table mode
+		// Show table action sheet
+		//
+		if (!this.seatingPartyMode()) {
+			this.presentTableActions(table);
+
+		//
 		// In seating party mode
 		// Seat the party at table
 		//
-		if (this.seatingPartyMode()) {
+		} else {
 			console.log('Table tapped in seating party mode');
 			if (table.free) {
 				if (this.selectedParty.size > table.capacity) {
 					console.log('Presented table overcapacity warning');
 					let confirm = this.alertCtrl.create({
 						title: 'Table Too Small',
-						message: 'This table is not large enough to seat that many people.Are you sure you want to seat them here?',
+						message: 'Are you sure you want to seat them there?',
 						enableBackdropDismiss: false,
 						buttons: [
 							{
@@ -107,7 +114,6 @@ export class TablesPage {
 								text: 'Seat',
 								handler: () => {
 									console.log('Selected to seat overcapacity');
-									// Seat number of party size at table
 									this.displaySelectServer(table, this.selectedParty.size);
 								}
 							}
@@ -126,22 +132,10 @@ export class TablesPage {
 				let alert = this.alertCtrl.create({
 					title: 'This table is currently occupied',
 					enableBackdropDismiss: false,
-					buttons: [
-						{
-							text: 'Dismiss',
-							handler: () => { }
-						}
-					]
+					buttons: [ { text: 'Dismiss', handler: () => {} } ]
 				});
 				alert.present();
 			}
-
-		//
-		// Not in seating party at table mode
-		// Show table action sheet
-		//
-		} else {
-			this.presentTableActions(table);
 		}
 	}
 
@@ -162,6 +156,12 @@ export class TablesPage {
 																		 "edit": false,
 																		 "edit_party": null});
 	}
+	//----------------------------------------------------------------------------
+	// Button Action: onCancelSeatingPartyPress
+	//----------------------------------------------------------------------------
+	onCancelSeatingPartyPress() {
+		this.switchModeTo(Mode.Default);
+	}
 
 	//----------------------------------------------------------------------------
 	// Action Sheet: presentTableActions
@@ -175,6 +175,7 @@ export class TablesPage {
 					text: (table.free? "Seat Party" : "Free Table"),
 					handler: () => {
 						if (table.free) {
+							console.log('Seat Table tapped on table ' + table.ID);
 							this.displaySeatTableNumpad(table);
 						} else {
 							console.log('Free Table tapped on table ' + table.ID);
@@ -211,8 +212,7 @@ export class TablesPage {
 					text: 'Seat Party',
 					handler: () => {
 						console.log('Selected Party ' + party.ID + ' to seat');
-						// Enable seating party to table mode
-						this.activateSeatingPartyMode(party);
+						this.switchModeTo(Mode.SeatingParty, party);
 					}
 				},
 				{
@@ -263,24 +263,24 @@ export class TablesPage {
 
 	displaySeatTableNumpad(t: Table) {
 		let modal = this.modalCtrl.create(NumToSeat, { table: t });
-		modal.onDidDismiss(data => {
-			if (data != null) {
-				console.log('NumToSeat returned: ' + data);
-				this.displaySelectServer(t, data);
+		modal.onDidDismiss(numToSeat => {
+			if (numToSeat != null) {
+				console.log('NumToSeat returned: ' + numToSeat);
+				this.displaySelectServer(t, numToSeat);
 			}
 		});
 		modal.present();
 	}
 
-	displaySelectServer(t: Table, numToSeat: number) {
+	displaySelectServer(table: Table, numToSeat: number) {
 		let modal = this.modalCtrl.create(SelectServer, {servers: this.servers});
-		modal.onDidDismiss(data => {
-			if (data != null) {
-				console.log('SelectServer returned: ' + data.name);
-				t.seat(numToSeat, data.name, this.datetime.getTime(), null);
-				if (this.seatingPartyMode) {
+		modal.onDidDismiss(server => {
+			if (server != null) {
+				console.log('SelectServer returned: ' + server.name);
+				table.seat(numToSeat, server.name, this.datetime.getTime(), null);
+				if (this.seatingPartyMode()) {
 					this.deleteParty(this.selectedParty);
-					this.deactivateSeatingPartyMode();
+					this.switchModeTo(Mode.Default);
 				}
 			}
 		});
@@ -290,14 +290,22 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	// AUXILLARY FUNCTIONS
 	//----------------------------------------------------------------------------
-	activateSeatingPartyMode(p: Party) {
-		this.mode = Mode.SeatingParty;
-		this.selectedParty = p;
-	}
-
-	deactivateSeatingPartyMode() {
-		this.mode = Mode.Default;
-		this.selectedParty = null;
+	switchModeTo(newMode: Mode, party?: Party) {
+		if (this.mode == newMode) {
+			console.log('ERROR: tried to change mode to the same mode it is in');
+			return;
+		}
+		if (Mode.SeatingParty == newMode) {
+			if (party) {
+				this.selectedParty = party;
+			} else {
+				console.log('ERROR: tried to change mode to Seating Party without party passed');
+				return;
+			}
+		} else {
+			this.selectedParty = null;
+		}
+		this.mode = newMode;
 	}
 
 	deleteParty(party: Party) {
@@ -537,7 +545,7 @@ export class SelectServer {
 	selectedServer: Employee;
 
 	constructor(public viewCtrl: ViewController,
-							params: NavParams) {
+							private params: NavParams) {
 		this.servers = params.get('servers');
 		this.selectedServer = this.servers[0];
 	}
@@ -667,14 +675,14 @@ export class Party {
 	}
 }
 
-enum Mode {
+export enum Mode {
 	Default = 0,
 	SeatingParty = 1,
 	EditingLayout = 2
 }
 
 // Place holder server
-class Employee {
+export class Employee {
 	name:string;
 	constructor(name: string) {
 		this.name = name;

@@ -36,7 +36,7 @@ export class CreateUserPage {
               public viewCtrl: ViewController,
               public navParams: NavParams) {
 
-    this.buttonTextPhone = "Phone Number (Optional)";
+    this.buttonTextPhone = "Phone Number (optional)";
     this.buttonTextRestaurant = "Select Restaurant";
 
     this.email = null;
@@ -46,6 +46,7 @@ export class CreateUserPage {
     this.lastName = null;
     this.phone = null;
     this.restaurant = null;
+
   }
 
   ionViewDidLoad() {
@@ -57,15 +58,14 @@ export class CreateUserPage {
   }
 
   presentNumpad() {
-    let modal = this.modalCtrl.create(PhoneNumpad);
-    modal.onDidDismiss(data => {
-      if (data != null) {
-        this.phone = data;
+    let numpadModal = this.modalCtrl.create(PhoneNumpad);
+    numpadModal.onDidDismiss(returnedNum => {
+      if (returnedNum != null) {
+        this.phone = returnedNum;
         this.buttonTextPhone = String(this.phone);
       }
-
     });
-    modal.present();
+    numpadModal.present();
   }
 
   presentRestaurantSelector() {
@@ -81,6 +81,18 @@ export class CreateUserPage {
       }
     });
     modal.present();
+  }
+
+  validData() {
+    return (this.email != null &&
+            this.password != null &&
+            this.confirmPassword != null &&
+            this.firstName != null &&
+            this.restaurant != null);
+  }
+
+  passwordsMatch() {
+    return (this.password == this.confirmPassword);
   }
 }
 

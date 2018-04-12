@@ -21,7 +21,7 @@ export class TimePunchPage {
 							private datetime: DateTimeService) {
 
 		var source = Observable.interval(1000); // 1 second subscription
-		this.subscription = source.subscribe((x) => this.currDateTime = new Date());
+		this.subscription = source.subscribe(() => {this.currDateTime = new Date()});
 
 	}
 
@@ -41,7 +41,7 @@ export class TimePunchPage {
 		var punchTime: string = this.datetime.getFullDateTime();
 		if (this.validID()) {
 			let alert = this.alertCtrl.create({
-				title: 'Punch for Employee ID: ' + this.ID + ' at ' + '?',
+				title: 'Punch for Employee ID: ' + this.ID + ' at ' + punchTime + '?',
 				buttons: [
 					{
 						text: 'Cancel',
@@ -100,6 +100,7 @@ export class TimePunchPage {
 	punchOut() {
 		// Add shift end time to the latest shift object
 		// Mark shift as completed
+		// Set employee to not be currently working
 
 		console.log('Successfully punched for employee: ' + this.ID);
 	}

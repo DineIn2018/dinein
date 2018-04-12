@@ -18,7 +18,8 @@
           <ion-input type="Password" placeholder="Password" required
                      [(ngModel)]="password"></ion-input>
         </ion-item>
-        <ion-item class="inputfield">
+        <ion-item [ngClass]="{'inputfield': passwordsMatch(),
+                              'inputfielderror': !passwordsMatch()}">
           <ion-input type="Password" placeholder="Confirm Password" required
                      [(ngModel)]="confirmPassword"></ion-input>
         </ion-item>
@@ -42,15 +43,6 @@
                  (click)="presentRestaurantSelector()">
           {{buttonTextRestaurant}}
         </button>
-
-        <!--
-        <ion-item class="inputfield">
-          <ion-label>Restaurant</ion-label>
-          <ion-select okText="Select" cancelText="Cancel">
-            <ion-option>CREATE NEW RESTAURANT</ion-option>
-            <ion-option>Placeholder Restaurant</ion-option>
-          </ion-select>
-        </ion-item> -->
 
         <button class="localbutton" ion-button block
                 (click)="goToLogin()">Next</button>

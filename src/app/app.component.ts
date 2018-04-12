@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 })
 export class MyApp {
   rootPage:any = LoginPage;
+  testvalue:number = 777;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -22,7 +23,7 @@ export class MyApp {
         statusBar.hide();
         statusBar.backgroundColorByHexString('#ffffff');
       });
-      
+
       splashScreen.hide();
     });
   }

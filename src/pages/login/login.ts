@@ -20,7 +20,10 @@ export class LoginPage {
   email: string;
   password: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.email = null;
+    this.password = null;
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
