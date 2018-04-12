@@ -36,5 +36,24 @@ describe('TimePunch Page', () => {
   it('should present alert confirmation upon submission', () => {
     SUT.submit();
     expect(alertCtrl.create).toHaveBeenCalled();
+  });
+
+  describe('Valid ID checking', () => {
+
+    beforeEach(() => {
+      SUT.ID = 0;
+    });
+    afterEach(() => {
+      SUT.ID = 0;
+    });
+
+    it('should deny IDs <= 0', () => {
+      expect(SUT.validID()).toBe(false);
+    });
+    it('should accept ID of 1 (owner)', () => {
+      SUT.ID = 1;
+      expect(SUT.validID()).toBe(true);
+    });
+
   })
 });
