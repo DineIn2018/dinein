@@ -55,6 +55,10 @@ export class EditEmployeePage {
   }
 
 
+  setEmployeePhoto() {
+    this.newSrc = this.imageURI
+  }
+
   ///////////////////////////////////////////////////////////////////////////////
   getImage() {
     const options: CameraOptions = {
@@ -78,21 +82,33 @@ export class EditEmployeePage {
     loader.present();
     const fileTransfer: FileTransferObject = this.transfer.create();
 
+    
     let options: FileUploadOptions = {
+      fileKey: 'photo',
+      fileName: "employeePhoto_"+this.newID+".jpg",
       chunkedMode: false,
+      httpMethod: 'post',
+      mimeType: "image/jpeg",
       headers: {}
     }
 
-    fileTransfer.upload(this.imageURI, encodeURI('http://localhost:8100/Users/kameronyoung/dinein/src/assets/imgs/img.jpg'), options)
+    //server receiving the file
+    //let server = "http://192.168.0.7:8080/api/uploadImage"; //original from tutorial
+    let server = "http://kameron-youngs-macbook-pro.local:8000/";
+    //let server = "http://localhost:8100/Users/kameronyoung/dinein/src/assets/imgs/img.jpg";
+    //let server = "../../assets/imgs/";
+    fileTransfer.upload(this.imageURI, encodeURI(server), options)
       .then((data) => {
         console.log(data + " Uploaded Successfully");
-        this.imageFileName = "http://localhost:8100/static/images/ionicfile.jpg"
+        //this.imageFileName = "http://localhost:8100/static/images/ionicfile.jpg";
+        //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"; //original from tutorial
+        this.imageFileName = "http://kameron-youngs-macbook-pro.local:8000/images/ionicfile.jpg";
         loader.dismiss();
         this.showAlert("Image uploaded successfully");
       }, (err) => {
         console.log("Code: "+err.code+"\nSource: "+err.source+"\nTarget: "+err.target+"\nHttp_Status: "+err.http_status+"\nBody: "+err.body+"\nException: "+err.exception);
         loader.dismiss();
-        this.showAlert(err);
+        this.showAlert("Code: "+err.code+"\nSource: "+err.source+"\nTarget: "+err.target+"\nHttp_Status: "+err.http_status+"\nBody: "+err.body+"\nException: "+err.exception);
       });
   }
   /*presentToast(msg) {
