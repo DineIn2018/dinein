@@ -15,7 +15,9 @@ import { AddPartyPage, Numpad } from '../pages/tables/add-party';
 import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { PunchCardPage } from '../pages/punchcard/punchcard';
+
 import { CalendarPage } from '../pages/calendar/calendar';
+
 import { ManagementPage } from '../pages/management/management';
 import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 import { UpdateManagementPage } from '../pages/update-management/update-management';
@@ -25,6 +27,12 @@ import { DateTimeService } from '../pages/util/date-time';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CreateEmployeePage } from '../pages/create-employee/create-employee';
+
+import { NgCalendarModule  } from 'ionic2-calendar';
+
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -49,6 +57,7 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     TimePunchPage,
     PunchCardPage,
     CalendarPage,
+
     ManagementPage,
     UpdateManagementPage,
     TabsPage,
@@ -58,7 +67,8 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgCalendarModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -82,6 +92,7 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     TimePunchPage,
     PunchCardPage,
     CalendarPage,
+
     ManagementPage,
     UpdateManagementPage,
     TabsPage,
@@ -94,7 +105,12 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     SplashScreen,
     ScreenOrientation,
     DateTimeService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FileTransfer,
+    //FileUploadOptions, //commented b/c kept causing errors
+    FileTransferObject,
+    File,
+    Camera
   ]
 })
 export class AppModule {}

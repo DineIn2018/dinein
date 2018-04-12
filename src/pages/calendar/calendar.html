@@ -1,19 +1,21 @@
 <ion-header>
-  <div id="topleft">
-    <ion-label class="subtitle">Calendar</ion-label>
-  </div>
-
-  <!--<div id="topright">
-  	<button ion-button outline block (click)="executeLogout()">Logout</button>
-  </div>-->
+  <ion-navbar color="primary">
+    <button ion-button left (click)="goToToday()">
+      Today
+    </button>
+    <ion-title>
+      {{ viewTitle }}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addEvent()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-  <div id="container">
-    <ion-list>
-
-    </ion-list>
-  </div>
-
+<ion-content>
+  <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)" (onTimeSelected)="onTimeSelected($event)" step="30" class="calendar">
+  </calendar>
 </ion-content>
