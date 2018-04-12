@@ -22,6 +22,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
+import { DBHelper } from "../database/DBHelper";
+import { MongoClient } from "mongodb";
 @NgModule({
   declarations: [
     MyApp,
@@ -45,11 +47,14 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,
-    PunchPopoverPage
+    PunchPopoverPage,
+
+    DBHelper
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    MongoClient
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -73,12 +78,15 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,
-    PunchPopoverPage
+    PunchPopoverPage,
+
+    DBHelper
   ],
   providers: [
     StatusBar,
     SplashScreen,
     ScreenOrientation,
+    DBHelper,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

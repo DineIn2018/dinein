@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { DBHelper } from "../../../database/DBHelper";
 /**
  * Generated class for the CreateUserPage page.
  *
@@ -14,8 +14,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'create-user.html',
 })
 export class CreateUserPage {
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public helper: DBHelper) {
   }
 
   ionViewDidLoad() {
@@ -26,8 +26,12 @@ export class CreateUserPage {
   	this.navCtrl.pop();
   }
 
+  createUser(){
+    this.helper.addUser("cnitz@wisc.edu", "password", "Casey", "Nitz", 7513593, "Steenbocks" );
+    this.navCtrl.pop();
+  }
   goToSelectRestaurant() {
-  	
+
   }
 
 }
