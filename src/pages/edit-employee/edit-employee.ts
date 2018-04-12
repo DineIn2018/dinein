@@ -94,7 +94,7 @@ export class EditEmployeePage {
 
     //server receiving the file
     //let server = "http://192.168.0.7:8080/api/uploadImage"; //original from tutorial
-    let server = "http://kameron-youngs-macbook-pro.local:8000/";
+    let server = "http://kameron-youngs-macbook-pro.local:8000/api/uploadImage";
     //let server = "http://localhost:8100/Users/kameronyoung/dinein/src/assets/imgs/img.jpg";
     //let server = "../../assets/imgs/";
     fileTransfer.upload(this.imageURI, encodeURI(server), options)
@@ -102,7 +102,7 @@ export class EditEmployeePage {
         console.log(data + " Uploaded Successfully");
         //this.imageFileName = "http://localhost:8100/static/images/ionicfile.jpg";
         //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"; //original from tutorial
-        this.imageFileName = "http://kameron-youngs-macbook-pro.local:8000/images/ionicfile.jpg";
+        this.imageFileName = "http://kameron-youngs-macbook-pro.local:8000/static/images/ionicfile.jpg";
         loader.dismiss();
         this.showAlert("Image uploaded successfully");
       }, (err) => {
