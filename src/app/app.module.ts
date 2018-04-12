@@ -24,6 +24,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
 import { DBHelper } from "../database/DBHelper";
 import { MongoClient } from "mongodb";
+//import * as mongodb from 'mongodb';
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -49,12 +52,10 @@ import { MongoClient } from "mongodb";
     CreateEmployeePage,
     PunchPopoverPage,
 
-    DBHelper
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
-    MongoClient
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -80,13 +81,15 @@ import { MongoClient } from "mongodb";
     CreateEmployeePage,
     PunchPopoverPage,
 
-    DBHelper
+    DBHelper,
+    MongoClient
   ],
   providers: [
     StatusBar,
     SplashScreen,
     ScreenOrientation,
     DBHelper,
+    MongoClient,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

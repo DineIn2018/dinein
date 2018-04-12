@@ -1,10 +1,13 @@
 import { MongoClient } from 'mongodb';
 import { Injectable } from "@angular/core";
+//import * as mongodb from 'mongodb';
+//import {Db as MongoDb} from 'mongodb';
 
 @Injectable()
 export class DBHelper{
   constructor(){
-
+   // let mongodb = require('mongodb');
+   // let mongoClient: MongoClient = mongodb.MongoClient;
   }
  addUser(mail, pwd, fName, lName, pNo, rest){
     const url = "mongodb+srv://cnitz:9W7LZ2Bsq9ahOli6@startingcluster-wkejy.mongodb.net/DineInDB";
