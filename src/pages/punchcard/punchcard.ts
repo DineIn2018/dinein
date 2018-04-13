@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, DateTime } from 'ionic-angular';
+import { EmployeeShift } from '../employees/employees';
 
 @Component({
   selector: 'page-punchcard',
@@ -9,7 +10,8 @@ export class PunchCardPage {
 
   employeeShiftsList: EmployeeShift[];
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              private dateTime: DateTime) {
     this.employeeShiftsList = [
       new EmployeeShift("Kevin Anderson", "2018-02-12T07:24", "2018-02-12T19:24", 12.000),
       new EmployeeShift("Bryan Suzan", "2018-02-12T07:25", "2018-02-12T09:47", 2.367),
@@ -21,42 +23,4 @@ export class PunchCardPage {
       new EmployeeShift("TinaRusso", "2018-02-16T07:24", "2018-02-12T09:46", 2.367)
     ]
   }
-
-}
-
-export class EmployeeShift {
-  name: string;
-  startTime: string; //DateTime is just a string
-  endTime: string;
-  totalTime: number;
-
-
-  constructor(name: string, startTime: string, endTime: string, totalTime?: number) {
-    this.name = name;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    if (totalTime != null) {
-      this.totalTime = totalTime;
-    } else {
-      this.setTotalTime();
-    }
-
-  }
-  getName(): string {
-    return this.name;
-  }
-  getStartTime(): string {
-    return this.startTime;
-  }
-  getEndTime(): string {
-    return this.endTime;
-  }
-  getTotalTime(): number {
-    return this.totalTime;
-  }
-  setTotalTime() {
-    //TODO: write this function
-    this.totalTime = 0;
-  }
-
 }

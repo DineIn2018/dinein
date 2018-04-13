@@ -25,7 +25,8 @@ export class EmployeesPage {
   employee4: Employee;
   selectedEmployee: Employee;
 
-  constructor(public navCtrl: NavController, public popCtrl: PopoverController) {
+  constructor(public navCtrl: NavController,
+              public popCtrl: PopoverController) {
     //this.editPage = EditEmployeePage;
     //this.createEmployeePage = CreateEmployeePage;
     this.employees = new Array<Employee>();
@@ -113,7 +114,10 @@ export class PunchPopoverPage {
   mm: any;
   selectedEmployee: Employee;
 
-  constructor(public viewCtrl: ViewController, public popCtl: PopoverController, public appCtrl: App, public navParams: NavParams) {
+  constructor(public viewCtrl: ViewController,
+              public popCtl: PopoverController,
+              public appCtrl: App,
+              private navParams: NavParams) {
 
     this.selectedEmployee = this.navParams.get("selectedEmployee");
     let currDate = new Date(); //initialized to current date
@@ -148,7 +152,10 @@ export class Employee {
   pay: string;
   phone: string;
 
-  constructor(firstName: string, lastName: string, ID: string, title: string, pay: string, phone: string, imageSrc: string) {
+  shifts: EmployeeShift[];
+
+  constructor(firstName: string, lastName: string, ID: number,
+              title: string, pay: number, phone: number, imageSrc?: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.ID = ID;
@@ -156,6 +163,41 @@ export class Employee {
     this.title = title;
     this.pay = pay;
     this.phone = phone;
+    this.shifts = [ ];
+  }
+
+  punchIn(timeIn: string) {
+
+    // Instantiate shift object with only shift start time, no shift end time
+    // Mark new shift as incompleted/in progress
+    // Set employee status to "Currently working"
+    // Add the shift object to the employee
+    this.shifts.push(new EmployeeShift(timeIn));
+    console.log('Successfully punched in for employee: ' + this.ID);
+  }
+
+  punchOut(timeOut: string) {
+
+    // Add shift end time to the latest shift object
+    // Mark shift as completed
+    // Set employee to not be currently working
+    this.shifts[this.shifts.length-1].endShift(timeOut);
+    console.log('Successfully punched outfor employee: ' + this.ID);
+  }
+
+
+  isCurrentlyWorking() {
+    //
+    // Special case when employee newly instantiated and has empty shifts
+    // array, accessing the last element will make the app pissed
+    // In this case, just return false because a newly instantiated employee
+    // hasn't started a shift yet
+    //
+    if (this.shifts.length < 1) {
+      return false;
+    }
+    let lastShift = this.shifts[this.shifts.length-1];
+    return !lastShift.hasEnded();
   }
 
   getName(): string {
@@ -188,10 +230,10 @@ export class Employee {
   setID(id: string) {
     this.ID = id;
   }
-  getTitle(): string {
+  gettitle(): string {
     return this.title;
   }
-  setTitle(title: string) {
+  settitle(title: string) {
     this.title = title;
   }
   getPhone(): string {
@@ -206,4 +248,71 @@ export class Employee {
   setPay(pay: string) {
     this.pay = pay;
   }
+}
+
+export class EmployeeShift {
+
+  name: string;
+  startTime: string; //DateTime is just a string
+  endTime: string;
+  shiftLength: number;
+
+
+  constructor(startTime: string, endTime?: string, name?: string) {
+    this.startTime = startTime;
+
+    if(name) {
+      this.name = name;
+    }
+
+    if (endTime) {
+      this.endTime = endTime;
+      this.shiftLength = this.getDiffQuarterHour(this.startTime, this.endTime);
+    } else {
+      this.endTime = null;
+      this.shiftLength = null;
+    }
+
+  }
+
+  endShift(endTime: string) {
+    this.endTime = endTime;
+    this.shiftLength = this.getDiffQuarterHour(this.startTime, this.endTime);
+  }
+
+  hasEnded() {
+    return this.endTime != null;
+  }
+
+  getDiffQuarterHour(t1, t2): number {
+    let d1 = new Date(t1);
+    let d2 = new Date(t2);
+    let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
+    return (Math.round(diff_hrs * 4) / 4).toFixed(2);
+  }
+
+  getName(): string {
+    return this.name;
+  }
+  getStartTime(): string {
+    return this.startTime;
+  }
+  getEndTime(): string {
+    return this.endTime;
+  }
+  getshiftLength(): number {
+    return this.shiftLength;
+  }
+
+}
+
+export enum title {
+  Owner = 0,
+  Manager = 1,
+  Host = 2,
+  Server = 3,
+  Bartender = 4,
+  Chef = 5,
+  Cook = 6,
+  DJ = 69
 }
