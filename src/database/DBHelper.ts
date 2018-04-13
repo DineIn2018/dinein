@@ -4,12 +4,15 @@ import { Injectable } from "@angular/core";
 //import {Db as MongoDb} from 'mongodb';
 
 @Injectable()
-export class DBHelper{
-  constructor(){
-   // let mongodb = require('mongodb');
-   // let mongoClient: MongoClient = mongodb.MongoClient;
+export class DBHelper {
+
+  constructor(MonClient: MongoClient) {
+    // let mongodb = require('mongodb');
+    // let mongoClient: MongoClient = mongodb.MongoClient;
+
   }
- addUser(mail, pwd, fName, lName, pNo, rest){
+  addUser(mail, pwd, fName, lName, pNo, rest) {
+    const MongoClient = require('mongodb').MongoClient; /////?????????????
     const url = "mongodb+srv://cnitz:9W7LZ2Bsq9ahOli6@startingcluster-wkejy.mongodb.net/DineInDB";
     const user = {
       email: mail,
@@ -21,11 +24,11 @@ export class DBHelper{
     };
     const dbName = "DineInDB"
 
-    MongoClient.connect(url, function(err, client){
-    const db = client.db(dbName);
-    const collection = db.collection('Users');
+    MongoClient.connect(url, function (err, client) {
+      const db = client.db(dbName);
+      const collection = db.collection('Users');
 
-    let results = collection.insertOne({
+      let results = collection.insertOne({
         email: user.email,
         password: user.password,
         firstName: user.firstName,
