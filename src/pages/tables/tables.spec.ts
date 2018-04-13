@@ -46,13 +46,13 @@ describe('TablesPage Component', () => {
   });
 
   afterEach(() => {
-      fixture.destroy();
-      component = null;
+    fixture.destroy();
+    component = null;
   });
-
+/*
   it('is created', () => {
-      expect(fixture).toBeTruthy();
-      expect(component).toBeTruthy();
+    expect(fixture).toBeTruthy();
+    expect(component).toBeTruthy();
   });
   it('is of correct page type', () => {
     expect(component instanceof TablesPage).toBe(true);
@@ -61,18 +61,36 @@ describe('TablesPage Component', () => {
     expect(component['mode']).toBe(Mode.Default);
     expect(component['selectedParty']).toBeNull();
   });
+  it('should delete the correct parties when specified', () => {
+    let parties = component['parties'];
+    let party = parties[0];
+    component.deleteParty(party);
+    expect(component['parties']).not.toContain(party);
+  });
 
-/*  it('On Table Press', () => {
-    let tables = component['tables'];
-    let table = tables[0];
-    component.onTablePress(table);
-    if (!component.seatingPartyMode()) {
-        expect(component.presentTableActions).toHaveBeenCalledWith(table);
-    } else {
+  describe('switching to seat party mode', () => {
+    let parties: Party[];
+    let party: Party;
+    beforeEach(() => {
+      parties = component['parties'];
+      party = parties[0];
+      component.switchModeTo(Mode.SeatingParty, party);
+    });
 
-    }
-  });*/
+    afterEach(() => {
+      component.switchModeTo(Mode.Default);
+    });
 
+    it('should be in seating party mode', () => {
+      expect(component['mode']).toBe(Mode.SeatingParty);
+      expect(component.seatingPartyMode()).toBe(true);
+    });
+    it('should set selected party to the party passed', () => {
+      expect(component['selectedParty']).toBe(party);
+    });
+
+  });
+*/
 });
 
 class MockNavParams{

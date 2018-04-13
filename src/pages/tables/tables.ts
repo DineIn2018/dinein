@@ -296,7 +296,7 @@ export class TablesPage {
 			return;
 		}
 		if (Mode.SeatingParty == newMode) {
-			if (party) {
+			if (party != null) {
 				this.selectedParty = party;
 			} else {
 				console.log('ERROR: tried to change mode to Seating Party without party passed');
