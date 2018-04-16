@@ -186,7 +186,7 @@ export class Employee {
   }
 
 
-  isCurrentlyWorking() {
+  isCurrentlyWorking(): boolean {
     //
     // Special case when employee newly instantiated and has empty shifts
     // array, accessing the last element will make the app pissed
@@ -196,8 +196,8 @@ export class Employee {
     if (this.shifts.length < 1) {
       return false;
     }
-    let lastShift = this.shifts[this.shifts.length-1];
-    return !lastShift.hasEnded();
+    let mostRecentShift = this.shifts[this.shifts.length-1];
+    return !mostRecentShift.hasEnded();
   }
 
   getName(): string {
@@ -230,7 +230,7 @@ export class Employee {
   setID(id: string) {
     this.ID = id;
   }
-  gettitle(): string {
+  getTitle(): string {
     return this.title;
   }
   settitle(title: string) {
@@ -288,7 +288,7 @@ export class EmployeeShift {
     let d1 = new Date(t1);
     let d2 = new Date(t2);
     let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
-    return (Math.round(diff_hrs * 4) / 4).toFixed(2);
+    return (Math.round(diffHours * 4) / 4).toFixed(2);
   }
 
   getName(): string {
@@ -302,6 +302,18 @@ export class EmployeeShift {
   }
   getshiftLength(): number {
     return this.shiftLength;
+  }
+
+  static compare(s1: EmployeeShift, s2: EmployeeShift) {
+    let t1 = new Date(s1.startTime);
+    let t2 = new Date(s2.startTime);
+    let diff = t2.getTime() - t1.getTime();
+    if (diff < 0) {
+      return -1;
+    } else if (diff > 0) {
+      return 1;
+    }
+    return 0;
   }
 
 }

@@ -27,9 +27,11 @@ export class TimePunchPage {
 	}
 
 	submit() {
+
 		if (this.validID()) {
 			let currTime = this.dateTime.getDateTime();
-			let employee: Employee = this.getEmployeeByID();
+			//let employee: Employee = this.getEmployeeByID();
+
 			let alert = this.alertCtrl.create({
 				title: 'Punch for Employee ID: ' + this.ID + ' at ' + currTime + '?',
 				buttons: [
@@ -41,11 +43,11 @@ export class TimePunchPage {
 					{
 						text: 'Confirm',
 						handler: () => {
-							if (employee.isCurrentlyWorking()) {
+							/*if (employee.isCurrentlyWorking()) {
 								employee.punchOut(currTime);
 							} else {
 								employee.punchIn(currTime);
-							}
+							}*/
 							this.ID = 0;
 						}
 					}
@@ -55,16 +57,16 @@ export class TimePunchPage {
 
 		} else {
 			let alert = this.alertCtrl.create({
-			title: 'Invalid Employee ID',
-			buttons: [
-				{
-					text: 'Dismiss',
-					role: 'cancel',
-					handler: () => { }
-				}
-			]
-		});
-		alert.present();
+				title: 'Invalid Employee ID',
+				buttons: [
+					{
+						text: 'Dismiss',
+						role: 'cancel',
+						handler: () => { }
+					}
+				]
+			});
+			alert.present();
 		}
 	}
 

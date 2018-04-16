@@ -7,12 +7,12 @@ export class DateTimeService {
 
 	getTime(): string {
 		let d = new Date();
-		return pad(d.getHours()) + ':' + pad(d.getMinutes());
+		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
 	}
 
 	fullDateToTime(d): string {
 		let D = new Date(d);
-		return pad(d.getHours()) + ':' + pad(d.getMinutes());
+		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
 	}
 
 	getDateTime(): string {
@@ -22,7 +22,8 @@ export class DateTimeService {
 		let year = d.getFullYear();
 		let hrs = d.getHours();
 		let min = d.getMinutes();
-		return pad(month)+'/'+pad(day)+'/'+year+' '+pad(hrs)+':'+pad(min);
+		return (this.pad(month) + '/' + this.pad(day) + '/' + year + ' ' +
+						this.pad(hrs) + ':' + this.pad(min));
 	}
 
 	getDiffQuarterHour(t1, t2): number {
@@ -32,7 +33,7 @@ export class DateTimeService {
 		return (Math.round(diff_hrs * 4) / 4).toFixed(2);
 	}
 
-	pad (n) {
+	pad(n) {
     return (n < 10)? ('0' + n) : n;
 	}
 }

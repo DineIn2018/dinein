@@ -17,15 +17,18 @@ import { Employee, EmployeesPage } from '../employees/employees';
 export class CreateEmployeePage {
   firstName: string;
   lastName: string;
-  ID: string;
-  phone: string;
-  pay: string;
+  ID: number;
+  phone: number;
+  pay: number;
   src: string;
   title: string;
 
   employees: Array<Employee>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public alertCtrl: AlertController) {
+
     this.employees = navParams.get("employees");
     this.firstName="";
     this.lastName="";
@@ -55,7 +58,7 @@ export class CreateEmployeePage {
       ]
     });
     alert.present();
-    
+
 
   }
 
