@@ -233,7 +233,7 @@ export class Employee {
   getTitle(): string {
     return this.title;
   }
-  settitle(title: string) {
+  setTitle(title: string) {
     this.title = title;
   }
   getPhone(): string {

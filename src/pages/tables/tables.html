@@ -14,7 +14,7 @@
       </div>
       <div id="editlayoutbutton">
         <button ion-button outline block (click)="onEditLayoutPress()">
-          Edit Layout
+          {{editLayoutButtonText}}
         </button>
       </div>
     </div>
@@ -28,9 +28,9 @@
 
 </ion-header>
 
-<ion-content no-bounce id="layoutview">
+<ion-content no-bounce class="no-scroll" id="layoutview">
   <div style="padding:10px;">
-    <div *ngFor="let table of tables" class="tablediv">
+    <div *ngFor="let table of tables" id="{{'table'+table.ID}}" class="tablediv">
       <button [ngClass]="{'table': table.free && !seatingPartyMode(),
                           'tablechooseme': table.free && seatingPartyMode(),
                           'tablenotfree': !table.free}"

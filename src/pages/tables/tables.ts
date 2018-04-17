@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ViewController } from 'ionic
 import { ActionSheetController, ModalController } from 'ionic-angular';
 import { AddPartyPage } from './add-party';
 import { DateTimeService } from '../util/date-time';
+import * as interact from 'interactjs';
 //import { Employee } from '../employees/employees';
 
 /*
@@ -25,6 +26,8 @@ export class TablesPage {
 	parties: Party[];
 	servers: Employee[];
 
+	editLayoutButtonText: string;
+
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
 							public alertCtrl: AlertController,
@@ -34,12 +37,16 @@ export class TablesPage {
 
 		this.mode = Mode.Default;
 		this.selectedParty = null;
+		this.editLayoutButtonText = "Edit Layout";
 
 		this.tables = [
-										new Table(4), new Table(4), new Table(6),
-										new Table(2), new Table(8), new Table(2),
-										new Table(2), new Table(4), new Table(6),
-										new Table(8), new Table(4), new Table(6)
+										new Table(4, "20", "20"), new Table(4, "70", "20"),
+										new Table(6, "120", "20"), new Table(2, "170", "20"),
+										new Table(8, "220", "20"), new Table(2, "20", "150"),
+										new Table(2, "70", "80"), new Table(4, "120", "80"),
+										new Table(6, "170", "60"), /*new Table(8),
+										new Table(4), new Table(6),
+										new Table(3), new Table(1) */
 									];
 		this.parties = [
 										 new Party("Kass", 7, "04:20", "608 609 5186", true),
@@ -80,11 +87,28 @@ export class TablesPage {
 		// TODO: write sorting algorithm for the whole list
 	}
 
+	ionViewDidLoad() {/*
+		var i;
+		for(i = 0; i < this.tables.length; i++) {
+			let table = this.tables[i];
+			console.log('table'+table.ID);
+			var tableElement = document.getElementById('table'+table.ID);
+			console.log(tableElement.getAttribute('id'));
+			tableElement.setAttribute('data-x', table.xPos);
+	    tableElement.setAttribute('data-y', table.yPos);
+	    tableElement.style.webkitTransform =
+	    tableElement.style.transform =
+	      'translate(' + table.xPos + 'px, ' + table.yPos + 'px)';
+		}*/
+	}
 	//----------------------------------------------------------------------------
 	// Button Action: onTablePress
 	//----------------------------------------------------------------------------
 	onTablePress(table: Table) {
 
+		if (this.mode == Mode.EditingLayout) {
+			return;
+		}
 		//
 		// Not in seating party at table mode
 		// Show table action sheet
@@ -145,6 +169,17 @@ export class TablesPage {
 	onEditLayoutPress() {
 		console.log('Edit Layout Pressed');
 		// Make layout editable
+		if (this.mode == Mode.EditingLayout) {
+			this.switchModeTo(Mode.Default);
+			this.interactjsUpdate(false);
+			console.log('mode now is ' + this.mode);
+			this.editLayoutButtonText = "Edit Layout";
+		} else {
+			this.switchModeTo(Mode.EditingLayout);
+			this.interactjsUpdate(true);
+			console.log('mode now is ' + this.mode);
+			this.editLayoutButtonText = "Done";
+		}
 	}
 
 	//----------------------------------------------------------------------------
@@ -322,6 +357,55 @@ export class TablesPage {
 		return this.mode == Mode.SeatingParty;
 	}
 
+	interactjsUpdate(enabled: boolean) {
+		if (enabled) {
+			interact('.tablediv')
+			  .draggable({
+			  	snap: {
+			      targets: [
+			        interact.createSnapGrid({ x: 10, y: 10 })
+			      ],
+			      range: Infinity,
+			      relativePoints: [ { x: 0, y: 0 } ]
+		    	},
+			    // enable inertial throwing
+			    inertia: false,
+			    // keep the element within the area of it's parent
+			    restrict: {
+			      restriction: "parent",
+			      endOnly: true,
+			      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+			    },
+			    // enable autoScroll
+			    autoScroll: true,
+
+			    // call this function on every dragmove event
+			    onmove: dragMoveListener,
+			    // call this function on every dragend event
+			    onend: function (event) { }
+			  })
+		} else {
+			interact('.tablediv')
+  			.draggable(false)
+		}
+
+	  function dragMoveListener (event) {
+	    var target = event.target,
+	        // keep the dragged position in the data-x/data-y attributes
+	        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+	    // translate the element
+	    target.style.webkitTransform =
+	    target.style.transform =
+	      'translate(' + x + 'px, ' + y + 'px)';
+
+	    // update the posiion attributes
+	    target.setAttribute('data-x', x);
+	    target.setAttribute('data-y', y);
+	    //target.setAttribute('')
+	  }
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -489,17 +573,17 @@ export class NumToSeat {
 			confirm.present();
 
 		} else if (this.numToSeat < 1) {
-      let alert = this.alertCtrl.create({
-        title: 'Invalid Party Size',
-        enableBackdropDismiss: false,
-        buttons: [
-          {
-            text: 'Dismiss',
-            handler: () => { }
-          }
-        ]
-      });
-      alert.present();
+			let alert = this.alertCtrl.create({
+				title: 'Invalid Party Size',
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: 'Dismiss',
+						handler: () => { }
+					}
+				]
+			});
+			alert.present();
 
 		} else {
 			this.viewCtrl.dismiss(this.numToSeat);
@@ -522,18 +606,18 @@ export class NumToSeat {
 				<ion-label class="header">Select Server</ion-label>
 				<ion-content id="serverlist">
 					<ion-list scroll="true" id="listscroll">
-			      <button *ngFor="let server of servers"
-			      				[ngClass]="{'selectedserver': server === selectedServer,
-			      										'server': server !== selectedServer}"
-			      				ion-button block outline
-			              (click)="selectServer(server)">
-			        {{server.name}}
-			      </button>
-		    	</ion-list>
-		    </ion-content>
-	    	<button class="modalbutton" ion-button block
+						<button *ngFor="let server of servers"
+										[ngClass]="{'selectedserver': server === selectedServer,
+																'server': server !== selectedServer}"
+										ion-button block outline
+										(click)="selectServer(server)">
+							{{server.name}}
+						</button>
+					</ion-list>
+				</ion-content>
+				<button class="modalbutton" ion-button block
 									(click)="OK()">OK</button>
-	    	<button class="modalbutton" ion-button block outline
+				<button class="modalbutton" ion-button block outline
 									(click)="cancel()">Cancel</button>
 			</ion-list>
 		</div>
@@ -581,7 +665,10 @@ export class Table {
 	server: string;
 	guest: string;
 
-	constructor(capacityIn: number) {
+	xPos: string;
+	yPos: string;
+
+	constructor(capacityIn: number, xPos?: string, yPos?: string) {
 		this.ID = Table.ID_runner;
 		Table.ID_runner += 1;
 		this.capacity = capacityIn;
@@ -590,6 +677,17 @@ export class Table {
 		this.timeIn = "N/A";
 		this.server = "N/A";
 		this.guest = "N/A";
+
+		if (xPos) {
+			this.xPos = xPos;
+		} else {
+			this.xPos = "0";
+		}
+		if (yPos) {
+			this.yPos = yPos;
+		} else {
+			this.yPos = "0";
+		}
 	}
 
 	getStatus(): string {
@@ -612,7 +710,7 @@ export class Table {
 	seat(size: number, server: string, timeIn: string, guest: string) {
 		this.free = false;
 		this.partySize = size;
-    this.timeIn = timeIn;
+		this.timeIn = timeIn;
 		this.server = server;
 		this.guest = (guest != null)? guest : "N/A";
 		console.log('Seated ' + size + ' people at Table ' + this.ID);
@@ -653,9 +751,9 @@ export class Party {
 
 	static compare(p1, p2) {
 		if (p1.reservation && !p2.reservation)
-		  return -1;
+			return -1;
 		if (!p1.reservation && p2.reservation)
-		  return 1;
+			return 1;
 		else {
 			var h1 = parseInt(p1.time.substring(0,2));
 			var h2 = parseInt(p2.time.substring(0,2));

@@ -32,9 +32,9 @@ export class CreateEmployeePage {
     this.employees = navParams.get("employees");
     this.firstName="";
     this.lastName="";
-    this.ID="";
-    this.phone="";
-    this.pay="";
+    this.ID=null;
+    this.phone=null;
+    this.pay=null;
     this.src="";
     this.title="";
 

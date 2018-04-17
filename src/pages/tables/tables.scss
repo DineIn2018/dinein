@@ -92,10 +92,11 @@ page-tables {
     }
 
     .tablediv {
-        float: left;
-        margin: 20px;
+        display: inline-flex;
+        position: static;
+        margin-all: 20px;
         height: 80px;
-        width: 14%;
+        width: 115px;
     }
 
     .tablebuttoncapacity {
@@ -235,6 +236,10 @@ page-tables {
         margin: 0px;
         color: color($colors, primary);
         background-color: color($colors, darkest);
+    }
+
+    .no-scroll .scroll-content{
+        overflow: hidden;
     }
 
 }
