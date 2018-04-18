@@ -1,10 +1,10 @@
 <ion-header>
-</ion-header>
-
-<ion-content no-bounce id="mainview">
-  <div main>
-
-    <div id="editbutton">
+  <div id="viewpunchbutton">
+      <button ion-button block outline (click)="presentPunchPopover($event)">
+        View Punch
+      </button>
+  </div>
+  <div id="editbutton">
       <button ion-button block outline (click)="openEditPage()">
         Edit Info
       </button>
@@ -12,44 +12,51 @@
             Add New Employee
       </button>
     </div>
+  <div id="employeetitle">
+      <ion-label class="subsubtitle">Employees</ion-label>
+  </div>
+</ion-header>
 
-    <div id="mainbody">
-      <div id="employeeprofile">
-        <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
-        <h1>{{selectedEmployee.getName()}}</h1>
-        <div id="employeeinfo">
-          <span class="label">Employee ID:</span> {{selectedEmployee.getID()}}
-          <br>
-          <span class="label">Title:</span> {{selectedEmployee.getTitle()}}
-          <br>
-          <span class="label">Pay:</span> {{selectedEmployee.getPay()}}
-          <br>
-          <span class="label">Phone:</span> {{selectedEmployee.getPhone()}}
-        </div>
+<ion-content no-bounce id="mainview">
+    <div id="employeeprofile">
+      <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
+      <h1>{{selectedEmployee.getName()}}</h1>
+      <div id="employeeinfo">
+        <span class="label">Employee ID:</span> {{selectedEmployee.getID()}}
+        <br>
+        <span class="label">Title:</span> {{selectedEmployee.getTitle()}}
+        <br>
+        <span class="label">Pay:</span> {{selectedEmployee.getPay()}}
+        <br>
+        <span class="label">Phone:</span> {{selectedEmployee.getPhone()}}
       </div>
     </div>
-
-    <div id="viewpunchbutton">
-      <button ion-button block outline (click)="presentPunchPopover($event)">
-        View Punch
-      </button>
-    </div>
-
-  </div>
 </ion-content>
 
 <ion-content id="sideview">
   <div id="employeelist">
     <ion-list scroll="true">
-        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
-          {{ employee.getName() }}
-        </button>
-        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
-          {{ employee.getName() }}
-        </button>
-        <button ion-button block outline *ngFor="let employee of employees" (click)="selectEmployee($event, employee)">
-          {{ employee.getName() }}
-        </button>
+      <button ion-button block outline class="listbutton"
+              *ngFor="let employee of employees"
+              [ngClass]="{'employee': employee.ID != selectedEmployee.ID,
+                          'selectedemployee': employee.ID == selectedEmployee.ID}"
+              (click)="selectEmployee($event, employee)">
+        {{employee.getName()}}
+      </button>
+      <button ion-button block outline class="listbutton"
+              *ngFor="let employee of employees"
+              [ngClass]="{'employee': employee.ID != selectedEmployee.ID,
+                          'selectedemployee': employee.ID == selectedEmployee.ID}"
+              (click)="selectEmployee($event, employee)">
+        {{employee.getName()}}
+      </button>
+      <button ion-button block outline class="listbutton"
+              *ngFor="let employee of employees"
+              [ngClass]="{'employee': employee.ID != selectedEmployee.ID,
+                          'selectedemployee': employee.ID == selectedEmployee.ID}"
+              (click)="selectEmployee($event, employee)">
+        {{employee.getName()}}
+      </button>
     </ion-list>
   </div>
 </ion-content>

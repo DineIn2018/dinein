@@ -23,10 +23,10 @@
 				</ion-item>
 
 				<button class="inputbutton" ion-button outline block
-								[ngClass]="{'inputbuttonnoval': size == null,
-														'inputbuttonhasval': size != null}"
+								[ngClass]="{'inputbuttonnoval': phone == null,
+														'inputbuttonhasval': phone != null}"
 	              (click)="presentNumpad()">
-	        {{buttonTextPhone}}
+	        {{phone == null? "Restaurant's Phone Number" : phone}}
 	      </button>
 
 				<ion-item class="inputfield">

@@ -11,13 +11,13 @@
 							[ngClass]="{'inputbuttonnoval': size == null,
 													'inputbuttonhasval': size != null}"
               (click)="presentNumpad(FIELD_SIZE)">
-        {{buttonTextSize}}
+        {{(size == null)? "Party Size" : size}}
       </button>
 			<button class="inputbutton" ion-button outline block
 							[ngClass]="{'inputbuttonnoval': contact == null,
 													'inputbuttonhasval': contact != null}"
                (click)="presentNumpad(FIELD_CONTACT)">
-        {{buttonTextContact}}
+        {{(contact == null)? "Contact Number" : contact}}
       </button>
 
 			<ion-item id="reservationcheckbox">

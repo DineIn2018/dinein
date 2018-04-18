@@ -26,8 +26,6 @@ export class TablesPage {
 	parties: Party[];
 	servers: Employee[];
 
-	editLayoutButtonText: string;
-
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
 							public alertCtrl: AlertController,
@@ -101,12 +99,13 @@ export class TablesPage {
 	      'translate(' + table.xPos + 'px, ' + table.yPos + 'px)';
 		}*/
 	}
+
 	//----------------------------------------------------------------------------
 	// Button Action: onTablePress
 	//----------------------------------------------------------------------------
 	onTablePress(table: Table) {
 
-		if (this.mode == Mode.EditingLayout) {
+		if (this.editingLayoutMode()) {
 			return;
 		}
 		//
@@ -168,17 +167,14 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	onEditLayoutPress() {
 		console.log('Edit Layout Pressed');
-		// Make layout editable
-		if (this.mode == Mode.EditingLayout) {
+		if (this.editingLayoutMode()) {
 			this.switchModeTo(Mode.Default);
 			this.interactjsUpdate(false);
 			console.log('mode now is ' + this.mode);
-			this.editLayoutButtonText = "Edit Layout";
 		} else {
 			this.switchModeTo(Mode.EditingLayout);
 			this.interactjsUpdate(true);
 			console.log('mode now is ' + this.mode);
-			this.editLayoutButtonText = "Done";
 		}
 	}
 
@@ -353,14 +349,21 @@ export class TablesPage {
 		}
 	}
 
+	editingLayoutMode(): boolean {
+		return this.mode == Mode.EditingLayout;
+	}
 	seatingPartyMode(): boolean {
 		return this.mode == Mode.SeatingParty;
 	}
+	defaultMode(): boolean {
+		return this.mode == Mode.Default;
+	}
 
 	interactjsUpdate(enabled: boolean) {
+
 		if (enabled) {
-			interact('.tablediv')
-			  .draggable({
+			interact('.tablediv').draggable({
+
 			  	snap: {
 			      targets: [
 			        interact.createSnapGrid({ x: 10, y: 10 })
@@ -385,8 +388,7 @@ export class TablesPage {
 			    onend: function (event) { }
 			  })
 		} else {
-			interact('.tablediv')
-  			.draggable(false)
+			interact('.tablediv').draggable(false)
 		}
 
 	  function dragMoveListener (event) {
@@ -606,10 +608,10 @@ export class NumToSeat {
 				<ion-label class="header">Select Server</ion-label>
 				<ion-content id="serverlist">
 					<ion-list scroll="true" id="listscroll">
-						<button *ngFor="let server of servers"
+						<button ion-button block outline class="listbutton"
+										*ngFor="let server of servers"
 										[ngClass]="{'selectedserver': server === selectedServer,
 																'server': server !== selectedServer}"
-										ion-button block outline
 										(click)="selectServer(server)">
 							{{server.name}}
 						</button>

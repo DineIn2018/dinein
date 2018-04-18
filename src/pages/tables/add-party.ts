@@ -14,9 +14,6 @@ export class AddPartyPage {
   FIELD_SIZE = "Party Size";
   FIELD_CONTACT: string = "Contact Number";
 
-  buttonTextSize: string;
-  buttonTextContact: string;
-
   editMode: boolean;
 
   ID: number;
@@ -45,10 +42,6 @@ export class AddPartyPage {
     if (this.editMode) {
       this.party = navParams.get("edit_party");
 
-      // Sets the button text
-      this.buttonTextSize = String(this.party.size);
-      this.buttonTextContact = String(this.party.contact);
-
       // Set user inputs automatically to the values of party being edited
       this.ID = this.party.ID;
       this.name = this.party.name;
@@ -62,10 +55,6 @@ export class AddPartyPage {
     //
     } else {
       this.parties = navParams.get("parties");
-
-      // Sets the button text to their default place holders
-      this.buttonTextSize = "Size";
-      this.buttonTextContact = "Contact Number";
 
       // All inputs initially empty
       this.ID = null;
@@ -141,10 +130,8 @@ export class AddPartyPage {
       if (data != null) {
         if (field == this.FIELD_SIZE) {
           this.size = data;
-          this.buttonTextSize = String(this.size);
         } else if (field == this.FIELD_CONTACT) {
           this.contact = String(data);
-          this.buttonTextContact = String(this.contact);
         }
       }
 

@@ -17,204 +17,226 @@
 
 .md, .ios, .wp {
 
-    // MAIN TITLE STYLING
-    .maintitle {
-        color: color($colors, primary);
-        padding-bottom: 10px;
-        font-size: 70px;
-        font-weight: 500;
-    }
+	// MAIN TITLE STYLING
+	.maintitle {
+		color: color($colors, primary);
+		padding-bottom: 10px;
+		font-size: 70px;
+		font-weight: 500;
+	}
 
-    // SUBTITLE STYLING
-    .subtitle {
-        color: color($colors, primary);
-        padding-bottom: 5px;
-        font-size: 45px;
-        font-weight: 475;
-    }
+	// SUBTITLE STYLING
+	.subtitle {
+		color: color($colors, primary);
+		padding-bottom: 5px;
+		font-size: 45px;
+		font-weight: 475;
+	}
 
-    // SUBSUBTITLE STYLING
-    .subsubtitle {
-        color: color($colors, primary);
-        padding-bottom: 5px;
-        font-size: 35px;
-        font-weight: 450;
-    }
+	// SUBSUBTITLE STYLING
+	.subsubtitle {
+		color: color($colors, primary);
+		padding-bottom: 5px;
+		font-size: 35px;
+		font-weight: 450;
+	}
 
-    // HEADER STYLING
-    .header {
-        color: color($colors, medium);
-        font-size: 30px;
-        font-weight: 450;
-    }
+	// HEADER STYLING
+	.header {
+		color: color($colors, medium);
+		font-size: 30px;
+		font-weight: 450;
+	}
 
-    // Regular Text STYLING
-    .regularText {
-        color: color($colors, medium);
-        font-size: 24px;
-        font-weight: 350;
-    }
+	// Regular Text STYLING
+	.regularText {
+		color: color($colors, medium);
+		font-size: 24px;
+		font-weight: 350;
+	}
 
-    // small Text STYLING
-    .smalltext {
-        //color: color($colors, medium);
-        font-size: 16px;
-        font-weight: 500;
-    }
+	// small Text STYLING
+	.smalltext {
+		//color: color($colors, medium);
+		font-size: 16px;
+		font-weight: 500;
+	}
 
-    .background {
-        background-color: color($colors, darkest);
-        width: 100%;
-        height: 100%;
-    }
+	.background {
+		background-color: color($colors, darkest);
+		width: 100%;
+		height: 100%;
+	}
 
-    .modalbase {
-        background-color: color($colors, dark);
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
-        border-radius: 5px;
+	.modalbase {
+		background-color: color($colors, dark);
+		padding-top: 15px;
+		padding-bottom: 2px;
+		padding-left: 30px;
+		padding-right: 30px;
+		border-radius: 5px;
 
-    }
+	}
 
-    .modalbutton {
-        margin-top: 20px;
-    }
+	.modalbutton {
+		margin-top: 20px;
+	}
 
-    .numpad {
-        table-layout: fixed;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        width: 100%;
-        height: 100%;
-    }
+	.numpad {
+		table-layout: fixed;
+		border-radius: 5px;
+		margin-bottom: 15px;
+		width: 100%;
+		height: 100%;
+	}
 
-    .numkey {
-        width: 98%;
-        height: 100%;
-        font-size: 28px;
-        font-weight: 600;
-        border-radius: 5px;
-        margin: 0px;
-    }
+	.numkey {
+		width: 98%;
+		height: 100%;
+		font-size: 28px;
+		font-weight: 600;
+		border-radius: 5px;
+		margin: 0px;
+	}
 
-    .localbutton, .modalbutton {
-        font-size: 15px;
-        font-weight: 475;
-    }
+	.localbutton, .modalbutton {
+		font-size: 15px;
+		font-weight: 475;
+	}
 
-    // TEXT INPUT BOX Styling
-    .inputfield, .inputfielderror {
-        border: 2px solid;
-        background-color: color($colors, darkest);
-        width: 100%;
-        height: 50px;
-        margin: 20px auto;
-        border-radius: 3px;
-        font-size: 15px;
-        font-weight: 475;
-        //padding-left: 15px;
+	.listbutton {
+		padding-left: 10px;
+		margin: 0px;
+		border-radius: 0px;
+		border-top: 0px;
+		border-right: 0px;
+		border-left: 0px;
+		border-bottom: solid 0.7px;
+		border-radius: 2px;
+		border-color: color($colors, middark);
+		font-size: 15px;
+		font-weight: 450;
 
-        // Changes color of placeholder in text input box
-        .text-input::-webkit-input-placeholder {
-            color: color($colors, middark);
-        }
-    }
+		.button-inner{
+			justify-content: flex-start;
+		}
+	}
 
-    .inputfield {
-        border-color: color($colors, primary);
-        // Changes color of text in text input box
-        .text-input {
-            color: color($colors, primary);
-        }
-    }
+	// TEXT INPUT BOX Styling
+	.inputfield, .inputfielderror {
+		border: 2px solid;
+		background-color: color($colors, darkest);
+		width: 100%;
+		height: 50px;
+		margin: 20px auto;
+		border-radius: 3px;
+		font-size: 15px;
+		font-weight: 475;
+		//padding-left: 15px;
 
-    .inputfielderror {
-        border-color: color($colors, secondary);
-        // Changes color of text in text input box
-        .text-input {
-            color: color($colors, secondary);
-        }
-    }
+		// Changes color of placeholder in text input box
+		.text-input::-webkit-input-placeholder {
+			color: color($colors, middark);
+		}
+	}
 
-    .inputbutton {
-        margin-bottom: 20px;
-        height: 50px;
-        .button-inner {
-            justify-content:flex-start;
-        }
-    }
+	.inputfield {
+		border-color: color($colors, primary);
+		// Changes color of text in text input box
+		.text-input {
+			color: color($colors, primary);
+		}
+	}
 
-    .inputbuttonnoval .button-inner {
-        color: color($colors, middark);
-    }
-    .inputbuttonhasval .button-inner{
-        color: color($colors, primary);
-    }
+	.inputfielderror {
+		border-color: color($colors, secondary);
+		// Changes color of text in text input box
+		.text-input {
+			color: color($colors, secondary);
+		}
+	}
 
-    .numpadinput, .numpadinputhasval {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+	.inputbutton {
+		margin-bottom: 20px;
+		height: 50px;
+		.button-inner {
+			justify-content:flex-start;
+		}
+	}
 
-    // Tab styling, darkens when selected, unused
-    .tabs-ios .tab-button[aria-selected=true] {
-        //background-color: color($colors, darkest);
-    }
+	.inputbuttonnoval .button-inner {
+		color: color($colors, middark);
+	}
+	.inputbuttonhasval .button-inner {
+		color: color($colors, primary);
+	}
 
-    .picker-wrapper {
-        border-radius: 3px;
-        border-color: color($colors, dark);
-        border-width: 0px;
-        .picker-opt{
-            color: color($colors, medium);
-        }
-        .picker-opt-selected {
-            color: color($colors, primary);
-        }
-    }
+	.numpadinput, .numpadinputhasval {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 
-    .item-checkbox {
-        border: solid 2px;
-        border-radius: 3px;
-        border-color: color($colors, primary);
-        background-color: color($colors, darkest);
-        .checkbox-icon {
-            border: solid 1px;
-            border-radius: 3px;
-            border-color: color($colors, primary);
-            background-color: color($colors, darkest);
-        }
-        .checkbox-checked {
-            background-color: color($colors, primary);
-        }
-    }
+	// Tab styling, darkens when selected, unused
+	.tabs-ios .tab-button[aria-selected=true] {
+		//background-color: color($colors, darkest);
+	}
 
-    .datetime {
-        .datetime-placeholder {
-            color: color($colors, middark);
-        }
-        // Color for selected datetime
-        color: color($colors, primary);
-    }
+	.picker-wrapper {
+		border-radius: 3px;
+		border-color: color($colors, dark);
+		border-width: 0px;
+		.picker-opt{
+			color: color($colors, medium);
+		}
+		.picker-opt-selected {
+			color: color($colors, primary);
+		}
+	}
 
-    // Checkbox inner
-    .item-checkbox {
-        .item-inner {
-            color: color($colors, primary);
-        }
-    }
+	.item-checkbox {
+		border: solid 2px;
+		border-radius: 3px;
+		border-color: color($colors, primary);
+		background-color: color($colors, darkest);
+		.checkbox-icon {
+			border: solid 1px;
+			border-radius: 3px;
+			border-color: color($colors, primary);
+			background-color: color($colors, darkest);
+		}
+		.checkbox-checked {
+			background-color: color($colors, primary);
+		}
+	}
 
-    .alert-wrapper {
-        border-width: 2px;
-        //border-style: solid;
-        border-color: color($colors, primary);
-    }
+	.datetime {
+		.datetime-placeholder {
+			color: color($colors, middark);
+		}
+		// Color for selected datetime
+		color: color($colors, primary);
+	}
 
-    .alert-ios {
-        .alert-title {
-            color: color($colors, medium);
-        }
-    }
+	// Checkbox inner
+	.item-checkbox {
+		.item-inner {
+			color: color($colors, primary);
+		}
+	}
+
+	.alert-wrapper {
+		border-width: 2px;
+		//border-style: solid;
+		border-color: color($colors, primary);
+	}
+
+	.alert-ios {
+		.alert-title {
+			color: color($colors, medium);
+		}
+	}
+
+	.no-scroll .scroll-content{
+		overflow: hidden;
+	}
 }

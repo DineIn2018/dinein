@@ -13,15 +13,19 @@
         </button>
       </div>
       <div id="editlayoutbutton">
-        <button ion-button outline block (click)="onEditLayoutPress()">
-          {{editLayoutButtonText}}
+        <button ion-button outline block
+                [disabled]="seatingPartyMode()"
+                (click)="onEditLayoutPress()">
+          {{editingLayoutMode()? "Cancel" : "Edit Layout"}}
         </button>
       </div>
     </div>
   </div>
 
   <div id="headerright">
-  	<button ion-button outline block (click)="onAddPartyPress()">
+  	<button ion-button outline block
+            [disabled]="!defaultMode()"
+            (click)="onAddPartyPress()">
       Add Party
     </button>
   </div>
@@ -30,13 +34,17 @@
 
 <ion-content no-bounce class="no-scroll" id="layoutview">
   <div style="padding:10px;">
-    <div *ngFor="let table of tables" id="{{'table'+table.ID}}" class="tablediv">
-      <button [ngClass]="{'table': table.free && !seatingPartyMode(),
+    <div class="tablediv" id="{{'table'+table.ID}}"
+         *ngFor="let table of tables">
+      <button ion-button outline
+              [ngClass]="{'table': table.free && !seatingPartyMode(),
                           'tablechooseme': table.free && seatingPartyMode(),
                           'tablenotfree': !table.free}"
-              ion-button outline (click)="onTablePress(table)">
+              (click)="onTablePress(table)">
         <div style="height:100%;width:100%;padding-top:15%">
-          <ion-label class="smalltext tablebuttonID">{{table.ID}}</ion-label>
+          <ion-label class="smalltext tablebuttonID">
+            {{table.ID}}
+          </ion-label>
           <ion-label class="tablebuttoncapacity">
             {{table.getButtonText()}}
           </ion-label>
@@ -51,11 +59,12 @@
 
 <ion-content id="sideview">
   <div id="waitlist">
-    <ion-list scroll="true" id="listscroll">
-      <button *ngFor="let party of parties"
+    <ion-list scroll="true">
+      <button ion-button block outline class="listbutton"
+              *ngFor="let party of parties"
               [ngClass]="{'resparty': party.reservation,
                           'waitparty': !party.reservation}"
-              ion-button block outline
+              [disabled]="!defaultMode()"
               (click)="presentPartyActions(party)">
         {{party.display()}}
       </button>

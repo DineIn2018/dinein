@@ -30,7 +30,7 @@ export class DateTimeService {
 		let d1 = new Date(t1);
 		let d2 = new Date(t2);
 		let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
-		return (Math.round(diff_hrs * 4) / 4).toFixed(2);
+		return (Math.round(diffHours * 4) / 4).toFixed(2);
 	}
 
 	pad(n) {

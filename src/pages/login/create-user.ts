@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { CreateRestaurantPage } from './create-restaurant';
+import { Restaurant } from './create-restaurant';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -27,6 +28,8 @@ export class CreateUserPage {
   buttonTextPhone: string;
   buttonTextRestaurant: string;
 
+  createdRestaurant: Restaurant;
+
   restaurantsList: string[] = ["Potbelly", "State St. Brats", "Hopcat", "Five Guys",
                                "Chipotle", "Nitty Gritty", "Dotty's", "Ians",
                                "Glaze", "QQs"];
@@ -35,6 +38,13 @@ export class CreateUserPage {
               public modalCtrl: ModalController,
               public viewCtrl: ViewController,
               public navParams: NavParams) {
+
+    this.createdRestaurant = this.navParams.get('restaurant');
+    if (this.createdRestaurant) {
+      console.log('received restaurant: ' + this.createdRestaurant.name);
+    } else {
+      this.createdRestaurant = null;
+    }
 
     this.buttonTextPhone = "Phone Number (optional)";
     this.buttonTextRestaurant = "Select Restaurant";
@@ -177,10 +187,10 @@ export class PhoneNumpad {
         <ion-label class="header">Select Restaurant</ion-label>
         <ion-content id="restaurantlist">
           <ion-list scroll="true">
-            <button *ngFor="let restaurant of restaurants"
+            <button ion-button block outline class="listbutton"
+                    *ngFor="let restaurant of restaurants"
                     [ngClass]="{'selectedrestaurant': restaurant === selectedRestaurant,
                                 'restaurant': restaurant !== selectedRestaurant}"
-                    ion-button block outline
                     (click)="selectRestaurant(restaurant)">
               {{restaurant}}
             </button>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModalController, ViewController, AlertController } from 'ionic-angular';
+import { CreateUserPage } from './create-user';
+import { Employee } from '../employees/employees';
 
 @IonicPage()
 @Component({
@@ -14,10 +16,8 @@ export class CreateRestaurantPage {
   addrLine2: string;
   addrLine3: string;
   phone: number;
-  ownerFirstname: string;
+  ownerFirstName: string;
   ownerLastName: string;
-
-  buttonTextPhone: string;
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
@@ -28,10 +28,8 @@ export class CreateRestaurantPage {
     this.addrLine2 = null;
     this.addrLine3 = null;
     this.phone = null;
-    this.ownerFirstname = null;
+    this.ownerFirstName = null;
     this.ownerLastName = null;
-
-    this.buttonTextPhone = "Restaurant's Phone Number";
   }
 
   create() {
@@ -45,7 +43,9 @@ export class CreateRestaurantPage {
         buttons: [
           {
             text: 'Dismiss',
-            handler: () => { }
+            handler: () => {
+              console.log(this.restaurantName + this.addrLine1 + this.addrLine2 + this.addrLine3 + this.phone + this.ownerFirstName + this.ownerLastName);
+            }
           }
         ]
       });
@@ -55,7 +55,10 @@ export class CreateRestaurantPage {
     // Valid Input Data
     //
     } else {
-      this.exit();
+      let createdRestaurant: Restaurant = new Restaurant(
+        this.restaurantName, this.addrLine1, this.addrLine2, this.addrLine3,
+        this.phone, this.ownerFirstname, this.ownerLastName);
+      this.navCtrl.popTo(CreateUserPage, { restaurant: createdRestaurant});
     }
   }
 
@@ -64,11 +67,10 @@ export class CreateRestaurantPage {
   }
 
   presentNumpad(field: string) {
-    let modal = this.modalCtrl.create(Numpad);
+    let modal = this.modalCtrl.create(ResPhoneNumpad);
     modal.onDidDismiss(data => {
       if (data != null) {
         this.phone = data;
-        this.buttonTextPhone = String(this.phone);
       }
 
     });
@@ -79,7 +81,7 @@ export class CreateRestaurantPage {
     return ((this.addrLine1 != null) &&
             (this.addrLine3 != null) &&
             (this.phone != null) &&
-            (this.ownerFirstname != null) &&
+            (this.ownerFirstName != null) &&
             (this.ownerLastName != null));
   }
 
@@ -123,7 +125,7 @@ export class CreateRestaurantPage {
     </div>
   `
 })
-export class Numpad {
+export class ResPhoneNumpad {
 
   userInput: number;
 
@@ -166,5 +168,41 @@ export class Numpad {
 
   cancel() {
     this.viewCtrl.dismiss(null);
+  }
+}
+
+export class Restaurant {
+
+  name: string;
+  addrLine1: string;
+  addrLine2: string;
+  addrLine3: string;
+  phoneNumber: number;
+  ownerFirstname: string;
+  ownerLastName: string;
+
+  capacity: number;
+  totalEmployees: number;
+
+  employees: Employee[];
+
+  constructor(name: string, addrLine1: string, addrLine2?: string,
+              addrLine3: string, phoneNumber: number,
+              ownerFirstname: string, ownerLastName: string) {
+    this.name = name;
+    this.addrLine1 = addrLine1;
+    if (addrLine2) {
+      this.addrLine2 = addrLine2;
+    } else {
+      this.addrLine2 = null;
+    }
+    this.addrLine3 = addrLine3;
+    this.phoneNumber = phoneNumber;
+    this.ownerFirstname = ownerFirstname;
+    this.ownerLastName = ownerLastName;
+
+    this.capacity = 0;
+    this.totalEmployees = 0;
+    this.employees = [];
   }
 }

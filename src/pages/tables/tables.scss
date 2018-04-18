@@ -1,9 +1,5 @@
 page-tables {
 
-    .background {
-        background-color: color($colors, dark);
-    }
-
     #headerleft, #headerright {
         padding-top: 5px;
         padding-bottom: 5px;
@@ -68,31 +64,16 @@ page-tables {
         padding: 10px;
     }
 
-
-    .resparty, .waitparty {
-        padding-left: 5px;
-        margin: 0px;
-        border-radius: 0px;
-        border-top: 0px;
-        border-right: 0px;
-        border-left: 0px;
-        border-bottom: solid 0.7px;
-        border-radius: 2px;
-        border-color: color($colors, middark);
-        font-size: 15px;
-        font-weight: 450;
-
-        .button-inner{
-            justify-content: flex-start;
-        }
+    .resparty, .selectedserver {
+        color: color($colors, primary);
     }
 
-    .waitparty {
-        color: color($colors, medium);
+    .waitparty, .server {
+        color: color($colors, middark);
     }
 
     .tablediv {
-        display: inline-flex;
+        display: flex;
         position: static;
         margin-all: 20px;
         height: 80px;
@@ -188,29 +169,6 @@ page-tables {
         height: 370px;
         margin-bottom: 25px;
         background-color: color($colors, dark);
-    }
-
-    .server, .selectedserver {
-        padding-left: 5px;
-        border-radius: 0px;
-        border-top: 0px;
-        border-right: 0px;
-        border-left: 0px;
-        border-bottom: solid 0.7px;
-        border-radius: 2px;
-        border-color: color($colors, middark);
-        font-size: 15px;
-        font-weight: 450;
-        height: 40px;
-        margin: 0px;
-
-        .button-inner{
-            justify-content: flex-start;
-        }
-    }
-
-    .server {
-        color: color($colors, middark);
     }
 
     #numpadmodal {

@@ -6,7 +6,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { LoginPage } from '../pages/login/login';
 import { CreateUserPage, SelectRestaurant, PhoneNumpad } from '../pages/login/create-user';
-import { CreateRestaurantPage } from '../pages/login/create-restaurant';
+import { CreateRestaurantPage, ResPhoneNumpad } from '../pages/login/create-restaurant';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -43,6 +43,7 @@ import { Camera } from '@ionic-native/camera';
     SelectRestaurant,
     PhoneNumpad,
     CreateRestaurantPage,
+    ResPhoneNumpad,
 
     TablesPage,
     TableInfo,
@@ -79,6 +80,7 @@ import { Camera } from '@ionic-native/camera';
     SelectRestaurant,
     PhoneNumpad,
     CreateRestaurantPage,
+    ResPhoneNumpad,
 
     TablesPage,
     TableInfo,

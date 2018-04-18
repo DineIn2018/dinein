@@ -1,32 +1,31 @@
 page-employees {
 
-    .background {
+    #employeetitle {
+        width: 22%;
+        margin-left: 78%;
+        padding-top: 5px;
+        padding-left: 20px;
+        height: 60px;
+        width: 100%;
         background-color: color($colors, dark);
     }
 
     #mainview {
-        margin-right: 20%;
-        width:80%;
-        padding: 5px;
+        width: 78%;
+        margin-right: 22%;
     }
 
     #sideview {
-        margin-left: 80%;
-        width:20%;
+        width: 22%;
+        margin-left: 78%;
         background-color: color($colors, dark);
     }
 
     #employeelist {
         width: 100%;
         height: 100%;
-        background-color: color($colors, dark);
         padding: 10px;
-    }
-
-
-
-    .no-scroll .scroll-content{
-        overflow: hidden;
+        background-color: color($colors, dark);
     }
 
     #topleft {
@@ -65,20 +64,13 @@ page-employees {
         font-size: 2vh;
     }
     #mainbody {
-        width: 80%;
+        width: 70%;
         height: 100%;
-        margin-left: 0%;
+        margin-right: 30%;
         /*margin-bottom: 10%;
         background-color: color($colors,darker);*/
     }
-    #sidebar {
-        width:20%;
-        height: 100%;
-        margin-top: 0%;
-        margin-left: 80%;
-        background-color: color($colors, darker);
-        overflow: scroll;
-    }
+
     #searchbar {
         position: fixed;
         margin-top: 40px;
@@ -105,27 +97,6 @@ page-employees {
         z-index: 1;
     }
 
-    #employeelist {
-        display: block;
-        padding-top: 20%;
-        /*position: fixed;*/
-        background-color: color($colors, darker);
-        /*width: 20%;*/
-       /* margin-top: 16%;*/
-        /*height: 94%;*/
-        font-family: palatino;
-        z-index: -1;
-        padding-bottom: 18%;
-        /*margin-left: 80%;*/
-    }
-
-    .label {
-        /*text-decoration: underline;*/
-        font-style: italic;
-
-        float: left;
-        /*color: color($colors, tertiary);*/
-    }
 	#employeeprofile {
         /*background-color: color($colors, darkest);*/
         width: 80%;
@@ -163,6 +134,13 @@ page-employees {
         outline-style: solid;
         outline-color: color($colors, primary);
 
+    }
+
+    .employee {
+        color: color($colors, middark);
+    }
+    .selectedemployee {
+        color: color($colors, primary);
     }
 
 }
