@@ -1,41 +1,82 @@
 <ion-header>
-  <div id="topleft">
-    <ion-label class="subtitle">View PunchCards</ion-label>
-  </div>
-  <div id="topright">
-      <button ion-button outline block>Filter</button>
-    </div>
+	<div id="topleft">
+		<ion-label class="subtitle">View PunchCards</ion-label>
+	</div>
+	<div id="topright">
+
+		</div>
 </ion-header>
 
 <ion-content padding>
 
-  <div id="container">
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Shift Start</th>
-        <th>Shift End</th>
-        <th>Hours Worked</th>
-      </tr>
-      <tr *ngFor="let entry of employeeShiftsList">
-        <td>{{entry.getName()}}</td>
-        <td>{{entry.getStartTime()}}</td>
-        <td>{{entry.getEndTime()}}</td>
-        <td>{{entry.getTotalTime()}}</td>
-      </tr>
-      <tr *ngFor="let entry of employeeShiftsList">
-        <td>{{entry.getName()}}</td>
-        <td>{{entry.getStartTime()}}</td>
-        <td>{{entry.getEndTime()}}</td>
-        <td>{{entry.getTotalTime()}}</td>
-      </tr>
-      <tr *ngFor="let entry of employeeShiftsList">
-        <td>{{entry.getName()}}</td>
-        <td>{{entry.getStartTime()}}</td>
-        <td>{{entry.getEndTime()}}</td>
-        <td>{{entry.getTotalTime()}}</td>
-      </tr>
-    </table>
-  </div>
+	<div id="container">
+		<table>
+			<tr>
+				<th><ion-label class="subsubtitle">Employee Name</ion-label></th>
+				<th><ion-label class="subsubtitle">Shift Start</ion-label></th>
+				<th><ion-label class="subsubtitle">Shift End</ion-label></th>
+				<th><ion-label class="subsubtitle">Hours Worked</ion-label></th>
+			</tr>
+			<tr *ngFor="let shift of displayShiftList">
+				<td>
+					<ion-label class="smalltext">{{shift.name}}</ion-label>
+				</td>
+				<td>
+					<ion-label class="smalltext">{{shift.startTime}}</ion-label>
+				</td>
+				<td>
+					<ion-label class="smalltext">
+						{{shift.hasEnded()? shift.endTime : "In Progress"}}
+					</ion-label>
+				</td>
+				<td>
+					<ion-label class="smalltext">
+						{{shift.hasEnded()? shift.shiftLength : "N/A"}}
+					</ion-label>
+				</td>
+			</tr>
+		</table>
 
+		<div>
+			<div class="filterparam">
+				<ion-label class="regularText">For Employee:</ion-label>
+				<button class="inputbutton" ion-button outline block
+								[ngClass]="{'inputbuttonnoval': selectedEmployeeID == null,
+														'inputbuttonhasval': selectedEmployeeID != null}"
+								(click)="presentEmployeeSelector()">
+					{{(selectedEmployeeID == null)? "Select Employee" :
+						(selectedEmployeeID == 0)? "ALL" : getEmployeeByID(selectedEmployeeID).getFullName()}}
+				</button>
+			</div>
+
+			<div class="filterparam">
+				<ion-label class="regularText">From:</ion-label>
+				<ion-item class="timeselect">
+					<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
+												placeholder="Select Start Date"
+												[(ngModel)]="filterStartDate">
+					</ion-datetime>
+				</ion-item>
+			</div>
+
+			<div class="filterparam">
+				<ion-label class="regularText">To:</ion-label>
+				<ion-item class="timeselect">
+					<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
+												placeholder="Select End Date"
+												[(ngModel)]="filterEndDate">
+					</ion-datetime>
+			</ion-item>
+			</div>
+
+			<div class="filterparam">
+				<ion-label class="regularText"></ion-label>
+				<button class="localbutton applyfilterbutton" ion-button block
+								(click)="applyFilter()">
+					Apply Filter
+				</button>
+			</div>
+
+		</div>
+	</div>
 </ion-content>

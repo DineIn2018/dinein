@@ -14,7 +14,7 @@ import { TablesPage, TableInfo, PartyInfo, NumToSeat, SelectServer } from '../pa
 import { AddPartyPage, Numpad } from '../pages/tables/add-party';
 import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
-import { PunchCardPage } from '../pages/punchcard/punchcard';
+import { PunchCardPage, SelectEmployee } from '../pages/punchcard/punchcard';
 
 import { CalendarPage } from '../pages/calendar/calendar';
 
@@ -56,7 +56,10 @@ import { Camera } from '@ionic-native/camera';
     EmployeesPage,
 
     TimePunchPage,
+
     PunchCardPage,
+    SelectEmployee,
+
     CalendarPage,
 
     ManagementPage,
@@ -92,7 +95,10 @@ import { Camera } from '@ionic-native/camera';
 
     EmployeesPage,
     TimePunchPage,
+
     PunchCardPage,
+    SelectEmployee,
+
     CalendarPage,
 
     ManagementPage,

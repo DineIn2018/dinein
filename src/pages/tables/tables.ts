@@ -166,7 +166,6 @@ export class TablesPage {
 	// Button Action: onEditLayoutPress
 	//----------------------------------------------------------------------------
 	onEditLayoutPress() {
-		console.log('Edit Layout Pressed');
 		if (this.editingLayoutMode()) {
 			this.switchModeTo(Mode.Default);
 			this.interactjsUpdate(false);
@@ -304,6 +303,7 @@ export class TablesPage {
 	}
 
 	displaySelectServer(table: Table, numToSeat: number) {
+
 		let modal = this.modalCtrl.create(SelectServer, {servers: this.servers});
 		modal.onDidDismiss(server => {
 			if (server != null) {

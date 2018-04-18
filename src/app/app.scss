@@ -37,7 +37,7 @@
 	.subsubtitle {
 		color: color($colors, primary);
 		padding-bottom: 5px;
-		font-size: 35px;
+		font-size: 24px;
 		font-weight: 450;
 	}
 
@@ -122,6 +122,18 @@
 		}
 	}
 
+	.timeselect {
+        margin-top: 10px;
+        border-style: solid;
+        border-radius: 2px;
+        border-width: 2px;
+        padding-left: 0px;
+        border-color: color($colors, primary);
+        background-color: color($colors, darkest);
+        font-size: 15px;
+        font-weight: 475;
+    }
+
 	// TEXT INPUT BOX Styling
 	.inputfield, .inputfielderror {
 		border: 2px solid;
@@ -159,6 +171,8 @@
 	.inputbutton {
 		margin-bottom: 20px;
 		height: 50px;
+		font-size: 15px;
+		font-weight: 475;
 		.button-inner {
 			justify-content:flex-start;
 		}

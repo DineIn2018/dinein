@@ -33,6 +33,27 @@ export class DateTimeService {
 		return (Math.round(diffHours * 4) / 4).toFixed(2);
 	}
 
+	sameDay(t1, t2): boolean {
+		let d1 = new Date(t1);
+		let d2 = new Date(t2);
+		let day1 = d1.getDate();
+		let month1 = d1.getMonth() + 1;
+		let year1 = d1.getFullYear();
+		let day2 = d2.getDate();
+		let month2 = d2.getMonth() + 1;
+		let year2 = d2.getFullYear();
+		return (day1 == day2) && (month1 == month2) && (year1 == year2);
+	}
+
+	inBetween(t, tStart, tEnd): boolean {
+		let d = new Date(t);
+		let dStart = new Date(tStart);
+		let dEnd = new Date(tEnd);
+		let afterStart = (d.getTime() - dStart.getTime()) >= 0;
+		let beforeEnd = (dEnd.getTime() - d.getTime() >= 0);
+		return afterStart && beforeEnd;
+	}
+
 	pad(n) {
     return (n < 10)? ('0' + n) : n;
 	}

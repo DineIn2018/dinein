@@ -18,7 +18,7 @@ export class CreateEmployeePage {
   firstName: string;
   lastName: string;
   ID: number;
-  phone: number;
+  phone: string;
   pay: number;
   src: string;
   title: string;

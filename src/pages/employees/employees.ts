@@ -172,7 +172,7 @@ export class Employee {
     // Mark new shift as incompleted/in progress
     // Set employee status to "Currently working"
     // Add the shift object to the employee
-    this.shifts.push(new EmployeeShift(timeIn));
+    this.shifts.push(new EmployeeShift(timeIn, undefined, this.getFullName()));
     console.log('Successfully punched in for employee: ' + this.ID);
   }
 
@@ -198,6 +198,10 @@ export class Employee {
     }
     let mostRecentShift = this.shifts[this.shifts.length-1];
     return !mostRecentShift.hasEnded();
+  }
+
+  getFullName(): string {
+    return this.firstName + " " + this.lastName;
   }
 
   getName(): string {
