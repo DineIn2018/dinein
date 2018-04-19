@@ -229,9 +229,10 @@ export class Employee {
     this.imageSrc = src;
   }
   getID(): string {
-    return this.ID;
+    return ""+this.ID;
   }
-  setID(id: string) {
+  //id used to be of type string
+  setID(id: number) {
     this.ID = id;
   }
   getTitle(): string {
@@ -247,9 +248,10 @@ export class Employee {
     this.phone = phone;
   }
   getPay(): string {
-    return this.pay;
+    return ""+this.pay;
   }
-  setPay(pay: string) {
+  //pay used to be of type string
+  setPay(pay: number) {
     this.pay = pay;
   }
 }
