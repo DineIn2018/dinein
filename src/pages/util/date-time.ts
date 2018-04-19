@@ -29,7 +29,7 @@ export class DateTimeService {
 	getDiffQuarterHour(t1, t2): number {
 		let d1 = new Date(t1);
 		let d2 = new Date(t2);
-		let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
+		let diffHours: number = (d2.getTime() - d1.getTime()) / 3600000;
 		return (Math.round(diffHours * 4) / 4).toFixed(2);
 	}
 

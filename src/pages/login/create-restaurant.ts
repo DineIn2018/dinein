@@ -56,9 +56,9 @@ export class CreateRestaurantPage {
     //
     } else {
       let createdRestaurant: Restaurant = new Restaurant(
-        this.restaurantName, this.addrLine1, this.addrLine2, this.addrLine3,
-        this.phone, this.ownerFirstname, this.ownerLastName);
-      this.navCtrl.popTo(CreateUserPage, { restaurant: createdRestaurant});
+        this.restaurantName, this.addrLine1, this.addrLine2,
+        this.phone, this.ownerFirstName, this.ownerLastName, this.addrLine3);
+      this.navCtrl.popTo(CreateUserPage);
     }
   }
 
@@ -186,9 +186,10 @@ export class Restaurant {
 
   employees: Employee[];
 
-  constructor(name: string, addrLine1: string, addrLine2?: string,
+  constructor(name: string, addrLine1: string,
               addrLine3: string, phoneNumber: number,
-              ownerFirstname: string, ownerLastName: string) {
+              ownerFirstname: string, ownerLastName: string,
+              addrLine2?: string) {
     this.name = name;
     this.addrLine1 = addrLine1;
     if (addrLine2) {

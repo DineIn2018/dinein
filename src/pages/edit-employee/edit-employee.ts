@@ -15,8 +15,8 @@ export class EditEmployeePage {
   employees: Array<Employee>;
   employeePage: any;
   newTitle: string;
-  newID: string;
-  newPay: string;
+  newID: number;
+  newPay: number;
   newPhone: string;
   newFirstName: string;
   newLastName: string;

@@ -2,12 +2,14 @@
 <div class="background">
   <div id="container">
 
-    <ion-label class="subtitle">Punch In/Out</ion-label>
-    <ion-label class="header">{{currDateTime | date: 'EEE MMM d, yyyy'}}</ion-label>
-    <ion-label class="header">{{currDateTime | date: 'hh:mm:ss aa'}}</ion-label>
-    <ion-label class="subtitle">ID: {{ID}}</ion-label>
+    <div style="height:30%;width:100%;">
+      <ion-label class="subtitle">Punch In/Out</ion-label>
+      <ion-label class="header">{{currDateTime | date: 'EEE MMM d, yyyy'}}</ion-label>
+      <ion-label class="header">{{currDateTime | date: 'hh:mm:ss aa'}}</ion-label>
+      <ion-label class="subtitle">ID: {{ID}}</ion-label>
+    </div>
 
-    <div style="height:350px;width:100%;">
+    <div style="height:70%;width:100%;">
       <table class="numpad">
         <tr>
           <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>

@@ -35,7 +35,6 @@ export class TablesPage {
 
 		this.mode = Mode.Default;
 		this.selectedParty = null;
-		this.editLayoutButtonText = "Edit Layout";
 
 		this.tables = [
 										new Table(4, "20", "20"), new Table(4, "70", "20"),
