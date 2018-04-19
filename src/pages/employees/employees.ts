@@ -146,10 +146,10 @@ export class Employee {
   name: string;
   firstName: string;
   lastName: string;
-  ID: string;
+  ID: number;
   imageSrc: string;
   title: string;
-  pay: string;
+  pay: number;
   phone: string;
 
   shifts: EmployeeShift[];
