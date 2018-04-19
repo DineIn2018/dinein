@@ -231,6 +231,7 @@ export class Employee {
   getID(): number {
     return this.ID;
   }
+
   setID(id: number) {
     this.ID = id;
   }
