@@ -1,32 +1,32 @@
 
-<div class="background">
+<ion-content no-bounce class="background no-scroll">
   <div id="container">
 
-    <div style="height:30%;width:100%;">
-      <ion-label class="subtitle">Punch In/Out</ion-label>
-      <ion-label class="header">{{currDateTime | date: 'EEE MMM d, yyyy'}}</ion-label>
-      <ion-label class="header">{{currDateTime | date: 'hh:mm:ss aa'}}</ion-label>
-      <ion-label class="subtitle">ID: {{ID}}</ion-label>
+    <div style="height:35%; width:100%; padding-top: 15px;">
+      <h2 class="colorprimary">Punch In/Out</h2>
+      <h3 class="colormedium">{{currDateTime | date: 'EEE MMM d, yyyy'}}</h3>
+      <h3 class="colormedium">{{currDateTime | date: 'hh:mm:ss aa'}}</h3>
+      <h2 class="colorprimary">ID: {{ID}}</h2>
     </div>
 
-    <div style="height:70%;width:100%;">
+    <div style="height:50%; width:100%;">
       <table class="numpad">
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
         </tr>
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
         </tr>
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
         </tr>
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
           <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
@@ -34,7 +34,9 @@
       </table>
     </div>
 
-    <button class="localbutton" ion-button block (click)="submit()">Submit</button>
+    <div style="height:15%; width:100%;">
+      <button class="localbutton" ion-button block (click)="submit()">Submit</button>
+    </div>
 
   </div>
-</div>
+</ion-content>

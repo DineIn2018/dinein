@@ -50,7 +50,7 @@ export class DateTimeService {
 		let dStart = new Date(tStart);
 		let dEnd = new Date(tEnd);
 		let afterStart = (d.getTime() - dStart.getTime()) >= 0;
-		let beforeEnd = (dEnd.getTime() - d.getTime() >= 0);
+		let beforeEnd = (dEnd.getTime() - d.getTime()) >= 0;
 		return afterStart && beforeEnd;
 	}
 

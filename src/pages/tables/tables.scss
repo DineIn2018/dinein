@@ -128,28 +128,27 @@ page-tables {
         border-color: color($colors, tertiary);
     }
 
+    .modalbase {
+        h3 {
+            margin-bottom: 20px;
+        }
+        h5 {
+            margin-bottom: 10px;
+        }
+    }
+
     #tablemodal {
-        background-color: color($colors, dark);
-        border-radius: 5px;
+        height: 65%;
+        width: 50%;
+        margin: auto;
         margin-top: 20%;
-        margin-left: 25%;
-        margin-right: 25%;
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
     }
 
     #partymodal {
-        background-color: color($colors, dark);
-        border-radius: 5px;
-        margin-top: 22%;
-        margin-left: 15%;
-        margin-right: 15%;
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
+        height: 54%;
+        width: 70%;
+        margin: auto;
+        margin-top: 23%;
     }
 
     #servermodal {

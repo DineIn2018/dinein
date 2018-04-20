@@ -13,22 +13,19 @@
       </button>
     </div>
   <div id="employeetitle">
-      <ion-label class="subsubtitle">Employees</ion-label>
+      <h3 class="colorprimary">Employees</h3>
   </div>
 </ion-header>
 
 <ion-content no-bounce id="mainview">
     <div id="employeeprofile">
       <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
-      <h1>{{selectedEmployee.getName()}}</h1>
+      <h2 class="colorprimary">{{selectedEmployee.getFullName()}}</h2>
       <div id="employeeinfo">
-        <span class="label">Employee ID:</span> {{selectedEmployee.getID()}}
-        <br>
-        <span class="label">Title:</span> {{selectedEmployee.getTitle()}}
-        <br>
-        <span class="label">Pay:</span> {{selectedEmployee.getPay()}}
-        <br>
-        <span class="label">Phone:</span> {{selectedEmployee.getPhone()}}
+        <h4 class="colormedium">Employee ID: {{selectedEmployee.ID}}</h4>
+        <h4 class="colormedium">Job Title: {{selectedEmployee.title}}</h4>
+        <h4 class="colormedium">Pay: ${{selectedEmployee.pay}}/hr</h4>
+        <h4 class="colormedium">Phone: {{selectedEmployee.phone}}</h4>
       </div>
     </div>
 </ion-content>

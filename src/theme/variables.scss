@@ -25,7 +25,7 @@ $app-direction: ltr;
 // old primary #DEBB58 #DEC06B #7DB9B9
 
 $colors: (
-  primary:    #DEC06B,
+  primary:    #7DB9A8,
   secondary:  #E16E62,
   tertiary:   #97B56C,
   complementary:#6B89DE,
@@ -89,7 +89,7 @@ $action-sheet-ios-button-border-width: 5px;
 $action-sheet-ios-button-border-color: color($colors, primary);
 $action-sheet-ios-button-cancel-background: color($colors, dark);
 $action-sheet-ios-button-text-color: color($colors, primary);
-$action-sheet-ios-button-font-size: 2.6rem;
+$action-sheet-ios-button-font-size: 2.4rem;
 $action-sheet-ios-title-color: color($colors, medium);
 $action-sheet-ios-title-font-size: 2rem;
 

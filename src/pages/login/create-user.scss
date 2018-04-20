@@ -1,28 +1,30 @@
 page-create-user {
 
     #container {
-        padding-top: 3%;
-        width: 350px;
-        margin-left:auto;
+        height: 100%;
+        width: 35%;
+        padding-top: 40px;
+        margin-left: auto;
         margin-right: auto;
     }
 
     #restaurantmodal {
-        background-color: color($colors, dark);
-        border-radius: 5px;
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
-        width: 53%;
         height: 100%;
+        width: 55%;
+        margin: auto;
+    }
+
+    #numpadmodal {
+        height: 100%;
+        width: 55%;
         margin: auto;
     }
 
     #restaurantlist {
         width: 100%;
-        height: 310px;
-        margin-bottom: 25px;
+        height: 55%;
+        margin-top: 15px;
+        margin-bottom: 15px;
         background-color: color($colors, dark);
     }
 
@@ -35,12 +37,15 @@ page-create-user {
     }
 
     .localbutton {
-        margin: 20px auto;
+        margin-top: 20px;
     }
 
-    #numpadmodal {
-        height: 100%;
-        margin-left: 20%;
-        margin-right: 20%;
+    .numkey {
+        color: color($colors, primary);
+        background-color: color($colors, darkest);
+    }
+
+    .numpad {
+        background-color: color($colors, darkest);
     }
 }
