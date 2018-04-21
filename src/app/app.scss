@@ -99,6 +99,12 @@
 		margin-top: 20px;
 	}
 
+	.numpadmodal {
+		height: 100%;
+		width: 55%;
+		margin: auto;
+	}
+
 	.numpad {
 		table-layout: fixed;
 		border-radius: 5px;
@@ -107,9 +113,9 @@
 	}
 
 	.numpadrow {
-        height: 25%;
-        width: 100%;
-    }
+		height: 25%;
+		width: 100%;
+	}
 
 	.numkey {
 		width: 99%;
@@ -149,16 +155,16 @@
 //------------------------------------------------------------------------------
 
 	.timeselect {
-        margin-top: 10px;
-        padding-left: 0px;
-        border-style: solid;
-        border-radius: 2px;
-        border-width: 2px;
-        border-color: color($colors, primary);
-        background-color: color($colors, darkest);
-        font-size: 15px;
-        font-weight: 475;
-    }
+		margin-top: 10px;
+		padding-left: 0px;
+		border-style: solid;
+		border-radius: 2px;
+		border-width: 2px;
+		border-color: color($colors, primary);
+		background-color: color($colors, darkest);
+		font-size: 15px;
+		font-weight: 475;
+	}
 
 	// TEXT INPUT BOX Styling
 	.inputfield, .inputfielderror {
@@ -204,11 +210,20 @@
 		}
 	}
 
-	.inputbuttonnoval .button-inner {
-		color: color($colors, middark);
+	.inputbuttonnoval {
+		.button-inner {
+			color: color($colors, middark);
+		}
 	}
-	.inputbuttonhasval .button-inner {
-		color: color($colors, primary);
+	.inputbuttonhasval {
+		.button-inner {
+			color: color($colors, primary);
+		}
+	}
+	.inputbuttonhasval.activated, .inputbuttonnoval.activated  {
+		.button-inner {
+			color: color($colors, darkest);
+		}
 	}
 
 	.numpadinput, .numpadinputhasval {

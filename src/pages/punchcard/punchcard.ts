@@ -50,36 +50,38 @@ export class PunchCardPage {
 																				//new EmployeeShift("04/22/2018 07:01", undefined, "Bryan Suzan")
 																			 ];
 		this.getEmployeeByID(4321).shifts = [
-																				new EmployeeShift("02/01 00:00", "02/01 23:59"),
-																				new EmployeeShift("02/02 23:45", "02/03 00:15"),
-																				new EmployeeShift("02/11 08:13", "02/14 13:22"),
-																				new EmployeeShift("04/20 18:00", "04/02 18:00"),
-																				new EmployeeShift("04/20 04:20", "02/01 14:20")
+																				new EmployeeShift("02/01/2018 00:00", "02/01/2018 23:59", "Carl Robins"),
+																				new EmployeeShift("02/02/2018 23:45", "02/03/2018 00:15", "Carl Robins"),
+																				new EmployeeShift("02/11/2018 08:13", "02/14/2018 13:22", "Carl Robins"),
+																				new EmployeeShift("04/20/2018 18:00", "04/02/2018 18:00", "Carl Robins"),
+																				new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Carl Robins")
 																			 ];
 		this.getEmployeeByID(9902).shifts = [
-																				new EmployeeShift("02/01 06:00", "02/01 18:00"),
-																				new EmployeeShift("02/02 07:00", "02/02 07:15"),
-																				new EmployeeShift("02/14 08:00", "02/14 09:30"),
-																				new EmployeeShift("04/01 18:00", "04/02 18:00"),
-																				new EmployeeShift("04/20 04:20", "02/01 14:20")
+																				new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Marianne Beaumont"),
+																				new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Marianne Beaumont"),
+																				new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Marianne Beaumont"),
+																				new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Marianne Beaumont"),
+																				new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Marianne Beaumont")
 																			 ];
 		this.getEmployeeByID(4312).shifts = [
-																				new EmployeeShift("02/01 06:00", "02/01 18:00"),
-																				new EmployeeShift("02/02 07:00", "02/02 07:15"),
-																				new EmployeeShift("02/14 08:00", "02/14 09:30"),
-																				new EmployeeShift("04/01 18:00", "04/02 18:00"),
-																				new EmployeeShift("04/20 04:20", "02/01 14:20")
+																				new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Anna Schmidt"),
+																				new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Anna Schmidt"),
+																				new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Anna Schmidt"),
+																				new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Anna Schmidt"),
+																				new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Anna Schmidt")
 																			 ];
-
-		this.filterShiftByEmployeeID(666);
 
 		var i;
 		for (i = 0; i < this.employees.length; i++) {
+			this.employees[i].shifts.sort(EmployeeShift.compare);
 			var j;
 			for (j = 0; j < this.employees[i].shifts.length; j++) {
 				this.allShifts.push(this.employees[i].shifts[j]);
 			}
 		}
+		this.allShifts.sort(EmployeeShift.compare);
+
+		this.filterShiftByLatest(30);
 	}
 
 	filterShiftByEmployeeID(ID: number, shiftCount?: number) {
@@ -158,13 +160,11 @@ export class PunchCardPage {
 		if (this.selectedEmployeeID == null) {
 			return;
 		}
-		this.transformFilterDates();
-		console.log(this.filterStartDate);
-		console.log(this.filterEndDate);
 
 		if (this.filterStartDate != null && this.filterEndDate != null) {
 			if (!this.dateTime.isBefore(this.filterStartDate, this.filterEndDate)) {
-				//return;
+				return;
+				console.log('detect bad date');
 			}
 		}
 		if (this.selectedEmployeeID == 0) {
@@ -179,10 +179,6 @@ export class PunchCardPage {
 		this.displayShiftList.length = 0;
 	}
 
-	transformFilterDates() {
-		this.filterStartDate = this.dateTime.transform(this.filterStartDate);
-		this.filterEndDate = this.dateTime.transform(this.filterEndDate);
-	}
 }
 
 //------------------------------------------------------------------------------

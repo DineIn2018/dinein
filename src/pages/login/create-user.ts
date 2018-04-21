@@ -13,7 +13,7 @@ import { Restaurant } from './create-restaurant';
 @IonicPage()
 @Component({
 	selector: 'page-create-user',
-	templateUrl: 'create-user.html',
+	templateUrl: 'create-user.html'
 })
 export class CreateUserPage {
 

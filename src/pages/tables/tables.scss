@@ -73,11 +73,11 @@ page-tables {
     }
 
     .tablediv {
-        display: flex;
         position: static;
+        display: inline-grid;
         margin-all: 20px;
         height: 80px;
-        width: 115px;
+        width: 100px;
     }
 
     .tablebuttoncapacity {

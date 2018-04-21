@@ -84,7 +84,7 @@ export class TablesPage {
 		// TODO: write sorting algorithm for the whole list
 	}
 
-	ionViewDidLoad() {/*
+	ionViewDidLoad() {
 		var i;
 		for(i = 0; i < this.tables.length; i++) {
 			let table = this.tables[i];
@@ -96,7 +96,7 @@ export class TablesPage {
 	    tableElement.style.webkitTransform =
 	    tableElement.style.transform =
 	      'translate(' + table.xPos + 'px, ' + table.yPos + 'px)';
-		}*/
+		}
 	}
 
 	//----------------------------------------------------------------------------
