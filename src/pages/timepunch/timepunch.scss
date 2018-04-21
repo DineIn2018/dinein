@@ -1,22 +1,41 @@
 page-timepunch {
-	
+
     #container {
-        width: 325px;
+        width: auto;
+		height: 500px;
         padding-top: 20px;
-        margin-left: auto; 
+        margin-left: auto;
         margin-right: auto;
+		display: flex;
+		justify-content: center;
     }
 
     .localbutton {
         margin: 20px auto;
     }
 
+	.punch-textbox h2 {
+		font-size: 45px; 
+
+	}
+
     .numkey {
         color: color($colors, primary);
         background-color: color($colors, dark);
+		margin-bottom: 10px;
     }
 
     .numpad {
-        background-color: color($colors, dark);
+		background-image: none;
+		padding: 20px;
     }
+
+	.numpad-box {
+		//background-color: color($colors, dark);
+		margin: 20px;
+		width: 25%;
+		height: 75%;
+
+	}
+
 }

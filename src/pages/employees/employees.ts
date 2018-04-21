@@ -146,10 +146,10 @@ export class Employee {
   name: string;
   firstName: string;
   lastName: string;
-  ID: string;
+  ID: number;
   imageSrc: string;
   title: string;
-  pay: string;
+  pay: number;
   phone: string;
 
   shifts: EmployeeShift[];
@@ -228,10 +228,10 @@ export class Employee {
   setSrc(src: string) {
     this.imageSrc = src;
   }
-  getID(): string {
+  getID(): number {
     return this.ID;
   }
-  setID(id: string) {
+  setID(id: number) {
     this.ID = id;
   }
   getTitle(): string {
@@ -246,10 +246,10 @@ export class Employee {
   setPhone(phone: string) {
     this.phone = phone;
   }
-  getPay(): string {
+  getPay(): number {
     return this.pay;
   }
-  setPay(pay: string) {
+  setPay(pay: number) {
     this.pay = pay;
   }
 }

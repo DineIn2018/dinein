@@ -1,14 +1,14 @@
 <ion-content no-bounce class="background no-scroll">
   <div id="container">
 
-    <div style="height:35%; width:100%; padding-top: 15px;">
+    <div class = "punch-textbox">
       <h2 class="colorprimary">Punch In/Out</h2>
       <h3 class="colormedium">{{currDateTime | date: 'EEE MMM d, yyyy'}}</h3>
       <h3 class="colormedium">{{currDateTime | date: 'hh:mm:ss aa'}}</h3>
       <h2 class="colorprimary">ID: {{ID}}</h2>
     </div>
 
-    <div style="height:50%; width:100%;">
+    <div class="numpad-box">
       <table class="numpad">
         <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
@@ -31,10 +31,11 @@
           <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
         </tr>
       </table>
-    </div>
 
-    <div style="height:15%; width:100%;">
-      <button class="localbutton" ion-button block (click)="submit()">Submit</button>
+      <div style="height:15%; width:100%;">
+        <button class="localbutton" ion-button block (click)="submit()">Submit</button>
+      </div>
+
     </div>
 
   </div>
