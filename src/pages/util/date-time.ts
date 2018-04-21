@@ -10,8 +10,8 @@ export class DateTimeService {
 		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
 	}
 
-	fullDateToTime(d): string {
-		let D = new Date(d);
+	fullDateToTime(D): string {
+		let d = new Date(D);
 		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
 	}
 
@@ -30,7 +30,7 @@ export class DateTimeService {
 		let d1 = new Date(t1);
 		let d2 = new Date(t2);
 		let diffHours: number = (d2.getTime() - d1.getTime()) / 3600000;
-		return (Math.round(diffHours * 4) / 4).toFixed(2);
+		return parseFloat((Math.round(diffHours * 4) / 4).toFixed(2));
 	}
 
 	sameDay(t1, t2): boolean {
@@ -52,6 +52,22 @@ export class DateTimeService {
 		let afterStart = (d.getTime() - dStart.getTime()) >= 0;
 		let beforeEnd = (dEnd.getTime() - d.getTime()) >= 0;
 		return afterStart && beforeEnd;
+	}
+
+	isBefore(t1, t2): boolean {
+		let d1 = new Date(t1);
+		let d2 = new Date(t2);
+		return (d2.getTime() - d1.getTime()) >= 0;
+	}
+
+
+	transform(t): string {
+		let d = new Date(t);
+		let day = d.getDate() + 1;
+		let month = d.getMonth() + 1;
+		let year = d.getFullYear();
+		return this.pad(month) + '/' + this.pad(day) + '/' + year;
+
 	}
 
 	pad(n) {

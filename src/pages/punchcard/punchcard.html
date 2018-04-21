@@ -51,7 +51,10 @@
 		</div>
 
 		<div class="filterparam">
-			<h4 class="colormiddark">From:</h4>
+			<div>
+				<h4 class="colormiddark">From:</h4>
+				<button class="cleardate" ion-button (click)="filterStartDate = null">x</button>
+			</div>
 			<ion-item class="timeselect">
 				<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
 											placeholder="Select Start Date"
@@ -61,7 +64,10 @@
 		</div>
 
 		<div class="filterparam">
-			<h4 class="colormiddark">To:</h4>
+			<div>
+				<h4 class="colormiddark">To:</h4>
+				<button class="cleardate" ion-button (click)="filterEndDate = null">x</button>
+			</div>
 			<ion-item class="timeselect">
 				<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
 											placeholder="Select End Date"
