@@ -87,16 +87,28 @@
 //------------------------------------------------------------------------------
 
 	.modalbase {
-		background-color: color($colors, dark);
+		//background-color: color($colors, dark);
 		padding-top: 20px;
 		padding-bottom: 20px;
 		padding-left: 30px;
 		padding-right: 30px;
 		border-radius: 5px;
+		border: solid 1px;
+		border-color: color($colors, darker);
+		background-color: transparent;
+		backdrop-filter: blur(15px);
+		background-color: rgba(color($colors, medium), 0.05);
 	}
 
 	.modalbutton {
 		margin-top: 20px;
+	}
+
+	.modalbutton[outline] {
+		background-color: rgba(color($colors, darkest), 0.5);
+	}
+	.modalbutton[outline].activated {
+		background-color: color($colors, primary);
 	}
 
 	.numpadmodal {

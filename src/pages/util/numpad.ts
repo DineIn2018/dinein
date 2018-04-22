@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 
 @Component({
-	styleUrl: 'modal-numpad',
+	selector: 'modal-numpad',
 	templateUrl: 'numpad.html'
 })
 export class InputNumpad {
@@ -12,6 +12,8 @@ export class InputNumpad {
 	alertMsg: string;
 	alertTitle: string;
 
+	validInput: any;
+
 	constructor(public navCtrl: NavController,
 							public viewCtrl: ViewController,
 							public alertCtrl: AlertController,
@@ -19,6 +21,7 @@ export class InputNumpad {
 		this.inputField = this.navParams.get('inputField');
 		this.alertTitle = this.navParams.get('alertTitle');
 		this.alertMsg = this.navParams.get('alertMsg');
+		this.validInput = this.navParams.get('validInputCondition');
 		this.userInput = 0;
 	}
 
@@ -35,7 +38,7 @@ export class InputNumpad {
 	}
 
 	OK() {
-		if (this.userInput > 0) {
+		if (this.validInput(this.userInput)) {
 			this.viewCtrl.dismiss(this.userInput);
 		} else {
 			let alert = this.alertCtrl.create({
@@ -45,7 +48,7 @@ export class InputNumpad {
 				buttons: [
 					{
 						text: 'OK',
-						handler: () => { this.viewCtrl.dismiss(this.numToSeat); }
+						handler: () => { }
 					}
 				]
 			});

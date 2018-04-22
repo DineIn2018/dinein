@@ -1,3 +1,15 @@
 modal-numpad {
 
+    .numkey {
+        color: color($colors, primary);
+        //background-color: color($colors, darkest);
+        background-color: transparent;
+    }
+
+    .numpad {
+        background-color: color($colors, darkest);
+        background-color: transparent;
+		backdrop-filter: blur(10px);
+		background-color: rgba(color($colors, medium), 0.1);
+    }
 }

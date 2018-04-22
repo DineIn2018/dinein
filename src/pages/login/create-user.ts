@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { CreateRestaurantPage } from './create-restaurant';
 import { Restaurant } from './create-restaurant';
+import { InputNumpad } from '../util/numpad';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -68,7 +69,14 @@ export class CreateUserPage {
 	}
 
 	presentNumpad() {
-		let numpadModal = this.modalCtrl.create(PhoneNumpad);
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Phone Number",
+										alertTitle: "Invalid Phone Number",
+										alertMsg: null,
+										validInputCondition: function(input) { return input > 0;}
+									 }
+		);
 		numpadModal.onDidDismiss(returnedNum => {
 			if (returnedNum != null) {
 				this.phone = returnedNum;
@@ -103,76 +111,6 @@ export class CreateUserPage {
 
 	passwordsMatch() {
 		return (this.password == this.confirmPassword);
-	}
-}
-
-//------------------------------------------------------------------------------
-// Sub-View: NumPad
-//------------------------------------------------------------------------------
-@Component({
-	selector: 'page-create-user',
-	template: `
-		<div class="modalbase" id="numpadmodal">
-			<h3 class="colormedium">Phone Number</h3>
-			<h2 class="colorprimary">{{userInput}}</h2>
-			<div style="height: 53%; width: 100%;">
-				<table class="numpad">
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
-						<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-					</tr>
-				</table>
-			</div>
-			<button class="modalbutton" ion-button block (click)="OK()">OK</button>
-			<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-		</div>
-	`
-})
-export class PhoneNumpad {
-
-	userInput: number;
-
-	constructor(public navCtrl: NavController,
-							public viewCtrl: ViewController) {
-		this.userInput = 0;
-	}
-
-	pressButton(n: number) {
-		this.userInput = this.userInput * 10 + n;
-	}
-
-	deleteButton() {
-		this.userInput = Math.floor(this.userInput / 10);
-	}
-
-	clearButton() {
-		this.userInput = 0;
-	}
-
-	OK() {
-		if (this.userInput > 0) {
-			this.viewCtrl.dismiss(this.userInput);
-		}
-	}
-
-	cancel() {
-		this.navCtrl.pop();
 	}
 }
 

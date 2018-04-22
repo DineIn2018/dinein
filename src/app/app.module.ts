@@ -5,8 +5,8 @@ import { MyApp } from './app.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { LoginPage } from '../pages/login/login';
-import { CreateUserPage, SelectRestaurant, PhoneNumpad } from '../pages/login/create-user';
-import { CreateRestaurantPage, ResPhoneNumpad } from '../pages/login/create-restaurant';
+import { CreateUserPage, SelectRestaurant } from '../pages/login/create-user';
+import { CreateRestaurantPage } from '../pages/login/create-restaurant';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -23,6 +23,7 @@ import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 import { UpdateManagementPage } from '../pages/update-management/update-management';
 
 import { DateTimeService } from '../pages/util/date-time';
+import { InputNumpad } from '../pages/util/numpad';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,9 +42,7 @@ import { Camera } from '@ionic-native/camera';
     LoginPage,
     CreateUserPage,
     SelectRestaurant,
-    PhoneNumpad,
     CreateRestaurantPage,
-    ResPhoneNumpad,
 
     TablesPage,
     TableInfo,
@@ -67,7 +66,9 @@ import { Camera } from '@ionic-native/camera';
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,
-    PunchPopoverPage
+    PunchPopoverPage,
+
+    InputNumpad
   ],
   imports: [
     BrowserModule,
@@ -81,9 +82,7 @@ import { Camera } from '@ionic-native/camera';
     LoginPage,
     CreateUserPage,
     SelectRestaurant,
-    PhoneNumpad,
     CreateRestaurantPage,
-    ResPhoneNumpad,
 
     TablesPage,
     TableInfo,
@@ -106,7 +105,9 @@ import { Camera } from '@ionic-native/camera';
     TabsPage,
     EditEmployeePage,
     CreateEmployeePage,
-    PunchPopoverPage
+    PunchPopoverPage,
+
+    InputNumpad
   ],
   providers: [
     StatusBar,
