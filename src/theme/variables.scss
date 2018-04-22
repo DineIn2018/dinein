@@ -36,7 +36,7 @@ $colors: (
   midlight:   #AEAAA2,
   medium:     #928A82,
   middark:	  #696763,
-  dark:       #2E2D2C,
+  dark:       #2E2D28,
   darker:	    #252423,
   darkest:	  #1A1815
 );
@@ -96,9 +96,9 @@ $action-sheet-ios-title-font-size: 2rem;
 //
 // ALERT STYLING
 //
-$alert-ios-background: color($colors, dark);
+//$alert-ios-background: color($colors, dark);
 $alert-ios-border-radius: 5px;
-$alert-ios-message-text-color: color($colors, middark);
+$alert-ios-message-text-color: color($colors, dark);
 $alert-ios-button-background-color-activated: color($colors, darkest);
 $alert-ios-button-border-color: color($colors, middark);
 //$alert-ios-button-border-width: 1px;

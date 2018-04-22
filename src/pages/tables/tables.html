@@ -12,6 +12,14 @@
           Cancel
         </button>
       </div>
+      <div id="addtablebutton">
+        <button ion-button outline id="addbutton"
+                *ngIf="editingLayoutMode()"
+                [disabled]="seatingPartyMode()"
+                (click)="addTable()">
+          +
+        </button>
+      </div>
       <div id="editlayoutbutton">
         <button ion-button outline block
                 [disabled]="seatingPartyMode()"

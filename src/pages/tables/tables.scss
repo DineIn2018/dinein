@@ -73,8 +73,8 @@ page-tables {
     }
 
     .tablediv {
-        position: static;
-        display: inline-grid;
+        position: absolute;
+        display: inline;
         margin-all: 20px;
         height: 80px;
         width: 100px;
@@ -142,6 +142,7 @@ page-tables {
         width: 50%;
         margin: auto;
         margin-top: 20%;
+        //background-color: rgba(color($colors, middark), 0.15);
     }
 
     #partymodal {
@@ -149,10 +150,10 @@ page-tables {
         width: 70%;
         margin: auto;
         margin-top: 23%;
+        //background-color: rgba(color($colors, middark), 0.15);
     }
 
     #servermodal {
-        background-color: color($colors, dark);
         border-radius: 5px;
         padding-top: 15px;
         padding-bottom: 2px;
@@ -163,40 +164,27 @@ page-tables {
         margin: auto;
     }
 
-    #serverlist {
-        width: 100%;
-        height: 370px;
-        margin-bottom: 25px;
-        background-color: color($colors, dark);
-    }
-
     #numpadmodal {
         height: 100%;
         margin-left: 22%;
         margin-right: 22%;
     }
 
-    .numpad {
-        table-layout: fixed;
-        background-color: color($colors, darkest);
-        border-radius: 5px;
-        width: 100%;
-        height: 100%;
-    }
-
-    .numkey {
-        width: 98%;
-        height: 100%;
-        font-size: 28px;
-        font-weight: 600;
-        border-radius: 5px;
-        margin: 0px;
-        color: color($colors, primary);
-        background-color: color($colors, darkest);
-    }
-
     .no-scroll .scroll-content{
         overflow: hidden;
+    }
+
+    #addtablebutton {
+        float: left;
+        height: 100%;
+        width: 50px;
+    }
+
+    #addbutton {
+        height: 45px;
+        width: 45px;
+        font-size: 30px;
+        font-weight: 650;
     }
 
 }

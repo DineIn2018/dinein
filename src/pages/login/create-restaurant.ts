@@ -73,7 +73,8 @@ export class CreateRestaurantPage {
                     inputField: "Phone Number",
                     alertTitle: "Invalid Phone Number",
                     alertMsg: null,
-                    validInputCondition: function(input) { return input > 0;}
+                    validInputCondition: function(input) { return input > 0;},
+                    secondaryValidInputCondition: null
                    }
     );
     numpadModal.onDidDismiss(returnedNum => {

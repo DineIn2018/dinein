@@ -47,9 +47,6 @@ export class CreateUserPage {
 			this.createdRestaurant = null;
 		}
 
-		this.buttonTextPhone = "Phone Number (optional)";
-		this.buttonTextRestaurant = "Select Restaurant";
-
 		this.email = null;
 		this.password = null;
 		this.confirmPassword = null;
@@ -74,13 +71,13 @@ export class CreateUserPage {
 										inputField: "Phone Number",
 										alertTitle: "Invalid Phone Number",
 										alertMsg: null,
-										validInputCondition: function(input) { return input > 0;}
+										validInputCondition: function(input) { return input > 0;},
+										secondaryValidInputCondition: null
 									 }
 		);
 		numpadModal.onDidDismiss(returnedNum => {
 			if (returnedNum != null) {
 				this.phone = returnedNum;
-				this.buttonTextPhone = String(this.phone);
 			}
 		});
 		numpadModal.present();
@@ -122,7 +119,7 @@ export class CreateUserPage {
 	template: `
 		<div class="modalbase" id="restaurantmodal">
 			<h3 class="colormedium">Select Restaurant</h3>
-			<ion-content id="restaurantlist">
+			<ion-content class="modallist">
 				<ion-list scroll="true">
 					<button ion-button block outline class="listbutton"
 									*ngFor="let restaurant of restaurants"

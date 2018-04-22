@@ -7,9 +7,7 @@ modal-numpad {
     }
 
     .numpad {
-        background-color: color($colors, darkest);
-        background-color: transparent;
-		backdrop-filter: blur(10px);
-		background-color: rgba(color($colors, medium), 0.1);
+        //background-color: color($colors, darkest);
+		background-color: rgba(color($colors, middark), 0.15);
     }
 }

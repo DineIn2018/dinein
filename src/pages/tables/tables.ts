@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ViewController } from 'ionic
 import { ActionSheetController, ModalController } from 'ionic-angular';
 import { AddPartyPage } from './add-party';
 import { DateTimeService } from '../util/date-time';
+import { InputNumpad } from '../util/numpad';
 import * as interact from 'interactjs';
 //import { Employee } from '../employees/employees';
 
@@ -37,13 +38,15 @@ export class TablesPage {
 		this.selectedParty = null;
 
 		this.tables = [
-										new Table(4, "20", "20"), new Table(4, "70", "20"),
-										new Table(6, "120", "20"), new Table(2, "170", "20"),
-										new Table(8, "220", "20"), new Table(2, "20", "150"),
-										new Table(2, "70", "80"), new Table(4, "120", "80"),
-										new Table(6, "170", "60"), /*new Table(8),
-										new Table(4), new Table(6),
-										new Table(3), new Table(1) */
+										new Table(4, "20", "20"), new Table(4, "150", "20"),
+										new Table(6, "280", "20"), new Table(2, "410", "20"),
+										new Table(8, "540", "20"), new Table(7, "670", "20"),
+										new Table(2, "20", "150"), new Table(2, "150", "150"),
+										new Table(4, "280", "150"), new Table(4, "410", "150"),
+										new Table(8, "540", "150"), new Table(10, "670", "150"),
+										new Table(4, "20", "280"), new Table(6, "150", "280"),
+										new Table(12, "280", "280"), new Table(1, "410", "280"),
+										new Table(14, "540", "280"), new Table(4, "670", "280")
 									];
 		this.parties = [
 										 new Party("Kass", 7, "04:20", "608 609 5186", true),
@@ -88,7 +91,6 @@ export class TablesPage {
 		var i;
 		for(i = 0; i < this.tables.length; i++) {
 			let table = this.tables[i];
-			console.log('table'+table.ID);
 			var tableElement = document.getElementById('table'+table.ID);
 			console.log(tableElement.getAttribute('id'));
 			tableElement.setAttribute('data-x', table.xPos);
@@ -220,6 +222,27 @@ export class TablesPage {
 					}
 				},
 				{
+					text: 'Delete Table',
+					handler: () => {
+						let confirm = this.alertCtrl.create({
+							title: 'Confirm Table Delete',
+							message: 'This cannot be undone, are you sure?',
+							enableBackdropDismiss: false,
+							buttons: [
+								{
+									text: 'Cancel',
+									handler: () => { }
+								},
+								{
+									text: 'Delete',
+									handler: () => { this.deleteTable(table); }
+								}
+							]
+						});
+						confirm.present();
+					}
+				},
+				{
 					text: 'Cancel',
 					role: 'cancel',
 					handler: () => { }
@@ -291,14 +314,25 @@ export class TablesPage {
 	}
 
 	displaySeatTableNumpad(t: Table) {
-		let modal = this.modalCtrl.create(NumToSeat, { table: t });
-		modal.onDidDismiss(numToSeat => {
-			if (numToSeat != null) {
-				console.log('NumToSeat returned: ' + numToSeat);
-				this.displaySelectServer(t, numToSeat);
+
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Party Size",
+										alertTitle: "Invalid Party Size",
+										alertMsg: null,
+										validInputCondition: function(input) { return input > 0; },
+										secondaryValidInputCondition: function(input) { return input <= t.capacity; },
+										secondaryAlertTitle: "Table is too Small",
+										secondaryAlertMsg: "Are you sure you want to seat overcapacity?",
+										secondaryAlertButton: "Seat"
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				this.displaySelectServer(t, returnedNum);
 			}
 		});
-		modal.present();
+		numpadModal.present();
 	}
 
 	displaySelectServer(table: Table, numToSeat: number) {
@@ -348,6 +382,16 @@ export class TablesPage {
 		}
 	}
 
+	deleteTable(table: Table) {
+		// Find corresponding party in list and remove
+		var i;
+		for (i = 0; i < this.tables.length; i++) {
+			if (this.tables[i].ID == table.ID) {
+				this.tables.splice(i, 1);
+			}
+		}
+	}
+
 	editingLayoutMode(): boolean {
 		return this.mode == Mode.EditingLayout;
 	}
@@ -356,6 +400,25 @@ export class TablesPage {
 	}
 	defaultMode(): boolean {
 		return this.mode == Mode.Default;
+	}
+
+	addTable() {
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Table Capacity",
+										alertTitle: "Invalid Table Capacity",
+										alertMsg: null,
+										validInputCondition: function(input) { return input > 0; },
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				let t = new Table(returnedNum, "0", "0")
+				this.tables.push(t);
+			}
+		});
+		numpadModal.present();
 	}
 
 	interactjsUpdate(enabled: boolean) {
@@ -490,124 +553,14 @@ export class PartyInfo {
 }
 
 //------------------------------------------------------------------------------
-// Sub-View: NumToSeat
-//------------------------------------------------------------------------------
-@Component({
-	selector: 'page-tables',
-	template: `
-		<div class="modalbase" id="numpadmodal">
-			<ion-label class="header">Party Size</ion-label>
-			<ion-label class="subtitle">{{numToSeat}}</ion-label>
-			<div style="height:300px;width:100%;">
-				<table class="numpad">
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
-						<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-					</tr>
-				</table>
-			</div>
-			<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
-			<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-		</div>
-	`
-})
-export class NumToSeat {
-
-	table: Table;
-	numToSeat: number;
-
-	constructor(public alertCtrl: AlertController,
-							public viewCtrl: ViewController,
-							private params: NavParams) {
-		this.table = params.get('table');
-		this.numToSeat = 0;
-		console.log('Pop-up: Num To Seat');
-	}
-
-	pressButton(n: number) {
-		this.numToSeat = this.numToSeat * 10 + n;
-	}
-
-	deleteButton() {
-		this.numToSeat = Math.floor(this.numToSeat / 10);
-	}
-
-	clearButton() {
-		this.numToSeat = 0;
-	}
-
-	seat() {
-		if (this.numToSeat > this.table.capacity) {
-			let confirm = this.alertCtrl.create({
-				title: 'Table Too Small',
-				message: 'This table is not large enough to seat that many people. Are you sure you want to seat them here?',
-				enableBackdropDismiss: false,
-				buttons: [
-					{
-						text: 'Cancel',
-						handler: () => {
-							this.clearButton();
-						}
-					},
-					{
-						text: 'Seat',
-						handler: () => {
-							this.viewCtrl.dismiss(this.numToSeat);
-						}
-					}
-				]
-			});
-			confirm.present();
-
-		} else if (this.numToSeat < 1) {
-			let alert = this.alertCtrl.create({
-				title: 'Invalid Party Size',
-				enableBackdropDismiss: false,
-				buttons: [
-					{
-						text: 'Dismiss',
-						handler: () => { }
-					}
-				]
-			});
-			alert.present();
-
-		} else {
-			this.viewCtrl.dismiss(this.numToSeat);
-		}
-	}
-
-	cancel() {
-		this.viewCtrl.dismiss(null);
-	}
-}
-
-//------------------------------------------------------------------------------
 // Sub-View: SelectServer
 //------------------------------------------------------------------------------
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="servermodal">
-			<ion-list id="modalcontent">
-				<ion-label class="header">Select Server</ion-label>
-				<ion-content id="serverlist">
+		<div id="servermodal" class="modalbase">
+				<h4 class="colorprimary">Select Server</h4>
+				<ion-content class="modallist">
 					<ion-list scroll="true" id="listscroll">
 						<button ion-button block outline class="listbutton"
 										*ngFor="let server of servers"
@@ -622,7 +575,6 @@ export class NumToSeat {
 									(click)="OK()">OK</button>
 				<button class="modalbutton" ion-button block outline
 									(click)="cancel()">Cancel</button>
-			</ion-list>
 		</div>
 	`
 })

@@ -30,13 +30,13 @@
                 [ngClass]="{'inputbuttonnoval': phone == null,
                             'inputbuttonhasval': phone != null}"
                 (click)="presentNumpad()">
-          {{buttonTextPhone}}
+          {{phone == null? "Phone Number (optional)" : phone}}
         </button>
         <button class="inputbutton" ion-button outline block
                 [ngClass]="{'inputbuttonnoval': restaurant == null,
                             'inputbuttonhasval': restaurant != null}"
                  (click)="presentRestaurantSelector()">
-          {{buttonTextRestaurant}}
+          {{restaurant == null? "Select Restaurant" : restaurant}}
         </button>
 
         <button class="localbutton" ion-button block

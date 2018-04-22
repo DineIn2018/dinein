@@ -188,26 +188,24 @@ export class PunchCardPage {
 	selector: 'page-punchcard',
 	template: `
 		<div id="employeemodal" class="modalbase">
-			<ion-list id="modalcontent">
-				<h4 class="colormedium">Select Employee</h4>
-				<ion-content id="employeeslist">
-					<ion-list scroll="true">
-						<button ion-button block outline class="listbutton"
-										*ngFor="let employee of employees"
-										[ngClass]="{'selectedemployee': employee === selectedEmployee,
-																'employee': employee !== selectedEmployee}"
-										(click)="selectEmployee(employee)">
-							{{employee.getFullName()}}
-						</button>
-					</ion-list>
-				</ion-content>
-				<button class="modalbutton" ion-button block
-									(click)="OK()">OK</button>
-				<button class="modalbutton" ion-button block outline
-									(click)="cancel()">Cancel</button>
-				<button class="modalbutton" ion-button block outline
-									(click)="selectAllEmployees()">Select All</button>
-			</ion-list>
+			<h4 class="colormedium">Select Employee</h4>
+			<ion-content class="modallist">
+				<ion-list scroll="true">
+					<button ion-button block outline class="listbutton"
+									*ngFor="let employee of employees"
+									[ngClass]="{'selectedemployee': employee === selectedEmployee,
+															'employee': employee !== selectedEmployee}"
+									(click)="selectEmployee(employee)">
+						{{employee.getFullName()}}
+					</button>
+				</ion-list>
+			</ion-content>
+			<button class="modalbutton" ion-button block
+								(click)="OK()">OK</button>
+			<button class="modalbutton" ion-button block outline
+								(click)="cancel()">Cancel</button>
+			<button class="modalbutton" ion-button block outline
+								(click)="selectAllEmployees()">Select All</button>
 		</div>
 	`
 })

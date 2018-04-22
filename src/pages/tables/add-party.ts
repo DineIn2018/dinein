@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import { ModalController, ViewController, AlertController } from 'ionic-angular';;
 import { Party } from './tables';
 import { DateTimeService } from '../util/date-time';
+import { InputNumpad } from '../util/numpad';
 
 @IonicPage()
 @Component({
@@ -10,9 +11,6 @@ import { DateTimeService } from '../util/date-time';
   templateUrl: 'add-party.html',
 })
 export class AddPartyPage {
-
-  FIELD_SIZE = "Party Size";
-  FIELD_CONTACT: string = "Contact Number";
 
   editMode: boolean;
 
@@ -34,7 +32,6 @@ export class AddPartyPage {
               private datetime: DateTimeService) {
 
     this.editMode = navParams.get("edit");
-    console.log("Entered in: " + (this.editMode? "Edit":"Add") + " Party mode");
 
     //
     // Editing party mode
@@ -124,19 +121,40 @@ export class AddPartyPage {
     this.navCtrl.pop();
   }
 
-  presentNumpad(field: string) {
-    let modal = this.modalCtrl.create(Numpad, {field: field});
-    modal.onDidDismiss(data => {
-      if (data != null) {
-        if (field == this.FIELD_SIZE) {
-          this.size = data;
-        } else if (field == this.FIELD_CONTACT) {
-          this.contact = String(data);
-        }
+  presentSizeNumpad() {
+    let numpadModal = this.modalCtrl.create(
+      InputNumpad, {
+                    inputField: "Party Size",
+                    alertTitle: "Invalid Party Size",
+                    alertMsg: null,
+                    validInputCondition: function(input) { return input > 0;},
+                    secondaryValidInputCondition: null
+                   }
+    );
+    numpadModal.onDidDismiss(returnedNum => {
+      if (returnedNum != null) {
+        this.size = returnedNum;
       }
-
     });
-    modal.present();
+    numpadModal.present();
+  }
+
+  presentContactNumpad() {
+    let numpadModal = this.modalCtrl.create(
+      InputNumpad, {
+                    inputField: "Contact Number",
+                    alertTitle: "Invalid Contact Number",
+                    alertMsg: null,
+                    validInputCondition: function(input) { return input > 0;},
+                    secondaryValidInputCondition: null
+                   }
+    );
+    numpadModal.onDidDismiss(returnedNum => {
+      if (returnedNum != null) {
+        this.contact = returnedNum;
+      }
+    });
+    numpadModal.present();
   }
 
   validData() {
@@ -145,95 +163,5 @@ export class AddPartyPage {
             (this.contact != null) &&
             (this.reservation != null) &&
             (!this.reservation || (this.time != null)))
-  }
-
-  pad(n) {
-    return (n < 10)? ('0' + n) : n;
-  }
-}
-
-//------------------------------------------------------------------------------
-// Sub-View: NumPad
-//------------------------------------------------------------------------------
-@Component({
-  selector: 'page-add-party',
-  template: `
-    <div class="modalbase" id="numpadmodal">
-        <h3 class="colormedium">{{field}}</h3>
-        <h2 class="colorprimary">{{userInput}}</h2>
-        <div style="height: 53%; width: 100%;">
-          <table class="numpad">
-            <tr>
-              <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-            </tr>
-            <tr>
-              <td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-            </tr>
-            <tr>
-              <td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-            </tr>
-            <tr>
-              <td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
-              <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-            </tr>
-          </table>
-        </div>
-        <button class="modalbutton" ion-button block (click)="OK()">OK</button>
-        <button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-    </div>
-  `
-})
-export class Numpad {
-
-  field: string;
-  userInput: number;
-
-  constructor(public navCtrl: NavController,
-              public viewCtrl: ViewController,
-              public alertCtrl: AlertController,
-              params: NavParams) {
-    this.field = params.get('field');
-    this.userInput = 0;
-  }
-
-  pressButton(n: number) {
-    this.userInput = this.userInput * 10 + n;
-  }
-
-  deleteButton() {
-    this.userInput = Math.floor(this.userInput / 10);
-  }
-
-  clearButton() {
-    this.userInput = 0;
-  }
-
-  OK() {
-    if (this.userInput > 0) {
-      this.viewCtrl.dismiss(this.userInput);
-    } else {
-      let alert = this.alertCtrl.create({
-        title: 'Invalid ' + this.field,
-        enableBackdropDismiss: false,
-        buttons: [
-          {
-            text: 'Dismiss',
-            handler: () => { }
-          }
-        ]
-      });
-      alert.present();
-    }
-  }
-
-  cancel() {
-    this.navCtrl.pop();
   }
 }

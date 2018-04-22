@@ -10,13 +10,13 @@
 		<button class="inputbutton" ion-button outline block
 						[ngClass]="{'inputbuttonnoval': size == null,
 												'inputbuttonhasval': size != null}"
-						(click)="presentNumpad(FIELD_SIZE)">
+						(click)="presentSizeNumpad()">
 			{{(size == null)? "Party Size" : size}}
 		</button>
 		<button class="inputbutton" ion-button outline block
 						[ngClass]="{'inputbuttonnoval': contact == null,
 												'inputbuttonhasval': contact != null}"
-						 (click)="presentNumpad(FIELD_CONTACT)">
+						 (click)="presentContactNumpad()">
 			{{(contact == null)? "Contact Number" : contact}}
 		</button>
 

@@ -93,11 +93,11 @@
 		padding-left: 30px;
 		padding-right: 30px;
 		border-radius: 5px;
-		border: solid 1px;
-		border-color: color($colors, darker);
-		background-color: transparent;
-		backdrop-filter: blur(15px);
-		background-color: rgba(color($colors, medium), 0.05);
+		//border: solid 1px;
+		//border-color: color($colors, darker);
+		//background-color: transparent;
+		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, middark), 0.05);
 	}
 
 	.modalbutton {
@@ -143,6 +143,14 @@
 		font-weight: 475;
 	}
 
+	.modallist {
+        width: 100%;
+        height: 55%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: transparent;
+	}
+
 	.listbutton {
 		padding-left: 10px;
 		margin: 0px;
@@ -159,6 +167,13 @@
 		.button-inner{
 			justify-content: flex-start;
 		}
+	}
+
+	.listbutton[outline] {
+		background-color: transparent;
+	}
+	.listbutton[outline].activated {
+		background-color: color($colors, primary);
 	}
 
 
@@ -250,8 +265,18 @@
 
 	.picker-wrapper {
 		border-radius: 3px;
-		border-color: color($colors, dark);
 		border-width: 0px;
+		color: color($colors, dark) !important;
+		background-color: color($colors, dark) !important;
+		.picker-toolbar, .picker-columns {
+			//backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+			//background-color: rgba(color($colors, middark), 0.05);
+			background-color: color($colors, dark) !important;
+
+			.picker-col, .picker-opts-left, .picker-opts-right {
+				background-color: color($colors, dark) !important;
+			}
+		}
 		.picker-opt{
 			color: color($colors, medium);
 		}
@@ -295,9 +320,8 @@
 	}
 
 	.alert-wrapper {
-		border-width: 2px;
-		//border-style: solid;
-		border-color: color($colors, primary);
+		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, middark), 0.2);
 	}
 
 	.alert-ios {

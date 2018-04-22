@@ -10,8 +10,8 @@ import { CreateRestaurantPage } from '../pages/login/create-restaurant';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { TablesPage, TableInfo, PartyInfo, NumToSeat, SelectServer } from '../pages/tables/tables';
-import { AddPartyPage, Numpad } from '../pages/tables/add-party';
+import { TablesPage, TableInfo, PartyInfo, SelectServer } from '../pages/tables/tables';
+import { AddPartyPage } from '../pages/tables/add-party';
 import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { PunchCardPage, SelectEmployee } from '../pages/punchcard/punchcard';
@@ -47,10 +47,8 @@ import { Camera } from '@ionic-native/camera';
     TablesPage,
     TableInfo,
     PartyInfo,
-    NumToSeat,
     SelectServer,
     AddPartyPage,
-    Numpad,
 
     EmployeesPage,
 
@@ -87,10 +85,8 @@ import { Camera } from '@ionic-native/camera';
     TablesPage,
     TableInfo,
     PartyInfo,
-    NumToSeat,
     SelectServer,
     AddPartyPage,
-    Numpad,
 
     EmployeesPage,
     TimePunchPage,
