@@ -2,7 +2,7 @@
 
   <div id="headerleft">
     <div id="restaurantname">
-      <ion-label class="header">Placeholder Restaurant</ion-label>
+      <h3 class="colormedium">Placeholder Restaurant</h3>
     </div>
     <div id="headerbuttoncontainer">
       <div id="cancelseatpartybutton">
@@ -33,7 +33,7 @@
 </ion-header>
 
 <ion-content no-bounce class="no-scroll" id="layoutview">
-  <div style="padding:10px;">
+  <div style="height: 100%; width: 100%; padding:10px;">
     <div class="tablediv" id="{{'table'+table.ID}}"
          *ngFor="let table of tables">
       <button ion-button outline
@@ -42,15 +42,15 @@
                           'tablenotfree': !table.free}"
               (click)="onTablePress(table)">
         <div style="height:100%;width:100%;padding-top:15%">
-          <ion-label class="smalltext tablebuttonID">
+          <h6 class="colormedium tablebuttonID">
             {{table.ID}}
-          </ion-label>
-          <ion-label class="tablebuttoncapacity">
+          </h6>
+          <h4 class="colorprimary tablebuttoncapacity">
             {{table.getButtonText()}}
-          </ion-label>
-          <ion-label class="smalltext tablebuttonserver">
+          </h4>
+          <h6 class="colormedium tablebuttonserver">
             {{table.server}}
-          </ion-label>
+          </h6>
         </div>
       </button>
     </div>

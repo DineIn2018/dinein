@@ -314,12 +314,14 @@ export class EmployeeShift {
   }
 
   static compare(s1: EmployeeShift, s2: EmployeeShift) {
-    let t1 = new Date(s1.startTime);
-    let t2 = new Date(s2.startTime);
-    let diff = t2.getTime() - t1.getTime();
+    let d1 = new Date(s1.startTime);
+    let d2 = new Date(s2.startTime);
+    let diff = (d1.getTime() - d2.getTime());
+
     if (diff < 0) {
       return -1;
-    } else if (diff > 0) {
+    }
+    if (diff > 0) {
       return 1;
     }
     return 0;

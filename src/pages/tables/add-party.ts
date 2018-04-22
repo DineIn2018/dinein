@@ -159,9 +159,9 @@ export class AddPartyPage {
   selector: 'page-add-party',
   template: `
     <div class="modalbase" id="numpadmodal">
-        <ion-label class="header">{{field}}</ion-label>
-        <ion-label class="subtitle">{{userInput}}</ion-label>
-        <div style="height:300px;width:100%;margin-bottom:15px;">
+        <h3 class="colormedium">{{field}}</h3>
+        <h2 class="colorprimary">{{userInput}}</h2>
+        <div style="height: 53%; width: 100%;">
           <table class="numpad">
             <tr>
               <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>

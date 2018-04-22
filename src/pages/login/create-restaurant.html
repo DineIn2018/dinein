@@ -2,47 +2,46 @@
 	<div class="background">
 		<div id="container">
 
-			<ion-list>
-				<ion-label class="subsubtitle">Restaurant Information</ion-label>
+			<h2 class="colorprimary">Create Restaurant</h2>
 
-				<ion-item class="inputfield">
-					<ion-input clearInput type="Text" placeholder="Restaurant Name"
-									 	 [(ngModel)]="restaurantName"></ion-input>
-				</ion-item>
-				<ion-item class="inputfield">
-					<ion-input clearInput type="Text" placeholder="Address Line 1"
-									 	 [(ngModel)]="addrLine1"></ion-input>
-				</ion-item>
-				<ion-item class="inputfield">
-					<ion-input clearInput type="Text" placeholder="Address Line 2 (Optional)"
-									 	 [(ngModel)]="addrLine2"></ion-input>
-				</ion-item>
-				<ion-item class="inputfield">
-					<ion-input clearInput type="Text" placeholder="City, State Zip"
-									 	 [(ngModel)]="addrLine3"></ion-input>
-				</ion-item>
+			<ion-item class="inputfield">
+				<ion-input clearInput type="Text" placeholder="Restaurant Name"
+									 [(ngModel)]="restaurantName"></ion-input>
+			</ion-item>
+			<ion-item class="inputfield">
+				<ion-input clearInput type="Text" placeholder="Address Line 1"
+									 [(ngModel)]="addrLine1"></ion-input>
+			</ion-item>
+			<ion-item class="inputfield">
+				<ion-input clearInput type="Text" placeholder="Address Line 2 (Optional)"
+									 [(ngModel)]="addrLine2"></ion-input>
+			</ion-item>
+			<ion-item class="inputfield">
+				<ion-input clearInput type="Text" placeholder="City, State Zip"
+									 [(ngModel)]="addrLine3"></ion-input>
+			</ion-item>
 
-				<button class="inputbutton" ion-button outline block
-								[ngClass]="{'inputbuttonnoval': phone == null,
-														'inputbuttonhasval': phone != null}"
-	              (click)="presentNumpad()">
-	        {{phone == null? "Restaurant's Phone Number" : phone}}
-	      </button>
+			<button class="inputbutton" ion-button outline block
+							[ngClass]="{'inputbuttonnoval': phone == null,
+													'inputbuttonhasval': phone != null}"
+							(click)="presentNumpad()">
+				{{phone == null? "Restaurant's Phone Number" : phone}}
+			</button>
 
-				<ion-item class="inputfield">
-					<ion-input clearInput type="Text" placeholder="Owner's First Name"
-									 	 [(ngModel)]="ownerFirstName"></ion-input>
-				</ion-item>
-				<ion-item class="inputfield">
-					<ion-input clearInput type="Text" placeholder="Owner's Last Name"
-									 	 [(ngModel)]="ownerLastName"></ion-input>
-				</ion-item>
+			<ion-item class="inputfield">
+				<ion-input clearInput type="Text" placeholder="Owner's First Name"
+									 [(ngModel)]="ownerFirstName"></ion-input>
+			</ion-item>
+			<ion-item class="inputfield">
+				<ion-input clearInput type="Text" placeholder="Owner's Last Name"
+									 [(ngModel)]="ownerLastName"></ion-input>
+			</ion-item>
 
-				<button class="localbutton" ion-button block
-								(click)="create()">Create</button>
-				<button class="localbutton" ion-button block outline
-								(click)="exit()">Cancel</button>
-			</ion-list>
+			<button class="localbutton" ion-button block
+							(click)="create()">Create</button>
+			<button class="localbutton" ion-button block outline
+							(click)="exit()">Cancel</button>
+
 		</div>
 	</div>
 </ion-content>

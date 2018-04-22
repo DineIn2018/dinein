@@ -1,6 +1,6 @@
 <ion-header>
 	<div id="topleft">
-		<ion-label class="subtitle">View PunchCards</ion-label>
+		<h3 class="colorprimary">View PunchCards</h3>
 	</div>
 	<div id="topright">
 
@@ -9,38 +9,38 @@
 
 
 <ion-content id="scrollcontainer">
-			<table>
-				<tr>
-					<th><ion-label class="subsubtitle">Employee Name</ion-label></th>
-					<th><ion-label class="subsubtitle">Shift Start</ion-label></th>
-					<th><ion-label class="subsubtitle">Shift End</ion-label></th>
-					<th><ion-label class="subsubtitle">Hours Worked</ion-label></th>
-				</tr>
-				<tr *ngFor="let shift of displayShiftList">
-					<td>
-						<ion-label class="smalltext">{{shift.name}}</ion-label>
-					</td>
-					<td>
-						<ion-label class="smalltext">{{shift.startTime}}</ion-label>
-					</td>
-					<td>
-						<ion-label class="smalltext">
-							{{shift.hasEnded()? shift.endTime : "In Progress"}}
-						</ion-label>
-					</td>
-					<td>
-						<ion-label class="smalltext">
-							{{shift.hasEnded()? shift.shiftLength : "N/A"}}
-						</ion-label>
-					</td>
-				</tr>
-			</table>
+	<table>
+		<tr>
+			<th><h4 class="colorprimary">Employee Name</h4></th>
+			<th><h4 class="colorprimary">Shift Start</h4></th>
+			<th><h4 class="colorprimary">Shift End</h4></th>
+			<th><h4 class="colorprimary">Hours Worked</h4></th>
+		</tr>
+		<tr *ngFor="let shift of displayShiftList">
+			<td>
+				<h6 class="colormedium">{{shift.name}}</h6>
+			</td>
+			<td>
+				<h6 class="colormedium">{{shift.startTime}}</h6>
+			</td>
+			<td>
+				<h6 class="colormedium">
+					{{shift.hasEnded()? shift.endTime : "In Progress"}}
+				</h6>
+			</td>
+			<td>
+				<h6 class="colormedium">
+					{{shift.hasEnded()? shift.shiftLength : "N/A"}}
+				</h6>
+			</td>
+		</tr>
+	</table>
 </ion-content>
 
 <ion-content no-bounce class="no-scroll">
 	<div id="filterpanel">
 		<div class="filterparam">
-			<ion-label class="regularText">For Employee:</ion-label>
+			<h4 class="colormiddark">For Employee:</h4>
 			<button class="inputbutton" ion-button outline block
 							[ngClass]="{'inputbuttonnoval': selectedEmployeeID == null,
 													'inputbuttonhasval': selectedEmployeeID != null}"
@@ -51,7 +51,10 @@
 		</div>
 
 		<div class="filterparam">
-			<ion-label class="regularText">From:</ion-label>
+			<div>
+				<h4 class="colormiddark">From:</h4>
+				<button class="cleardate" ion-button (click)="filterStartDate = null">x</button>
+			</div>
 			<ion-item class="timeselect">
 				<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
 											placeholder="Select Start Date"
@@ -61,7 +64,10 @@
 		</div>
 
 		<div class="filterparam">
-			<ion-label class="regularText">To:</ion-label>
+			<div>
+				<h4 class="colormiddark">To:</h4>
+				<button class="cleardate" ion-button (click)="filterEndDate = null">x</button>
+			</div>
 			<ion-item class="timeselect">
 				<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
 											placeholder="Select End Date"
@@ -71,7 +77,7 @@
 		</div>
 
 		<div class="filterparam">
-			<ion-label class="regularText"></ion-label>
+			<h4 class="colormiddark"></h4>
 			<button class="localbutton applyfilterbutton" ion-button block
 							(click)="applyFilter()">
 				Apply Filter

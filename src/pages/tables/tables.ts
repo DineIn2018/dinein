@@ -84,7 +84,7 @@ export class TablesPage {
 		// TODO: write sorting algorithm for the whole list
 	}
 
-	ionViewDidLoad() {/*
+	ionViewDidLoad() {
 		var i;
 		for(i = 0; i < this.tables.length; i++) {
 			let table = this.tables[i];
@@ -96,7 +96,7 @@ export class TablesPage {
 	    tableElement.style.webkitTransform =
 	    tableElement.style.transform =
 	      'translate(' + table.xPos + 'px, ' + table.yPos + 'px)';
-		}*/
+		}
 	}
 
 	//----------------------------------------------------------------------------
@@ -419,20 +419,20 @@ export class TablesPage {
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="tablemodal">
-			<ion-list id="modalcontent">
-				<ion-label class="subsubtitle">Table {{t.ID}}</ion-label>
-				<ion-label class="regularText">Capacity: {{t.capacity}}</ion-label>
-				<ion-label class="regularText">Status: {{t.getStatus()}}</ion-label>
-				<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
-				<ion-label class="regularText">Time In: {{t.timeIn}}</ion-label>
-				<ion-label class="regularText">Server: {{t.server}}</ion-label>
-				<ion-label class="regularText">Guest: {{t.guest}}</ion-label>
-				<div class="modalbuttons">
-					<button class="modalbutton" ion-button block
-									(click)="dismiss()">Dismiss</button>
-				</div>
-			</ion-list>
+		<div id="tablemodal" class="modalbase">
+			<h3 class="colorprimary">Table {{t.ID}}</h3>
+			<h5 class="colormedium">Status: {{t.getStatus()}}</h5>
+			<h5 class="colormedium">Capacity: {{t.capacity}}</h5>
+			<h5 class="colormedium">Current Party: {{t.partySize}}</h5>
+			<h5 class="colormedium">Time In: {{t.timeIn}}</h5>
+			<h5 class="colormedium">Server: {{t.server}}</h5>
+			<h5 class="colormedium">Guest: {{t.guest}}</h5>
+
+			<div style="margin-top: 30px;">
+				<button class="modalbutton" ion-button block (click)="dismiss()">
+					Dismiss
+				</button>
+			</div>
 		</div>
 	`
 })
@@ -460,16 +460,18 @@ export class TableInfo {
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="partymodal">
-			<ion-list id="modalcontent">
-				<ion-label class="subsubtitle">{{p.name}}'s {{p.getKind()}}</ion-label>
-				<ion-label class="regularText">Size: {{p.size}}</ion-label>
-				<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
-				<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
-				<ion-label class="regularText">ID: {{p.ID}}</ion-label>
-				<button class="modalbutton" ion-button block
-								(click)="dismiss()">Dismiss</button>
-			</ion-list>
+		<div id="partymodal" class="modalbase">
+			<h3 class="colorprimary">{{p.name}}'s {{p.getKind()}}</h3>
+			<h5 class="colormedium">Size: {{p.size}}</h5>
+			<h5 class="colormedium">Arrival Time: {{p.time}}</h5>
+			<h5 class="colormedium">Contact: {{p.contact}}</h5>
+			<h5 class="colormedium">ID: {{p.ID}}</h5>
+
+			<div style="margin-top: 30px;">
+				<button class="modalbutton" ion-button block (click)="dismiss()">
+					Dismiss
+				</button>
+			</div>
 		</div>
 	`
 })

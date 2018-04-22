@@ -7,21 +7,21 @@ export class DateTimeService {
 
 	getTime(): string {
 		let d = new Date();
-		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
+		return this.pad(d.getUTCHours()) + ':' + this.pad(d.getUTCMinutes());
 	}
 
-	fullDateToTime(d): string {
-		let D = new Date(d);
-		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
+	fullDateToTime(D): string {
+		let d = new Date(D);
+		return this.pad(d.getUTCHours()) + ':' + this.pad(d.getUTCMinutes());
 	}
 
 	getDateTime(): string {
 		let d = new Date();
-		let day = d.getDate();
-		let month = d.getMonth() + 1;
-		let year = d.getFullYear();
-		let hrs = d.getHours();
-		let min = d.getMinutes();
+		let day = d.getUTCDate();
+		let month = d.getUTCMonth() + 1;
+		let year = d.getUTCFullYear();
+		let hrs = d.getUTCHours();
+		let min = d.getUTCMinutes();
 		return (this.pad(month) + '/' + this.pad(day) + '/' + year + ' ' +
 						this.pad(hrs) + ':' + this.pad(min));
 	}
@@ -30,18 +30,18 @@ export class DateTimeService {
 		let d1 = new Date(t1);
 		let d2 = new Date(t2);
 		let diffHours: number = (d2.getTime() - d1.getTime()) / 3600000;
-		return (Math.round(diffHours * 4) / 4).toFixed(2);
+		return parseFloat((Math.round(diffHours * 4) / 4).toFixed(2));
 	}
 
 	sameDay(t1, t2): boolean {
 		let d1 = new Date(t1);
 		let d2 = new Date(t2);
-		let day1 = d1.getDate();
-		let month1 = d1.getMonth() + 1;
-		let year1 = d1.getFullYear();
-		let day2 = d2.getDate();
-		let month2 = d2.getMonth() + 1;
-		let year2 = d2.getFullYear();
+		let day1 = d1.getUTCDate();
+		let month1 = d1.getUTCMonth() + 1;
+		let year1 = d1.getUTCFullYear();
+		let day2 = d2.getUTCDate();
+		let month2 = d2.getUTCMonth() + 1;
+		let year2 = d2.getUTCFullYear();
 		return (day1 == day2) && (month1 == month2) && (year1 == year2);
 	}
 
@@ -50,35 +50,55 @@ export class DateTimeService {
 		let dStart = new Date(tStart);
 		let dEnd = new Date(tEnd);
 		let afterStart = (d.getTime() - dStart.getTime()) >= 0;
-		let beforeEnd = (dEnd.getTime() - d.getTime() >= 0);
+		let beforeEnd = (dEnd.getTime() - d.getTime()) >= 0;
 		return afterStart && beforeEnd;
+	}
+
+	isBefore(t1, t2): boolean {
+		let d1 = new Date(t1);
+		let d2 = new Date(t2);
+		return (d2.getTime() - d1.getTime()) >= 0;
 	}
 
 	pad(n) {
     return (n < 10)? ('0' + n) : n;
 	}
+
+	static compare(t1, t2) {
+		let d1 = new Date(t1);
+		let d2 = new Date(t2);
+		let diff = (d2.getTime() - d1.getTime());
+
+		if (diff < 0) {
+			return -1;
+		}
+		if (diff > 0) {
+			return 1;
+		}
+		return 0;
+	}
 }
 /*
-  getTime() {
+  getUTCTime() {
 		var d = new Date();
-		return this.parseTime(d.getHours(), d.getMinutes());
+		return this.parseTime(d.getUTCHours(), d.getUTCMinutes());
 	}
 
 	parseTime(hours: number, minutes: number) {
 		return this.pad(hours) + ':' + this.pad(minutes);
 	}
 
-	getDate() {
+	getUTCDate() {
 		var d = new Date();
-		return this.parseDate(d.getFullYear(), d.getMonth() + 1, d.getDate());
+		return this.parseDate(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate());
 	}
 
 	parseDate(year: number, month: number, day: number) {
 		return year + '-' + this.pad(month) + '-' + this.pad(day);
 	}
 
-	getFullDateTime() {
-		return this.getDate() + 'T' + this.getTime();
+	getUTCFullDateTime() {
+		return this.getUTCDate() + 'T' + this.getUTCTime();
 	}
 
 	private pad(n) {
