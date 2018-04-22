@@ -48,11 +48,22 @@ page-employees {
         outline-color: color($colors, primary);*/
     }
     #addButton {
+        left: 2%;
+        top: 10%;
         width: auto;
         position: fixed;
         display: inline;
         z-index: 1;
         font-family: palatino;
+    }
+    #deleteButton {
+        width: auto;
+        position: fixed;
+        display: inline;
+        z-index: 1;
+        font-family: palatino;
+        left: 2%;
+        top: 17%;
     }
     #viewpunchbutton {
         width: auto;
@@ -97,6 +108,10 @@ page-employees {
         z-index: 1;
     }
 
+    #noEmployeeMessage {
+        width: 80%;
+        float: right;
+    }
 	#employeeprofile {
         /*background-color: color($colors, darkest);*/
         width: 80%;

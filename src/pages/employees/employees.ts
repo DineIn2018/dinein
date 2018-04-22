@@ -39,6 +39,10 @@ export class EmployeesPage {
     this.selectedEmployee = this.employees[0];
   }
 
+  deleteAll() {
+    this.employees = [];
+    this.refreshSelectedEmployee();
+  }
   presentPunchPopover(anEvent) {
     let popover = this.popCtrl.create(PunchPopoverPage,{selectedEmployee: this.selectedEmployee});
 
@@ -293,7 +297,7 @@ export class EmployeeShift {
     let d1 = new Date(t1);
     let d2 = new Date(t2);
     let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
-    return (Math.round(diffHours * 4) / 4).toFixed(2);
+    return parseInt((Math.round(diffHours * 4) / 4).toFixed(2));
   }
 
   getName(): string {
