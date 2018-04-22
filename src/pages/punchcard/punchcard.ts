@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
+import { NavController, ModalController, ViewController, NavParams, AlertController } from 'ionic-angular';
 import { Employee, EmployeeShift } from '../employees/employees';
 import { DateTimeService } from '../util/date-time';
 
@@ -19,6 +19,7 @@ export class PunchCardPage {
 
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
+							public alertCtrl: AlertController,
 							private dateTime: DateTimeService) {
 
 		this.displayShiftList = [];
@@ -106,26 +107,27 @@ export class PunchCardPage {
 	}
 
 	filterShiftByDate() {
-		if (this.filterStartDate != null && this.filterEndDate != null) {
-			let tmp: EmployeeShift[] = [];
-			var j;
-			for (j = 0; j < this.displayShiftList.length; j++) {
-				tmp.push(this.displayShiftList[j]);
-			}
-			this.clearDisplayShiftList();
-			var i;
-			if (this.filterStartDate == this.filterEndDate) {
-				for (i = 0; i < tmp.length; i++) {
-					if (this.dateTime.sameDay(tmp[i].startTime, this.filterStartDate) ||
-							this.dateTime.sameDay(tmp[i].endTime, this.filterStartDate)) {
-						this.displayShiftList.push(tmp[i]);
-					}
+		let tmp: EmployeeShift[] = [];
+		var j;
+		for (j = 0; j < this.displayShiftList.length; j++) {
+			tmp.push(this.displayShiftList[j]);
+		}
+		this.clearDisplayShiftList();
+
+		var i;
+		if (this.filterBySingleDate()) {
+			for (i = 0; i < tmp.length; i++) {
+				if (this.dateTime.sameDay(tmp[i].startTime, this.filterStartDate) ||
+						this.dateTime.sameDay(tmp[i].endTime, this.filterStartDate) ||
+						this.dateTime.sameDay(tmp[i].startTime, this.filterEndDate) ||
+						this.dateTime.sameDay(tmp[i].endTime, this.filterEndDate)) {
+					this.displayShiftList.push(tmp[i]);
 				}
-			} else {
-				for (i = 0; i < tmp.length; i++) {
-					if (this.dateTime.inBetween(tmp[i].startTime, this.filterStartDate, this.filterEndDate)) {
-						this.displayShiftList.push(tmp[i]);
-					}
+			}
+		} else if (this.filterByInterval()) {
+			for (i = 0; i < tmp.length; i++) {
+				if (this.dateTime.inBetween(tmp[i].startTime, this.filterStartDate, this.filterEndDate)) {
+					this.displayShiftList.push(tmp[i]);
 				}
 			}
 		}
@@ -152,31 +154,55 @@ export class PunchCardPage {
 	}
 
 	applyFilter() {
-		console.log(this.filterStartDate);
-		console.log(this.filterEndDate);
-
-		this.clearDisplayShiftList();
 
 		if (this.selectedEmployeeID == null) {
+			let alert = this.alertCtrl.create({
+					title: 'Please Select an Employee',
+					enableBackdropDismiss: false,
+					buttons: [ { text: 'OK', handler: () => {} } ]
+				});
+			alert.present();
 			return;
 		}
-
-		if (this.filterStartDate != null && this.filterEndDate != null) {
+		if (!this.noTimeFilter() && !this.filterBySingleDate() &&
+				!(this.filterStartDate == this.filterEndDate)) {
 			if (!this.dateTime.isBefore(this.filterStartDate, this.filterEndDate)) {
+				let alert = this.alertCtrl.create({
+					title: 'The End Date is Before the Start Date',
+					enableBackdropDismiss: false,
+					buttons: [ { text: 'OK', handler: () => {} } ]
+				});
+				alert.present();
 				return;
-				console.log('detect bad date');
 			}
 		}
+
+		this.clearDisplayShiftList();
 		if (this.selectedEmployeeID == 0) {
 			this.filterShiftByLatest();
 		} else {
 			this.filterShiftByEmployeeID(this.selectedEmployeeID);
 		}
-		this.filterShiftByDate();
+		if (!this.noTimeFilter()) {
+			this.filterShiftByDate();
+		}
 	}
 
 	clearDisplayShiftList() {
 		this.displayShiftList.length = 0;
+	}
+
+	filterBySingleDate(): boolean {
+		return !this.filterByInterval() && !this.noTimeFilter();
+	}
+
+	filterByInterval(): boolean {
+		return ((this.filterStartDate != null) && (this.filterEndDate != null) &&
+						!(this.filterStartDate == this.filterEndDate));
+	}
+
+	noTimeFilter(): boolean {
+		return (this.filterStartDate == null) && (this.filterEndDate == null);
 	}
 
 }

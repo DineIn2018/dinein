@@ -96,8 +96,8 @@
 		//border: solid 1px;
 		//border-color: color($colors, darker);
 		//background-color: transparent;
-		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
-		background-color: rgba(color($colors, middark), 0.05);
+		backdrop-filter: blur(10px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, dark), 0.5);
 	}
 
 	.modalbutton {

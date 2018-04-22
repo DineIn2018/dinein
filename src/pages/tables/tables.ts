@@ -107,6 +107,23 @@ export class TablesPage {
 	onTablePress(table: Table) {
 
 		if (this.editingLayoutMode()) {
+			/*
+			let confirm = this.alertCtrl.create({
+				title: 'Confirm Table Delete',
+				message: 'This cannot be undone, are you sure?',
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: 'Cancel',
+						handler: () => { }
+					},
+					{
+						text: 'Delete',
+						handler: () => { this.deleteTable(table); }
+					}
+				]
+			});
+			confirm.present();*/
 			return;
 		}
 		//
