@@ -21,6 +21,9 @@ import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CreateEmployeePage } from '../pages/create-employee/create-employee';
+import { DbHelperProvider } from '../providers/dbhelper/dbhelper';
+
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -79,7 +83,9 @@ import { CreateEmployeePage } from '../pages/create-employee/create-employee';
     StatusBar,
     SplashScreen,
     ScreenOrientation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DbHelperProvider,
+    HttpClient
   ]
 })
 export class AppModule {}
