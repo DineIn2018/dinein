@@ -3,8 +3,10 @@
 
     <div class = "punch-textbox">
       <h2 class="colorprimary">Punch In/Out</h2>
-      <h3 class="colormedium">{{currDateTime | date: 'EEE MMM d, yyyy'}}</h3>
-      <h3 class="colormedium">{{currDateTime | date: 'hh:mm:ss aa'}}</h3>
+      <br>
+      <h4 class="colormedium">{{currDateTime | date: 'EEE MMM d, yyyy'}}</h4>
+      <h4 class="colormedium">{{currDateTime | date: 'hh:mm:ss aa'}}</h4>
+      <br>
       <h2 class="colorprimary">ID: {{ID}}</h2>
     </div>
 
@@ -32,7 +34,7 @@
         </tr>
       </table>
 
-      <div style="height:15%; width:100%;">
+      <div style="height:30%; width:100%;">
         <button class="localbutton" ion-button block (click)="submit()">Submit</button>
       </div>
 
