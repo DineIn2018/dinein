@@ -15,7 +15,7 @@ var userSchema = new Schema({
   password: String,
   firstName: String,
   lastName: String,
-  phonNo: Number,
+  phoneNo: Number,
   restaurant: String
 });
 var User = mongoose.model('User', userSchema);
@@ -36,8 +36,7 @@ router.get('/', function(req,res){
 router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', function(req,res){
 
   console.log('email = ' + req.params.email);
-  console.log('name = ' + req.params.name);
-  console.log('args = ' + JSON.stringify(req.params.user));
+  console.log('phoneNo = ' + req.params.phoneNo);
 
   User.create({
     email: req.params.email,

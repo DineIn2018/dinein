@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { UserObject, anotherObject } from '../../DBAssets/DBObjects';
-import { URLparser } from '../../DBAssets/URLparser';
+import { URLparser } from '../../DBAssets/URLParser';
 /*
   Generated class for the DbHelperProvider provider.
 
