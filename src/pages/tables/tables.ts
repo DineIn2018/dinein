@@ -92,7 +92,6 @@ export class TablesPage {
 		for(i = 0; i < this.tables.length; i++) {
 			let table = this.tables[i];
 			var tableElement = document.getElementById('table'+table.ID);
-			console.log(tableElement.getAttribute('id'));
 			tableElement.setAttribute('data-x', table.xPos);
 	    tableElement.setAttribute('data-y', table.yPos);
 	    tableElement.style.webkitTransform =
@@ -357,7 +356,6 @@ export class TablesPage {
 		let modal = this.modalCtrl.create(SelectServer, {servers: this.servers});
 		modal.onDidDismiss(server => {
 			if (server != null) {
-				console.log('SelectServer returned: ' + server.name);
 				table.seat(numToSeat, server.name, this.datetime.getTime(), null);
 				if (this.seatingPartyMode()) {
 					this.deleteParty(this.selectedParty);
@@ -390,23 +388,11 @@ export class TablesPage {
 	}
 
 	deleteParty(party: Party) {
-		// Find corresponding party in list and remove
-		var i;
-		for (i = 0; i < this.parties.length; i++) {
-			if (this.parties[i].ID == party.ID) {
-				this.parties.splice(i, 1);
-			}
-		}
+		this.parties.splice(this.parties.indexOf(party), 1);
 	}
 
 	deleteTable(table: Table) {
-		// Find corresponding party in list and remove
-		var i;
-		for (i = 0; i < this.tables.length; i++) {
-			if (this.tables[i].ID == table.ID) {
-				this.tables.splice(i, 1);
-			}
-		}
+		this.tables.splice(this.tables.indexOf(table), 1);
 	}
 
 	editingLayoutMode(): boolean {
@@ -522,7 +508,6 @@ export class TableInfo {
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.t = params.get('table');
-		console.log('Passed Table ID: ', this.t.ID);
 	}
 
 	dismiss() {
@@ -561,7 +546,6 @@ export class PartyInfo {
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.p = params.get('party');
-		console.log('Passed Party ID: ', this.p.ID);
 	}
 
 	dismiss() {

@@ -12,14 +12,16 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { TablesPage, TableInfo, PartyInfo, SelectServer } from '../pages/tables/tables';
 import { AddPartyPage } from '../pages/tables/add-party';
+
 import { EmployeesPage, PunchPopoverPage } from '../pages/employees/employees';
+import { EditEmployeePage, TitleSelector } from '../pages/employees/edit-employee';
+
 import { TimePunchPage } from '../pages/timepunch/timepunch';
 import { PunchCardPage, SelectEmployee } from '../pages/punchcard/punchcard';
 
 import { CalendarPage } from '../pages/calendar/calendar';
 
 import { ManagementPage } from '../pages/management/management';
-import { EditEmployeePage } from '../pages/edit-employee/edit-employee';
 import { UpdateManagementPage } from '../pages/update-management/update-management';
 
 import { DateTimeService } from '../pages/util/date-time';
@@ -27,7 +29,6 @@ import { InputNumpad } from '../pages/util/numpad';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 
 import { NgCalendarModule  } from 'ionic2-calendar';
 
@@ -51,9 +52,11 @@ import { Camera } from '@ionic-native/camera';
     AddPartyPage,
 
     EmployeesPage,
+    EditEmployeePage,
+    TitleSelector,
+    PunchPopoverPage,
 
     TimePunchPage,
-
     PunchCardPage,
     SelectEmployee,
 
@@ -61,10 +64,8 @@ import { Camera } from '@ionic-native/camera';
 
     ManagementPage,
     UpdateManagementPage,
+
     TabsPage,
-    EditEmployeePage,
-    CreateEmployeePage,
-    PunchPopoverPage,
 
     InputNumpad
   ],
@@ -89,8 +90,11 @@ import { Camera } from '@ionic-native/camera';
     AddPartyPage,
 
     EmployeesPage,
-    TimePunchPage,
+    EditEmployeePage,
+    TitleSelector,
+    PunchPopoverPage,
 
+    TimePunchPage,
     PunchCardPage,
     SelectEmployee,
 
@@ -98,10 +102,8 @@ import { Camera } from '@ionic-native/camera';
 
     ManagementPage,
     UpdateManagementPage,
+
     TabsPage,
-    EditEmployeePage,
-    CreateEmployeePage,
-    PunchPopoverPage,
 
     InputNumpad
   ],

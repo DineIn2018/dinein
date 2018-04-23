@@ -28,49 +28,54 @@ export class PunchCardPage {
 		this.filterStartDate = null;
 		this.filterEndDate = null;
 
-		this.employees = [
-											new Employee("Bryan", "Suzan", 666, "DJ", 0.03, "1-866-436-5706"),
-											new Employee("Carl", "Robins", 4321, "Assistant Manager", 30, "(608) 345-1209"),
-											new Employee("Marianne", "Beaumont", 9902, "Hostess", 15, "+33 8 92 70 12 39"),
-											new Employee("Anna", "Schmidt", 4312, "Manager", 50, "+49 30 2273 2152")
-										 ];
+		this.employees =
+			[
+				new Employee("Carl", "Robins", "Assistant Manager", 30, 6083456789, "http://www.math.uni-frankfurt.de/~person/_4170854.jpg"),
+				new Employee("Marianne", "Beaumont", "Hostess", 15, 9119119911, "http://www.pearsonvue.com/pteprofessional/images/homepage.png"),
+				new Employee("Anna", "Schmidt", "Manager", 50, 6086076006, "https://i.pinimg.com/736x/25/48/31/25483183a26a96adcc2b5a4002eda6ca--headshot-ideas-professional-photographer.jpg"),
+				new Employee("Valerie", "Carter", "Owner", 1003, 2024561111, "https://cdn10.phillymag.com/wp-content/uploads/2016/01/woman-biz.jpg"),
+				new Employee("Phil", "Scott", "Bartender", 10, 6083104545, "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Robert_gold_bartender.jpg/220px-Robert_gold_bartender.jpg"),
+				new Employee("Kevin", "Anderson", "Server", 5, 6088067777, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
+				new Employee("Tina", "Russo", "Head Chef", 500, 4149217439, "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg"),
+				new Employee("Bryan", "Suzan", "DJ", 0.03, 6666666666, "../../assets/imgs/bryan.jpg")
+			];
 
-		this.getEmployeeByID(666).shifts = [
-																				new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Bryan Suzan"),
-																				new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Bryan Suzan"),
-																				new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Bryan Suzan"),
-																				new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Bryan Suzan"),
-																				new EmployeeShift("04/20/2018 04:20", "04/20/2018 14:20", "Bryan Suzan"),
-																				new EmployeeShift("04/21/2018 00:20", "04/21/2018 01:54", "Bryan Suzan"),
-																				new EmployeeShift("02/01/2018 06:01", "02/01/2018 18:00", "Bryan Suzan"),
-																				new EmployeeShift("02/02/2018 07:01", "02/02/2018 07:15", "Bryan Suzan"),
-																				new EmployeeShift("02/14/2018 08:01", "02/14/2018 09:30", "Bryan Suzan"),
-																				new EmployeeShift("04/01/2018 18:01", "04/02/2018 18:00", "Bryan Suzan"),
-																				new EmployeeShift("04/20/2018 04:21", "04/20/2018 14:20", "Bryan Suzan"),
-																				new EmployeeShift("04/21/2018 00:21", "04/21/2018 01:54", "Bryan Suzan")
-																				//new EmployeeShift("04/22/2018 07:01", undefined, "Bryan Suzan")
-																			 ];
-		this.getEmployeeByID(4321).shifts = [
-																				new EmployeeShift("02/01/2018 00:00", "02/01/2018 23:59", "Carl Robins"),
-																				new EmployeeShift("02/02/2018 23:45", "02/03/2018 00:15", "Carl Robins"),
-																				new EmployeeShift("02/11/2018 08:13", "02/14/2018 13:22", "Carl Robins"),
-																				new EmployeeShift("04/20/2018 18:00", "04/02/2018 18:00", "Carl Robins"),
-																				new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Carl Robins")
-																			 ];
-		this.getEmployeeByID(9902).shifts = [
-																				new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Marianne Beaumont"),
-																				new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Marianne Beaumont"),
-																				new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Marianne Beaumont"),
-																				new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Marianne Beaumont"),
-																				new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Marianne Beaumont")
-																			 ];
-		this.getEmployeeByID(4312).shifts = [
-																				new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Anna Schmidt"),
-																				new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Anna Schmidt"),
-																				new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Anna Schmidt"),
-																				new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Anna Schmidt"),
-																				new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Anna Schmidt")
-																			 ];
+		this.employees[7].shifts = [
+																new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Bryan Suzan"),
+																new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Bryan Suzan"),
+																new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Bryan Suzan"),
+																new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Bryan Suzan"),
+																new EmployeeShift("04/20/2018 04:20", "04/20/2018 14:20", "Bryan Suzan"),
+																new EmployeeShift("04/21/2018 00:20", "04/21/2018 01:54", "Bryan Suzan"),
+																new EmployeeShift("02/01/2018 06:01", "02/01/2018 18:00", "Bryan Suzan"),
+																new EmployeeShift("02/02/2018 07:01", "02/02/2018 07:15", "Bryan Suzan"),
+																new EmployeeShift("02/14/2018 08:01", "02/14/2018 09:30", "Bryan Suzan"),
+																new EmployeeShift("04/01/2018 18:01", "04/02/2018 18:00", "Bryan Suzan"),
+																new EmployeeShift("04/20/2018 04:21", "04/20/2018 14:20", "Bryan Suzan"),
+																new EmployeeShift("04/21/2018 00:21", "04/21/2018 01:54", "Bryan Suzan")
+																//new EmployeeShift("04/22/2018 07:01", undefined, "Bryan Suzan")
+															 ];
+		this.employees[0].shifts = [
+																new EmployeeShift("02/01/2018 00:00", "02/01/2018 23:59", "Carl Robins"),
+																new EmployeeShift("02/02/2018 23:45", "02/03/2018 00:15", "Carl Robins"),
+																new EmployeeShift("02/11/2018 08:13", "02/14/2018 13:22", "Carl Robins"),
+																new EmployeeShift("04/20/2018 18:00", "04/02/2018 18:00", "Carl Robins"),
+																new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Carl Robins")
+															 ];
+		this.employees[1].shifts = [
+																new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Marianne Beaumont"),
+																new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Marianne Beaumont"),
+																new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Marianne Beaumont"),
+																new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Marianne Beaumont"),
+																new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Marianne Beaumont")
+															 ];
+		this.employees[2].shifts = [
+																new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Anna Schmidt"),
+																new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Anna Schmidt"),
+																new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Anna Schmidt"),
+																new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Anna Schmidt"),
+																new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Anna Schmidt")
+															 ];
 
 		var i;
 		for (i = 0; i < this.employees.length; i++) {

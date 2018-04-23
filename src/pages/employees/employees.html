@@ -5,10 +5,10 @@
       </button>
   </div>
   <div id="editbutton">
-      <button ion-button block outline (click)="openEditPage()">
+      <button ion-button block outline (click)="onEditEmployeePress()">
         Edit Info
       </button>
-      <button id="addButton" ion-button outline (click)="openCreatePage()">
+      <button id="addButton" ion-button outline (click)="onCreateEmployeePress()">
             Add New Employee
       </button>
     </div>
@@ -19,7 +19,7 @@
 
 <ion-content no-bounce id="mainview">
     <div id="employeeprofile">
-      <img id="employeeimage" src="{{selectedEmployee.getSrc()}}">
+      <img id="employeeimage" src="{{selectedEmployee.imageSrc}}">
       <h2 class="colorprimary">{{selectedEmployee.getFullName()}}</h2>
       <div id="employeeinfo">
         <h4 class="colormedium">Employee ID: {{selectedEmployee.ID}}</h4>
@@ -38,21 +38,21 @@
               [ngClass]="{'employee': employee.ID != selectedEmployee.ID,
                           'selectedemployee': employee.ID == selectedEmployee.ID}"
               (click)="selectEmployee($event, employee)">
-        {{employee.getName()}}
+        {{employee.getFullName()}}
       </button>
       <button ion-button block outline class="listbutton"
               *ngFor="let employee of employees"
               [ngClass]="{'employee': employee.ID != selectedEmployee.ID,
                           'selectedemployee': employee.ID == selectedEmployee.ID}"
               (click)="selectEmployee($event, employee)">
-        {{employee.getName()}}
+        {{employee.getFullName()}}
       </button>
       <button ion-button block outline class="listbutton"
               *ngFor="let employee of employees"
               [ngClass]="{'employee': employee.ID != selectedEmployee.ID,
                           'selectedemployee': employee.ID == selectedEmployee.ID}"
               (click)="selectEmployee($event, employee)">
-        {{employee.getName()}}
+        {{employee.getFullName()}}
       </button>
     </ion-list>
   </div>

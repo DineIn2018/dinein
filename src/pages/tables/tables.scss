@@ -1,190 +1,190 @@
 page-tables {
 
-    #headerleft, #headerright {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
-        background-color: color($colors, dark);
-    }
+	#headerleft, #headerright {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		background-color: color($colors, dark);
+	}
 
-    #headerleft {
-        float: left;
-        width: 80%;
-    }
+	#headerleft {
+		float: left;
+		width: 80%;
+	}
 
-    #headerright {
-        float:right;
-        width: 20%;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+	#headerright {
+		float:right;
+		width: 20%;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 
-    #restaurantname {
-        float: left;
-        width: 55%;
-        padding-top: 0px;
-        padding-left: 20px;
-        margin: 0px;
-    }
+	#restaurantname {
+		float: left;
+		width: 55%;
+		padding-top: 0px;
+		padding-left: 20px;
+		margin: 0px;
+	}
 
-    #headerbuttoncontainer {
-        float: right;
-        width: 45%;
-    }
+	#headerbuttoncontainer {
+		float: right;
+		width: 45%;
+	}
 
-    #cancelseatpartybutton {
-        width: 48%;
-        float: left;
-    }
+	#cancelseatpartybutton {
+		width: 48%;
+		float: left;
+	}
 
-    #editlayoutbutton {
-        width: 48%;
-        float: right;
-    }
+	#editlayoutbutton {
+		width: 48%;
+		float: right;
+	}
 
-    #layoutview {
-        margin-right: 20%;
-        width:80%;
-        padding: 5px;
-    }
+	#layoutview {
+		margin-right: 20%;
+		width:80%;
+		padding: 5px;
+	}
 
-    #sideview {
-        margin-left: 80%;
-        width:20%;
-        background-color: color($colors, dark);
-    }
+	#sideview {
+		margin-left: 80%;
+		width:20%;
+		background-color: color($colors, dark);
+	}
 
-    #waitlist {
-        width: 100%;
-        height: 100%;
-        background-color: color($colors, dark);
-        padding: 10px;
-    }
+	#waitlist {
+		width: 100%;
+		height: 100%;
+		background-color: color($colors, dark);
+		padding: 10px;
+	}
 
-    .resparty, .selectedserver {
-        color: color($colors, primary);
-    }
+	.resparty, .selectedserver {
+		color: color($colors, primary);
+	}
 
-    .waitparty, .server {
-        color: color($colors, middark);
-    }
+	.waitparty, .server {
+		color: color($colors, middark);
+	}
 
-    .tablediv {
-        position: absolute;
-        display: inline;
-        margin-all: 20px;
-        height: 80px;
-        width: 100px;
-    }
+	.tablediv {
+		position: absolute;
+		display: inline;
+		margin-all: 20px;
+		height: 80px;
+		width: 100px;
+	}
 
-    .tablebuttoncapacity {
-        float: right;
-        height: 65%;
-        width: 75%;
-        margin: 0px;
-        padding: auto;
-    }
+	.tablebuttoncapacity {
+		float: right;
+		height: 65%;
+		width: 75%;
+		margin: 0px;
+		padding: auto;
+	}
 
-    .tablebuttonID {
-        float: left;
-        height: 65%;
-        width: 25%;
-        margin: 0px;
-        padding: auto;
-        color: color($colors, medium);
-    }
+	.tablebuttonID {
+		float: left;
+		height: 65%;
+		width: 25%;
+		margin: 0px;
+		padding: auto;
+		color: color($colors, medium);
+	}
 
-    .tablebuttonserver {
-        width: 100%;
-        height: 35%;
-        float: bottom;
-        margin: 0px;
-        padding: auto;
-        color: color($colors, medium);
-        justify-content:flex-start;
-    }
+	.tablebuttonserver {
+		width: 100%;
+		height: 35%;
+		float: bottom;
+		margin: 0px;
+		padding: auto;
+		color: color($colors, medium);
+		justify-content:flex-start;
+	}
 
-    .table, .tablenotfree, .tablechooseme {
-        width: 100%;
-        height: 100%;
-        font-size: 28px;
-        font-weight: 600;
-        padding: 0px;
-        margin: 0px;
-    }
+	.table, .tablenotfree, .tablechooseme {
+		width: 100%;
+		height: 100%;
+		font-size: 28px;
+		font-weight: 600;
+		padding: 0px;
+		margin: 0px;
+	}
 
-    .tablenotfree {
-        //background-color: color($colors, secondary);
-        color: color($colors, secondary);
-        border-color: color($colors, secondary);
-    }
+	.tablenotfree {
+		//background-color: color($colors, secondary);
+		color: color($colors, secondary);
+		border-color: color($colors, secondary);
+	}
 
-    .tablechooseme {
-        //background-color: color($colors, tertiary);
-        color: color($colors, tertiary);
-        border-color: color($colors, tertiary);
-    }
+	.tablechooseme {
+		//background-color: color($colors, tertiary);
+		color: color($colors, tertiary);
+		border-color: color($colors, tertiary);
+	}
 
-    .modalbase {
-        h3 {
-            margin-bottom: 20px;
-        }
-        h5 {
-            margin-bottom: 10px;
-        }
-    }
+	.modalbase {
+		h3 {
+			margin-bottom: 20px;
+		}
+		h5 {
+			margin-bottom: 10px;
+		}
+	}
 
-    #tablemodal {
-        height: 65%;
-        width: 50%;
-        margin: auto;
-        margin-top: 20%;
-        //background-color: rgba(color($colors, middark), 0.15);
-    }
+	#tablemodal {
+		height: 65%;
+		width: 50%;
+		margin: auto;
+		margin-top: 20%;
+		//background-color: rgba(color($colors, middark), 0.15);
+	}
 
-    #partymodal {
-        height: 54%;
-        width: 70%;
-        margin: auto;
-        margin-top: 23%;
-        //background-color: rgba(color($colors, middark), 0.15);
-    }
+	#partymodal {
+		height: 54%;
+		width: 70%;
+		margin: auto;
+		margin-top: 23%;
+		//background-color: rgba(color($colors, middark), 0.15);
+	}
 
-    #servermodal {
-        border-radius: 5px;
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
-        width: 45%;
-        height: 100%;
-        margin: auto;
-    }
+	#servermodal {
+		border-radius: 5px;
+		padding-top: 15px;
+		padding-bottom: 2px;
+		padding-left: 30px;
+		padding-right: 30px;
+		width: 45%;
+		height: 100%;
+		margin: auto;
+	}
 
-    #numpadmodal {
-        height: 100%;
-        margin-left: 22%;
-        margin-right: 22%;
-    }
+	#numpadmodal {
+		height: 100%;
+		margin-left: 22%;
+		margin-right: 22%;
+	}
 
-    .no-scroll .scroll-content{
-        overflow: hidden;
-    }
+	.no-scroll .scroll-content{
+		overflow: hidden;
+	}
 
-    #addtablebutton {
-        float: left;
-        height: 100%;
-        width: 50px;
-    }
+	#addtablebutton {
+		float: left;
+		height: 100%;
+		width: 50px;
+	}
 
-    #addbutton {
-        height: 45px;
-        width: 45px;
-        font-size: 30px;
-        font-weight: 650;
-    }
+	#addbutton {
+		height: 45px;
+		width: 45px;
+		font-size: 30px;
+		font-weight: 650;
+	}
 
 }

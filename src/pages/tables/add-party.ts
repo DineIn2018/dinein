@@ -31,13 +31,13 @@ export class AddPartyPage {
               public navParams: NavParams,
               private datetime: DateTimeService) {
 
-    this.editMode = navParams.get("edit");
+    this.editMode = this.navParams.get("edit");
 
     //
     // Editing party mode
     //
     if (this.editMode) {
-      this.party = navParams.get("edit_party");
+      this.party = this.navParams.get("edit_party");
 
       // Set user inputs automatically to the values of party being edited
       this.ID = this.party.ID;
@@ -51,7 +51,7 @@ export class AddPartyPage {
     // Adding new party mode
     //
     } else {
-      this.parties = navParams.get("parties");
+      this.parties = this.navParams.get("parties");
 
       // All inputs initially empty
       this.ID = null;
