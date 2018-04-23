@@ -61,22 +61,17 @@ export class EditEmployeePage {
 	}
 
 	submit() {
-		if (this.validData()) {
-			if (this.editMode) {
-				this.employee.firstName = this.firstName;
-				this.employee.lastName = this.lastName;
-				this.employee.title = this.title;
-				this.employee.pay = this.pay;
-				this.employee.phone = this.phone;
-			} else {
-				this.employee.firstName = this.firstName;
-				this.employee.lastName = this.lastName;
-				this.employee.title = this.title;
-				this.employee.pay = this.pay;
-				this.employee.phone = this.phone;
 
+		if (this.validData()) {
+			this.employee.firstName = this.firstName;
+			this.employee.lastName = this.lastName;
+			this.employee.title = this.title;
+			this.employee.pay = this.pay;
+			this.employee.phone = this.phone;
+			if (!this.editMode) {
 				this.employees.push(this.employee);
 			}
+			this.navCtrl.pop();
 		} else {
 
 		}
@@ -200,6 +195,16 @@ export class EditEmployeePage {
 			}
 		});
 		modal.present();
+	}
+
+	getPhoneStr(): string {
+		if (this.phone) {
+			let phoneStr = this.phone.toString();
+			if (phoneStr.length == 10) {
+				return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+			}
+		}
+		return this.phone.toString();
 	}
 
 	///////////////////////////////////////////////////////////////////////////////

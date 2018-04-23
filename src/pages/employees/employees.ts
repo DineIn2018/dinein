@@ -15,6 +15,7 @@ export class EmployeesPage {
 	//editPage: any;
 	//createEmployeePage: any;
 	employees: Employee[];
+	selectedEmployee: Employee;
 
 	constructor(public navCtrl: NavController,
 							public popCtrl: PopoverController) {
@@ -206,6 +207,16 @@ export class Employee {
 
 	getFullName(): string {
 		return this.firstName + " " + this.lastName;
+	}
+
+	getPhoneStr(): string {
+		if (this.phone) {
+			let phoneStr = this.phone.toString();
+			if (phoneStr.length == 10) {
+				return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+			}
+		}
+		return null;
 	}
 
 	static sortByLastName(a: Employee, b: Employee): number {
