@@ -279,7 +279,7 @@ export class EditEmployeePage {
 		<div id="titlemodal" class="modalbase">
 				<h4 class="colorprimary">Select Title</h4>
 				<ion-content class="modallist">
-					<ion-list scroll="true" id="listscroll">
+					<ion-list scroll="true">
 						<button ion-button block outline class="listbutton"
 										*ngFor="let title of titleList"
 										[ngClass]="{'selectedtitle': title == selectedTitle,

@@ -109,6 +109,16 @@ export class CreateUserPage {
 	passwordsMatch() {
 		return (this.password == this.confirmPassword);
 	}
+
+	getPhoneStr(): string {
+		if (this.phone) {
+			let phoneStr = this.phone.toString();
+			if (phoneStr.length == 10) {
+				return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+			}
+		}
+		return null;
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -119,7 +129,7 @@ export class CreateUserPage {
 	template: `
 		<div class="modalbase" id="restaurantmodal">
 			<h3 class="colormedium">Select Restaurant</h3>
-			<ion-content class="modallist">
+			<ion-content class="modallist3buttons">
 				<ion-list scroll="true">
 					<button ion-button block outline class="listbutton"
 									*ngFor="let restaurant of restaurants"

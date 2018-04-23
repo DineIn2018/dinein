@@ -220,7 +220,7 @@ export class PunchCardPage {
 	template: `
 		<div id="employeemodal" class="modalbase">
 			<h4 class="colormedium">Select Employee</h4>
-			<ion-content class="modallist">
+			<ion-content class="modallist3buttons">
 				<ion-list scroll="true">
 					<button ion-button block outline class="listbutton"
 									*ngFor="let employee of employees"

@@ -25,7 +25,7 @@
 							[ngClass]="{'inputbuttonnoval': phone == null,
 													'inputbuttonhasval': phone != null}"
 							(click)="presentNumpad()">
-				{{phone == null? "Restaurant's Phone Number" : phone}}
+				{{phone == null? "Restaurant's Phone Number" : getPhoneStr()}}
 			</button>
 
 			<ion-item class="inputfield">

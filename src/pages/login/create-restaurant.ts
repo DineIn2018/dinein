@@ -93,6 +93,16 @@ export class CreateRestaurantPage {
             (this.ownerLastName != null));
   }
 
+  getPhoneStr(): string {
+    if (this.phone) {
+      let phoneStr = this.phone.toString();
+      if (phoneStr.length == 10) {
+        return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+      }
+    }
+    return null;
+  }
+
 }
 
 export class Restaurant {
