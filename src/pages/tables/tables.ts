@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ViewController } from 'ionic
 import { ActionSheetController, ModalController } from 'ionic-angular';
 import { AddPartyPage } from './add-party';
 import { DateTimeService } from '../util/date-time';
+import { InputNumpad } from '../util/numpad';
 import * as interact from 'interactjs';
 //import { Employee } from '../employees/employees';
 
@@ -35,16 +36,17 @@ export class TablesPage {
 
 		this.mode = Mode.Default;
 		this.selectedParty = null;
-		this.editLayoutButtonText = "Edit Layout";
 
 		this.tables = [
-										new Table(4, "20", "20"), new Table(4, "70", "20"),
-										new Table(6, "120", "20"), new Table(2, "170", "20"),
-										new Table(8, "220", "20"), new Table(2, "20", "150"),
-										new Table(2, "70", "80"), new Table(4, "120", "80"),
-										new Table(6, "170", "60"), /*new Table(8),
-										new Table(4), new Table(6),
-										new Table(3), new Table(1) */
+										new Table(4, "20", "20"), new Table(4, "150", "20"),
+										new Table(6, "280", "20"), new Table(2, "410", "20"),
+										new Table(8, "540", "20"), new Table(7, "670", "20"),
+										new Table(2, "20", "150"), new Table(2, "150", "150"),
+										new Table(4, "280", "150"), new Table(4, "410", "150"),
+										new Table(8, "540", "150"), new Table(10, "670", "150"),
+										new Table(4, "20", "280"), new Table(6, "150", "280"),
+										new Table(12, "280", "280"), new Table(1, "410", "280"),
+										new Table(14, "540", "280"), new Table(4, "670", "280")
 									];
 		this.parties = [
 										 new Party("Kass", 7, "04:20", "608 609 5186", true),
@@ -85,19 +87,17 @@ export class TablesPage {
 		// TODO: write sorting algorithm for the whole list
 	}
 
-	ionViewDidLoad() {/*
+	ionViewDidLoad() {
 		var i;
 		for(i = 0; i < this.tables.length; i++) {
 			let table = this.tables[i];
-			console.log('table'+table.ID);
 			var tableElement = document.getElementById('table'+table.ID);
-			console.log(tableElement.getAttribute('id'));
 			tableElement.setAttribute('data-x', table.xPos);
 	    tableElement.setAttribute('data-y', table.yPos);
 	    tableElement.style.webkitTransform =
 	    tableElement.style.transform =
 	      'translate(' + table.xPos + 'px, ' + table.yPos + 'px)';
-		}*/
+		}
 	}
 
 	//----------------------------------------------------------------------------
@@ -106,6 +106,23 @@ export class TablesPage {
 	onTablePress(table: Table) {
 
 		if (this.editingLayoutMode()) {
+			/*
+			let confirm = this.alertCtrl.create({
+				title: 'Confirm Table Delete',
+				message: 'This cannot be undone, are you sure?',
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: 'Cancel',
+						handler: () => { }
+					},
+					{
+						text: 'Delete',
+						handler: () => { this.deleteTable(table); }
+					}
+				]
+			});
+			confirm.present();*/
 			return;
 		}
 		//
@@ -221,6 +238,27 @@ export class TablesPage {
 					}
 				},
 				{
+					text: 'Delete Table',
+					handler: () => {
+						let confirm = this.alertCtrl.create({
+							title: 'Confirm Table Delete',
+							message: 'This cannot be undone, are you sure?',
+							enableBackdropDismiss: false,
+							buttons: [
+								{
+									text: 'Cancel',
+									handler: () => { }
+								},
+								{
+									text: 'Delete',
+									handler: () => { this.deleteTable(table); }
+								}
+							]
+						});
+						confirm.present();
+					}
+				},
+				{
 					text: 'Cancel',
 					role: 'cancel',
 					handler: () => { }
@@ -292,14 +330,25 @@ export class TablesPage {
 	}
 
 	displaySeatTableNumpad(t: Table) {
-		let modal = this.modalCtrl.create(NumToSeat, { table: t });
-		modal.onDidDismiss(numToSeat => {
-			if (numToSeat != null) {
-				console.log('NumToSeat returned: ' + numToSeat);
-				this.displaySelectServer(t, numToSeat);
+
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Party Size",
+										alertTitle: "Invalid Party Size",
+										alertMsg: null,
+										validInputCondition: function(input) { return input > 0; },
+										secondaryValidInputCondition: function(input) { return input <= t.capacity; },
+										secondaryAlertTitle: "Table is too Small",
+										secondaryAlertMsg: "Are you sure you want to seat overcapacity?",
+										secondaryAlertButton: "Seat"
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				this.displaySelectServer(t, returnedNum);
 			}
 		});
-		modal.present();
+		numpadModal.present();
 	}
 
 	displaySelectServer(table: Table, numToSeat: number) {
@@ -307,7 +356,6 @@ export class TablesPage {
 		let modal = this.modalCtrl.create(SelectServer, {servers: this.servers});
 		modal.onDidDismiss(server => {
 			if (server != null) {
-				console.log('SelectServer returned: ' + server.name);
 				table.seat(numToSeat, server.name, this.datetime.getTime(), null);
 				if (this.seatingPartyMode()) {
 					this.deleteParty(this.selectedParty);
@@ -340,13 +388,11 @@ export class TablesPage {
 	}
 
 	deleteParty(party: Party) {
-		// Find corresponding party in list and remove
-		var i;
-		for (i = 0; i < this.parties.length; i++) {
-			if (this.parties[i].ID == party.ID) {
-				this.parties.splice(i, 1);
-			}
-		}
+		this.parties.splice(this.parties.indexOf(party), 1);
+	}
+
+	deleteTable(table: Table) {
+		this.tables.splice(this.tables.indexOf(table), 1);
 	}
 
 	editingLayoutMode(): boolean {
@@ -357,6 +403,25 @@ export class TablesPage {
 	}
 	defaultMode(): boolean {
 		return this.mode == Mode.Default;
+	}
+
+	addTable() {
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Table Capacity",
+										alertTitle: "Invalid Table Capacity",
+										alertMsg: null,
+										validInputCondition: function(input) { return input > 0; },
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				let t = new Table(returnedNum, "0", "0")
+				this.tables.push(t);
+			}
+		});
+		numpadModal.present();
 	}
 
 	interactjsUpdate(enabled: boolean) {
@@ -420,20 +485,20 @@ export class TablesPage {
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="tablemodal">
-			<ion-list id="modalcontent">
-				<ion-label class="subsubtitle">Table {{t.ID}}</ion-label>
-				<ion-label class="regularText">Capacity: {{t.capacity}}</ion-label>
-				<ion-label class="regularText">Status: {{t.getStatus()}}</ion-label>
-				<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
-				<ion-label class="regularText">Time In: {{t.timeIn}}</ion-label>
-				<ion-label class="regularText">Server: {{t.server}}</ion-label>
-				<ion-label class="regularText">Guest: {{t.guest}}</ion-label>
-				<div class="modalbuttons">
-					<button class="modalbutton" ion-button block
-									(click)="dismiss()">Dismiss</button>
-				</div>
-			</ion-list>
+		<div id="tablemodal" class="modalbase">
+			<h3 class="colorprimary">Table {{t.ID}}</h3>
+			<h5 class="colormedium">Status: {{t.getStatus()}}</h5>
+			<h5 class="colormedium">Capacity: {{t.capacity}}</h5>
+			<h5 class="colormedium">Current Party: {{t.partySize}}</h5>
+			<h5 class="colormedium">Time In: {{t.timeIn}}</h5>
+			<h5 class="colormedium">Server: {{t.server}}</h5>
+			<h5 class="colormedium">Guest: {{t.guest}}</h5>
+
+			<div style="margin-top: 30px;">
+				<button class="modalbutton" ion-button block (click)="dismiss()">
+					Dismiss
+				</button>
+			</div>
 		</div>
 	`
 })
@@ -443,7 +508,6 @@ export class TableInfo {
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.t = params.get('table');
-		console.log('Passed Table ID: ', this.t.ID);
 	}
 
 	dismiss() {
@@ -461,16 +525,18 @@ export class TableInfo {
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="partymodal">
-			<ion-list id="modalcontent">
-				<ion-label class="subsubtitle">{{p.name}}'s {{p.getKind()}}</ion-label>
-				<ion-label class="regularText">Size: {{p.size}}</ion-label>
-				<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
-				<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
-				<ion-label class="regularText">ID: {{p.ID}}</ion-label>
-				<button class="modalbutton" ion-button block
-								(click)="dismiss()">Dismiss</button>
-			</ion-list>
+		<div id="partymodal" class="modalbase">
+			<h3 class="colorprimary">{{p.name}}'s {{p.getKind()}}</h3>
+			<h5 class="colormedium">Size: {{p.size}}</h5>
+			<h5 class="colormedium">Arrival Time: {{p.time}}</h5>
+			<h5 class="colormedium">Contact: {{p.contact}}</h5>
+			<h5 class="colormedium">ID: {{p.ID}}</h5>
+
+			<div style="margin-top: 30px;">
+				<button class="modalbutton" ion-button block (click)="dismiss()">
+					Dismiss
+				</button>
+			</div>
 		</div>
 	`
 })
@@ -480,120 +546,10 @@ export class PartyInfo {
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.p = params.get('party');
-		console.log('Passed Party ID: ', this.p.ID);
 	}
 
 	dismiss() {
 		this.navCtrl.pop();
-	}
-}
-
-//------------------------------------------------------------------------------
-// Sub-View: NumToSeat
-//------------------------------------------------------------------------------
-@Component({
-	selector: 'page-tables',
-	template: `
-		<div class="modalbase" id="numpadmodal">
-			<ion-label class="header">Party Size</ion-label>
-			<ion-label class="subtitle">{{numToSeat}}</ion-label>
-			<div style="height:300px;width:100%;">
-				<table class="numpad">
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-					</tr>
-					<tr>
-						<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-						<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
-						<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-					</tr>
-				</table>
-			</div>
-			<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
-			<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-		</div>
-	`
-})
-export class NumToSeat {
-
-	table: Table;
-	numToSeat: number;
-
-	constructor(public alertCtrl: AlertController,
-							public viewCtrl: ViewController,
-							private params: NavParams) {
-		this.table = params.get('table');
-		this.numToSeat = 0;
-		console.log('Pop-up: Num To Seat');
-	}
-
-	pressButton(n: number) {
-		this.numToSeat = this.numToSeat * 10 + n;
-	}
-
-	deleteButton() {
-		this.numToSeat = Math.floor(this.numToSeat / 10);
-	}
-
-	clearButton() {
-		this.numToSeat = 0;
-	}
-
-	seat() {
-		if (this.numToSeat > this.table.capacity) {
-			let confirm = this.alertCtrl.create({
-				title: 'Table Too Small',
-				message: 'This table is not large enough to seat that many people. Are you sure you want to seat them here?',
-				enableBackdropDismiss: false,
-				buttons: [
-					{
-						text: 'Cancel',
-						handler: () => {
-							this.clearButton();
-						}
-					},
-					{
-						text: 'Seat',
-						handler: () => {
-							this.viewCtrl.dismiss(this.numToSeat);
-						}
-					}
-				]
-			});
-			confirm.present();
-
-		} else if (this.numToSeat < 1) {
-			let alert = this.alertCtrl.create({
-				title: 'Invalid Party Size',
-				enableBackdropDismiss: false,
-				buttons: [
-					{
-						text: 'Dismiss',
-						handler: () => { }
-					}
-				]
-			});
-			alert.present();
-
-		} else {
-			this.viewCtrl.dismiss(this.numToSeat);
-		}
-	}
-
-	cancel() {
-		this.viewCtrl.dismiss(null);
 	}
 }
 
@@ -603,10 +559,9 @@ export class NumToSeat {
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="servermodal">
-			<ion-list id="modalcontent">
-				<ion-label class="header">Select Server</ion-label>
-				<ion-content id="serverlist">
+		<div id="servermodal" class="modalbase">
+				<h4 class="colorprimary">Select Server</h4>
+				<ion-content class="modallist">
 					<ion-list scroll="true" id="listscroll">
 						<button ion-button block outline class="listbutton"
 										*ngFor="let server of servers"
@@ -621,7 +576,6 @@ export class NumToSeat {
 									(click)="OK()">OK</button>
 				<button class="modalbutton" ion-button block outline
 									(click)="cancel()">Cancel</button>
-			</ion-list>
 		</div>
 	`
 })

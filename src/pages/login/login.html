@@ -1,28 +1,29 @@
 <ion-content no-bounce>
-    <div class="background">
-        <div id="container">
-            <ion-list>
+	<div class="background">
+		<div id="container">
 
-                <!-- Logo -->
-                <div class = "logo">
-                    <img src="../assets/imgs/dinein_logo.png"/>
-                </div>
+            <!-- Logo -->
+            <div class = "logo">
+                <img src="../assets/imgs/dinein_logo.png"/>
+            </div>
 
-                <!-- Log In -->
-                <ion-item class="inputfield">
-                    <ion-input clearInput placeholder="e-mail"
-                    [(ngModel)]="email"></ion-input>
-                </ion-item>
-                <ion-item class="inputfield">
-                    <ion-input clearInput type="Password" placeholder="Password"
-                    [(ngModel)]="password"></ion-input>
-                </ion-item>
-                <button class="localbutton" ion-button block
-                (click)="executeLogin()">Login</button>
-                <button class="localbutton" ion-button outline block
-                (click)="goToCreateUser()">Create User</button>
 
-            </ion-list>
-        </div>
-    </div>
+				<div style="margin-top: 30px;">
+					<ion-item class="inputfield">
+						<ion-input clearInput placeholder="e-mail"
+											 [(ngModel)]="email"></ion-input>
+					</ion-item>
+					<ion-item class="inputfield">
+						<ion-input clearInput type="Password" placeholder="Password"
+											 [(ngModel)]="password"></ion-input>
+					</ion-item>
+					<button class="localbutton" ion-button block
+						(click)="executeLogin()">Login
+					</button>
+					<button class="localbutton" ion-button outline block
+						(click)="goToCreateUser()">Create User
+					</button>
+				</div>
+		</div>
+	</div>
 </ion-content>

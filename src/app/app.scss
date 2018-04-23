@@ -17,81 +17,120 @@
 
 .md, .ios, .wp {
 
-	// MAIN TITLE STYLING
-	.maintitle {
-		color: color($colors, primary);
-		padding-bottom: 10px;
-		font-size: 70px;
-		font-weight: 500;
-	}
-
-	// SUBTITLE STYLING
-	.subtitle {
-		color: color($colors, primary);
-		padding-bottom: 5px;
-		font-size: 45px;
-		font-weight: 475;
-	}
-
-	// SUBSUBTITLE STYLING
-	.subsubtitle {
-		color: color($colors, primary);
-		padding-bottom: 5px;
-		font-size: 24px;
-		font-weight: 450;
-	}
-
-	// HEADER STYLING
-	.header {
-		color: color($colors, medium);
-		font-size: 30px;
-		font-weight: 450;
-	}
-
-	// Regular Text STYLING
-	.regularText {
-		color: color($colors, medium);
-		font-size: 24px;
-		font-weight: 350;
-	}
-
-	// small Text STYLING
-	.smalltext {
-		//color: color($colors, medium);
-		font-size: 16px;
-		font-weight: 500;
-	}
-
 	.background {
 		background-color: color($colors, darkest);
 		width: 100%;
 		height: 100%;
 	}
 
+//------------------------------------------------------------------------------
+// TEXT STYLING
+//------------------------------------------------------------------------------
+
+	h1 {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		padding-all: 0px;
+		font-size: 70px;
+		font-weight: 500;
+	}
+
+	h2 {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		font-size: 42px;
+		font-weight: 500;
+	}
+
+	h3 {
+		margin-top: 12px;
+		margin-bottom: 12px;
+		font-size: 32px;
+		font-weight: 500;
+	}
+
+	h4 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		font-size: 26px;
+		font-weight: 500;
+	}
+
+	h5 {
+		margin-top: 8px;
+		margin-bottom: 8px;
+		font-size: 22px;
+		font-weight: 500;
+	}
+
+	h6 {
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-size: 16px;
+		font-weight: 500;
+	}
+
+	.colorprimary {
+		color: color($colors, primary);
+	}
+
+	.colormiddark {
+		color: color($colors, middark);
+	}
+
+	.colormedium {
+		color: color($colors, medium);
+	}
+
+//------------------------------------------------------------------------------
+// MODAL STYLING
+//------------------------------------------------------------------------------
+
 	.modalbase {
-		background-color: color($colors, dark);
-		padding-top: 15px;
-		padding-bottom: 2px;
+		//background-color: color($colors, dark);
+		padding-top: 20px;
+		padding-bottom: 20px;
 		padding-left: 30px;
 		padding-right: 30px;
 		border-radius: 5px;
-
+		//border: solid 1px;
+		//border-color: color($colors, darker);
+		//background-color: transparent;
+		backdrop-filter: blur(10px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, dark), 0.5);
 	}
 
 	.modalbutton {
 		margin-top: 20px;
 	}
 
+	.modalbutton[outline] {
+		background-color: rgba(color($colors, darkest), 0.5);
+	}
+	.modalbutton[outline].activated {
+		background-color: color($colors, primary);
+	}
+
+	.numpadmodal {
+		height: 100%;
+		width: 55%;
+		margin: auto;
+	}
+
 	.numpad {
 		table-layout: fixed;
 		border-radius: 5px;
-		margin-bottom: 15px;
 		width: 100%;
 		height: 100%;
 	}
 
+	.numpadrow {
+		height: 25%;
+		width: 100%;
+	}
+
 	.numkey {
-		width: 98%;
+		width: 99%;
 		height: 100%;
 		font-size: 28px;
 		font-weight: 600;
@@ -102,6 +141,14 @@
 	.localbutton, .modalbutton {
 		font-size: 15px;
 		font-weight: 475;
+	}
+
+	.modallist {
+        width: 100%;
+        height: 55%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: transparent;
 	}
 
 	.listbutton {
@@ -122,17 +169,29 @@
 		}
 	}
 
+	.listbutton[outline] {
+		background-color: transparent;
+	}
+	.listbutton[outline].activated {
+		background-color: color($colors, primary);
+	}
+
+
+//------------------------------------------------------------------------------
+// USER INPUT FIELDS STYLING
+//------------------------------------------------------------------------------
+
 	.timeselect {
-        margin-top: 10px;
-        border-style: solid;
-        border-radius: 2px;
-        border-width: 2px;
-        padding-left: 0px;
-        border-color: color($colors, primary);
-        background-color: color($colors, darkest);
-        font-size: 15px;
-        font-weight: 475;
-    }
+		margin-top: 10px;
+		padding-left: 0px;
+		border-style: solid;
+		border-radius: 2px;
+		border-width: 2px;
+		border-color: color($colors, primary);
+		background-color: color($colors, darkest);
+		font-size: 15px;
+		font-weight: 475;
+	}
 
 	// TEXT INPUT BOX Styling
 	.inputfield, .inputfielderror {
@@ -178,11 +237,20 @@
 		}
 	}
 
-	.inputbuttonnoval .button-inner {
-		color: color($colors, middark);
+	.inputbuttonnoval {
+		.button-inner {
+			color: color($colors, middark);
+		}
 	}
-	.inputbuttonhasval .button-inner {
-		color: color($colors, primary);
+	.inputbuttonhasval {
+		.button-inner {
+			color: color($colors, primary);
+		}
+	}
+	.inputbuttonhasval.activated, .inputbuttonnoval.activated  {
+		.button-inner {
+			color: color($colors, darkest);
+		}
 	}
 
 	.numpadinput, .numpadinputhasval {
@@ -197,8 +265,18 @@
 
 	.picker-wrapper {
 		border-radius: 3px;
-		border-color: color($colors, dark);
 		border-width: 0px;
+		color: color($colors, dark) !important;
+		background-color: color($colors, dark) !important;
+		.picker-toolbar, .picker-columns {
+			//backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+			//background-color: rgba(color($colors, middark), 0.05);
+			background-color: color($colors, dark) !important;
+
+			.picker-col, .picker-opts-left, .picker-opts-right {
+				background-color: color($colors, dark) !important;
+			}
+		}
 		.picker-opt{
 			color: color($colors, medium);
 		}
@@ -220,6 +298,9 @@
 		}
 		.checkbox-checked {
 			background-color: color($colors, primary);
+			.checkbox-inner {
+				border-color: color($colors, darkest);
+			}
 		}
 	}
 
@@ -239,9 +320,8 @@
 	}
 
 	.alert-wrapper {
-		border-width: 2px;
-		//border-style: solid;
-		border-color: color($colors, primary);
+		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, middark), 0.2);
 	}
 
 	.alert-ios {
@@ -250,7 +330,7 @@
 		}
 	}
 
-	.no-scroll .scroll-content{
+	.no-scroll .scroll-content {
 		overflow: hidden;
 	}
 }

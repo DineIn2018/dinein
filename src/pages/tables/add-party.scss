@@ -1,8 +1,9 @@
 page-add-party {
 
     #container {
-        width: 325px;
-        padding-top: 70px;
+        height: 100%;
+        width: 35%;
+        padding-top: 90px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -16,17 +17,8 @@ page-add-party {
 
 	#numpadmodal {
         height: 100%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-
-    .numkey {
-        color: color($colors, primary);
-        background-color: color($colors, darkest);
-    }
-
-    .numpad {
-        background-color: color($colors, darkest);
+        width: 56%;
+        margin: auto;
     }
 
     .localbutton {

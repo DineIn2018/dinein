@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModalController, ViewController, AlertController } from 'ionic-angular';
 import { CreateUserPage } from './create-user';
 import { Employee } from '../employees/employees';
+import { InputNumpad } from '../util/numpad';
 
 @IonicPage()
 @Component({
@@ -56,9 +57,9 @@ export class CreateRestaurantPage {
     //
     } else {
       let createdRestaurant: Restaurant = new Restaurant(
-        this.restaurantName, this.addrLine1, this.addrLine2, this.addrLine3,
-        this.phone, this.ownerFirstname, this.ownerLastName);
-      this.navCtrl.popTo(CreateUserPage, { restaurant: createdRestaurant});
+        this.restaurantName, this.addrLine1, this.addrLine2,
+        this.phone, this.ownerFirstName, this.ownerLastName, this.addrLine3);
+      this.navCtrl.popTo(CreateUserPage);
     }
   }
 
@@ -67,14 +68,21 @@ export class CreateRestaurantPage {
   }
 
   presentNumpad(field: string) {
-    let modal = this.modalCtrl.create(ResPhoneNumpad);
-    modal.onDidDismiss(data => {
-      if (data != null) {
-        this.phone = data;
+    let numpadModal = this.modalCtrl.create(
+      InputNumpad, {
+                    inputField: "Phone Number",
+                    alertTitle: "Invalid Phone Number",
+                    alertMsg: null,
+                    validInputCondition: function(input) { return input > 0;},
+                    secondaryValidInputCondition: null
+                   }
+    );
+    numpadModal.onDidDismiss(returnedNum => {
+      if (returnedNum != null) {
+        this.phone = returnedNum;
       }
-
     });
-    modal.present();
+    numpadModal.present();
   }
 
   validData() {
@@ -85,90 +93,6 @@ export class CreateRestaurantPage {
             (this.ownerLastName != null));
   }
 
-}
-
-//------------------------------------------------------------------------------
-// Sub-View: NumPad
-//------------------------------------------------------------------------------
-@Component({
-  selector: 'page-create-restaurant',
-  template: `
-    <div class="modalbase" id="numpadmodal">
-        <ion-label class="header">Phone Number</ion-label>
-        <ion-label class="subtitle">{{userInput}}</ion-label>
-        <div style="height:300px;width:100%;margin-bottom:15px;">
-          <table class="numpad">
-            <tr>
-              <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-            </tr>
-            <tr>
-              <td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-            </tr>
-            <tr>
-              <td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-            </tr>
-            <tr>
-              <td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-              <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
-              <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-            </tr>
-          </table>
-        </div>
-        <button class="modalbutton" ion-button block (click)="OK()">OK</button>
-        <button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
-    </div>
-  `
-})
-export class ResPhoneNumpad {
-
-  userInput: number;
-
-  constructor(public navCtrl: NavController,
-              public viewCtrl: ViewController,
-              public alertCtrl: AlertController,
-              params: NavParams) {
-    this.userInput = 0;
-  }
-
-  pressButton(n: number) {
-    this.userInput = this.userInput * 10 + n;
-  }
-
-  deleteButton() {
-    this.userInput = Math.floor(this.userInput / 10);
-  }
-
-  clearButton() {
-    this.userInput = 0;
-  }
-
-  OK() {
-    if (this.userInput > 0) {
-      this.viewCtrl.dismiss(this.userInput);
-    } else {
-      let alert = this.alertCtrl.create({
-        title: 'Invalid Phone Number',
-        enableBackdropDismiss: false,
-        buttons: [
-          {
-            text: 'Dismiss',
-            handler: () => { }
-          }
-        ]
-      });
-      alert.present();
-    }
-  }
-
-  cancel() {
-    this.viewCtrl.dismiss(null);
-  }
 }
 
 export class Restaurant {
@@ -186,9 +110,10 @@ export class Restaurant {
 
   employees: Employee[];
 
-  constructor(name: string, addrLine1: string, addrLine2?: string,
+  constructor(name: string, addrLine1: string,
               addrLine3: string, phoneNumber: number,
-              ownerFirstname: string, ownerLastName: string) {
+              ownerFirstname: string, ownerLastName: string,
+              addrLine2?: string) {
     this.name = name;
     this.addrLine1 = addrLine1;
     if (addrLine2) {

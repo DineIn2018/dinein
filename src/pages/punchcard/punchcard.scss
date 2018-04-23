@@ -14,36 +14,53 @@ page-punchcard {
 		width: 25%;
 	}
 
-	#container {
+	#scrollcontainer {
+		float: top;
+		height: 80%;
+		margin-bottom: 20%;
+		h4 {
+			margin-bottom: 20px;
+		}
+		h6 {
+			margin-bottom: 12px;
+		}
+	}
+
+	#punchcardtable {
+		height: 80%;
+		width: 100%;
+		padding: 20px;
+	}
+
+	#filterpanel {
 		float: bottom;
+		height: 100%;
+		margin-top: 45%;
+		padding-left: 35px;
+		padding-right: 35px;
 	}
 
 	#employeemodal {
-        background-color: color($colors, dark);
-        border-radius: 5px;
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
-        width: 53%;
-        height: 100%;
-        margin: auto;
-    }
+		width: 50%;
+		height: 100%;
+		margin: auto;
+	}
 
-    #employeeslist {
-        width: 100%;
-        height: 310px;
-        margin-bottom: 25px;
-        background-color: color($colors, dark);
-    }
+	#employeeslist {
+		width: 100%;
+		height: 310px;
+		margin-top: 15px;
+		margin-bottom: 25px;
+		background-color: color($colors, dark);
+	}
 
-    .selectedemployee {
-        color: color($colors, primary);
-    }
+	.selectedemployee {
+		color: color($colors, primary);
+	}
 
-    .employee {
-        color: color($colors, middark);
-    }
+	.employee {
+		color: color($colors, middark);
+	}
 
 	th, td {
 		width: 500px;
@@ -60,5 +77,9 @@ page-punchcard {
 	.applyfilterbutton {
 		margin-top: 50px;
 		height: 50px;
+	}
+
+	.cleardate {
+		float: left;
 	}
 }

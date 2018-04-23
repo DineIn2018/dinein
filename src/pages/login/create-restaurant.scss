@@ -1,25 +1,11 @@
 page-create-restaurant {
 
     #container {
-        width: 400px;
-        padding-top: 5%;
+        height: 100%;
+        width: 40%;
+        padding-top: 40px;
         margin-left: auto;
         margin-right: auto;
-    }
-
-	#numpadmodal {
-        height: 100%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-
-    .numkey {
-        color: color($colors, primary);
-        background-color: color($colors, darkest);
-    }
-
-    .numpad {
-        background-color: color($colors, darkest);
     }
 
     .localbutton {
