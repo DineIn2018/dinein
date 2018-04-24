@@ -31,7 +31,7 @@ export class CreateUserPage {
 
   addUser(){
     let newUser = new UserObject();
-    newUser.email = "email";
+    newUser.email = "emailsageuawbepawyhgbu4we4bgae4ug[a4whan5riu]";
     newUser.password = "pwd";
     newUser.firstName = "kc";
     newUser.lastName = "nitz";

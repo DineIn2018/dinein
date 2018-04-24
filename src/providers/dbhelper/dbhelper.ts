@@ -20,7 +20,7 @@ export class DbHelperProvider {
   addUser(newUser: UserObject){
     const head = new HttpHeaders()
       .set("content-type", "application/json");
-    let url = 'http://localhost:8080/api/user/addUser';
+    let url = 'https://quiet-waters-97553.herokuapp.com/api/user/addUser';
     let newURL = URLparser(url, newUser, "UserObject");
     console.log("URLparser returned " + newURL);
     this.http.post(newURL).subscribe(
