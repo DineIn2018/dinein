@@ -278,7 +278,7 @@ export class EditEmployeePage {
 	template: `
 		<div id="titlemodal" class="modalbase">
 				<h4 class="colorprimary">Select Title</h4>
-				<ion-content class="modallist">
+				<ion-content class="modallisttitle">
 					<ion-list scroll="true">
 						<button ion-button block outline class="listbutton"
 										*ngFor="let title of titleList"
