@@ -12,16 +12,19 @@ export class ManagementPage {
   restaurantName: string;
   capacity: number;
   numEmployees: number;
+  managerName:string;
   management_info: any;
   constructor(public navCtrl: NavController) {
     this.management_info = {
       restaurantName: "Osteria Francescana",
-      numEmployees: 23,
-      capacity: 100
+      managerName: "Michael Fassbender",
+      numEmployees: 8,
+      capacity: 62
     };
     this.restaurantName = "Osteria Francescana";
-    this.numEmployees = 23;
-    this.capacity = 100;
+    this.managerName = "Micheal Fassbender";
+    this.numEmployees = 8;
+    this.capacity = 62;
     this.updatePage = UpdateManagementPage;
   }
 
@@ -30,7 +33,7 @@ export class ManagementPage {
   }
 
   openEditPage() {
-    this.navCtrl.push(UpdateManagementPage, 
+    this.navCtrl.push(UpdateManagementPage,
       {management_info: this.management_info, managementPage: this});
   }
   setCapacity(capacity: number){
@@ -39,11 +42,11 @@ export class ManagementPage {
   setEmployeeNum(numEmployees: number){
      this.numEmployees = numEmployees;
   }
+  setManangerName(managerName: string) {
+      this.managerName = managerName;
+  }
   setRestaurantName(restaurantName: string){
      this.restaurantName = restaurantName;
   }
-  
+
 }
-
-
-

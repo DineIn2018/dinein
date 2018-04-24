@@ -3,13 +3,18 @@
 <ion-content padding class="updatebox">
   <ion-item>
     <ion-label>Restaurant Name</ion-label>
-    <ion-input type="text" [(ngModel)]="tempName"></ion-input>    
+    <ion-input type="text" [(ngModel)]="tempName"></ion-input>
 
 </ion-item>
 
 <ion-item>
+    <ion-label>Manager Name</ion-label>
+    <ion-input type="text" [(ngModel)]="tempManagerName"></ion-input>
+</ion-item>
+
+<ion-item>
     <ion-label>Customer Capacity</ion-label>
-    <ion-input type="text" [(ngModel)]="tempCapacity"  ></ion-input>
+    <ion-input type="text" [(ngModel)]="tempCapacity"></ion-input>
 </ion-item>
 
 <ion-item>
@@ -22,8 +27,6 @@ Cancel
 </button>
 <button ion-button block outline (click)="saveNewInfo()" class="submit">
 Submit
-</button> 
+</button>
 
 </ion-content>
-
-

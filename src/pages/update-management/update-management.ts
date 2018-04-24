@@ -16,6 +16,7 @@ export class UpdateManagementPage {
   managementPage: any;
   tempName:string;
   tempNum:number;
+  tempManagerName:string;
   info:any;
   tempCapacity: number;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
@@ -25,11 +26,12 @@ export class UpdateManagementPage {
     this.tempCapacity = this.info.capacity;
     this.tempName =  this.info.restaurantName;
     this.tempNum = this.info.numEmployees;
-   this.name = null; 
+    this.tempManagerName = this.info.tempManagerName;
+   this.name = null;
    this.employeeNumber = 0;
    this.capacity = 0;
   }
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad UpdateManagementPage');
   }
@@ -37,6 +39,7 @@ export class UpdateManagementPage {
     this.info.capacity = this.tempCapacity;
     this.info.restaurantName = this.tempName;
     this.info.numEmployees = this.tempNum;
+    this.info.managerName = this.tempManagerName; 
     this.navCtrl.pop();
   }
   // confirmSubmit(){

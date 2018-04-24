@@ -10,8 +10,15 @@
 
 <ion-content padding>
 
+    <div class="resize">
+        <img src="../assets/imgs/mikefass.jpg">
+    </div>
+
+
   <div id="restaurantInfo">
     <span class="label">Restaurant Name:</span> {{management_info.restaurantName}}
+    <br>
+    <span class="label">Manager Name:</span> {{management_info.managerName}}
     <br>
     <span class="label">Restaurant Capacity:</span> {{management_info.capacity}}
     <br>
@@ -19,6 +26,6 @@
     <br>
     <button ion-button block class="button" (click)="openEditPage()">Edit Information</button>
   </div>
-  
+
 
 </ion-content>
