@@ -100,7 +100,7 @@ export class CreateRestaurantPage {
         return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
       }
     }
-    return null;
+    return this.phone.toString();
   }
 
 }
