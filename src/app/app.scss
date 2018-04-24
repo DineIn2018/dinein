@@ -197,6 +197,16 @@
 		background-color: color($colors, primary);
 	}
 
+	.redbutton {
+		border-color: color($colors, secondary);
+		color: color($colors, secondary);
+	}
+
+	.redbutton.activated {
+		color: color($colors, darker);
+		background-color: color($colors, secondary);
+	}
+
 
 //------------------------------------------------------------------------------
 // USER INPUT FIELDS STYLING
