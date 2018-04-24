@@ -4,7 +4,7 @@
 	</div>
 	<div id="topright">
 
-		</div>
+	</div>
 </ion-header>
 
 
@@ -37,51 +37,69 @@
 	</table>
 </ion-content>
 
+
 <ion-content no-bounce class="no-scroll">
+
+	<!-- employee -->
 	<div id="filterpanel">
+
 		<div class="filterparam">
 			<h4 class="colormiddark">For Employee:</h4>
 			<button class="inputbutton" ion-button outline block
-							[ngClass]="{'inputbuttonnoval': selectedEmployeeID == null,
-													'inputbuttonhasval': selectedEmployeeID != null}"
-							(click)="presentEmployeeSelector()">
-				{{(selectedEmployeeID == null)? "Select Employee" :
-					(selectedEmployeeID == 0)? "ALL" : getEmployeeByID(selectedEmployeeID).getFullName()}}
-			</button>
-		</div>
-
-		<div class="filterparam">
-			<div>
-				<h4 class="colormiddark">From:</h4>
-				<button class="cleardate" ion-button (click)="filterStartDate = null">x</button>
-			</div>
-			<ion-item class="timeselect">
-				<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
-											placeholder="Select Start Date"
-											[(ngModel)]="filterStartDate">
-				</ion-datetime>
-			</ion-item>
-		</div>
-
-		<div class="filterparam">
-			<div>
-				<h4 class="colormiddark">To:</h4>
-				<button class="cleardate" ion-button (click)="filterEndDate = null">x</button>
-			</div>
-			<ion-item class="timeselect">
-				<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
-											placeholder="Select End Date"
-											[(ngModel)]="filterEndDate">
-				</ion-datetime>
-			</ion-item>
-		</div>
-
-		<div class="filterparam">
-			<h4 class="colormiddark"></h4>
-			<button class="localbutton applyfilterbutton" ion-button block
-							(click)="applyFilter()">
-				Apply Filter
-			</button>
-		</div>
+			[ngClass]="{'inputbuttonnoval': selectedEmployeeID == null,
+			'inputbuttonhasval': selectedEmployeeID != null}"
+			(click)="presentEmployeeSelector()">
+			{{(selectedEmployeeID == null)? "Select Employee" :
+			(selectedEmployeeID == 0)? "ALL" : getEmployeeByID(selectedEmployeeID).getFullName()}}
+		</button>
 	</div>
+
+
+	<!-- from date -->
+	<div class="filterparam">
+
+		<h4 class="colormiddark">From:</h4>
+
+		<ion-item class="timeselect">
+			<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
+			placeholder="Select Start Date"
+			[(ngModel)]="filterStartDate">
+		</ion-datetime>
+
+		<button ion-button item-end class="cleardate" ion-button (click)="filterEndDate = null">x</button>
+
+		</ion-item>
+</div>
+
+<!-- to date -->
+<div class="filterparam">
+
+	<h4 class="colormiddark">To:</h4>
+
+	<ion-item class="timeselect">
+		<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
+		placeholder="Select End Date"
+		[(ngModel)]="filterEndDate">
+	</ion-datetime>
+
+	<button ion-button item-end class="cleardate" ion-button (click)="filterEndDate = null">x</button>
+
+	</ion-item>
+
+
+</div>
+
+
+<!-- applyFilter button -->
+<div class="filterparam">
+	<h4 class="colormiddark"></h4>
+	<button class="localbutton applyfilterbutton" ion-button block
+	(click)="applyFilter()">
+	Apply Filter
+</button>
+</div>
+
+
+</div>
+
 </ion-content>
