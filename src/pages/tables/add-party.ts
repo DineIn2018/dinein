@@ -17,7 +17,7 @@ export class AddPartyPage {
   ID: number;
   name: string;
   size: number;
-  contact: string;
+  contact: number;
   time: string;
   reservation: boolean;
 
@@ -163,5 +163,15 @@ export class AddPartyPage {
             (this.contact != null) &&
             (this.reservation != null) &&
             (!this.reservation || (this.time != null)))
+  }
+
+  getContactStr(): string {
+    if (this.contact) {
+      let phoneStr = this.contact.toString();
+      if (phoneStr.length == 10) {
+        return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+      }
+    }
+    return this.contact.toString();
   }
 }

@@ -49,20 +49,20 @@ export class TablesPage {
 										new Table(14, "540", "280"), new Table(4, "670", "280")
 									];
 		this.parties = [
-										 new Party("Kass", 7, "04:20", "608 609 5186", true),
-										 new Party("Kameron", 2, "18:15", "506 506 5006", false),
-										 new Party("Jimmie", 3, "21:01", "999 999 9999", false),
-										 new Party("Suzy", 1000, "09:00", "012 345 6789", false),
-										 new Party("Casey", 4, "05:55", "608 608 6006", true),
-										 new Party("Pete", 7, "05:54", "666 666 6969", false),
-										 new Party("Kay", 2, "00:59", "666 666 6969", false),
-										 new Party("Magaret", 4, "05:20", "666 666 6969", true),
-										 new Party("Joyce", 3, "05:55", "666 666 6969", false),
-										 new Party("Ivan", 10, "11:59", "666 666 6969", false),
-										 new Party("Jason", 12, "11:59", "666 666 6969", false),
-										 new Party("Ben", 5, "00:00", "666 666 6969", true),
-										 new Party("Issac", 6, "23:59", "666 666 6969", true),
-										 new Party("Leslie", 6, "24:59", "666 666 6969", false)
+										 new Party("Kass", 7, "04:20", 6086095186, true),
+										 new Party("Kameron", 2, "18:15", 5065065006, false),
+										 new Party("Jimmie", 3, "21:01", 9999999999, false),
+										 new Party("Suzy", 1000, "09:00", 1234567890, false),
+										 new Party("Casey", 4, "05:55", 6667778888, true),
+										 new Party("Pete", 7, "05:54", 6969696969, false),
+										 new Party("Kay", 2, "00:59", 7773331111, false),
+										 new Party("Magaret", 4, "05:20", 9099099900, true),
+										 new Party("Joyce", 3, "05:55", 4156937782, false),
+										 new Party("Ivan", 10, "11:59", 4526565665, false),
+										 new Party("Jason", 12, "11:59", 3848892467, false),
+										 new Party("Ben", 5, "00:00", 5555555555, true),
+										 new Party("Issac", 6, "23:59", 9876543210, true),
+										 new Party("Leslie", 6, "24:59", 9119119911, false)
 									 ];
 
 		this.parties.sort(Party.compare);
@@ -529,7 +529,7 @@ export class TableInfo {
 			<h3 class="colorprimary">{{p.name}}'s {{p.getKind()}}</h3>
 			<h5 class="colormedium">Size: {{p.size}}</h5>
 			<h5 class="colormedium">Arrival Time: {{p.time}}</h5>
-			<h5 class="colormedium">Contact: {{p.contact}}</h5>
+			<h5 class="colormedium">Contact: {{p.getContactStr()}}</h5>
 			<h5 class="colormedium">ID: {{p.ID}}</h5>
 
 			<div style="margin-top: 30px;">
@@ -683,11 +683,11 @@ export class Party {
 	name: string;
 	size: number;
 	time: string;
-	contact: string;
+	contact: number;
 	reservation: boolean;
 
 	constructor(name: string, size: number, time: string,
-							contact: string, reservation: boolean) {
+							contact: number, reservation: boolean) {
 		this.ID = Party.ID_runner;
 		Party.ID_runner += 1;
 		this.name = name;
@@ -704,6 +704,16 @@ export class Party {
 	display(): string {
 		return this.time + ' | ' + this.name + ' | ' + this.size;
 	}
+
+	 getContactStr(): string {
+    if (this.contact) {
+      let phoneStr = this.contact.toString();
+      if (phoneStr.length == 10) {
+        return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+      }
+    }
+    return this.contact.toString();
+  }
 
 	static compare(p1, p2) {
 		if (p1.reservation && !p2.reservation)
