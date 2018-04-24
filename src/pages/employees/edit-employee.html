@@ -30,7 +30,7 @@
 						[ngClass]="{'inputbuttonnoval': pay == null,
 												'inputbuttonhasval': pay != null}"
 						 (click)="presentPayNumpad()">
-			{{(pay == null)? "Pay $/hr" : pay}}
+			{{(pay == null)? "Pay $ / hr" : (pay.toFixed(2) + " $ / hr")}}
 		</button>
 		<button class="inputbutton" ion-button outline block
 						[ngClass]="{'inputbuttonnoval': phone == null,
