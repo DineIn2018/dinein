@@ -262,8 +262,9 @@ export class EmployeeShift {
 	getDiffQuarterHour(t1, t2): number {
 		let d1 = new Date(t1);
 		let d2 = new Date(t2);
-		let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
-		return (Math.round(diffHours * 4) / 4).toFixed(2);
+		let diffHours = (d2.getTime() - d1.getTime()) / 3600000; //3600000ms per hour
+    return Math.round(diffHours * 4) / 4.00;
+    //removed .toFixed() from above return statment bc it returns a string and was causing an error
 	}
 
 	static compare(s1: EmployeeShift, s2: EmployeeShift) {
