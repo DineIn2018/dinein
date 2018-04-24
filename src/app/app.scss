@@ -109,10 +109,11 @@
 	}
 
 	.modalbutton[outline] {
-		background-color: rgba(color($colors, darkest), 0.5);
+		background-color: rgba(color($colors, darker), 0.5);
 	}
 	.modalbutton[outline].activated {
 		background-color: color($colors, primary);
+		color: color($colors, darker);
 	}
 
 	.numpadmodal {

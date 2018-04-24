@@ -1,13 +1,55 @@
-NOTE: You must have Node.js installed 
+DineIn: How to Run
 
-To download Ionic, run
-npm install -g ionic
+1)  Install node.js (if you don't already have it)
+    https://nodejs.org/en/
+    
+2)  Install Ionic
+    Run:
+    $ npm install -g ionic cordova
+    
+3)  Clone our Github repo
+    https://github.com/DineIn2018/dinein.git
+    
+4)  Checkout the branch "TEST"
 
-From within the repository, run
-npm install
-to install the dependencies. Then, still in the repository, run
-ionic serve
+5)  In terminal, cd to the directory where you have the repo cloned
 
-This will open a tab in your browser, running the app.
+6)  Install all the node.js dependencies
+    Run:
+    $ npm install
+    
+7.1)  If you don't have an iPad
+      Run:
+      $ ionic serve
+      This will open a tab in your browser, running the app.
+      
+      * Note:
+        At the login page, it is not necessary to enter a username or password.
+        This will look real ugly, our application is meant to be deployed on an iPad, it will look better there
+        Some scrolling also won't work in the browser, it will work on the iPad
+        The browser is just a debugging platform
+      
+      **********************************************************************************************************
+      * IMPORTANT:
+      * When the browser is opened with the app, an error will show initially
+      * This is due to a bug in a plugin we used to handle drag and drop called interactJS (not our fault!)
+      * The program's functionality works fine though, even with this bug, it just affects it at compile time
+      * To make the error go away, while ionic is serving and your browser showing the error page,
+      * open up any typescript (.ts) file within the pages folder in our project and save it (no need to modify)
+      * The error should go away and the app will run smoothly
+      **********************************************************************************************************
+      
+7.2)  If you have an iPad
+      Download the Ionic Dev App from the app store on your iPad
+      On your laptop, in the project directory, run:
+      $ ionic serve -c
+      Make sure your laptop and iPad are on the same Wifi network
+      Open the Ionic Dev App, DineIn should pop up, tap it to run the app
+      
+      * Note: If you are on UW Wifi, you will have to add the IP address manually
+              See the terminal running the serve for the IP address and port is always 8100
 
-Note: from the login page, it is not necessary to enter a username or password.
+Our Bug Tracker (it's github issues):
+  https://github.com/DineIn2018/dinein/issues
+  
+If you have any problems getting it running, send us an e-mail!

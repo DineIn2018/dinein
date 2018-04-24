@@ -17,7 +17,7 @@
 						[ngClass]="{'inputbuttonnoval': contact == null,
 												'inputbuttonhasval': contact != null}"
 						 (click)="presentContactNumpad()">
-			{{(contact == null)? "Contact Number" : contact}}
+			{{(contact == null)? "Contact Number" : getContactStr()}}
 		</button>
 
 		<ion-item id="reservationcheckbox">
