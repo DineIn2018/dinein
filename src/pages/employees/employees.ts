@@ -45,6 +45,31 @@ export class EmployeesPage {
 		});
 	}
 
+	refreshSelectedEmployee() {
+		this.selectedEmployee = this.employees[0];
+		this.initializeItems();
+	}
+	initializeItems() {
+		this.items = [
+			this.selectedEmployee
+		];
+	}
+
+	/*getItems(ev: any) {
+		// Reset items back to all of the items
+		this.initializeItems();
+
+		// set val to the value of the searchbar
+		let val = ev.target.value;
+
+		//if the value is an empty string don't filter the items
+		if (val && val.trim() != '') {
+			this.items = this.items.filter((item) => {
+				return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+			})
+		}
+  }*/
+
 	onEditEmployeePress() {
 		this.navCtrl.push(EditEmployeePage, { editMode: true,
 																					employee: this.selectedEmployee,
