@@ -263,7 +263,7 @@ export class EmployeeShift {
 		let d1 = new Date(t1);
 		let d2 = new Date(t2);
 		let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
-		return (Math.round(diffHours * 4) / 4).toFixed(2);
+		return parseFloat((Math.round(diffHours * 4) / 4).toFixed(2));
 	}
 
 	static compare(s1: EmployeeShift, s2: EmployeeShift) {
