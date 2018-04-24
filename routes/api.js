@@ -33,6 +33,11 @@ router.get('/', function(req,res){
   console.log(JSON.stringify(jso));
   console.log("should print this out");
 });
+
+//USER methods
+router.get('/user/getUser/:uname', function(req,res){
+  console.log('got ' + uname + ' at /user/getUser');
+})
 router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', function(req,res){
 
   console.log('email = ' + req.params.email);

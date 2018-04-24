@@ -11,17 +11,16 @@ import { URLparser } from '../../DBAssets/URLParser';
 */
 @Injectable()
 export class DbHelperProvider {
-
+  
   constructor(public http: HttpClient) {
     console.log('Hello DbHelperProvider Provider');
 
+    let url = 'https://quiet-waters-97553.herokuapp.com/api/';
   }
 
+//USERObject methods
   addUser(newUser: UserObject){
-    const head = new HttpHeaders()
-      .set("content-type", "application/json");
-    let url = 'https://quiet-waters-97553.herokuapp.com/api/user/addUser';
-    let newURL = URLparser(url, newUser, "UserObject");
+    let newURL = URLparser.addUser(this.url, newUser);
     console.log("URLparser returned " + newURL);
     this.http.post(newURL).subscribe(
         (val) => {
@@ -36,9 +35,22 @@ export class DbHelperProvider {
         });
   }
 
+  getAUser(userName: String){
+    //Need to rework how the parseURL works
+    let newURL = URLParser.getAUser(this.url,userName);
+    let user = new UserObject();
+    console.log("URLParser returned " + newURL);
+  }
+
+  authenticate(userName: String, password: String){
+    console.log("userName = " + userName + " and password = " + password);
+    getAUser(userName);
+
+  }
 
 
 
+//test method written during setup
   testMethod(){
     this.http.get('http://localhost:8080/api/').pipe(
       map(res => res.json())).subscribe(response => {
@@ -47,7 +59,4 @@ export class DbHelperProvider {
     console.log('getProducts() called')
   }
 
-  postProduct(){
-    this.http.post('/api/products',{ "name": "casey "});
-  }
 }

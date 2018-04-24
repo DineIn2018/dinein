@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { CreateUserPage } from './create-user/create-user';
 
+import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
+import { UserObject } from '../../DBAssets/DBObjects';
 /**
  * Generated class for the LoginPage page.
  *
@@ -14,6 +16,7 @@ import { CreateUserPage } from './create-user/create-user';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
+  providers:[ DbHelperProvider ]
 })
 export class LoginPage {
 
@@ -27,12 +30,13 @@ export class LoginPage {
   }
 
   executeLogin() {
+    DBHelper.getUser("casey");
     console.log(this.email, this.password);
 
     if (this.loginSuccess(this.email, this.password)) {
       console.log('Login Successful');
       this.navCtrl.push(TabsPage);
-    } 
+    }
     else {
       console.log('Login Unsuccessful');
     }

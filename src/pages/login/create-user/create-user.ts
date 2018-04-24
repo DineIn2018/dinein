@@ -14,11 +14,12 @@ import { UserObject } from '../../../DBAssets/DBObjects';
 @Component({
   selector: 'page-create-user',
   templateUrl: 'create-user.html',
-  providers: [DbHelperProvider],
+  providers: [ DbHelperProvider ]
 })
 export class CreateUserPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public DBHelper: DbHelperProvider) {
+    DBHelper = new DbHelperProvider();
   }
 
   ionViewDidLoad() {
