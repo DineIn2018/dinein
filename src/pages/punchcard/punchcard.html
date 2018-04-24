@@ -44,7 +44,7 @@
 	<div id="filterpanel">
 
 		<div class="filterparam">
-			<h4 class="colormiddark">For Employee:</h4>
+			<h5 class="colormiddark">For Employee:</h5>
 			<button class="inputbutton" ion-button outline block
 			[ngClass]="{'inputbuttonnoval': selectedEmployeeID == null,
 			'inputbuttonhasval': selectedEmployeeID != null}"
@@ -58,7 +58,7 @@
 	<!-- from date -->
 	<div class="filterparam">
 
-		<h4 class="colormiddark">From:</h4>
+		<h5 class="colormiddark">From:</h5>
 
 		<ion-item class="timeselect">
 			<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
@@ -75,7 +75,7 @@
 <!-- to date -->
 <div class="filterparam">
 
-	<h4 class="colormiddark">To:</h4>
+	<h5 class="colormiddark">To:</h5>
 
 	<ion-item class="timeselect">
 		<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
@@ -94,7 +94,7 @@
 
 <!-- applyFilter button -->
 <div class="filterparam">
-	<h4 class="colormiddark"></h4>
+	<h5 class="colormiddark"></h5>
 	<button class="localbutton applyfilterbutton" ion-button block
 	(click)="applyFilter()">
 	Apply Filter
