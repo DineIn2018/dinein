@@ -23,12 +23,14 @@ export class EmployeesPage {
 		//this.createEmployeePage = CreateEmployeePage;
 		this.employees =
 			[
-				new Employee("Carl", "Robins", "Assistant Manager", 30.00, 6083456789, "http://www.math.uni-frankfurt.de/~person/_4170854.jpg"),
+				new Employee("Valerie", "Carter", "Owner", 1003.00, 2024561111, "https://cdn10.phillymag.com/wp-content/uploads/2016/01/woman-biz.jpg", 1),
+				new Employee("Anna", "Schmidt", "Manager", 50.00, 6086076006, "https://i.pinimg.com/736x/25/48/31/25483183a26a96adcc2b5a4002eda6ca--headshot-ideas-professional-photographer.jpg", 2),
+				new Employee("Carl", "Robins", "Assistant Manager", 30.00, 6083456789, "http://www.math.uni-frankfurt.de/~person/_4170854.jpg", 10),
 				new Employee("Marianne", "Beaumont", "Hostess", 15.00, 9119119911, "http://www.pearsonvue.com/pteprofessional/images/homepage.png"),
-				new Employee("Anna", "Schmidt", "Manager", 50.00, 6086076006, "https://i.pinimg.com/736x/25/48/31/25483183a26a96adcc2b5a4002eda6ca--headshot-ideas-professional-photographer.jpg"),
-				new Employee("Valerie", "Carter", "Owner", 1003.00, 2024561111, "https://cdn10.phillymag.com/wp-content/uploads/2016/01/woman-biz.jpg"),
 				new Employee("Phil", "Scott", "Bartender", 10.00, 6083104545, "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Robert_gold_bartender.jpg/220px-Robert_gold_bartender.jpg"),
 				new Employee("Kevin", "Anderson", "Server", 5.00, 6088067777, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
+				new Employee("Daniel", "Radcliffe", "Server", 5.00, 6088067777, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
+				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
 				new Employee("Tina", "Russo", "Head Chef", 500.00, 4149217439, "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg"),
 				new Employee("Bryan", "Suzan", "DJ", 0.03, 6666666666, "../../assets/imgs/bryan.jpg")
 			];
@@ -141,7 +143,7 @@ export class PunchPopoverPage {
 
 export class Employee {
 
-	static ID_runner: number = 1;
+	static ID_runner: number = 100;
 
 	ID: number;
 	firstName: string;
@@ -154,9 +156,19 @@ export class Employee {
 	shifts: EmployeeShift[];
 
 	constructor(firstName: string, lastName: string, title: string, pay: number,
-							phone: number, imageSrc?: string) {
-		this.ID = Employee.ID_runner;
-		Employee.ID_runner += 1;
+							phone: number, imageSrc?: string, ID?: number) {
+
+		if (ID) {
+			if (ID < 100) {
+				this.ID = ID;
+			} else {
+				this.ID = Employee.ID_runner;
+				Employee.ID_runner += 1;
+			}
+		} else {
+			this.ID = Employee.ID_runner;
+			Employee.ID_runner += 1;
+		}
 
 		this.firstName = firstName;
 		this.lastName = lastName;

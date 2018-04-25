@@ -116,10 +116,10 @@
 		margin-top: 20px;
 	}
 
-	.modalbutton[outline] {
+	.modalbuttonprimary[outline] {
 		background-color: rgba(color($colors, darker), 0.5);
 	}
-	.modalbutton[outline].activated {
+	.modalbuttonprimary[outline].activated {
 		background-color: color($colors, primary);
 		color: color($colors, darker);
 	}
@@ -209,10 +209,42 @@
 		border-color: color($colors, secondary);
 		color: color($colors, secondary);
 	}
-
 	.redbutton.activated {
 		color: color($colors, darker);
 		background-color: color($colors, secondary);
+	}
+
+	.dangerbutton {
+		color: color($colors, darker);
+		background-color: color($colors, secondary);
+	}
+	.dangerbutton.activated {
+		color: color($colors, secondary);
+		background-color: color($colors, darkest);
+		border-color: color($colors, secondary);
+		border-width: 2px;
+		border-style: solid;
+	}
+
+	.xbutton {
+		float: left;
+		width: 27px;
+		height: 27px;
+		.button-inner {
+			font-size: 20px;
+			font-weight: 550;
+			padding-bottom: 3px;
+		}
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+		margin-right: 0px !important;
+		color: color($colors, middark);
+		background-color: transparent;
+	}
+
+	.xbutton.activated {
+		background-color: color($colors, primary);
+		color: color($colors, darker);
 	}
 
 
@@ -220,16 +252,25 @@
 // USER INPUT FIELDS STYLING
 //------------------------------------------------------------------------------
 
-	.timeselect {
+	.timeselect, .timeselecterror {
 		margin-top: 10px;
 		padding-left: 0px;
 		border-style: solid;
 		border-radius: 2px;
 		border-width: 2px;
-		border-color: color($colors, primary);
-		background-color: color($colors, darkest);
 		font-size: 15px;
 		font-weight: 475;
+		background-color: color($colors, darkest);
+	}
+
+	.timeselect {
+		border-color: color($colors, primary);
+	}
+	.timeselecterror {
+		border-color: color($colors, secondary);
+		.datetime-text {
+			color: color($colors, secondary);
+		}
 	}
 
 	// TEXT INPUT BOX Styling
@@ -388,27 +429,6 @@
 	.action-sheet-cancel {
 		color: color($colors, secondary);
 		background-color: transparent;
-	}
-
-	.xbutton {
-		float: left;
-		width: 27px;
-		height: 27px;
-		.button-inner {
-			font-size: 20px;
-			font-weight: 550;
-			padding-bottom: 3px;
-		}
-		margin-top: 0px !important;
-		margin-bottom: 0px !important;
-		margin-right: 0px !important;
-		color: color($colors, middark);
-		background-color: transparent;
-	}
-
-	.xbutton.activated {
-		background-color: color($colors, primary);
-		color: color($colors, darker);
 	}
 
 	.no-scroll .scroll-content {

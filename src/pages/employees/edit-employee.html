@@ -43,13 +43,13 @@
 			{{(phone == null)? "Phone Number" : getPhoneStr()}}
 		</button>
 
-		<button class="localbutton" ion-button block (click)="submit()">
+		<button class="localbutton modalbuttonprimary" ion-button block (click)="submit()">
 				Save and Exit
 			</button>
-		<button class="localbutton" ion-button block outline (click)="confirmExit()">
+		<button class="localbutton redbutton" ion-button block outline (click)="confirmExit()">
 			Exit Without Saving
 		</button>
-		<button class="localbutton redbutton" ion-button block outline
+		<button class="localbutton dangerbutton" ion-button block
 						*ngIf="editMode" (click)="deleteEmployee()">
 			Delete Employee
 		</button>

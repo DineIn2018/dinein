@@ -60,10 +60,13 @@
 
 		<h5 class="colormiddark">From:</h5>
 
-		<ion-item class="timeselect">
+		<ion-item [ngClass]="{'timeselect': !(filterByInterval() &&
+											  									 !dateTime.isBefore(filterStartDate, filterEndDate)),
+											  'timeselecterror': filterByInterval() &&
+											  									 !dateTime.isBefore(filterStartDate, filterEndDate)}">
 			<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
-			placeholder="Select Start Date"
-			[(ngModel)]="filterStartDate">
+										placeholder="Select Start Date"
+										[(ngModel)]="filterStartDate">
 		</ion-datetime>
 
 		<button ion-button item-end class="xbutton"
@@ -77,7 +80,10 @@
 
 	<h5 class="colormiddark">To:</h5>
 
-	<ion-item class="timeselect">
+	<ion-item [ngClass]="{'timeselect': !(filterByInterval() &&
+											  									 !dateTime.isBefore(filterStartDate, filterEndDate)),
+											  'timeselecterror': filterByInterval() &&
+											  									 !dateTime.isBefore(filterStartDate, filterEndDate)}">
 		<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
 		placeholder="Select End Date"
 		[(ngModel)]="filterEndDate">

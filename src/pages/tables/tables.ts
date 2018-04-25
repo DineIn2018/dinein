@@ -572,9 +572,9 @@ export class PartyInfo {
 						</button>
 					</ion-list>
 				</ion-content>
-				<button class="modalbutton" ion-button block
+				<button class="modalbutton modalbuttonprimary" ion-button block
 									(click)="OK()">OK</button>
-				<button class="modalbutton" ion-button block outline
+				<button class="modalbutton redbutton" ion-button block outline
 									(click)="cancel()">Cancel</button>
 		</div>
 	`
