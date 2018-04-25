@@ -10,12 +10,18 @@
 
 				<div style="margin-top: 30px;">
 					<ion-item class="inputfield">
-						<ion-input clearInput placeholder="e-mail"
+						<ion-input placeholder="e-mail"
 											 [(ngModel)]="email"></ion-input>
+							<button ion-button item-end class="xbutton"
+											*ngIf="email != null"
+											(click)="email = null">x</button>
 					</ion-item>
 					<ion-item class="inputfield">
-						<ion-input clearInput type="Password" placeholder="Password"
+						<ion-input type="Password" placeholder="Password"
 											 [(ngModel)]="password"></ion-input>
+						<button ion-button item-end class="xbutton"
+											*ngIf="password != null"
+											(click)="password = null">x</button>
 					</ion-item>
 					<button class="localbutton" ion-button block
 						(click)="executeLogin()">Login

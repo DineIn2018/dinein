@@ -360,13 +360,55 @@
 
 	.alert-wrapper {
 		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
-		background-color: rgba(color($colors, middark), 0.2);
+		background-color: rgba(color($colors, middark), 0.1);
 	}
 
 	.alert-ios {
 		.alert-title {
 			color: color($colors, medium);
+			font-size: 20px;
+			font-weight: 500;
 		}
+		.alert-message {
+			color: color($colors, middark);
+			font-size: 16px;
+			font-weight: 500;
+		}
+	}
+
+	.action-sheet-group, .action-sheet-group-cancel {
+		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, medium), 0.1);
+	}
+
+	.action-sheet-button {
+		color: color($colors, primary);
+	}
+
+	.action-sheet-cancel {
+		color: color($colors, secondary);
+		background-color: transparent;
+	}
+
+	.xbutton {
+		float: left;
+		width: 27px;
+		height: 27px;
+		.button-inner {
+			font-size: 20px;
+			font-weight: 550;
+			padding-bottom: 3px;
+		}
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+		margin-right: 0px !important;
+		color: color($colors, middark);
+		background-color: transparent;
+	}
+
+	.xbutton.activated {
+		background-color: color($colors, primary);
+		color: color($colors, darker);
 	}
 
 	.no-scroll .scroll-content {

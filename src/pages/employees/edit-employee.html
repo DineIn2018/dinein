@@ -10,14 +10,18 @@
 		</button>
 
 		<ion-item class="inputfield">
-			<ion-input clearInput type="Text" placeholder="First Name"
-					   [(ngModel)]="firstName">
-			</ion-input>
+			<ion-input type="Text" placeholder="First Name"
+						 [(ngModel)]="firstName"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="firstName != null"
+							(click)="firstName = null">x</button>
 		</ion-item>
 		<ion-item class="inputfield">
-			<ion-input clearInput type="Text" placeholder="First Name"
-					   [(ngModel)]="lastName">
-			</ion-input>
+			<ion-input type="Text" placeholder="Last Name"
+						 [(ngModel)]="lastName"></ion-input>
+			<button ion-button item-end class="xbutton"
+				*ngIf="lastName != null"
+				(click)="lastName = null">x</button>
 		</ion-item>
 
 		<button class="inputbutton" ion-button outline block

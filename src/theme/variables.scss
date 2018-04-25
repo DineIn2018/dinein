@@ -98,11 +98,11 @@ $action-sheet-ios-title-font-size: 2rem;
 //
 //$alert-ios-background: color($colors, dark);
 $alert-ios-border-radius: 5px;
-$alert-ios-message-text-color: color($colors, midlight);
+//$alert-ios-message-text-color: color($colors, middark);
 $alert-ios-button-background-color-activated: color($colors, darkest);
 $alert-ios-button-border-color: color($colors, middark);
 //$alert-ios-button-border-width: 1px;
-$alert-ios-max-width: 100%;
+$alert-ios-max-width: 300px;
 
 $datetime-ios-placeholder-color: color($colors, middark);
 

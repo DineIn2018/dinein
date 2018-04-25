@@ -5,20 +5,32 @@
 			<h2 class="colorprimary">Create Restaurant</h2>
 
 			<ion-item class="inputfield">
-				<ion-input clearInput type="Text" placeholder="Restaurant Name"
+				<ion-input type="Text" placeholder="Restaurant Name"
 									 [(ngModel)]="restaurantName"></ion-input>
+        <button ion-button item-end class="xbutton"
+            *ngIf="restaurantName != null"
+            (click)="restaurantName = null">x</button>
 			</ion-item>
 			<ion-item class="inputfield">
-				<ion-input clearInput type="Text" placeholder="Address Line 1"
+				<ion-input type="Text" placeholder="Address Line 1"
 									 [(ngModel)]="addrLine1"></ion-input>
+        <button ion-button item-end class="xbutton"
+                    *ngIf="addrLine1 != null"
+                    (click)="addrLine1 = null">x</button>
 			</ion-item>
 			<ion-item class="inputfield">
-				<ion-input clearInput type="Text" placeholder="Address Line 2 (Optional)"
+				<ion-input type="Text" placeholder="Address Line 2 (Optional)"
 									 [(ngModel)]="addrLine2"></ion-input>
+        <button ion-button item-end class="xbutton"
+                    *ngIf="addrLine2 != null"
+                    (click)="addrLine2 = null">x</button>
 			</ion-item>
 			<ion-item class="inputfield">
-				<ion-input clearInput type="Text" placeholder="City, State Zip"
+				<ion-input type="Text" placeholder="City, State Zip"
 									 [(ngModel)]="addrLine3"></ion-input>
+				<button ion-button item-end class="xbutton"
+                    *ngIf="addrLine3 != null"
+                    (click)="addrLine3 = null">x</button>
 			</ion-item>
 
 			<button class="inputbutton" ion-button outline block
@@ -29,12 +41,18 @@
 			</button>
 
 			<ion-item class="inputfield">
-				<ion-input clearInput type="Text" placeholder="Owner's First Name"
+				<ion-input type="Text" placeholder="Owner's First Name"
 									 [(ngModel)]="ownerFirstName"></ion-input>
+				<button ion-button item-end class="xbutton"
+                    *ngIf="ownerFirstName != null"
+                    (click)="ownerFirstName = null">x</button>
 			</ion-item>
 			<ion-item class="inputfield">
-				<ion-input clearInput type="Text" placeholder="Owner's Last Name"
+				<ion-input type="Text" placeholder="Owner's Last Name"
 									 [(ngModel)]="ownerLastName"></ion-input>
+				<button ion-button item-end class="xbutton"
+                    *ngIf="ownerLastName != null"
+                    (click)="ownerLastName = null">x</button>
 			</ion-item>
 
 			<button class="localbutton" ion-button block

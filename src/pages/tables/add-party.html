@@ -4,8 +4,11 @@
 		<h3 class="colorprimary">Party Information</h3>
 
 		<ion-item class="inputfield">
-			<ion-input clearInput type="Text" placeholder="Name"
+			<ion-input type="Text" placeholder="Name"
 								 [(ngModel)]="name"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="name != null"
+							(click)="name = null">x</button>
 		</ion-item>
 		<button class="inputbutton" ion-button outline block
 						[ngClass]="{'inputbuttonnoval': size == null,

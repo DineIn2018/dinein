@@ -66,7 +66,7 @@
 			[(ngModel)]="filterStartDate">
 		</ion-datetime>
 
-		<button ion-button item-end class="cleardate"
+		<button ion-button item-end class="xbutton"
 						(click)="filterStartDate = null">x</button>
 
 		</ion-item>
@@ -83,12 +83,10 @@
 		[(ngModel)]="filterEndDate">
 	</ion-datetime>
 
-	<button ion-button item-end class="cleardate"
+	<button ion-button item-end class="xbutton"
 					(click)="filterEndDate = null">x</button>
 
 	</ion-item>
-
-
 </div>
 
 
@@ -96,9 +94,9 @@
 <div class="filterparam">
 	<h5 class="colormiddark"></h5>
 	<button class="localbutton applyfilterbutton" ion-button block
-	(click)="applyFilter()">
-	Apply Filter
-</button>
+					(click)="applyFilter()">
+		Apply Filter
+	</button>
 </div>
 
 
