@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { UserObject, anotherObject } from '../../DBAssets/DBObjects';
-import { URLparser } from '../../DBAssets/URLParser';
+import { UserObject } from '../../DBAssets/DBObjects';
+import { URLParser } from '../../DBAssets/URLParser';
 /*
   Generated class for the DbHelperProvider provider.
 
@@ -11,16 +11,20 @@ import { URLparser } from '../../DBAssets/URLParser';
 */
 @Injectable()
 export class DbHelperProvider {
-  
+
+  url: string;
+  urlParser: URLParser;
+
   constructor(public http: HttpClient) {
     console.log('Hello DbHelperProvider Provider');
-
-    let url = 'https://quiet-waters-97553.herokuapp.com/api/';
+    this.url = 'https://quiet-waters-97553.herokuapp.com/api/';
+    this.urlParser = new URLParser();
   }
 
 //USERObject methods
   addUser(newUser: UserObject){
-    let newURL = URLparser.addUser(this.url, newUser);
+
+    let newURL = this.urlParser.addUser(this.url, newUser);
     console.log("URLparser returned " + newURL);
     this.http.post(newURL).subscribe(
         (val) => {
@@ -36,16 +40,27 @@ export class DbHelperProvider {
   }
 
   getAUser(userName: String){
-    //Need to rework how the parseURL works
-    let newURL = URLParser.getAUser(this.url,userName);
-    let user = new UserObject();
+    let newURL = this.urlParser.getAUser(this.url,userName);
+    //let user = new UserObject();
     console.log("URLParser returned " + newURL);
+    return new Promise(resolve => {
+      this.http.get(newURL).map(res => res.json())
+      .subscribe(data => {
+        this.data = data.results;
+        resolve(this.data);
+      });
+    });
   }
 
-  authenticate(userName: String, password: String){
-    console.log("userName = " + userName + " and password = " + password);
-    getAUser(userName);
-
+  authenticate(email: String, password: String){
+    console.log("authenticating...")
+    console.log("email = " + email + " and password = " + password);
+    //Need to make sure that this works correctly
+    let temp = new UserObject();
+    this.getAUser(email).then(data => {
+      temp = data;
+    });
+    console.log("got " + JSON.stringify(temp) + " from the API");
   }
 
 

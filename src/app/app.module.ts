@@ -85,7 +85,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     ScreenOrientation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DbHelperProvider,
-    HttpClientModule
+    HttpClientModule,
+    
   ]
 })
 export class AppModule {}

@@ -35,9 +35,15 @@ router.get('/', function(req,res){
 });
 
 //USER methods
-router.get('/user/getUser/:uname', function(req,res){
-  console.log('got ' + uname + ' at /user/getUser');
-})
+router.get('/user/getUser/:email', function(req,res){
+  console.log('got ' + email + ' at /user/getUser');
+
+  User.findOne({ 'email': email }, function(err,user){
+    if(err)
+      res.send(err);
+    res.json(user);
+  })
+});
 router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', function(req,res){
 
   console.log('email = ' + req.params.email);

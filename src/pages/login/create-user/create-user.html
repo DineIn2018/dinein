@@ -12,32 +12,38 @@
         <ion-label class="subtitle">Create User</ion-label>
 
         <ion-item class="inputfield">
-          <ion-input type="Text" placeholder="e-mail"></ion-input>
+          <ion-input type="Text" placeholder="e-mail"
+              [(ngModel)]="email"></ion-input>
         </ion-item>
 
         <ion-item class="inputfield">
-          <ion-input type="Password" placeholder="Password"></ion-input>
+          <ion-input type="Password" placeholder="Password" [(ngModel)]="password"></ion-input>
         </ion-item>
 
         <ion-item class="inputfield">
-          <ion-input type="Password" placeholder="Confirm Password"></ion-input>
+          <ion-input type="Password" placeholder="Confirm Password"
+              [(ngModel)]="pwdConfirm"></ion-input>
         </ion-item>
 
         <ion-item class="inputfield">
-          <ion-input type="Text" placeholder="First Name"></ion-input>
+          <ion-input type="Text" placeholder="First Name"
+              [(ngModel)]="firstName"></ion-input>
         </ion-item>
 
         <ion-item class="inputfield">
-          <ion-input type="Text" placeholder="Last Name (optional)"></ion-input>
+          <ion-input type="Text" placeholder="Last Name (optional)"
+              [(ngModel)] = "lastName"></ion-input>
         </ion-item>
 
         <ion-item class="inputfield">
-          <ion-input type="number" placeholder="Phone # (optional)"></ion-input>
+          <ion-input type="number" placeholder="Phone # (optional)"
+              [(ngModel)]="phoneNo"></ion-input>
         </ion-item>
 
         <ion-item class="inputfield">
           <ion-label>Restaurant</ion-label>
-          <ion-select okText="Select" cancelText="Cancel">
+          <ion-select okText="Select" cancelText="Cancel"
+              [(ngModel)]="restaurant">
             <ion-option>CREATE NEW RESTAURANT</ion-option>
             <ion-option>Placeholder Restaurant</ion-option>
           </ion-select>

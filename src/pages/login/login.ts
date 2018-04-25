@@ -16,26 +16,26 @@ import { UserObject } from '../../DBAssets/DBObjects';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers:[ DbHelperProvider ]
+  providers:[ DbHelperProvider ],
 })
 export class LoginPage {
 
   email: string;
   password: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public DBHelper: DbHelperProvider) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
   executeLogin() {
-    DBHelper.getUser("casey");
-    console.log(this.email, this.password);
+    this.DBHelper.authenticate(this.email, this.password);
+    //console.log(this.email, this.password);
 
     if (this.loginSuccess(this.email, this.password)) {
       console.log('Login Successful');
-      this.navCtrl.push(TabsPage);
+      //this.navCtrl.push(TabsPage);
     }
     else {
       console.log('Login Unsuccessful');
