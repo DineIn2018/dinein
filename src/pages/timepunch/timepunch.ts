@@ -91,4 +91,3 @@ export class TimePunchPage {
 		this.ID = 0;
 	}
 }
-
