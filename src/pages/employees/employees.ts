@@ -11,6 +11,8 @@ import { EditEmployeePage } from './edit-employee';
 export class EmployeesPage {
 	//searchQuery: string = '';
 
+	placeholderImg: string = "https://openskymerchants.files.wordpress.com/2013/10/smile_icon.png";
+
 	items: Employee[];
 	//editPage: any;
 	//createEmployeePage: any;
@@ -23,15 +25,42 @@ export class EmployeesPage {
 		//this.createEmployeePage = CreateEmployeePage;
 		this.employees =
 			[
-				new Employee("Valerie", "Carter", "Owner", 1003.00, 2024561111, "https://cdn10.phillymag.com/wp-content/uploads/2016/01/woman-biz.jpg", 1),
-				new Employee("Anna", "Schmidt", "Manager", 50.00, 6086076006, "https://i.pinimg.com/736x/25/48/31/25483183a26a96adcc2b5a4002eda6ca--headshot-ideas-professional-photographer.jpg", 2),
-				new Employee("Carl", "Robins", "Assistant Manager", 30.00, 6083456789, "http://www.math.uni-frankfurt.de/~person/_4170854.jpg", 10),
-				new Employee("Marianne", "Beaumont", "Hostess", 15.00, 9119119911, "http://www.pearsonvue.com/pteprofessional/images/homepage.png"),
-				new Employee("Phil", "Scott", "Bartender", 10.00, 6083104545, "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Robert_gold_bartender.jpg/220px-Robert_gold_bartender.jpg"),
-				new Employee("Kevin", "Anderson", "Server", 5.00, 6088067777, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
-				new Employee("Daniel", "Radcliffe", "Server", 5.00, 6088067777, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
-				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
-				new Employee("Tina", "Russo", "Head Chef", 500.00, 4149217439, "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg"),
+				new Employee("Michael", "Fassbender", "Owner", 100000.01, 2024561111,
+										 "../assets/imgs/mikefass.jpg", 1),
+				new Employee("Anna", "Schmidt", "Manager", 50.00, 6086076006,
+										 "https://i.pinimg.com/736x/25/48/31/25483183a26a96adcc2b5a4002eda6ca--headshot-ideas-professional-photographer.jpg", 2),
+				new Employee("Carl", "Robins", "Assistant Manager", 30.00, 6083456789,
+										 "http://www.math.uni-frankfurt.de/~person/_4170854.jpg", 10),
+				new Employee("Marianne", "Beaumont", "Hostess", 15.00, 9119119911,
+										 "http://www.pearsonvue.com/pteprofessional/images/homepage.png"),
+				new Employee("Phil", "Scott", "Bartender", 10.00, 6083104545,
+										 "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Robert_gold_bartender.jpg/220px-Robert_gold_bartender.jpg"),
+				new Employee("Kevin", "Anderson", "Server", 5.00, 6088067777,
+										 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
+				new Employee("Daniel", "Radcliffe", "Server", 1.00, 7299389920,
+										 "https://img.buzzfeed.com/buzzfeed-static/static/2018-01/12/14/asset/buzzfeed-prod-fastlane-03/sub-buzz-18898-1515786282-5.jpg?downsize=715:*&output-format=auto&output-quality=auto"),
+				new Employee("Arnold", "Schwarznegger", "Cook", 9999.99, 9999999999,
+										 "https://upload.wikimedia.org/wikipedia/commons/1/10/Arnold_Schwarzenegger_September_2017.jpg"),
+				new Employee("Kevin", "Spacey", "Server", 0.01, 8299291834,
+										 "https://www.gannett-cdn.com/-mm-/cafa601533d164e1a938fceb66dbd9ba7dec8622/c=1252-527-2956-1808&r=x404&c=534x401/local/-/media/2017/11/08/USATODAY/USATODAY/636457309000424528-XXX-AFP-TZ54V-95172455.JPG"),
+				new Employee("Anthony", "Hopkins", "Bartender", 50.00, 7144969596,
+										 "https://www.biography.com/.image/t_share/MTE5NDg0MDU1MDAxMDczMTY3/sir-anthony-hopkins-9343556-1-402.jpg"),
+				new Employee("Cara", "Delevingne", "Server", 15.00, 6783859873,
+										 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmLg8W3_tJ--QpQhPQjFglY9G-Tu9pCyWV-5UR8FLe4lFGXJhE"),
+				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777,
+										 null),
+				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777,
+										 null),
+				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777,
+										 null),
+				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777,
+										 null),
+				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777,
+										 null),
+				new Employee("Kevin", "Spacey", "Server", 5.00, 6088067777,
+										 null),
+				new Employee("Tina", "Russo", "Head Chef", 500.00, 4149217439,
+										 "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg"),
 				new Employee("Bryan", "Suzan", "DJ", 0.03, 6666666666, "../../assets/imgs/bryan.jpg")
 			];
 
@@ -179,7 +208,7 @@ export class Employee {
 		if (imageSrc) {
 			this.imageSrc = imageSrc;
 		} else {
-			this.imageSrc = null;
+			this.imageSrc = this.placeholderImg;
 		}
 	}
 
