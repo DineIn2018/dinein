@@ -2,12 +2,11 @@ page-employees {
 
 	#employeetitle {
 		width: 22%;
-		margin-left: 78%;
-		padding-top: 5px;
-		padding-left: 20px;
-		height: 60px;
-		width: 100%;
-		background-color: color($colors, dark);
+		float: right;
+		padding: 1.5em;
+		text-align: center;
+		background-color: color($colors, primary);
+		color: color($colors, dark);
 	}
 
 	#mainview {
@@ -19,6 +18,8 @@ page-employees {
 		width: 22%;
 		margin-left: 78%;
 		background-color: color($colors, dark);
+		margin-top:8%;
+
 	}
 
 	#employeelist {
