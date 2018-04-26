@@ -1,9 +1,53 @@
 <ion-header>
+<ion-navbar color="primary">
 
-  <div id="headerleft">
-    <div id="restaurantname">
-      <h3 class="colormedium">Placeholder Restaurant</h3>
-    </div>
+<div class="nav-bar">
+
+      <ion-title>
+        <h3>Restaurant</h3>
+      </ion-title>
+
+          <button *ngIf="seatingPartyMode()"
+                  ion-button color="tertiary" outline block
+                  (click)="onCancelSeatingPartyPress()">
+            Cancel
+          </button>
+
+          <!-- add button necessary? -->
+          <!-- <button ion-button outline id="addbutton"
+                  *ngIf="editingLayoutMode()"
+                  [disabled]="seatingPartyMode()"
+                  (click)="addTable()">
+            +
+          </button> -->
+
+          <button ion-button outline
+                  [disabled]="seatingPartyMode()"
+                  (click)="onEditLayoutPress()">
+            {{editingLayoutMode()? "Done" : "Edit Layout"}}
+          </button>
+
+
+      <button ion-button outline block
+              [disabled]="!defaultMode()"
+              (click)="onAddPartyPress()">
+        Add Party
+      </button>
+
+</div>
+
+
+
+
+
+
+
+  <!-- <div id="headerleft">
+
+    <ion-title>
+      <h3 class="colormedium">Restaurant</h3>
+    </ion-title>
+
     <div id="headerbuttoncontainer">
       <div id="cancelseatpartybutton">
         <button *ngIf="seatingPartyMode()"
@@ -28,6 +72,7 @@
         </button>
       </div>
     </div>
+
   </div>
 
   <div id="headerright">
@@ -36,10 +81,13 @@
             (click)="onAddPartyPress()">
       Add Party
     </button>
-  </div>
+  </div> -->
+
+</ion-navbar>
 
 </ion-header>
 
+<!-- Tables -->
 <ion-content no-bounce class="no-scroll" id="layoutview">
   <div style="height: 100%; width: 100%; padding:10px;">
     <div class="tablediv" id="{{'table'+table.ID}}"
@@ -49,22 +97,25 @@
                           'tablechooseme': table.free && seatingPartyMode(),
                           'tablenotfree': !table.free}"
               (click)="onTablePress(table)">
-        <div style="height:100%;width:100%;padding-top:15%">
+
+        <div class = "table-content">
           <h6 class="colormedium tablebuttonID">
             {{table.ID}}
+          </h6>
+          <h6 class="colormedium tablebuttonserver">
+            {{table.server}}
           </h6>
           <h4 class="colorprimary tablebuttoncapacity">
             {{table.getButtonText()}}
           </h4>
-          <h6 class="colormedium tablebuttonserver">
-            {{table.server}}
-          </h6>
         </div>
+
       </button>
     </div>
   </div>
 </ion-content>
 
+<!-- Side Scroll -->
 <ion-content id="sideview">
   <div id="waitlist">
     <ion-list scroll="true">
