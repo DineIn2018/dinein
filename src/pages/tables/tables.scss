@@ -1,13 +1,20 @@
 page-tables {
 
 // All Nav Bar stuff, so anything up top.
+	// title
+	#topleft {
+		float: left;
+		padding-left: 25px;
+		width: 75%;
+	}
+
 	.nav-bar {
 		display: flex;
 	}
 
 	// Title black or white
 	.nav-bar h3 {
-	//	color: color($colors, dark); // comment line out to make white
+		color: white // comment line out to make dark
 	}
 
 	.nav-bar button {

@@ -1,8 +1,8 @@
-
+<ion-header>
 	<div id="employeetitle">
 			<h3>Employees</h3>
 	</div>
-
+</ion-header>
 
 <ion-content no-bounce id="mainview">
 
@@ -46,13 +46,7 @@
 
 </ion-content>
 
-
-<ion-content>
-<div id="employeetitle">
-	<h3>Employees</h3>
-</div>
-</ion-content>
-
+<!-- List of Employees -->
 <ion-content id="sideview">
 	<div id="employeelist">
 		<ion-list scroll="true">
@@ -63,15 +57,6 @@
 							(click)="selectEmployee($event, employee)">
 				{{employee.getFullName()}}
 			</button>
-
-			<button ion-button block outline class="listbutton"
-							*ngFor="let employee of employees"
-							[ngClass]="{'employee': employee.ID != selectedEmployee.ID,
-													'selectedemployee': employee.ID == selectedEmployee.ID}"
-							(click)="selectEmployee($event, employee)">
-				{{employee.getFullName()}}
-			</button>
-
 		</ion-list>
 	</div>
 </ion-content>

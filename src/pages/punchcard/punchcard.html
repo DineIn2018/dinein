@@ -2,13 +2,11 @@
 	<div id="topleft">
 		<h3 class="colorprimary">View PunchCards</h3>
 	</div>
-	<div id="topright">
-
-	</div>
 </ion-header>
 
 
-<ion-content id="scrollcontainer">
+<!-- Title Bar -->
+<ion-content class="no-scroll">
 	<table>
 		<tr>
 			<th><h4 class="colorprimary">Employee Name</h4></th>
@@ -16,33 +14,47 @@
 			<th><h4 class="colorprimary">Shift End</h4></th>
 			<th><h4 class="colorprimary">Hours Worked</h4></th>
 		</tr>
-		<tr *ngFor="let shift of displayShiftList">
-			<td>
-				<h6 class="colormedium">{{shift.name}}</h6>
-			</td>
-			<td>
-				<h6 class="colormedium">{{shift.startTime}}</h6>
-			</td>
-			<td>
-				<h6 class="colormedium">
-					{{shift.hasEnded()? shift.endTime : "In Progress"}}
-				</h6>
-			</td>
-			<td>
-				<h6 class="colormedium">
-					{{shift.hasEnded()? shift.shiftLength : "N/A"}}
-				</h6>
-			</td>
-		</tr>
 	</table>
 </ion-content>
 
 
-<ion-content no-bounce class="no-scroll">
+<!-- List of names and punches -->
+<ion-content id="scrollcontainer">
+	<table>
+		<!-- <tr>
+		<th><h4 class="colorprimary">Employee Name</h4></th>
+		<th><h4 class="colorprimary">Shift Start</h4></th>
+		<th><h4 class="colorprimary">Shift End</h4></th>
+		<th><h4 class="colorprimary">Hours Worked</h4></th>
+	</tr> -->
+	<tr *ngFor="let shift of displayShiftList">
+		<td>
+			<h6 class="colormedium">{{shift.name}}</h6>
+		</td>
+		<td>
+			<h6 class="colormedium">{{shift.startTime}}</h6>
+		</td>
+		<td>
+			<h6 class="colormedium">
+				{{shift.hasEnded()? shift.endTime : "In Progress"}}
+			</h6>
+		</td>
+		<td>
+			<h6 class="colormedium">
+				{{shift.hasEnded()? shift.shiftLength : "N/A"}}
+			</h6>
+		</td>
+	</tr>
+</table>
+</ion-content>
+
+
+
+<!-- Filter Bar -->
+<ion-content class="filter-container no-scroll">
 
 	<!-- employee -->
 	<div id="filterpanel">
-
 		<div class="filterparam">
 			<h5 class="colormiddark">For Employee:</h5>
 			<button class="inputbutton" ion-button outline block
@@ -61,18 +73,18 @@
 		<h5 class="colormiddark">From:</h5>
 
 		<ion-item [ngClass]="{'timeselect': !(filterByInterval() &&
-											  									 !dateTime.isBefore(filterStartDate, filterEndDate)),
-											  'timeselecterror': filterByInterval() &&
-											  									 !dateTime.isBefore(filterStartDate, filterEndDate)}">
-			<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
-										placeholder="Select Start Date"
-										[(ngModel)]="filterStartDate">
-		</ion-datetime>
+		!dateTime.isBefore(filterStartDate, filterEndDate)),
+		'timeselecterror': filterByInterval() &&
+		!dateTime.isBefore(filterStartDate, filterEndDate)}">
+		<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
+		placeholder="Select Start Date"
+		[(ngModel)]="filterStartDate">
+	</ion-datetime>
 
-		<button ion-button item-end class="xbutton"
-						(click)="filterStartDate = null">x</button>
+	<button ion-button item-end class="xbutton"
+	(click)="filterStartDate = null">x</button>
 
-		</ion-item>
+</ion-item>
 </div>
 
 <!-- to date -->
@@ -81,18 +93,18 @@
 	<h5 class="colormiddark">To:</h5>
 
 	<ion-item [ngClass]="{'timeselect': !(filterByInterval() &&
-											  									 !dateTime.isBefore(filterStartDate, filterEndDate)),
-											  'timeselecterror': filterByInterval() &&
-											  									 !dateTime.isBefore(filterStartDate, filterEndDate)}">
-		<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
-		placeholder="Select End Date"
-		[(ngModel)]="filterEndDate">
-	</ion-datetime>
+	!dateTime.isBefore(filterStartDate, filterEndDate)),
+	'timeselecterror': filterByInterval() &&
+	!dateTime.isBefore(filterStartDate, filterEndDate)}">
+	<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
+	placeholder="Select End Date"
+	[(ngModel)]="filterEndDate">
+</ion-datetime>
 
-	<button ion-button item-end class="xbutton"
-					(click)="filterEndDate = null">x</button>
+<button ion-button item-end class="xbutton"
+(click)="filterEndDate = null">x</button>
 
-	</ion-item>
+</ion-item>
 </div>
 
 
@@ -100,9 +112,9 @@
 <div class="filterparam">
 	<h5 class="colormiddark"></h5>
 	<button class="localbutton applyfilterbutton" ion-button block
-					(click)="applyFilter()">
-		Apply Filter
-	</button>
+	(click)="applyFilter()">
+	Apply Filter
+</button>
 </div>
 
 
