@@ -215,7 +215,7 @@ export class Employee {
 		if (imageSrc) {
 			this.imageSrc = imageSrc;
 		} else {
-			this.imageSrc = this.placeholderImg;
+			this.imageSrc = null;
 		}
 	}
 
