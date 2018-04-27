@@ -16,14 +16,18 @@ page-punchcard {
 
 	#scrollcontainer {
 		float: top;
-		height: 80%;
-		margin-bottom: 20%;
+		height: 75%;
+
+		margin-top: 5%;
+		margin-bottom: 25%;
+
 		h4 {
 			margin-bottom: 20px;
 		}
 		h6 {
 			margin-bottom: 12px;
 		}
+
 	}
 
 	#punchcardtable {
@@ -68,12 +72,18 @@ page-punchcard {
 		text-align: center;
 	}
 
+	.filter-container {
+		//background-color: blakc
+	}
+
 	.filterparam {
 		display: inline;
 		float: left;
 		width: 25%;
 		height: 140px;
 		padding: 15px;
+
+
 	}
 
 	.applyfilterbutton {

@@ -1,13 +1,20 @@
 page-tables {
 
 // All Nav Bar stuff, so anything up top.
+	// title
+	#topleft {
+		float: left;
+		padding-left: 25px;
+		width: 75%;
+	}
+
 	.nav-bar {
 		display: flex;
 	}
 
 	// Title black or white
 	.nav-bar h3 {
-	//	color: color($colors, dark); // comment line out to make white
+		color: white // comment line out to make dark
 	}
 
 	.nav-bar button {
@@ -26,55 +33,6 @@ page-tables {
 		// dark theme
 		// border-color: color($colors, dark);
 		// color: color($colors, dark);
-	}
-
-
-
-
-
-	#headerleft, #headerright {
-		padding-top: 5px;
-		padding-bottom: 5px;
-		padding-left: 10px;
-		padding-right: 10px;
-		background-color: color($colors, dark);
-	}
-
-	#headerleft {
-		float: left;
-		width: 80%;
-	}
-
-	#headerright {
-		float:right;
-		width: 20%;
-		padding-top: 5px;
-		padding-bottom: 5px;
-		padding-left: 10px;
-		padding-right: 10px;
-	}
-
-	#restaurantname {
-		float: left;
-		width: 55%;
-		padding-top: 0px;
-		padding-left: 20px;
-		margin: 0px;
-	}
-
-	#headerbuttoncontainer {
-		float: right;
-		width: 45%;
-	}
-
-	#cancelseatpartybutton {
-		width: 48%;
-		float: left;
-	}
-
-	#editlayoutbutton {
-		width: 48%;
-		float: right;
 	}
 
 	#layoutview {

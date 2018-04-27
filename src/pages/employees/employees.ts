@@ -120,8 +120,10 @@ export class EmployeesPage {
 //@IonicPage()
 @Component({
 	template: `
+
+	<ion-content class="popover">
 		<ion-item>
-		<h3>{{selectedEmployee.name}}'s punches</h3>
+			<h3>{{selectedEmployee.firstName}}'s Punches</h3>
 		</ion-item>
 		<ion-item>
 			<ion-label>From:</ion-label>
@@ -132,6 +134,9 @@ export class EmployeesPage {
 			<ion-datetime displayFormat="YYYY-MMM-DD" pickerFormat="DD-MMMM-YYYY" min="{{startDate}}" max="{{currentDate}}" [(ngModel)]="endDate"></ion-datetime>
 		</ion-item>
 		<button ion-item (click)="close()">VIEW</button>
+	</ion-content>
+
+
 	`
 })
 export class PunchPopoverPage {

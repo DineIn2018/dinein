@@ -2,12 +2,12 @@ page-employees {
 
 	#employeetitle {
 		width: 22%;
-		margin-left: 78%;
-		padding-top: 5px;
-		padding-left: 20px;
-		height: 60px;
-		width: 100%;
-		background-color: color($colors, dark);
+		float: right;
+		padding: 1%;
+		text-align: center;
+		background-color: color($colors, primary);
+		//color: color($colors, dark);
+		color: white;
 	}
 
 	#mainview {
@@ -38,7 +38,7 @@ page-employees {
 	#profileleft {
 		padding-left: 75px;
 		padding-right: 25px;
-		padding-top: 138px;
+		padding-top: 15%;
 		height: 100%;
 		width: 40%;
 		float: left;
@@ -47,7 +47,7 @@ page-employees {
 	#profileright {
 		padding-left: 25px;
 		padding-right: 75px;
-		padding-top: 75px;
+		padding-top: 2%;
 		height: 100%;
 		width: 60%;
 		float: left;
@@ -105,5 +105,12 @@ page-employees {
 	.selectedemployee {
 		color: color($colors, primary);
 	}
+
+	// fix
+	.popover {
+		width: width($popover-ios-width, 400px);
+
+	}
+
 
 }
