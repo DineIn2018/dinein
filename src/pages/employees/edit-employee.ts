@@ -207,6 +207,19 @@ export class EditEmployeePage {
 		return this.phone.toString();
 	}
 
+	getIDStr() {
+		if (this.ID < 10) {
+			return '000' + this.ID;
+		}
+		if (this.ID < 100) {
+			return '00' + this.ID;
+		}
+		if (this.ID < 1000) {
+			return '0' + this.ID;
+		}
+		return this.ID.toString();
+	}
+
 	///////////////////////////////////////////////////////////////////////////////
 	getImage() {
 		const options: CameraOptions = {

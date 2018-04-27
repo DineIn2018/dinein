@@ -7,7 +7,15 @@
       <h4 class="colormedium">{{currDateTime | date: 'EEE MMM d, yyyy'}}</h4>
       <h4 class="colormedium">{{currDateTime | date: 'hh:mm:ss aa'}}</h4>
       <br>
-      <h2 class="colorprimary">ID: {{ID}}</h2>
+      <div id="idsection">
+        <div id="label">
+          <h2 class="colormedium">ID:</h2>
+        </div>
+        <div id="idtext">
+          <h2 [ngClass]="{'colorprimary': validID(),
+                          'colorsecondary': !validID()}">{{getIDStr()}}</h2>
+        </div>
+      </div>
     </div>
 
     <div class="numpad-box">
@@ -34,7 +42,7 @@
         </tr>
       </table>
 
-      
+
         <button class="localbutton" ion-button block (click)="submit()">Submit</button>
 
 
