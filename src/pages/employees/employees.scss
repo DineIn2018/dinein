@@ -107,10 +107,6 @@ page-employees {
 	}
 
 	// fix
-	.popover {
-		width: width($popover-ios-width, 400px);
-
-	}
-
+	$popover-ios-width: 400px; 
 
 }
