@@ -7,7 +7,8 @@
       <h4 class="colormedium">{{currDateTime | date: 'EEE MMM d, yyyy'}}</h4>
       <h4 class="colormedium">{{currDateTime | date: 'hh:mm:ss aa'}}</h4>
       <br>
-      <div id="idsection">
+      <div id="idsection" [ngClass]="{'valididbox': validID(),
+                                      'invalididbox': !validID()}">
         <div id="label">
           <h2 class="colormedium">ID:</h2>
         </div>
