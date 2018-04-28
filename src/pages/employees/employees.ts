@@ -119,6 +119,9 @@ export class EmployeesPage {
 }
 //@IonicPage()
 @Component({
+
+	cssClass: 'employees',
+
 	template: `
 
 	<ion-content class="popover">
@@ -168,7 +171,6 @@ export class PunchPopoverPage {
 		this.endDate = this.startDate;
 		this.currentDate = this.startDate;
 	}
-
 
 	close() {
 		this.viewCtrl.dismiss();
