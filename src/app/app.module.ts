@@ -22,7 +22,7 @@ import { PunchCardPage, SelectEmployee } from '../pages/punchcard/punchcard';
 import { CalendarPage } from '../pages/calendar/calendar';
 
 import { ManagementPage } from '../pages/management/management';
-import { UpdateManagementPage } from '../pages/update-management/update-management';
+import { UpdateManagementPage } from '../pages/management/update-management';
 
 import { DateTimeService } from '../pages/util/date-time';
 import { InputNumpad } from '../pages/util/numpad';

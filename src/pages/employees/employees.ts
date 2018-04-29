@@ -120,7 +120,7 @@ export class EmployeesPage {
 //@IonicPage()
 @Component({
 
-	cssClass: 'employees',
+	selector: 'page-employees',
 
 	template: `
 

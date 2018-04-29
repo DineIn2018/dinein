@@ -1,31 +1,73 @@
 <ion-header>
-  <div id="topleft">
-    <ion-label class="subtitle">Management</ion-label>
-  </div>
-
-  <div id="topright">
-  	<button ion-button outline block (click)="executeLogout()">Logout</button>
-  </div>
+	<div id="topleft">
+		<h3 class="colorprimary">Management</h3>
+	</div>
 </ion-header>
 
+<ion-content no-bounce id="container">
+
+	<div id="profileleft">
+		<h3 class="colorprimary">{{restaurant.name}}</h3>
+
+		<div id="employeeprofile">
+			<div id="labels">
+				<h5 class="colormiddark">Owner:</h5>
+				<h5 class="colormiddark">Manager:</h5>
+				<h5 class="colormiddark">Employees:</h5>
+				<h5 class="colormiddark">Capacity:</h5>
+				<h5 class="colormiddark">Tables:</h5>
+				<h5 class="colormiddark">Phone:</h5>
+				<h5 class="colormiddark">Address:</h5>
+			</div>
+			<div id="employeeinfo">
+				<h5 class="colormedium">{{restaurant.getOwner().getFullName()}}</h5>
+				<h5 class="colormedium">{{restaurant.getManager().getFullName()}}</h5>
+				<h5 class="colormedium">{{restaurant.getNumEmployees()}}</h5>
+				<h5 class="colormedium">{{restaurant.getCapacity()}}</h5>
+				<h5 class="colormedium">{{restaurant.tables.length}}</h5>
+				<h5 class="colormedium">{{restaurant.getPhoneStr()}}</h5>
+				<h5 class="colormedium">{{restaurant.addrLine1}}</h5>
+				<h5 class="colormedium">{{restaurant.addrLine2}}</h5>
+			</div>
+		</div>
+	</div>
+
+	<div id="profileright">
+		<div id="imgcontainer">
+			<img id="employeeimage" src="../assets/imgs/mikefass.jpg">
+		</div>
+		<button class="localbutton" ion-button block
+						(click)="onEditInfoPress()">
+			Edit Information
+		</button>
+		<button class="localbutton dangerbutton" ion-button block
+						(click)="executeLogout()">
+			LOGOUT
+		</button>
+	</div>
+
+</ion-content>
+
+<!--
 <ion-content padding>
 
-    <div class="resize">
-        <img src="../assets/imgs/mikefass.jpg">
-    </div>
+		<div class="resize">
+				<img src="../assets/imgs/mikefass.jpg">
+		</div>
 
 
-  <div id="restaurantInfo">
-    <span class="label">Restaurant Name:</span> {{management_info.restaurantName}}
-    <br>
-    <span class="label">Manager Name:</span> {{management_info.managerName}}
-    <br>
-    <span class="label">Restaurant Capacity:</span> {{management_info.capacity}}
-    <br>
-    <span class="label">Total Employees:</span> {{management_info.numEmployees}}
-    <br>
-    <button ion-button block class="button" (click)="openEditPage()">Edit Information</button>
-  </div>
+	<div id="restaurantInfo">
+		<span class="label">Restaurant Name:</span> {{management_info.restaurantName}}
+		<br>
+		<span class="label">Manager Name:</span> {{management_info.managerName}}
+		<br>
+		<span class="label">Restaurant Capacity:</span> {{management_info.capacity}}
+		<br>
+		<span class="label">Total Employees:</span> {{management_info.numEmployees}}
+		<br>
+		<button ion-button block class="button" (click)="openEditPage()">Edit Information</button>
+	</div>
 
 
 </ion-content>
+-->
