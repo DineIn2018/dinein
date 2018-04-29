@@ -12,25 +12,18 @@
 						(click)="restaurantName = null">x</button>
 			</ion-item>
 			<ion-item class="inputfield">
-				<ion-input type="Text" placeholder="Address Line 1"
+				<ion-input type="Text" placeholder="Street Address"
 									 [(ngModel)]="addrLine1"></ion-input>
 				<button ion-button item-end class="xbutton"
 										*ngIf="addrLine1 != null"
 										(click)="addrLine1 = null">x</button>
 			</ion-item>
 			<ion-item class="inputfield">
-				<ion-input type="Text" placeholder="Address Line 2 (Optional)"
+				<ion-input type="Text" placeholder="City, State Zip"
 									 [(ngModel)]="addrLine2"></ion-input>
 				<button ion-button item-end class="xbutton"
 										*ngIf="addrLine2 != null"
 										(click)="addrLine2 = null">x</button>
-			</ion-item>
-			<ion-item class="inputfield">
-				<ion-input type="Text" placeholder="City, State Zip"
-									 [(ngModel)]="addrLine3"></ion-input>
-				<button ion-button item-end class="xbutton"
-										*ngIf="addrLine3 != null"
-										(click)="addrLine3 = null">x</button>
 			</ion-item>
 
 			<button class="inputbutton" ion-button outline block

@@ -85,39 +85,39 @@
 						(click)="filterStartDate = null">x</button>
 
 		</ion-item>
-</div>
+	</div>
 
-<!-- to date -->
-<div class="filterparam">
+	<!-- to date -->
+	<div class="filterparam">
 
-	<h5 class="colormiddark">To:</h5>
+		<h5 class="colormiddark">To:</h5>
 
-	<ion-item [ngClass]="{'timeselect': !(filterByInterval() &&
-																					 !dateTime.isBefore(filterStartDate, filterEndDate)),
-												'timeselecterror': filterByInterval() &&
-																					 !dateTime.isBefore(filterStartDate, filterEndDate)}">
-		<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
-		placeholder="Select End Date"
-		[(ngModel)]="filterEndDate">
-	</ion-datetime>
+		<ion-item [ngClass]="{'timeselect': !(filterByInterval() &&
+																						 !dateTime.isBefore(filterStartDate, filterEndDate)),
+													'timeselecterror': filterByInterval() &&
+																						 !dateTime.isBefore(filterStartDate, filterEndDate)}">
+			<ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM DD YYYY"
+			placeholder="Select End Date"
+			[(ngModel)]="filterEndDate">
+		</ion-datetime>
 
-	<button ion-button item-end class="xbutton"
-					(click)="filterEndDate = null">x</button>
+		<button ion-button item-end class="xbutton"
+						(click)="filterEndDate = null">x</button>
 
-	</ion-item>
-</div>
-
-
-<!-- applyFilter button -->
-<div class="filterparam">
-	<h5 class="colormiddark"></h5>
-	<button class="localbutton applyfilterbutton" ion-button block
-	(click)="applyFilter()">
-	Apply Filter
-</button>
-</div>
+		</ion-item>
+	</div>
 
 
-</div>
+	<!-- applyFilter button -->
+	<div class="filterparam">
+		<h5 class="colormiddark"></h5>
+		<button class="localbutton applyfilterbutton" ion-button block
+		(click)="applyFilter()">
+		Apply Filter
+	</button>
+	</div>
+
+
+	</div>
 
 </ion-content>

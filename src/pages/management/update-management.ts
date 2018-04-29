@@ -49,7 +49,7 @@ export class UpdateManagementPage {
 		);
 		numpadModal.onDidDismiss(returnedNum => {
 			if (returnedNum != null) {
-				this.displaySelectServer(t, returnedNum);
+				this.phone = returnedNum;
 			}
 		});
 		numpadModal.present();

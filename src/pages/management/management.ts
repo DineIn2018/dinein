@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { UpdateManagementPage } from  './update-management';
 import { Employee } from '../employees/employees';
+import { Table } from '../tables/tables';
 //import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Component({
@@ -39,7 +40,9 @@ export class Restaurant {
 	addrLine2: string;
 
 	capacity: number;
+	phoneNumber: number;
 	totalEmployees: number;
+	tables: Table[];
 
 	employees: Employee[];
 
@@ -94,7 +97,7 @@ export class Restaurant {
 		} else {
 			var i = 0;
 			for (i = 0; i < this.tables.length; i++) {
-				i += this.tables[i].capcaity;
+				i += this.tables[i].capacity;
 			}
 		}
 	}
