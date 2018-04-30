@@ -39,7 +39,7 @@ router.get('/', function(req,res){
 router.get('/user/getUser/:email', function(req,res){
   console.log("CONSOLE LOG");
   console.log('got ' + req.params.email + ' at /user/getUser');
-
+/*
   User.findOne({ 'email': req.params.email }, function(err,user){
     if(err){
       console.log("some error occurred");
@@ -50,6 +50,7 @@ router.get('/user/getUser/:email', function(req,res){
       res.send(user);
     }
   })
+  */
 });
 
 router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', function(req,res){
