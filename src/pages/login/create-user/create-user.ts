@@ -69,7 +69,7 @@ export class CreateUserPage {
         let failedToast = this.toastCtrl.create({
           message: 'A user with this email already exists',
           duration: 5000
-        });
+        })
         failedToast.present();
       }
     }else{

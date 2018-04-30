@@ -36,7 +36,7 @@ router.get('/', function(req,res){
 
 
 //USER methods
-router.post('/user/getUser/:email', function(req,res){
+router.get('/user/getUser/:email', function(req,res){
   console.log("CONSOLE LOG");
   console.log('got ' + req.params.email + ' at /user/getUser');
 
