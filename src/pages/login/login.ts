@@ -22,7 +22,8 @@ export class LoginPage {
 
   email: string;
   password: string;
-
+  public tempUser: UserObject;
+  retval: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, public DBHelper: DbHelperProvider) { }
 
   ionViewDidLoad() {
@@ -30,12 +31,10 @@ export class LoginPage {
   }
 
   executeLogin() {
-    this.DBHelper.authenticateLogin(this.email, this.password);
-    //console.log(this.email, this.password);
 
     if (this.loginSuccess(this.email, this.password)) {
       console.log('Login Successful');
-      //this.navCtrl.push(TabsPage);
+      this.navCtrl.push(TabsPage);
     }
     else {
       console.log('Login Unsuccessful');

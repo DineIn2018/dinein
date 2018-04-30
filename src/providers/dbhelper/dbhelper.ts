@@ -17,7 +17,8 @@ export class DbHelperProvider {
 
   constructor(public http: HttpClient) {
     console.log('Hello DbHelperProvider Provider');
-    this.url = 'https://quiet-waters-97553.herokuapp.com/api';
+    //this.url = 'https://quiet-waters-97553.herokuapp.com/api';
+    this.url = 'http://localhost:8080/api';
     this.urlParser = new URLParser();
   }
 
@@ -41,13 +42,11 @@ export class DbHelperProvider {
 
 
   authenticateLogin(userName: String, password: String){
-    let newURL = this.urlParser.getAUser(this.url,userName);
+    let newURL = this.urlParser.authenticateUser(this.url,userName,password);
     //let user = new UserObject();
     console.log("URLParser returned " + newURL);
-    this.http.get(newURL).subscribe(data => {
-        console.log(data);
-    });
-
+    this.http.get(newURL).subscribe( res => console.log(JSON.stringify(res)));
+    return true;
   }
 
 }

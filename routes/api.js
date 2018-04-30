@@ -34,17 +34,12 @@ router.get('/', function(req,res){
   console.log("should print this out");
 });
 
-router.get('/getUser/:email', function(req,res)){
-  console.log('did it find it this time?');
-}
 //USER methods
-router.get('/user/getUser/:email', function(req,res){
-  console.log("CONSOLE LOG");
-  console.log('got ' + req.params.email + ' at /user/getUser');
-/*
-  User.findOne({ 'email': req.params.email }, function(err,user){
+router.get('/user/getUser/:email/:pwd', function(req,res){
+  console.log('finding ' + req.params.email + ' and ' + req.params.pwd + ' at /user/getUser');
+  User.findOne({ 'email': req.params.email, 'password': req.params.pwd }, function(err,user){
     if(err){
-      console.log("some error occurred");
+      console.log("user not found");
       res.send(err);
     }
     if(user){
@@ -52,7 +47,7 @@ router.get('/user/getUser/:email', function(req,res){
       res.send(user);
     }
   })
-  */
+
 });
 
 router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', function(req,res){
@@ -76,10 +71,10 @@ router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', func
 
 router.get('/user/getUsers', function(req,res){
   console.log('called user/getUsers API');
-  User.find(function(err,users){
+  User.find(function(err,user){
     if(err)
       res.send(err);
-    res.render(s);
+    res.send(user);
 
   })
 });

@@ -5,8 +5,8 @@ export class URLParser{
     return newURL;
   }
 
-  getAUser(url: String, name: String){
-    let newURL = url + "/getUser/" + name;
+  authenticateUser(url: String, name: String, pwd:String){
+    let newURL = url + "/user/getUser/" + name + '/' + pwd;
     return newURL;
   }
 

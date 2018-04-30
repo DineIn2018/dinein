@@ -66,9 +66,7 @@ export class CreateUserPage {
           confirmToast.present();
           this.navCtrl.pop();
       }else{
-          let failedToast = this.toastCtrl.create({
-            message: 'A user with this email already exists',
-            duration: 5000
+          let failedToast = this.toastCtrl.create({ message: 'A user with this email already exists', duration: 5000
           })
           failedToast.present();
       }
