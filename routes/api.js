@@ -34,16 +34,24 @@ router.get('/', function(req,res){
   console.log("should print this out");
 });
 
-//USER methods
-router.get('/user/getUser/:email', function(req,res){
-  console.log('got ' + email + ' at /user/getUser');
 
-  User.findOne({ 'email': email }, function(err,user){
-    if(err)
+//USER methods
+router.post('/user/getUser/:email', function(req,res){
+  console.log("CONSOLE LOG");
+  console.log('got ' + req.params.email + ' at /user/getUser');
+
+  User.findOne({ 'email': req.params.email }, function(err,user){
+    if(err){
+      console.log("some error occurred");
       res.send(err);
-    res.json(user);
+    }
+    if(user){
+      console.log("found: " + user);
+      res.send(user);
+    }
   })
 });
+
 router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', function(req,res){
 
   console.log('email = ' + req.params.email);
@@ -68,7 +76,8 @@ router.get('/user/getUsers', function(req,res){
   User.find(function(err,users){
     if(err)
       res.send(err);
-    res.json(users);
+    res.render(s);
+
   })
 });
 

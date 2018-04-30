@@ -30,7 +30,7 @@ export class LoginPage {
   }
 
   executeLogin() {
-    this.DBHelper.authenticate(this.email, this.password);
+    this.DBHelper.authenticateLogin(this.email, this.password);
     //console.log(this.email, this.password);
 
     if (this.loginSuccess(this.email, this.password)) {

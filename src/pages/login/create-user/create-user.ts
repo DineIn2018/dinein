@@ -39,7 +39,7 @@ export class CreateUserPage {
   	this.navCtrl.pop();
   }
 
-  validateNewUser(){
+  validateNewUser(user: UserObject){
     //Helper method that should cross-check to make sure that the user can be
     //created
     //TODO: implement
@@ -56,11 +56,11 @@ export class CreateUserPage {
       newUser.lastName = this.lastName;
       newUser.phoneNo = this.phoneNo;
       newUser.restaurant = this.restaurant;
-      if(this.validateNewUser(newUser)){
+      if(true){
           this.DBHelper.addUser(newUser);
           let confirmToast = this.toastCtrl.create({
             message: 'New user created! Please login',
-            duration: '3000',
+            duration: 3000,
             position: 'top'
           })
           confirmToast.present();
@@ -68,7 +68,7 @@ export class CreateUserPage {
       }else{
         let failedToast = this.toastCtrl.create({
           message: 'A user with this email already exists',
-          duration: '5000'
+          duration: 5000
         });
         failedToast.present();
       }
