@@ -6,7 +6,7 @@ export class URLParser{
   }
 
   getAUser(url: String, name: String){
-    let newURL = url + "/user/getUser/" + name;
+    let newURL = url + "/getUser/" + name;
     return newURL;
   }
 

@@ -34,7 +34,9 @@ router.get('/', function(req,res){
   console.log("should print this out");
 });
 
-
+router.get('/getUser/:email', function(req,res)){
+  console.log('did it find it this time?');
+}
 //USER methods
 router.get('/user/getUser/:email', function(req,res){
   console.log("CONSOLE LOG");
