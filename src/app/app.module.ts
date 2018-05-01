@@ -31,7 +31,6 @@ import { InputNumpad } from '../pages/util/numpad';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { CreateEmployeePage } from '../pages/create-employee/create-employee';
 import { DbHelperProvider } from '../providers/dbhelper/dbhelper';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
