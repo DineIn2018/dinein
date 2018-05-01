@@ -7,12 +7,12 @@ export class DateTimeService {
 
 	getTime(): string {
 		let d = new Date();
-		return this.pad(d.getUTCHours()) + ':' + this.pad(d.getUTCMinutes());
+		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
 	}
 
 	fullDateToTime(D): string {
 		let d = new Date(D);
-		return this.pad(d.getUTCHours()) + ':' + this.pad(d.getUTCMinutes());
+		return this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
 	}
 
 	getDateTime(): string {
@@ -20,8 +20,8 @@ export class DateTimeService {
 		let day = d.getUTCDate();
 		let month = d.getUTCMonth() + 1;
 		let year = d.getUTCFullYear();
-		let hrs = d.getUTCHours();
-		let min = d.getUTCMinutes();
+		let hrs = d.getHours();
+		let min = d.getMinutes();
 		return (this.pad(month) + '/' + this.pad(day) + '/' + year + ' ' +
 						this.pad(hrs) + ':' + this.pad(min));
 	}
