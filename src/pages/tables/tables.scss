@@ -14,8 +14,7 @@ page-tables {
 
 	// Title black or white
 	.nav-bar h3 {
-		//color: white // comment line out to make dark
-		color: color($colors, lighter);
+		color: white // comment line out to make dark
 	}
 
 	.nav-bar button {
@@ -28,10 +27,8 @@ page-tables {
 		margin-right: 10px;
 
 		// button colors
-		//border-color: white;
-		//color: white;
-		border-color: color($colors, lighter);
-		color: color($colors, lighter);
+		border-color: white;
+		color: white;
 
 		// dark theme
 		// border-color: color($colors, dark);

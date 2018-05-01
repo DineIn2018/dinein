@@ -51,28 +51,24 @@ export class DataService {
 			];
 
 			let tempTables = [
-										new Table(4, "20", "20"), new Table(4, "150", "20"),
-										new Table(6, "280", "20"), new Table(2, "410", "20"),
-										new Table(8, "540", "20"), new Table(7, "670", "20"),
-										new Table(2, "20", "150"), new Table(2, "150", "150"),
-										new Table(4, "280", "150"), new Table(4, "410", "150"),
-										new Table(8, "540", "150"), new Table(10, "670", "150"),
-										new Table(4, "20", "280"), new Table(6, "150", "280"),
-										new Table(12, "280", "280"), new Table(1, "410", "280"),
-										new Table(14, "540", "280"), new Table(4, "670", "280")
+										new Table(6, "20", "20"), new Table(6, "120", "20"),
+										new Table(4, "320", "20"), new Table(2, "500", "20"),
+										new Table(8, "20", "230"), new Table(8, "20", "330"),
+										new Table(8, "120", "330"), new Table(6, "330", "230"),
+										new Table(6, "330", "330"), new Table(4, "510", "270")
 									];
 			let tempParties = [
 										 new Party("Kass", 7, "04:20", 6086095186, true),
 										 new Party("Kameron", 2, "18:15", 5065065006, false),
 										 new Party("Jimmie", 3, "21:01", 9999999999, false),
-										 new Party("Suzy", 1000, "09:00", 1234567890, false),
+										 new Party("Suzy", 4, "09:00", 1234567890, false),
 										 new Party("Casey", 4, "05:55", 6667778888, true),
 										 new Party("Pete", 7, "05:54", 6969696969, false),
 										 new Party("Kay", 2, "00:59", 7773331111, false),
 										 new Party("Magaret", 4, "05:20", 9099099900, true),
 										 new Party("Joyce", 3, "05:55", 4156937782, false),
-										 new Party("Ivan", 10, "11:59", 4526565665, false),
-										 new Party("Jason", 12, "11:59", 3848892467, false),
+										 new Party("Ivan", 5, "11:59", 4526565665, false),
+										 new Party("Jason", 8, "11:59", 3848892467, false),
 										 new Party("Ben", 5, "00:00", 5555555555, true),
 										 new Party("Issac", 6, "23:59", 9876543210, true),
 										 new Party("Leslie", 6, "24:59", 9119119911, false)
