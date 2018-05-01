@@ -4,6 +4,7 @@ import { CreateRestaurantPage } from './create-restaurant';
 import { Restaurant } from '../util/classes';
 import { InputNumpad } from '../util/numpad';
 import { UserObject } from '../../DBAssets/DBObjects';
+import { DbHelperProvider } from '../../../providers/db-helper/db-helper';
 
 /**
  * Generated class for the CreateUserPage page.
