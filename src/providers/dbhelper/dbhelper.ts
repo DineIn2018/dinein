@@ -18,7 +18,8 @@ export class DbHelperProvider {
   constructor(public http: HttpClient) {
     console.log('Hello DbHelperProvider Provider');
     //this.url = 'https://quiet-waters-97553.herokuapp.com/api';
-    this.url = 'http://localhost:8080/api';
+    //this.url = 'http://localhost:8080/api';
+    this.url = 'https://dineinapi.herokuapp.com/api'
     this.urlParser = new URLParser();
   }
 
@@ -49,4 +50,20 @@ export class DbHelperProvider {
     return true;
   }
 
+  //RESTAURANT methods
+
+
+
+
+  //EMPLOYEE methods
+
+
+  //TABLE methods
+
+
+  //PARTY methods
+
+
+
+  //EMPLOYEE methods
 }
