@@ -2,9 +2,13 @@ page-punchcard {
 
 	#topleft {
 		float: left;
-		padding-top: 10px;
 		padding-left: 25px;
 		width: 75%;
+
+		h3 {
+			color: white; // comment out to make black
+		}
+
 	}
 
 	#topright {

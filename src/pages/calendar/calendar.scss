@@ -14,11 +14,6 @@ page-calendar {
     	width: 25%;
     }
 
-    #container {
-    	//float: bottom;
-		display: flex;
-
-    }
 
 	.alertCSS {
 		background-color: black;
@@ -29,18 +24,14 @@ page-calendar {
 	.top-nav {
 		display: flex;
 		justify-content: space-around;
+		align-items: center;
+		color: white;
 	}
 
-	.month-view {
-		float: left;
+	.top-nav button {
+		color: white;
+		font-size: 20px;
+		font-weight: 600;
 	}
-
-	.event-view {
-		float: right;
-	}
-
-
-
-
 
 }
