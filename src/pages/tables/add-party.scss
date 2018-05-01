@@ -1,0 +1,27 @@
+page-add-party {
+
+    #container {
+        height: 100%;
+        width: 35%;
+        padding-top: 90px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #reservationcheckbox {
+        border-style: solid;
+        border-radius: 2px;
+        border-width: 2px;
+        background-color: color($colors, darkest);
+    }
+
+	#numpadmodal {
+        height: 100%;
+        width: 56%;
+        margin: auto;
+    }
+
+    .localbutton {
+        margin-top: 20px;
+    }
+}

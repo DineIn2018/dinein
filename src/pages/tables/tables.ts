@@ -1,7 +1,20 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 import { ActionSheetController, ModalController } from 'ionic-angular';
-import { AddPartyPage } from './add-party/add-party';
+import { AddPartyPage } from './add-party';
+import { DateTimeService } from '../util/date-time';
+import { InputNumpad } from '../util/numpad';
+import * as interact from 'interactjs';
+
+import { DataService } from '../util/data-service';
+import { Restaurant, Table, Party, Employee, EmployeeShift } from '../util/classes';
+
+/*
+	BUGS:
+	1) Static ID for party and tables keep counting after login-logout
+		 should be solved once we use ID's from DB
+	2)
+*/
 
 @Component({
 	selector: 'page-tables',
@@ -14,27 +27,165 @@ export class TablesPage {
 
 	tables: Table[];
 	parties: Party[];
+	servers: Employee[];
 
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
 							public alertCtrl: AlertController,
-							public actionSheetCtrl: ActionSheetController) {
+							public actionSheetCtrl: ActionSheetController,
+							public viewCtrl: ViewController,
+							private datetime: DateTimeService,
+							public data: DataService) {
 
 		this.mode = Mode.Default;
 		this.selectedParty = null;
 
-		this.tables = [ new Table(4), new Table(4), new Table(6),
-										new Table(2), new Table(8), new Table(2),
-										new Table(2), new Table(4), new Table(6),
-										new Table(8), new Table(4), new Table(6)];
-		this.parties = [ new Party("Kass", 7, "4:20pm", "608 609 5186", true),
-										 new Party("Casey", 4, "5:55pm", "608 608 6006", true),
-										 new Party("Kameron", 2, "6:15pm", "506 506 5006", false),
-										 new Party("Jimmie", 3, "8:01pm", "999 999 9999", false),
-										 new Party("Suzy", 1000, "9:00pm", "012 345 6789", false),
-										 new Party("Bryan", 1, "11:59pm", "666 666 6666", false)];
+		let restaurant = this.data.getRestaurant();
+		this.tables = restaurant.tables;
+		this.parties = restaurant.parties;
+		this.servers = restaurant.employees;
 
-		// TODO: get tables and parties from DB
+		this.parties.sort(Party.compare);
+
+		// TODO: get tables and parties from Database
+		// Filter "parties" by date, get only the ones for today
+		// Only reservations are going persist in database, grab those from database
+		// TODO: write sorting algorithm for the whole list
+	}
+
+	ionViewDidLoad() {
+		var i;
+		for(i = 0; i < this.tables.length; i++) {
+			let table = this.tables[i];
+			var tableElement = document.getElementById('table'+table.ID);
+			tableElement.setAttribute('data-x', table.xPos);
+	    tableElement.setAttribute('data-y', table.yPos);
+	    tableElement.style.webkitTransform =
+	    tableElement.style.transform =
+	      'translate(' + table.xPos + 'px, ' + table.yPos + 'px)';
+		}
+	}
+
+	ionViewWillLeave() {
+		var i;
+		for(i = 0; i < this.tables.length; i++) {
+			let table = this.tables[i];
+			var tableElement = document.getElementById('table'+table.ID);
+			var x = tableElement.getAttribute('data-x');
+	    var y = tableElement.getAttribute('data-y');
+	    table.xPos = x;
+	    table.yPos = y;
+		}
+	}
+
+	//----------------------------------------------------------------------------
+	// Button Action: onTablePress
+	//----------------------------------------------------------------------------
+	onTablePress(table: Table) {
+
+		if (this.editingLayoutMode()) {
+			/*
+			let confirm = this.alertCtrl.create({
+				title: 'Confirm Table Delete',
+				message: 'This cannot be undone, are you sure?',
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: 'Cancel',
+						handler: () => { }
+					},
+					{
+						text: 'Delete',
+						handler: () => { this.deleteTable(table); }
+					}
+				]
+			});
+			confirm.present();*/
+			return;
+		}
+		//
+		// Not in seating party at table mode
+		// Show table action sheet
+		//
+		if (!this.seatingPartyMode()) {
+			this.presentTableActions(table);
+
+		//
+		// In seating party mode
+		// Seat the party at table
+		//
+		} else {
+			console.log('Table tapped in seating party mode');
+			if (table.free) {
+				if (this.selectedParty.size > table.capacity) {
+					console.log('Presented table overcapacity warning');
+					let confirm = this.alertCtrl.create({
+						title: 'Table Too Small',
+						message: 'Are you sure you want to seat them there?',
+						enableBackdropDismiss: false,
+						buttons: [
+							{
+								text: 'Cancel',
+								handler: () => { console.log('Cancelled seating overcapacity'); }
+							},
+							{
+								text: 'Seat',
+								handler: () => {
+									console.log('Selected to seat overcapacity');
+									this.displaySelectServer(table, this.selectedParty.size);
+								}
+							}
+						]
+					});
+					confirm.present();
+
+				} else {
+					// Seat number of party size at table
+					this.displaySelectServer(table, this.selectedParty.size);
+				}
+
+			// Table is Occupied
+			} else {
+				console.log('Tried to seat at occupied table');
+				let alert = this.alertCtrl.create({
+					title: 'This table is currently occupied',
+					enableBackdropDismiss: false,
+					buttons: [ { text: 'Dismiss', handler: () => {} } ]
+				});
+				alert.present();
+			}
+		}
+	}
+
+	//----------------------------------------------------------------------------
+	// Button Action: onEditLayoutPress
+	//----------------------------------------------------------------------------
+	onEditLayoutPress() {
+		if (this.editingLayoutMode()) {
+			this.switchModeTo(Mode.Default);
+			this.interactjsUpdate(false);
+			console.log('mode now is ' + this.mode);
+		} else {
+			this.switchModeTo(Mode.EditingLayout);
+			this.interactjsUpdate(true);
+			console.log('mode now is ' + this.mode);
+		}
+	}
+
+	//----------------------------------------------------------------------------
+	// Button Action: onAddPartyPress
+	//----------------------------------------------------------------------------
+	onAddPartyPress() {
+		console.log('Add Party Pressed');
+		this.navCtrl.push(AddPartyPage, {"parties" : this.parties,
+																		 "edit": false,
+																		 "edit_party": null});
+	}
+	//----------------------------------------------------------------------------
+	// Button Action: onCancelSeatingPartyPress
+	//----------------------------------------------------------------------------
+	onCancelSeatingPartyPress() {
+		this.switchModeTo(Mode.Default);
 	}
 
 	//----------------------------------------------------------------------------
@@ -42,22 +193,14 @@ export class TablesPage {
 	//----------------------------------------------------------------------------
 	presentTableActions(table: Table) {
 
-		var seatOrFree: string;
-
-		if (table.free) {
-			seatOrFree = "Seat Party";
-		} else {
-			seatOrFree = "Free Table";
-		}
-
 		let tableActions = this.actionSheetCtrl.create({
-			title: 'Table Actions',
+			title: 'Table ' + table.ID,
 			buttons: [
 				{
-					text: seatOrFree,
+					text: (table.free? "Seat Party" : "Free Table"),
 					handler: () => {
 						if (table.free) {
-							console.log('Seat Party tapped on table ' + table.ID);
+							console.log('Seat Table tapped on table ' + table.ID);
 							this.displaySeatTableNumpad(table);
 						} else {
 							console.log('Free Table tapped on table ' + table.ID);
@@ -70,6 +213,27 @@ export class TablesPage {
 					handler: () => {
 						console.log('Table ' + table.ID + ' info tappped');
 						this.displayTableInfo(table);
+					}
+				},
+				{
+					text: 'Delete Table',
+					handler: () => {
+						let confirm = this.alertCtrl.create({
+							title: 'Confirm Table Delete',
+							message: 'This cannot be undone, are you sure?',
+							enableBackdropDismiss: false,
+							buttons: [
+								{
+									text: 'Cancel',
+									handler: () => { }
+								},
+								{
+									text: 'Delete',
+									handler: () => { this.deleteTable(table); }
+								}
+							]
+						});
+						confirm.present();
 					}
 				},
 				{
@@ -88,14 +252,13 @@ export class TablesPage {
 	presentPartyActions(party: Party) {
 
 		let partyActions = this.actionSheetCtrl.create({
-			title: 'Party Actions',
+			title: party.name + '\'s ' + (party.reservation? "Reservation" : "Party"),
 			buttons: [
 				{
 					text: 'Seat Party',
 					handler: () => {
 						console.log('Selected Party ' + party.ID + ' to seat');
-						// Enable seating party to table mode
-						this.activateSeatingPartyMode(party);
+						this.switchModeTo(Mode.SeatingParty, party);
 					}
 				},
 				{
@@ -132,140 +295,164 @@ export class TablesPage {
 	}
 
 	//----------------------------------------------------------------------------
-	// Modal Trigger: displayTableInfo
+	// MODAL TRIGGERS
 	//----------------------------------------------------------------------------
 	displayTableInfo(t: Table) {
 		let modal = this.modalCtrl.create(TableInfo, { table: t });
 		modal.present();
 	}
 
-	//----------------------------------------------------------------------------
-	// Modal Trigger: displayPartyInfo
-	//----------------------------------------------------------------------------
 	displayPartyInfo(p: Party) {
 		let modal = this.modalCtrl.create(PartyInfo, { party: p });
 		modal.present();
 	}
 
-	//----------------------------------------------------------------------------
-	// Modal Trigger: displaySeatTableNumpad
-	//----------------------------------------------------------------------------
 	displaySeatTableNumpad(t: Table) {
-		let modal = this.modalCtrl.create(NumToSeat, { table: t });
+
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Party Size",
+										alertTitle: "Invalid Party Size",
+										alertMsg: null,
+										validInputCondition: function(input) { return input > 0; },
+										secondaryValidInputCondition: function(input) { return input <= t.capacity; },
+										secondaryAlertTitle: "Table is too Small",
+										secondaryAlertMsg: "Are you sure you want to seat overcapacity?",
+										secondaryAlertButton: "Seat"
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				this.displaySelectServer(t, returnedNum);
+			}
+		});
+		numpadModal.present();
+	}
+
+	displaySelectServer(table: Table, numToSeat: number) {
+
+		let modal = this.modalCtrl.create(SelectServer, {servers: this.servers});
+		modal.onDidDismiss(server => {
+			if (server != null) {
+				table.seat(numToSeat, server.firstName, this.datetime.getTime(), null);
+				if (this.seatingPartyMode()) {
+					this.deleteParty(this.selectedParty);
+					this.switchModeTo(Mode.Default);
+				}
+			}
+		});
 		modal.present();
 	}
 
 	//----------------------------------------------------------------------------
-	// Button Action: onTablePress
+	// AUXILLARY FUNCTIONS
 	//----------------------------------------------------------------------------
-	onTablePress(table: Table) {
-
-		//
-		// In seating party mode
-		// Seat the party at table
-		//
-		if (this.seatingPartyMode()) {
-			console.log('Table tapped in seating party mode');
-			if (table.free) {
-				if (this.selectedParty.size > table.capacity) {
-					console.log('Presented table overcapacity warning');
-					let confirm = this.alertCtrl.create({
-						title: 'Table Too Small',
-						message: 'This table is not large enough to seat that many people.Are you sure you want to seat them here?',
-						enableBackdropDismiss: false,
-						buttons: [
-							{
-								text: 'Cancel',
-								handler: () => { console.log('Cancelled seating overcapacity'); }
-							},
-							{
-								text: 'Seat',
-								handler: () => {
-									console.log('Selected to seat overcapacity');
-									// Seat number of party size at table
-									table.seat(this.selectedParty.size, this.selectedParty.name);
-									this.deleteParty(this.selectedParty);
-									this.deactivateSeatingPartyMode();
-								}
-							}
-						]
-					});
-					confirm.present();
-
-				} else {
-					// Seat number of party size at table
-					table.seat(this.selectedParty.size, this.selectedParty.name);
-					this.deleteParty(this.selectedParty);
-					this.deactivateSeatingPartyMode();
-				}
-
-			// Table is Occupied
-			} else {
-				console.log('Tried to seat at occupied table');
-				let alert = this.alertCtrl.create({
-					title: 'This table is currently occupied',
-					enableBackdropDismiss: false,
-					buttons: [
-						{
-							text: 'Dismiss',
-							handler: () => { }
-						}
-					]
-				});
-				alert.present();
-			}
-
-		//
-		// Not in seating party at table mode
-		// Show table action sheet
-		//
-		} else {
-			this.presentTableActions(table);
+	switchModeTo(newMode: Mode, party?: Party) {
+		if (this.mode == newMode) {
+			console.log('ERROR: tried to change mode to the same mode it is in');
+			return;
 		}
-	}
-	
-	//----------------------------------------------------------------------------
-	// Button Action: onEditLayoutPress
-	//----------------------------------------------------------------------------
-	onEditLayoutPress() {
-		console.log('Edit Layout Pressed');
-		// Make layout editable
-	}
-
-	//----------------------------------------------------------------------------
-	// Button Action: onAddPartyPress
-	//----------------------------------------------------------------------------
-	onAddPartyPress() {
-		console.log('Add Party Pressed');
-		this.navCtrl.push(AddPartyPage, {"parties" : this.parties,
-																		 "edit": false,
-																		 "edit_party": null});
-	}
-
-	activateSeatingPartyMode(p: Party) {
-		this.mode = Mode.SeatingParty;
-		this.selectedParty = p;
-	}
-
-	deactivateSeatingPartyMode() {
-		this.mode = Mode.Default;
-		this.selectedParty = null;
+		if (Mode.SeatingParty == newMode) {
+			if (party != null) {
+				this.selectedParty = party;
+			} else {
+				console.log('ERROR: tried to change mode to Seating Party without party passed');
+				return;
+			}
+		} else {
+			this.selectedParty = null;
+		}
+		this.mode = newMode;
 	}
 
 	deleteParty(party: Party) {
-		// Find corresponding party in list and remove
-		var i;
-		for (i = 0; i < this.parties.length; i++) {
-			if (this.parties[i].ID == party.ID) {
-				this.parties.splice(i, 1);
-			}
-		}
+		this.parties.splice(this.parties.indexOf(party), 1);
 	}
 
+	deleteTable(table: Table) {
+		this.tables.splice(this.tables.indexOf(table), 1);
+	}
+
+	editingLayoutMode(): boolean {
+		return this.mode == Mode.EditingLayout;
+	}
 	seatingPartyMode(): boolean {
 		return this.mode == Mode.SeatingParty;
 	}
+	defaultMode(): boolean {
+		return this.mode == Mode.Default;
+	}
 
+	addTable() {
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Table Capacity",
+										alertTitle: "Invalid Table Capacity",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return (input > 0) && (input < 100);
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				let t = new Table(returnedNum, "0", "0")
+				this.tables.push(t);
+			}
+		});
+		numpadModal.present();
+	}
+
+	interactjsUpdate(enabled: boolean) {
+
+		if (enabled) {
+			interact('.tablediv').draggable({
+
+			  	snap: {
+			      targets: [
+			        interact.createSnapGrid({ x: 10, y: 10 })
+			      ],
+			      range: Infinity,
+			      relativePoints: [ { x: 0, y: 0 } ]
+		    	},
+			    // enable inertial throwing
+			    inertia: false,
+			    // keep the element within the area of it's parent
+			    restrict: {
+			      restriction: "parent",
+			      endOnly: true,
+			      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+			    },
+			    // enable autoScroll
+			    autoScroll: true,
+
+			    // call this function on every dragmove event
+			    onmove: dragMoveListener,
+			    // call this function on every dragend event
+			    onend: function (event) { }
+			  })
+		} else {
+			interact('.tablediv').draggable(false)
+		}
+
+	  function dragMoveListener (event) {
+	    var target = event.target,
+	        // keep the dragged position in the data-x/data-y attributes
+	        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+	        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+	    // translate the element
+	    target.style.webkitTransform =
+	    target.style.transform =
+	      'translate(' + x + 'px, ' + y + 'px)';
+
+	    // update the posiion attributes
+	    target.setAttribute('data-x', x);
+	    target.setAttribute('data-y', y);
+	    //target.setAttribute('')
+	  }
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -278,29 +465,29 @@ export class TablesPage {
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="tablemodal">
-			<ion-list id="modalcontent">
-				<ion-label class="subsubtitle">Table {{t.ID}}</ion-label>
-				<ion-label class="regularText">Capacity: {{t.capacity}}</ion-label>
-				<ion-label class="regularText">Status: {{t.getStatus()}}</ion-label>
-				<ion-label class="regularText">Current Party: {{t.partySize}}</ion-label>
-				<ion-label class="regularText">Server: {{t.server}}</ion-label>
-				<ion-label class="regularText">Guest: {{t.guestName}}</ion-label>
-				<div class="modalbuttons">
-					<button class="modalbutton" ion-button block
-									(click)="dismiss()">Dismiss</button>
-				</div>
-			</ion-list>
+		<div id="tablemodal" class="modalbase">
+			<h3 class="colorprimary">Table {{t.ID}}</h3>
+			<h5 class="colormedium">Status: {{t.getStatus()}}</h5>
+			<h5 class="colormedium">Capacity: {{t.capacity}}</h5>
+			<h5 class="colormedium">Current Party: {{t.partySize}}</h5>
+			<h5 class="colormedium">Time In: {{t.timeIn}}</h5>
+			<h5 class="colormedium">Server: {{t.server}}</h5>
+			<h5 class="colormedium">Guest: {{t.guest}}</h5>
+
+			<div style="margin-top: 30px;">
+				<button class="modalbutton" ion-button block (click)="dismiss()">
+					Dismiss
+				</button>
+			</div>
 		</div>
 	`
 })
 export class TableInfo {
 
-	t: Table
+	t: Table;
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.t = params.get('table');
-		console.log('Passed Table ID: ', this.t.ID);
 	}
 
 	dismiss() {
@@ -318,26 +505,27 @@ export class TableInfo {
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div id="partymodal">
-			<ion-list id="modalcontent">
-				<ion-label class="subsubtitle">{{p.name}}'s {{p.getKind()}}</ion-label>
-				<ion-label class="regularText">Size: {{p.size}}</ion-label>
-				<ion-label class="regularText">Arrival Time: {{p.time}}</ion-label>
-				<ion-label class="regularText">Contact: {{p.contact}}</ion-label>
-				<ion-label class="regularText">ID: {{p.ID}}</ion-label>
-					<button class="modalbutton" ion-button block
-									(click)="dismiss()">Dismiss</button>
-			</ion-list>
+		<div id="partymodal" class="modalbase">
+			<h3 class="colorprimary">{{p.name}}'s {{p.getKind()}}</h3>
+			<h5 class="colormedium">Size: {{p.size}}</h5>
+			<h5 class="colormedium">Arrival Time: {{p.time}}</h5>
+			<h5 class="colormedium">Contact: {{p.getContactStr()}}</h5>
+			<h5 class="colormedium">ID: {{p.ID}}</h5>
+
+			<div style="margin-top: 30px;">
+				<button class="modalbutton" ion-button block (click)="dismiss()">
+					Dismiss
+				</button>
+			</div>
 		</div>
 	`
 })
 export class PartyInfo {
 
-	p: Party
+	p: Party;
 
 	constructor(public navCtrl: NavController, params: NavParams) {
 		this.p = params.get('party');
-		console.log('Passed Party ID: ', this.p.ID);
 	}
 
 	dismiss() {
@@ -346,203 +534,62 @@ export class PartyInfo {
 }
 
 //------------------------------------------------------------------------------
-// Sub-View: NumToSeat
+// Sub-View: SelectServer
 //------------------------------------------------------------------------------
 @Component({
 	selector: 'page-tables',
 	template: `
-		<div class="modalbase" id="numpadmodal">
-				<ion-label class="header">Party Size</ion-label>
-				<ion-label class="subtitle">{{numToSeat}}</ion-label>
-				<div style="height:300px;width:100%;">
-					<table class="numpad">
-						<tr>
-							<td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
-							<td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
-						</tr>
-						<tr>
-							<td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
-							<td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
-						</tr>
-						<tr>
-							<td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
-							<td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
-						</tr>
-						<tr>
-							<td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-							<td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
-							<td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
-						</tr>
-					</table>
-				</div>
-				<button class="modalbutton" ion-button block (click)="seat()">Seat</button>
-				<button class="modalbutton" ion-button block outline (click)="cancel()">Cancel</button>
+		<div id="servermodal" class="modalbase">
+				<h4 class="colorprimary">Select Server</h4>
+				<ion-content class="modallist">
+					<ion-list scroll="true" id="listscroll">
+						<button ion-button block outline class="listbutton"
+										*ngFor="let server of servers"
+										[ngClass]="{'selectedserver': server === selectedServer,
+																'server': server !== selectedServer}"
+										(click)="selectServer(server)">
+							{{server.getFullName()}}
+						</button>
+					</ion-list>
+				</ion-content>
+				<button class="modalbutton modalbuttonprimary" ion-button block
+									(click)="OK()">OK</button>
+				<button class="modalbutton redbutton" ion-button block outline
+									(click)="cancel()">Cancel</button>
 		</div>
 	`
 })
-export class NumToSeat {
+export class SelectServer {
 
-	table: Table;
-	numToSeat: number;
+	servers: Employee[];
+	selectedServer: Employee;
 
-	constructor(public navCtrl: NavController,
-							public alertCtrl: AlertController,
-							params: NavParams) {
-		this.table = params.get('table');
-		this.numToSeat = 0;
-		console.log('Pop-up: Num To Seat');
+	constructor(public viewCtrl: ViewController,
+							private params: NavParams) {
+		this.servers = params.get('servers');
+		this.selectedServer = this.servers[0];
 	}
 
-	pressButton(n: number) {
-		this.numToSeat = this.numToSeat * 10 + n;
+	selectServer(s: Employee) {
+		this.selectedServer = s;
 	}
 
-	deleteButton() {
-		this.numToSeat = Math.floor(this.numToSeat / 10);
-	}
-
-	clearButton() {
-		this.numToSeat = 0;
-	}
-
-	seat() {
-		if (this.numToSeat > this.table.capacity) {
-			let confirm = this.alertCtrl.create({
-				title: 'Table Too Small',
-				message: 'This table is not large enough to seat that many people. Are you sure you want to seat them here?',
-				enableBackdropDismiss: false,
-				buttons: [
-					{
-						text: 'Cancel',
-						handler: () => {
-							this.clearButton();
-						}
-					},
-					{
-						text: 'Seat',
-						handler: () => {
-							// Seat number of party size at table
-							this.table.seat(this.numToSeat, null);
-							this.navCtrl.pop();
-						}
-					}
-				]
-			});
-			confirm.present();
-		} else {
-			this.table.seat(this.numToSeat, null);
-			this.navCtrl.pop();
-		}
+	OK() {
+		this.viewCtrl.dismiss(this.selectedServer);
 	}
 
 	cancel() {
-		this.navCtrl.pop();
+		this.viewCtrl.dismiss(null);
 	}
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Classes
 ////////////////////////////////////////////////////////////////////////////////
 
-export class Table {
 
-	static ID_runner: number = 1;
-
-	ID: number;
-	capacity: number;
-	free: boolean;
-	partySize: number;
-	server: string;
-	guestName: string;
-
-	constructor(capacityIn: number) {
-		this.ID = Table.ID_runner;
-		Table.ID_runner += 1;
-		this.capacity = capacityIn;
-		this.free = true;
-		this.partySize = 0;
-		this.server = "N/A";
-		this.guestName = "N/A";
-	}
-
-	getStatus(): string {
-		if (this.free) {
-			return "Free";
-		} else {
-			return "Occupied";
-		}
-	}
-
-	getButtonText(): string {
-		if (this.free) {
-			return this.capacity.toString();
-		} else {
-			return this.partySize + '/' + this.capacity;
-		}
-	}
-
-	freeTable() {
-		console.log('Table ' + this.ID + ' freed');
-		this.free = true;
-		this.partySize = 0;
-		this.server = "N/A";
-		this.guestName = "N/A";
-	}
-
-	seat(size: number, name: string) {
-		console.log('Seated ' + size + ' people at Table ' + this.ID);
-		this.free = false;
-		this.partySize = size;
-		this.server = "Manager";
-		if (name != null) {
-			this.guestName = name;
-		} else {
-			this.guestName = "N/A";
-		}
-	}
-}
-
-export class Party {
-
-	static ID_runner: number = 0;
-
-	ID: number;
-	name: string;
-	size: number;
-	time: string;
-	contact: string;
-	reservation: boolean;
-
-	constructor(name: string, size: number, time: string,
-							contact: string, reservation: boolean) {
-		this.ID = Party.ID_runner;
-		Party.ID_runner += 1;
-		console.log('created party ID: '+ this.ID);
-		console.log('curr ID_runner: '+ Party.ID_runner);
-		this.name = name;
-		this.size = size;
-		this.time = time;
-		this.contact = contact;
-		this.reservation = reservation;
-	}
-
-	getKind(): string {
-		if (this.reservation) {
-			return "Reservation";
-		} else {
-			return "Party";
-		}
-	}
-
-	display(): string {
-		return this.time + ' | ' + this.name + ' | ' + this.size;
-	}
-}
-
-enum Mode {
+export enum Mode {
 	Default = 0,
 	SeatingParty = 1,
 	EditingLayout = 2

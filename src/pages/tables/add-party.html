@@ -1,0 +1,44 @@
+<ion-content no-bounce>
+	<div id="container">
+
+		<h3 class="colorprimary">Party Information</h3>
+
+		<ion-item class="inputfield">
+			<ion-input type="Text" placeholder="Name"
+								 [(ngModel)]="name"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="name != null"
+							(click)="name = null">x</button>
+		</ion-item>
+		<button class="inputbutton" ion-button outline block
+						[ngClass]="{'inputbuttonnoval': size == null,
+												'inputbuttonhasval': size != null}"
+						(click)="presentSizeNumpad()">
+			{{(size == null)? "Party Size" : size}}
+		</button>
+		<button class="inputbutton" ion-button outline block
+						[ngClass]="{'inputbuttonnoval': contact == null,
+												'inputbuttonhasval': contact != null}"
+						 (click)="presentContactNumpad()">
+			{{(contact == null)? "Contact Number" : getContactStr()}}
+		</button>
+
+		<ion-item id="reservationcheckbox">
+			<ion-label>Reservation?</ion-label>
+			<ion-checkbox [(ngModel)]="reservation"
+										[disabled]="editMode"></ion-checkbox>
+		</ion-item>
+		<ion-item *ngIf="reservation" class="timeselect">
+			<ion-datetime displayFormat="HH:mm"
+										pickerFormat="HH mm"
+										placeholder="Select Time"
+										[(ngModel)]="time"></ion-datetime>
+		</ion-item>
+
+		<button class="localbutton" ion-button block
+						(click)="submit()">Submit</button>
+		<button class="localbutton redbutton" ion-button block outline
+						(click)="exit()">Cancel</button>
+
+	</div>
+</ion-content>

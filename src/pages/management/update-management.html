@@ -1,0 +1,46 @@
+<ion-content no-bounce>
+	<div id="container">
+
+		<h3 class="colorprimary">Restaurant Information</h3>
+
+		<ion-item class="inputfield">
+			<ion-input type="Text" placeholder="Restaurant Name"
+								 [(ngModel)]="name"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="addrLine1 != null"
+							(click)="addrLine1 = null">x</button>
+		</ion-item>
+		<button class="inputbutton" ion-button outline block
+						[ngClass]="{'inputbuttonnoval': phone == null,
+												'inputbuttonhasval': phone != null}"
+						(click)="presentPhoneNumpad()">
+			{{(phone == null)? "Phone Number" : getPhoneStr()}}
+		</button>
+		<ion-item class="inputfield">
+			<ion-input type="Text" placeholder="Address Line 1"
+								 [(ngModel)]="addrLine1"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="addrLine1 != null"
+							(click)="addrLine1 = null">x</button>
+		</ion-item>
+		<ion-item class="inputfield">
+			<ion-input type="Text" placeholder="Address Line2"
+								 [(ngModel)]="addrLine2"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="addrLine2 != null"
+							(click)="addrLine2 = null">x</button>
+		</ion-item>
+		<button class="inputbutton" ion-button outline block
+							[ngClass]="{'inputbuttonnoval': managerPin == null,
+													'inputbuttonhasval': managerPin != null}"
+							(click)="presentPinNumpad()">
+				{{managerPin == null? "Owner/Manager access PIN" : "XXXX"}}
+		</button>
+
+		<button class="localbutton" ion-button block
+						(click)="submit()">Submit</button>
+		<button class="localbutton redbutton" ion-button block outline
+						(click)="exit()">Cancel</button>
+
+	</div>
+</ion-content>

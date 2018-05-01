@@ -22,21 +22,22 @@ $app-direction: ltr;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
-// old primary #DEBB58
+// old primary #DEBB58 #DEC06B #7DB9B9
 
 $colors: (
-  primary:    #DEC06B,
+  primary:    #7DB9A8,
   secondary:  #E16E62,
-  tertiary:   #97B56C,
+  tertiary:   #60AC6F,
   complementary:#6B89DE,
   triadicTeal:#6BDEC0,
   triadicPurple:#C06BDE,
   danger:     #f53d3d,
-  light:      #D0CDC4,
-  midlight:   #AEAAA2,
+  lighter:    #E0D8D0,
+  light:      #D0CBC0,
+  midlight:   #AEA89D,
   medium:     #928A82,
   middark:	  #696763,
-  dark:       #2E2D2C,
+  dark:       #2E2D28,
   darker:	    #252423,
   darkest:	  #1A1815
 );
@@ -55,12 +56,14 @@ $background-color: color($colors, darkest);
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
+$bar-footer-height: 40px;
+
 //
 // BUTTON STYLING
 //
 $button-ios-text-color: color($colors, darkest);
 $button-ios-border-radius: 3px;
-$button-ios-background-color-activated: color-shade(color($colors, primary), 75%);
+$button-ios-background-color-activated: color-shade(color($colors, primary), 50%);
 
 $button-ios-outline-text-color-activated: color($colors, darkest);
 $button-ios-outline-border-width: 2px;
@@ -87,13 +90,20 @@ $action-sheet-ios-button-border-width: 5px;
 $action-sheet-ios-button-border-color: color($colors, primary);
 $action-sheet-ios-button-cancel-background: color($colors, dark);
 $action-sheet-ios-button-text-color: color($colors, primary);
-$action-sheet-ios-button-font-size: 2.6rem;
+$action-sheet-ios-button-font-size: 2.4rem;
 $action-sheet-ios-title-color: color($colors, medium);
 $action-sheet-ios-title-font-size: 2rem;
 
 //
 // ALERT STYLING
 //
+//$alert-ios-background: color($colors, dark);
+$alert-ios-border-radius: 5px;
+//$alert-ios-message-text-color: color($colors, middark);
+$alert-ios-button-background-color-activated: color($colors, darkest);
+$alert-ios-button-border-color: color($colors, middark);
+//$alert-ios-button-border-width: 1px;
+$alert-ios-max-width: 300px;
 
 $datetime-ios-placeholder-color: color($colors, middark);
 

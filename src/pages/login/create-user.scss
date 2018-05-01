@@ -1,0 +1,28 @@
+page-create-user {
+
+    #container {
+        height: 100%;
+        width: 35%;
+        padding-top: 40px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #restaurantmodal {
+        height: 100%;
+        width: 55%;
+        margin: auto;
+    }
+
+    .selectedrestaurant {
+        color: color($colors, primary);
+    }
+
+    .restaurant {
+        color: color($colors, middark);
+    }
+
+    .localbutton {
+        margin-top: 20px;
+    }
+}

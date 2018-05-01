@@ -1,0 +1,19 @@
+modal-numpad {
+
+    .numkey {
+        color: color($colors, primary);
+        //background-color: color($colors, darkest);
+        background-color: transparent;
+    }
+
+    .numpad {
+        //background-color: color($colors, darkest);
+        background-image: none;
+		background-color: rgba(color($colors, middark), 0.15);
+    }
+
+        // for buttons spacing
+    td {
+        padding: 5px;
+    }
+}

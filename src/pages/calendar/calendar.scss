@@ -15,7 +15,32 @@ page-calendar {
     }
 
     #container {
-    	float: bottom;
+    	//float: bottom;
+		display: flex;
+
     }
+
+	.alertCSS {
+		background-color: black;
+		width: 500px;
+		height: auto;
+	}
+
+	.top-nav {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.month-view {
+		float: left;
+	}
+
+	.event-view {
+		float: right;
+	}
+
+
+
+
 
 }

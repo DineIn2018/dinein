@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
-import { CreateUserPage } from './create-user/create-user';
+import { CreateUserPage } from './create-user';
 
 import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
 import { UserObject } from '../../DBAssets/DBObjects';
@@ -14,39 +14,42 @@ import { UserObject } from '../../DBAssets/DBObjects';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
-  providers:[ DbHelperProvider ],
+	selector: 'page-login',
+	templateUrl: 'login.html',
+	providers:[ DbHelperProvider ],
 })
 export class LoginPage {
 
-  email: string;
-  password: string;
-  public tempUser: UserObject;
-  retval: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public DBHelper: DbHelperProvider) { }
+	email: string;
+	password: string;
+	public tempUser: UserObject;
+	retval: string;
+	constructor(public navCtrl: NavController, public navParams: NavParams, public DBHelper: DbHelperProvider) {
+		this.email = null;
+		this.password = null;
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad LoginPage');
+	}
 
-  executeLogin() {
+	executeLogin() {
 
-    if (this.loginSuccess(this.email, this.password)) {
-      console.log('Login Successful');
-      this.navCtrl.push(TabsPage);
-    }
-    else {
-      console.log('Login Unsuccessful');
-    }
+		if (this.loginSuccess(this.email, this.password)) {
+			console.log('Login Successful');
+			this.navCtrl.push(TabsPage);
+		}
+		else {
+			console.log('Login Unsuccessful');
+		}
 
-  }
+	}
 
-  loginSuccess(email: string, password: string) {
-    return true;
-  }
+	loginSuccess(email: string, password: string) {
+		return true;
+	}
 
-  goToCreateUser() {
-  	this.navCtrl.push(CreateUserPage);
-  }
+	goToCreateUser() {
+		this.navCtrl.push(CreateUserPage);
+	}
 }
