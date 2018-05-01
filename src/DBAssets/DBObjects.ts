@@ -45,7 +45,7 @@ export class PartyObject{
   phoneNo: Number;
   resv: boolean
 }
-export class employeeShift{
+export class ShiftObject{
   name: String;
   startTime: String;
   endTime: String;

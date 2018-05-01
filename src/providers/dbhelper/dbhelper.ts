@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { UserObject } from '../../DBAssets/DBObjects';
+import { UserObject, RestaurantObject, EmployeeObject, TableObject, PartyObject, ShiftObject } from '../../DBAssets/DBObjects';
 import { URLParser } from '../../DBAssets/URLParser';
 /*
   Generated class for the DbHelperProvider provider.
@@ -51,19 +51,29 @@ export class DbHelperProvider {
   }
 
   //RESTAURANT methods
-
-
+  addRestaurant(newRest: RestaurantObject){
+    return true;
+  }
 
 
   //EMPLOYEE methods
-
+  addEmployee(newEmployee: EmployeeObject){
+    return true; 
+  }
 
   //TABLE methods
-
+  addTable(newTable: TableObject){
+    return true;
+  }
 
   //PARTY methods
+  addParty(newParty: PartyObject){
+    return true;
+  }
 
 
-
-  //EMPLOYEE methods
+  //PUNCh methods
+  addShift(newShift: ShiftObject){
+    return true;
+  }
 }
