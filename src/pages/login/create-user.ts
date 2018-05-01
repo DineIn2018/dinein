@@ -43,7 +43,7 @@ export class CreateUserPage {
 							public viewCtrl: ViewController,
 							public alertCtrl: AlertController,
 							public navParams: NavParams,
-						  public DBHelper: DbHelperProvider) {
+						  	public DBHelper: DbHelperProvider) {
 
 		this.createdRestaurant = this.navParams.get('restaurant');
 		if (this.createdRestaurant) {

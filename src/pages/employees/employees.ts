@@ -7,10 +7,12 @@ import { InputNumpad } from '../util/numpad';
 import { DataService } from '../util/data-service';
 //import { Restaurant } from '../management/management';
 //import { Table, Party } from '../tables/tables';
+import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
 
 @Component({
 	selector: 'page-employees',
-	templateUrl: 'employees.html'
+	templateUrl: 'employees.html',
+	providers: [ DbHelperProvider ]
 })
 
 export class EmployeesPage {
@@ -26,7 +28,8 @@ export class EmployeesPage {
 							public popCtrl: PopoverController,
 							public modalCtrl: ModalController,
 							public alertCtrl: AlertController,
-							public data: DataService) {
+							public data: DataService,
+							public DBHelper: DbHelperProvider) {
 
 		let restaurant = data.getRestaurant();
 		this.employees = restaurant.employees;
