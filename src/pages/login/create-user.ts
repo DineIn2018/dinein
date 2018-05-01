@@ -4,7 +4,7 @@ import { CreateRestaurantPage } from './create-restaurant';
 import { Restaurant } from '../util/classes';
 import { InputNumpad } from '../util/numpad';
 import { UserObject } from '../../DBAssets/DBObjects';
-import { DbHelperProvider } from '../../../providers/db-helper/db-helper';
+import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -67,12 +67,12 @@ export class CreateUserPage {
 	}
 
 	submit() {
-		let newUser = UserObject();
+		let newUser = new UserObject();
 		newUser.email = this.email;
 		newUser.password = this.password;
 		newUser.firstName = this.firstName;
 		newUser.lastName = this.lastName;
-		newUser.phoneNo = this.phoneNo;
+		newUser.phoneNo = this.phone;
 		newUser.restaurant = this.restaurant;
 
 		this.DBHelper.addUser(newUser);

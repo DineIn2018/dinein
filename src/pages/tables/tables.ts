@@ -22,6 +22,7 @@ import { Restaurant, Table, Party, Employee, EmployeeShift } from '../util/class
 })
 export class TablesPage {
 
+	restaurantName: string;
 	mode: Mode;
 	selectedParty: Party;
 
@@ -41,6 +42,7 @@ export class TablesPage {
 		this.selectedParty = null;
 
 		let restaurant = this.data.getRestaurant();
+		this.restaurantName = restaurant.name;
 		this.tables = restaurant.tables;
 		this.parties = restaurant.parties;
 		this.servers = restaurant.employees;

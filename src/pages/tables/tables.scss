@@ -2,10 +2,35 @@ page-tables {
 
 // All Nav Bar stuff, so anything up top.
 	// title
-	#topleft {
+	#titletext {
 		float: left;
 		padding-left: 25px;
-		width: 75%;
+		width: 50%;
+	}
+
+	#topleft {
+		width: 80%;
+		float: left;
+	}
+
+	#topright {
+		width: 20%;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 5px;
+	}
+
+	#navbuttons {
+		width: 50%;
+		float: left;
+	}
+
+	.buttoncontainer {
+		float: left;
+		width: 50%;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 5px;
 	}
 
 	.nav-bar {
@@ -17,14 +42,7 @@ page-tables {
 		color: white // comment line out to make dark
 	}
 
-	.nav-bar button {
-		float: right;
-		width: 150px;
-		height: 50px;
-		padding-left: 10%;
-		padding-right: 10%;
-		margin-left: 10px;
-		margin-right: 10px;
+	.navbutton {
 
 		// button colors
 		border-color: white;
@@ -33,6 +51,11 @@ page-tables {
 		// dark theme
 		// border-color: color($colors, dark);
 		// color: color($colors, dark);
+	}
+
+	.navbutton.activated {
+		color: color($colors, primary);
+		background-color: white;
 	}
 
 	#layoutview {
@@ -100,7 +123,7 @@ page-tables {
 		color: color($colors, medium);
 	}
 
-	.table, .tablenotfree, .tablechooseme {
+	.table, .tablenotfree, .tablechooseme, .tablemovable {
 		width: 100%;
 		height: 100%;
 		font-size: 28px;
@@ -127,7 +150,13 @@ page-tables {
 		border-color: color($colors, secondary);
 	}
 
-	.tablechooseme.activated, .tablenotfree.activated, .table.activated {
+	.tablemovable {
+		//background-color: color($colors, secondary);
+		color: color($colors, orange);
+		border-color: color($colors, orange);
+	}
+
+	.tablechooseme.activated, .tablenotfree.activated, .table.activated, .tablemovable.activated {
 		//background-color: color($colors, tertiary);
 		color: color($colors, darker);
 		h6 {
@@ -137,6 +166,10 @@ page-tables {
 
 	.tablenotfree.activated {
 		background-color: color($colors, secondary);
+	}
+
+	.tablemovable.activated {
+		background-color: color($colors, orange);
 	}
 
 	.tablechooseme.activated {
