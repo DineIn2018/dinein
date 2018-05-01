@@ -4,11 +4,14 @@ import { Employee } from '../util/classes';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { InputNumpad } from '../util/numpad';
+import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
+import { EmployeeObject, UserObject } from '../../DBAssets/DBObjects';
 
 @IonicPage()
 @Component({
 	selector: 'page-edit-employee',
 	templateUrl: 'edit-employee.html',
+	providers: [ DbHelperProvider ]
 })
 export class EditEmployeePage {
 
@@ -30,12 +33,13 @@ export class EditEmployeePage {
 
 
 	constructor(public navCtrl: NavController,
-							public navParams: NavParams,
-							public alertCtrl: AlertController,
-							public modalCtrl: ModalController,
-							private transfer: FileTransfer,
-							private camera: Camera,
-							public loadingCtrl: LoadingController) {
+		public navParams: NavParams,
+		public alertCtrl: AlertController,
+		public modalCtrl: ModalController,
+		private transfer: FileTransfer,
+		private camera: Camera,
+		public loadingCtrl: LoadingController,
+		public DBHelper: DbHelperProvider) {
 
 
 		this.editMode = this.navParams.get('editMode');
@@ -69,10 +73,19 @@ export class EditEmployeePage {
 			this.employee.pay = this.pay;
 			this.employee.phone = this.phone;
 			if (!this.editMode) {
-				this.employees.push(this.employee);
+				let newEmployee = new EmployeeObject();
+				newEmployee.fName = this.firstName;
+				newEmployee.lName = this.lastName;
+				newEmployee.id = this.ID;
+				newEmployee.title = this.title;
+				newEmployee.pay = this.pay;
+				newEmployee.phoneNo = this.phone;
+
+				this.DBHelper.addEmployee(newEmployee);
+				//this.employees.push(this.employee);
 			}
 			let alert = this.alertCtrl.create({
-				title: this.editMode? "Employee Information Successfully Saved" : "Employee Successfully Created",
+				title: this.editMode ? "Employee Information Successfully Saved" : "Employee Successfully Created",
 				enableBackdropDismiss: false,
 				buttons: [
 					{
@@ -100,14 +113,14 @@ export class EditEmployeePage {
 	presentPayNumpad() {
 		let numpadModal = this.modalCtrl.create(
 			InputNumpad, {
-										inputField: "Pay $/hr",
-										alertTitle: "Invalid Employee Pay",
-										alertMsg: null,
-										validInputCondition: function(input) {
-											return (input > 0) && (input < 1000000);
-										},
-										secondaryValidInputCondition: null
-									 }
+				inputField: "Pay $/hr",
+				alertTitle: "Invalid Employee Pay",
+				alertMsg: null,
+				validInputCondition: function (input) {
+					return (input > 0) && (input < 1000000);
+				},
+				secondaryValidInputCondition: null
+			}
 		);
 		numpadModal.onDidDismiss(returnedNum => {
 			if (returnedNum != null) {
@@ -120,14 +133,14 @@ export class EditEmployeePage {
 	presentPhoneNumpad() {
 		let numpadModal = this.modalCtrl.create(
 			InputNumpad, {
-										inputField: "Phone Number",
-										alertTitle: "Invalid Phone Number",
-										alertMsg: null,
-										validInputCondition: function(input) {
-											return (input > 999999999) && (input < 10000000000);
-										},
-										secondaryValidInputCondition: null
-									 }
+				inputField: "Phone Number",
+				alertTitle: "Invalid Phone Number",
+				alertMsg: null,
+				validInputCondition: function (input) {
+					return (input > 999999999) && (input < 10000000000);
+				},
+				secondaryValidInputCondition: null
+			}
 		);
 		numpadModal.onDidDismiss(returnedNum => {
 			if (returnedNum != null) {
@@ -181,10 +194,10 @@ export class EditEmployeePage {
 
 	validData(): boolean {
 		return ((this.firstName != null) &&
-						(this.lastName != null) &&
-						(this.title != null) &&
-						(this.pay != null) &&
-						(this.phone != null));
+			(this.lastName != null) &&
+			(this.title != null) &&
+			(this.pay != null) &&
+			(this.phone != null));
 	}
 
 	confirmExit() {
@@ -225,7 +238,7 @@ export class EditEmployeePage {
 		if (this.phone) {
 			let phoneStr = this.phone.toString();
 			if (phoneStr.length == 10) {
-				return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+				return "(" + phoneStr.slice(0, 3) + ") " + phoneStr.slice(3, 6) + "-" + phoneStr.slice(6, 10);
 			}
 		}
 		return this.phone.toString();
@@ -279,7 +292,7 @@ export class EditEmployeePage {
 				loader.dismiss();
 				this.showAlert("Image uploaded successfully");
 			}, (err) => {
-				console.log("Code: "+err.code+"\nSource: "+err.source+"\nTarget: "+err.target+"\nHttp_Status: "+err.http_status+"\nBody: "+err.body+"\nException: "+err.exception);
+				console.log("Code: " + err.code + "\nSource: " + err.source + "\nTarget: " + err.target + "\nHttp_Status: " + err.http_status + "\nBody: " + err.body + "\nException: " + err.exception);
 				loader.dismiss();
 				this.showAlert(err);
 			});
@@ -335,8 +348,8 @@ export class EditEmployeePage {
 })
 export class TitleSelector {
 
-	titleList: string[] = [ "Owner", "Manager", "Host/Hostess", "Server",
-													"Bartender", "Chef", "Cook", "DJ" ];
+	titleList: string[] = ["Owner", "Manager", "Host/Hostess", "Server",
+		"Bartender", "Chef", "Cook", "DJ"];
 
 	selectedTitle: string;
 
