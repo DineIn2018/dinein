@@ -1,15 +1,61 @@
 page-timepunch {
-	
+
     #container {
-        width: 325px;
-        padding-top: 20px;
-        margin-left: auto; 
+        width: auto;
+		height: 500px;
+        margin-left: auto;
         margin-right: auto;
+		display: flex;
+		justify-content: center;
+    }
+
+    #idsection {
+        width: 100%;
+        height: 75px;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 3px;
+        margin-top: 10px;
+    }
+
+    .valididbox {
+        border-color: color($colors, primary);
+    }
+
+    .invalididbox {
+        border-color: color($colors, secondary);
+    }
+
+    #label {
+        width: 35%;
+        height: 100%;
+        float: left;
+        padding-left: 25px;
+        text-align: right;
+    }
+
+    #idtext {
+        width: 65%;
+        height: 100%;
+        float: left;
+        padding-left: 20px;
+        text-align: left;
     }
 
     .localbutton {
-        margin: 20px auto;
+        margin-top: 25px;
+        margin-bottom: 25px;
     }
+
+    .punch-textbox {
+        text-align: center;
+        margin-top: 185px;
+        margin-right: 40px;
+    }
+
+    .punch-textbox h2 {
+		font-size: 35px;
+	}
 
     .numkey {
         color: color($colors, primary);
@@ -17,6 +63,21 @@ page-timepunch {
     }
 
     .numpad {
-        background-color: color($colors, dark);
+		background-image: none;
+        background-color: transparent;
+		padding: 20px;
     }
+
+	.numpad-box {
+		//background-color: color($colors, dark);
+		margin-top: 140px;
+		width: 25%;
+		height: 75%;
+	}
+
+    // for buttons spacing
+    td {
+        padding: 5px;
+    }
+
 }

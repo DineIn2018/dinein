@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
+import { Restaurant, Table, Party, Employee, EmployeeShift } from '../util/classes';
+import { DateTimeService } from '../util/date-time';
+
+import { DataService } from '../util/data-service';
 
 @Component({
 	selector: 'page-timepunch',
@@ -11,40 +15,91 @@ export class TimePunchPage {
 	private currDateTime = new Date();
 	private subscription;
 
-	ID:number = 0;
+	ID: number = 0;
+	employeeToPunch: Employee;
+	employees: Employee[];
 
-	constructor(public navCtrl: NavController, private alertCtrl: AlertController) {
+	constructor(public navCtrl: NavController,
+							public alertCtrl: AlertController,
+							private dateTime: DateTimeService,
+							public data: DataService) {
 
 		var source = Observable.interval(1000); // 1 second subscription
-		this.subscription = source.subscribe((x) => this.currDateTime = new Date());
-		
+		this.subscription = source.subscribe(() => {this.currDateTime = new Date()});
+
+		let restaurant = this.data.getRestaurant();
+		this.employees = restaurant.employees;
+		this.employeeToPunch = null;
+
 	}
 
-	presentPunchConfirmation() {
-		let alert = this.alertCtrl.create({
-			title: 'Confirm purchase',
-			message: 'Do you want to buy this book?',
-			buttons: [
-				{
-					text: 'Cancel',
-					role: 'cancel',
-					handler: () => {
-						console.log('Cancel clicked');
+	submit() {
+
+		if (this.validID()) {
+			let currTime = this.dateTime.getDateTime();
+			let employee = this.getEmployeeByID();
+
+			let alert = this.alertCtrl.create({
+				title: 'Punch for ' + employee.getFullName() + ' at ' + currTime + '?',
+				buttons: [
+					{
+						text: 'Cancel',
+						role: 'cancel',
+						handler: () => { }
+					},
+					{
+						text: 'Confirm',
+						handler: () => {
+							if (employee.isCurrentlyWorking()) {
+								employee.punchOut(currTime);
+							} else {
+								employee.punchIn(currTime);
+							}
+							this.ID = 0;
+						}
 					}
-				},
-				{
-					text: 'Confirm',
-					handler: () => {
-						this.punch(this.ID)
+				]
+			});
+			alert.present();
+
+		} else {
+			let alert = this.alertCtrl.create({
+				title: 'Invalid Employee ID',
+				buttons: [
+					{
+						text: 'Dismiss',
+						role: 'cancel',
+						handler: () => { }
 					}
-				}
-			]
-		});
-		alert.present();
+				]
+			});
+			alert.present();
+		}
+	}
+
+	validID() {
+		var i;
+		for (i = 0; i < this.employees.length; i++) {
+			if (this.ID == this.employees[i].ID) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	getEmployeeByID() {
+		var i;
+		for (i = 0; i < this.employees.length; i++) {
+			if (this.ID == this.employees[i].ID) {
+				return this.employees[i];
+			}
+		}
 	}
 
 	pressButton(n: number) {
-		this.ID = this.ID * 10 + n;
+		if (this.ID < 1000) {
+			this.ID = this.ID * 10 + n;
+		}
 	}
 
 	deleteButton() {
@@ -55,15 +110,16 @@ export class TimePunchPage {
 		this.ID = 0;
 	}
 
-	punch(ID: number) {
-		if (this.validID(ID)) {
-			var time: any = new Date();
-			console.log('Punched time for Employee: ' + ID + ' at ' + time);
-			this.ID = 0;
+	getIDStr() {
+		if (this.ID < 10) {
+			return '000' + this.ID;
 		}
-	}
-
-	validID(ID: number) {
-		return ID > 0;
+		if (this.ID < 100) {
+			return '00' + this.ID;
+		}
+		if (this.ID < 1000) {
+			return '0' + this.ID;
+		}
+		return this.ID.toString();
 	}
 }

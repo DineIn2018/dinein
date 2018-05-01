@@ -1,0 +1,64 @@
+
+<ion-content no-bounce>
+	<div class="background">
+		<div id="container">
+
+				<h2 class="colorprimary">Create User</h2>
+
+				<ion-item class="inputfield">
+					<ion-input type="Text" placeholder="e-mail" required
+										 [(ngModel)]="email"></ion-input>
+					<button ion-button item-end class="xbutton"
+											*ngIf="email != null"
+											(click)="email = null">x</button>
+				</ion-item>
+				<ion-item class="inputfield">
+					<ion-input type="Password" placeholder="Password" required
+										 [(ngModel)]="password"></ion-input>
+					<button ion-button item-end class="xbutton"
+											*ngIf="password != null"
+											(click)="password = null">x</button>
+				</ion-item>
+				<ion-item [ngClass]="{'inputfield': passwordsMatch(),
+															'inputfielderror': !passwordsMatch()}">
+					<ion-input type="Password" placeholder="Confirm Password" required
+										 [(ngModel)]="confirmPassword"></ion-input>
+						<button ion-button item-end class="xbutton"
+											*ngIf="confirmPassword != null"
+											(click)="confirmPassword = null">x</button>
+				</ion-item>
+				<ion-item class="inputfield">
+					<ion-input type="Text" placeholder="First Name"
+										 [(ngModel)]="firstName"></ion-input>
+					<button ion-button item-end class="xbutton"
+											*ngIf="firstName != null"
+											(click)="firstName = null">x</button>
+				</ion-item>
+				<ion-item class="inputfield">
+					<ion-input type="Text" placeholder="Last Name (optional)"
+										 [(ngModel)]="lastName"></ion-input>
+					<button ion-button item-end class="xbutton"
+											*ngIf="lastName != null"
+											(click)="lastName = null">x</button>
+				</ion-item>
+				<button class="inputbutton" ion-button outline block
+								[ngClass]="{'inputbuttonnoval': phone == null,
+														'inputbuttonhasval': phone != null}"
+								(click)="presentNumpad()">
+					{{phone == null? "Phone Number (optional)" : getPhoneStr()}}
+				</button>
+				<button class="inputbutton" ion-button outline block
+								[ngClass]="{'inputbuttonnoval': restaurant == null,
+														'inputbuttonhasval': restaurant != null}"
+								 (click)="presentRestaurantSelector()">
+					{{restaurant == null? "Select Restaurant" : restaurant}}
+				</button>
+
+				<button class="localbutton" ion-button block
+								(click)="submit()">Submit</button>
+				<button class="localbutton redbutton" ion-button outline block
+								(click)="exit()">Cancel</button>
+
+		</div>
+	</div>
+</ion-content>

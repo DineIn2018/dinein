@@ -1,0 +1,117 @@
+<ion-content no-bounce>
+	<div id="container">
+
+		<h3 class="colorprimary">
+			{{editMode? "Edit Employee Information" : "Create New Employee"}}
+		</h3>
+
+		<button class="inputbutton" ion-button outline block [disabled]="true">
+			<h6 class="colormiddark">Employee ID:</h6>{{getIDStr()}}
+		</button>
+
+		<ion-item class="inputfield">
+			<ion-input type="Text" placeholder="First Name"
+						 [(ngModel)]="firstName"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="firstName != null"
+							(click)="firstName = null">x</button>
+		</ion-item>
+		<ion-item class="inputfield">
+			<ion-input type="Text" placeholder="Last Name"
+						 [(ngModel)]="lastName"></ion-input>
+			<button ion-button item-end class="xbutton"
+				*ngIf="lastName != null"
+				(click)="lastName = null">x</button>
+		</ion-item>
+
+		<button class="inputbutton" ion-button outline block
+						[ngClass]="{'inputbuttonnoval': title == null,
+												'inputbuttonhasval': title != null}"
+						(click)="presentTitleSelector()">
+			{{(title == null)? "Employee Title" : title}}
+		</button>
+		<button class="inputbutton" ion-button outline block
+						[ngClass]="{'inputbuttonnoval': pay == null,
+												'inputbuttonhasval': pay != null}"
+						 (click)="presentPayNumpad()">
+			{{(pay == null)? "Pay $ / hr" : (pay.toFixed(2) + " $ / hr")}}
+		</button>
+		<button class="inputbutton" ion-button outline block
+						[ngClass]="{'inputbuttonnoval': phone == null,
+												'inputbuttonhasval': phone != null}"
+						 (click)="presentPhoneNumpad()">
+			{{(phone == null)? "Phone Number" : getPhoneStr()}}
+		</button>
+
+		<button class="localbutton modalbuttonprimary" ion-button block
+						(click)="submit()">
+				{{editMode? "Save and Exit" : "Add Employee"}}
+			</button>
+		<button class="localbutton redbutton" ion-button block outline
+						(click)="confirmExit()">
+			{{editMode? "Exit Without Saving" : "Cancel"}}
+		</button>
+		<button class="localbutton dangerbutton" ion-button block
+						*ngIf="editMode" (click)="deleteEmployee()">
+			Delete Employee
+		</button>
+
+	</div>
+</ion-content>
+
+<!--
+<ion-content>
+
+	<button ion-button block outline (click)="saveNewValues()">
+		Save and Exit
+	</button>
+
+
+	<ion-list inset>
+
+		<ion-item>
+			<ion-label>Image src</ion-label>
+			<ion-input type="text" [(ngModel)]="newSrc"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>First Name</ion-label>
+			<ion-input type="text" [(ngModel)]="newFirstName"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Last Name</ion-label>
+			<ion-input type="text" [(ngModel)]="newLastName"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>ID</ion-label>
+			<ion-input type="text" [(ngModel)]="newID"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Title</ion-label>
+			<ion-input type="text" [(ngModel)]="newTitle"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Pay</ion-label>
+			<ion-input type="text" [(ngModel)]="newPay"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label>Phone</ion-label>
+			<ion-input type="text" [(ngModel)]="newPhone"></ion-input>
+		</ion-item>
+
+	</ion-list>
+
+	<button ion-button inline outline (click)="confirmExit()">
+		Exit Without Saving
+	</button>
+	<button ion-button inline outline (click)="confirmDelete()">
+		Delete Employee Profile
+	</button>
+
+</ion-content>
+-->

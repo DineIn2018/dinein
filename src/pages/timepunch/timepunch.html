@@ -1,38 +1,53 @@
-
-<div class="background">
+<ion-content no-bounce class="background no-scroll">
   <div id="container">
 
-    <ion-label class="subtitle">Punch In/Out</ion-label>
-    <ion-label class="header">{{currDateTime | date: 'EEE MMM d, yyyy'}}</ion-label>
-    <ion-label class="header">{{currDateTime | date: 'hh:mm:ss aa'}}</ion-label>
-    <ion-label class="subtitle">ID: {{ID}}</ion-label>
+    <div class = "punch-textbox">
+      <h2 class="colorprimary">Punch In/Out</h2>
+      <br>
+      <h4 class="colormedium">{{currDateTime | date: 'EEE MMM d, yyyy'}}</h4>
+      <h4 class="colormedium">{{currDateTime | date: 'HH:mm:ss'}}</h4>
+      <br>
+      <div id="idsection" [ngClass]="{'valididbox': validID(),
+                                      'invalididbox': !validID()}">
+        <div id="label">
+          <h2 class="colormedium">ID:</h2>
+        </div>
+        <div id="idtext">
+          <h2 [ngClass]="{'colorprimary': validID(),
+                          'colorsecondary': !validID()}">{{getIDStr()}}</h2>
+        </div>
+      </div>
+    </div>
 
-    <div style="height:350px;width:100%;">
+    <div class="numpad-box">
       <table class="numpad">
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="pressButton(1)">1</button></td>
-          <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td> 
+          <td><button class="numkey" ion-button (click)="pressButton(2)">2</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(3)">3</button></td>
         </tr>
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="pressButton(4)">4</button></td>
-          <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td> 
+          <td><button class="numkey" ion-button (click)="pressButton(5)">5</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(6)">6</button></td>
         </tr>
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="pressButton(7)">7</button></td>
-          <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td> 
+          <td><button class="numkey" ion-button (click)="pressButton(8)">8</button></td>
           <td><button class="numkey" ion-button (click)="pressButton(9)">9</button></td>
         </tr>
-        <tr>
+        <tr class="numpadrow">
           <td><button class="numkey" ion-button (click)="clearButton()">C</button></td>
-          <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td> 
+          <td><button class="numkey" ion-button (click)="pressButton(0)">0</button></td>
           <td><button class="numkey" ion-button (click)="deleteButton()">del</button></td>
         </tr>
       </table>
+
+
+        <button class="localbutton" ion-button block (click)="submit()">Submit</button>
+
+
     </div>
-  
-    <button class="localbutton" ion-button block (click)="presentPunchConfirmation()">Submit</button>
 
   </div>
-</div>
+</ion-content>

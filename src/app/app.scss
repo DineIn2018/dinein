@@ -17,160 +17,425 @@
 
 .md, .ios, .wp {
 
-    // MAIN TITLE STYLING
-    .maintitle {
-        color: color($colors, primary);
-        padding-bottom: 10px;
-        font-size: 70px;
-        font-weight: 500;
-    }
+	.background {
+		background-color: color($colors, darkest);
+		width: 100%;
+		height: 100%;
+	}
 
-    // SUBTITLE STYLING
-    .subtitle {
-        color: color($colors, primary);
-        padding-bottom: 5px;
-        font-size: 45px;
-        font-weight: 475;
-    }
+	/*ion-header {
+		background-color: color($colors, primary);
+	}*/
 
-    // SUBSUBTITLE STYLING
-    .subsubtitle {
-        color: color($colors, primary);
-        padding-bottom: 5px;
-        font-size: 35px;
-        font-weight: 450;
-    }
+//------------------------------------------------------------------------------
+// TEXT STYLING
+//------------------------------------------------------------------------------
 
-    // HEADER STYLING
-    .header {
-        color: color($colors, medium);
-        font-size: 30px;
-        font-weight: 450;
-    }
+	h1 {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		padding-all: 0px;
+		font-size: 70px;
+		font-weight: 500;
+	}
 
-    // Regular Text STYLING
-    .regularText {
-        color: color($colors, medium);
-        font-size: 24px;
-        font-weight: 350;
-    }
+	h2 {
+		margin-top: 15px;
+		margin-bottom: 15px;
+		font-size: 42px;
+		font-weight: 500;
+	}
 
-    // small Text STYLING
-    .smalltext {
-        //color: color($colors, medium);
-        font-size: 16px;
-        font-weight: 500;
-    }
+	h3 {
+		margin-top: 12px;
+		margin-bottom: 12px;
+		font-size: 32px;
+		font-weight: 500;
+	}
 
-    .background {
-        background-color: color($colors, darkest);
+	h4 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+		font-size: 26px;
+		font-weight: 500;
+	}
+
+	h5 {
+		margin-top: 8px;
+		margin-bottom: 8px;
+		font-size: 22px;
+		font-weight: 500;
+	}
+
+	h6 {
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-size: 16px;
+		font-weight: 500;
+	}
+
+	.colorprimary {
+		color: color($colors, primary);
+	}
+
+	.colormiddark {
+		color: color($colors, middark);
+	}
+
+	.colormedium {
+		color: color($colors, medium);
+	}
+
+	.colordark {
+		color: color($colors, dark);
+	}
+
+	.colordarker {
+		color: color($colors, darker);
+	}
+
+	.colorsecondary {
+		color: color($colors, secondary);
+	}
+
+//------------------------------------------------------------------------------
+// MODAL STYLING
+//------------------------------------------------------------------------------
+
+	.modalbase {
+		//background-color: color($colors, dark);
+		padding-top: 20px;
+		padding-bottom: 20px;
+		padding-left: 30px;
+		padding-right: 30px;
+		border-radius: 5px;
+		//border: solid 1px;
+		//border-color: color($colors, darker);
+		//background-color: transparent;
+		backdrop-filter: blur(10px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, dark), 0.5);
+	}
+
+	.modalbutton {
+		margin-top: 20px;
+	}
+
+	.modalbuttonprimary[outline] {
+		background-color: rgba(color($colors, darker), 0.5);
+	}
+	.modalbuttonprimary[outline].activated {
+		background-color: color($colors, primary);
+		color: color($colors, darker);
+	}
+
+	.numpadmodal {
+		height: 100%;
+		width: 56%;
+		margin: auto;
+	}
+
+	.numpad {
+		table-layout: fixed;
+		border-radius: 5px;
+		width: 100%;
+		height: 100%;
+	}
+
+	.numpadrow {
+		height: 25%;
+		width: 100%;
+	}
+
+	.numkey {
+		width: 99%;
+		height: 100%;
+		font-size: 28px;
+		font-weight: 600;
+		border-radius: 5px;
+		margin: 0px;
+	}
+
+	.localbutton, .modalbutton {
+		font-size: 15px;
+		font-weight: 475;
+	}
+
+	.modallist {
+		width: 100%;
+		height: 65%;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		background-color: transparent;
+	}
+
+	.modallisttitle {
+		width: 100%;
+		height: 60%;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		background-color: transparent;
+	}
+
+	.modallist3buttons {
         width: 100%;
-        height: 100%;
-    }
-
-    // TEXT INPUT BOX Styling
-    .inputfield {
-        border: 2px solid color($colors, primary);
-        background-color: color($colors, darkest);
-        width: 100%;
-        height: 50px;
-        margin: 20px auto;
-        border-radius: 3px;
-        font-size: 15px;
-        font-weight: 475;
-    }
-   
-    .modalbase {
-        background-color: color($colors, dark);
-        padding-top: 15px;
-        padding-bottom: 2px;
-        padding-left: 30px;
-        padding-right: 30px;
-        border-radius: 5px;
-        
-    }
-
-    .modalbutton {
-        margin-top: 20px;
-        font-size: 15px;
-        font-weight: 475;
-    }
-
-    .numpad {
-        table-layout: fixed;
-        border-radius: 5px;
+        height: 55%;
+        margin-top: 15px;
         margin-bottom: 15px;
-        width: 100%;
-        height: 100%;
-    }
+        background-color: transparent;
+	}
 
-    .numkey {
-        width: 98%;
-        height: 100%;
-        font-size: 28px;
-        font-weight: 600;
-        border-radius: 5px;
-        margin: 0px;
-    }
+	.listbutton {
+		padding-left: 10px;
+		margin: 0px;
+		border-radius: 0px;
+		border-top: 0px;
+		border-right: 0px;
+		border-left: 0px;
+		border-bottom: solid 0.7px;
+		border-radius: 2px;
+		border-color: color($colors, middark);
+		font-size: 15px;
+		font-weight: 450;
 
-    .localbutton {
-        font-size: 15px;
-        font-weight: 475;
-    }
+		.button-inner{
+			justify-content: flex-start;
+		}
+	}
 
-    // Tab styling, darkens when selected
-    .tabs-ios .tab-button[aria-selected=true] {
-        background-color: color($colors, darkest);
-    }
+	.listbutton[outline] {
+		background-color: transparent;
+	}
+	.listbutton[outline].activated {
+		background-color: color($colors, primary);
+	}
 
-    .picker-wrapper {
-        border-radius: 3px;
-        border-color: color($colors, dark);
-        border-width: 0px;
-        .picker-opt{ 
-            color: color($colors, medium);
-        }
-        .picker-opt-selected {
-            color: color($colors, primary);
-        }
-    }
+	.redbutton {
+		border-color: color($colors, secondary);
+		color: color($colors, secondary);
+	}
+	.redbutton.activated {
+		color: color($colors, darker);
+		background-color: color($colors, secondary);
+	}
 
-    .item-checkbox {
-        border: solid 2px;
-        border-radius: 3px;
-        border-color: color($colors, primary);
-        background-color: color($colors, darkest);
-        .checkbox-icon {
-            border: solid 1px;
-            border-radius: 3px;
-            border-color: color($colors, primary);
-            background-color: color($colors, darkest);
-        }
-        .checkbox-checked {
-            background-color: color($colors, primary);
-        }
-    }
-    
-    .datetime {
-        .datetime-placeholder {
-            color: color($colors, middark);
-        }
-        // Color for selected datetime
-        color: color($colors, primary);
-    }
+	.dangerbutton {
+		color: color($colors, darker);
+		background-color: color($colors, secondary);
+	}
+	.dangerbutton.activated {
+		color: color($colors, secondary);
+		background-color: color($colors, darkest);
+		border-color: color($colors, secondary);
+		border-width: 2px;
+		border-style: solid;
+	}
 
-    // Checkbox inner
-    .item-checkbox {
-        .item-inner {
-            color: color($colors, primary);
-        }
-    }
-    // Changes color of text in text input box
-    .text-input {
-        color: color($colors, primary);
-    }
-    // Changes color of placeholder in text input box
-    .text-input::-webkit-input-placeholder {
-        color: color($colors, middark);
-    }
+	.xbutton {
+		float: left;
+		width: 27px;
+		height: 27px;
+		.button-inner {
+			font-size: 20px;
+			font-weight: 550;
+			padding-bottom: 3px;
+		}
+		margin-top: 0px !important;
+		margin-bottom: 0px !important;
+		margin-right: 0px !important;
+		color: color($colors, middark);
+		background-color: transparent;
+	}
+
+	.xbutton.activated {
+		background-color: color($colors, primary);
+		color: color($colors, darker);
+	}
+
+
+//------------------------------------------------------------------------------
+// USER INPUT FIELDS STYLING
+//------------------------------------------------------------------------------
+
+	.timeselect, .timeselecterror {
+		margin-top: 10px;
+		padding-left: 0px;
+		border-style: solid;
+		border-radius: 2px;
+		border-width: 2px;
+		font-size: 15px;
+		font-weight: 475;
+		background-color: color($colors, darkest);
+	}
+
+	.timeselect {
+		border-color: color($colors, primary);
+	}
+	.timeselecterror {
+		border-color: color($colors, secondary);
+		.datetime-text {
+			color: color($colors, secondary);
+		}
+	}
+
+	// TEXT INPUT BOX Styling
+	.inputfield, .inputfielderror {
+		border: 2px solid;
+		background-color: color($colors, darkest);
+		width: 100%;
+		height: 50px;
+		margin: 20px auto;
+		border-radius: 3px;
+		font-size: 15px;
+		font-weight: 475;
+		//padding-left: 15px;
+
+		// Changes color of placeholder in text input box
+		.text-input::-webkit-input-placeholder {
+			color: color($colors, middark);
+		}
+	}
+
+	.inputfield {
+		border-color: color($colors, primary);
+		// Changes color of text in text input box
+		.text-input {
+			color: color($colors, primary);
+		}
+	}
+
+	.inputfielderror {
+		border-color: color($colors, secondary);
+		// Changes color of text in text input box
+		.text-input {
+			color: color($colors, secondary);
+		}
+	}
+
+	.inputbutton {
+		margin-bottom: 20px;
+		height: 50px;
+		font-size: 15px;
+		font-weight: 475;
+		.button-inner {
+			justify-content:flex-start;
+		}
+	}
+
+	.inputbuttonnoval {
+		.button-inner {
+			color: color($colors, middark);
+		}
+	}
+	.inputbuttonhasval {
+		.button-inner {
+			color: color($colors, primary);
+		}
+	}
+	.inputbuttonhasval.activated, .inputbuttonnoval.activated  {
+		.button-inner {
+			color: color($colors, darkest);
+		}
+	}
+
+	.numpadinput, .numpadinputhasval {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	// Tab styling, darkens when selected, unused
+	.tabs-ios .tab-button[aria-selected=true] {
+		//background-color: color($colors, darkest);
+	}
+
+	.picker-wrapper {
+		border-radius: 3px;
+		border-width: 0px;
+		color: color($colors, dark) !important;
+		background-color: color($colors, dark) !important;
+		.picker-toolbar, .picker-columns {
+			//backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+			//background-color: rgba(color($colors, middark), 0.05);
+			background-color: color($colors, dark) !important;
+
+			.picker-col, .picker-opts-left, .picker-opts-right {
+				background-color: color($colors, dark) !important;
+			}
+		}
+		.picker-opt{
+			color: color($colors, medium);
+		}
+		.picker-opt-selected {
+			color: color($colors, primary);
+		}
+	}
+
+	.item-checkbox {
+		border: solid 2px;
+		border-radius: 3px;
+		border-color: color($colors, primary);
+		background-color: color($colors, darkest);
+		.checkbox-icon {
+			border: solid 1px;
+			border-radius: 3px;
+			border-color: color($colors, primary);
+			background-color: color($colors, darkest);
+		}
+		.checkbox-checked {
+			background-color: color($colors, primary);
+			.checkbox-inner {
+				border-color: color($colors, darkest);
+			}
+		}
+	}
+
+	.datetime {
+		.datetime-placeholder {
+			color: color($colors, middark);
+		}
+		// Color for selected datetime
+		color: color($colors, primary);
+	}
+
+	// Checkbox inner
+	.item-checkbox {
+		.item-inner {
+			color: color($colors, primary);
+		}
+	}
+
+	.alert-wrapper {
+		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, middark), 0.1);
+	}
+
+	.alert-ios {
+		.alert-title {
+			color: color($colors, medium);
+			font-size: 20px;
+			font-weight: 500;
+		}
+		.alert-message {
+			color: color($colors, middark);
+			font-size: 16px;
+			font-weight: 500;
+		}
+	}
+
+	.action-sheet-group, .action-sheet-group-cancel {
+		backdrop-filter: blur(15px) brightness(1.25) saturate(125%);
+		background-color: rgba(color($colors, medium), 0.1);
+	}
+
+	.action-sheet-button {
+		color: color($colors, primary);
+	}
+
+	.action-sheet-cancel {
+		color: color($colors, secondary);
+		background-color: transparent;
+	}
+
+	.no-scroll .scroll-content {
+		overflow: hidden;
+	}
 }
