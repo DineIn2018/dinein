@@ -15,8 +15,9 @@ export class TimePunchPage {
 	private currDateTime = new Date();
 	private subscription;
 
-	ID:number = 0;
+	ID: number = 0;
 	employeeToPunch: Employee;
+	employees: Employee[];
 
 	constructor(public navCtrl: NavController,
 							public alertCtrl: AlertController,
@@ -25,6 +26,9 @@ export class TimePunchPage {
 
 		var source = Observable.interval(1000); // 1 second subscription
 		this.subscription = source.subscribe(() => {this.currDateTime = new Date()});
+
+		let restaurant = this.data.getRestaurant();
+		this.employees = restaurant.employees;
 		this.employeeToPunch = null;
 
 	}
@@ -33,10 +37,10 @@ export class TimePunchPage {
 
 		if (this.validID()) {
 			let currTime = this.dateTime.getDateTime();
-			//let employee: Employee = this.getEmployeeByID();
+			let employee = this.getEmployeeByID();
 
 			let alert = this.alertCtrl.create({
-				title: 'Punch for Employee ID: ' + this.ID + ' at ' + currTime + '?',
+				title: 'Punch for ' + employee.getFullName() + ' at ' + currTime + '?',
 				buttons: [
 					{
 						text: 'Cancel',
@@ -46,11 +50,11 @@ export class TimePunchPage {
 					{
 						text: 'Confirm',
 						handler: () => {
-							/*if (employee.isCurrentlyWorking()) {
+							if (employee.isCurrentlyWorking()) {
 								employee.punchOut(currTime);
 							} else {
 								employee.punchIn(currTime);
-							}*/
+							}
 							this.ID = 0;
 						}
 					}
@@ -74,12 +78,22 @@ export class TimePunchPage {
 	}
 
 	validID() {
-		// TODO: Change to check for ID in database
-		return this.ID > 0;
+		var i;
+		for (i = 0; i < this.employees.length; i++) {
+			if (this.ID == this.employees[i].ID) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	getEmployeeByID() {
-		return null;
+		var i;
+		for (i = 0; i < this.employees.length; i++) {
+			if (this.ID == this.employees[i].ID) {
+				return this.employees[i];
+			}
+		}
 	}
 
 	pressButton(n: number) {

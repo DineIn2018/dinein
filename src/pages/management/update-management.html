@@ -3,6 +3,13 @@
 
 		<h3 class="colorprimary">Restaurant Information</h3>
 
+		<ion-item class="inputfield">
+			<ion-input type="Text" placeholder="Restaurant Name"
+								 [(ngModel)]="name"></ion-input>
+			<button ion-button item-end class="xbutton"
+							*ngIf="addrLine1 != null"
+							(click)="addrLine1 = null">x</button>
+		</ion-item>
 		<button class="inputbutton" ion-button outline block
 						[ngClass]="{'inputbuttonnoval': phone == null,
 												'inputbuttonhasval': phone != null}"

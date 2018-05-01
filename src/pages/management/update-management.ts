@@ -4,6 +4,7 @@ import { ModalController, ViewController, AlertController } from 'ionic-angular'
 import { ManagementPage} from '../management/management';
 import { InputNumpad } from '../util/numpad';
 import { Restaurant } from '../util/classes';
+import { DataService } from '../util/data-service';
 
 @IonicPage()
 @Component({
@@ -14,17 +15,19 @@ import { Restaurant } from '../util/classes';
 export class UpdateManagementPage {
 
 	restaurant: Restaurant;
+	name: string;
 	phone: number;
 	addrLine1: string;
 	addrLine2: string;
 	managerPin: number;
 
 	constructor(public navCtrl: NavController,
-							public navParams: NavParams,
 							public alertCtrl: AlertController,
-							public modalCtrl: ModalController) {
-		// this.managementPage = this.navParams.get('managementPage');
-		this.restaurant = this.navParams.get('restaurant');
+							public modalCtrl: ModalController,
+							public data: DataService) {
+
+		this.restaurant = this.data.getRestaurant();
+		this.name = this.restaurant.name;
 		this.phone = this.restaurant.phoneNumber;
 		this.addrLine1 = this.restaurant.addrLine1;
 		this.addrLine2 = this.restaurant.addrLine2;
@@ -32,6 +35,7 @@ export class UpdateManagementPage {
 	}
 
 	submit() {
+		this.restaurant.name = this.name;
 		this.restaurant.phoneNumber = this.phone;
 		this.restaurant.addrLine1 = this.addrLine1;
 		this.restaurant.addrLine2 = this.addrLine2;

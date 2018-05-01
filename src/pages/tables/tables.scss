@@ -71,14 +71,14 @@ page-tables {
 		display: inline;
 		//margin: 20px;
 		padding: 20px;
-		height: auto;
-		width: 160px;
+		height: 135px;
+		width: 135px;
 	}
 
 	.table-content {
 		height:100%;
 		width:100%;
-		padding:5%;
+		padding:1%;
 	}
 
 	.tablebuttoncapacity {
@@ -122,6 +122,28 @@ page-tables {
 		//background-color: color($colors, tertiary);
 		color: color($colors, tertiary);
 		border-color: color($colors, tertiary);
+	}
+
+	.tablenotfree {
+		//background-color: color($colors, secondary);
+		color: color($colors, secondary);
+		border-color: color($colors, secondary);
+	}
+
+	.tablechooseme.activated, .tablenotfree.activated, .table.activated {
+		//background-color: color($colors, tertiary);
+		color: color($colors, darker);
+		h6 {
+			color: color($colors, darker);
+		}
+	}
+
+	.tablenotfree.activated {
+		background-color: color($colors, secondary);
+	}
+
+	.tablechooseme.activated {
+		background-color: color($colors, tertiary);
 	}
 
 	.modalbase {

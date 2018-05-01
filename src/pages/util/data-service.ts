@@ -89,7 +89,7 @@ export class DataService {
 				this.restaurant.parties.push(tempParties[i]);
 			}
 
-			this.restaurant.employees[16].shifts = [
+			this.restaurant.employees[17].shifts = [
 																new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Bryan Suzan"),
 																new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Bryan Suzan"),
 																new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Bryan Suzan"),
@@ -104,21 +104,21 @@ export class DataService {
 																new EmployeeShift("04/21/2018 00:21", "04/21/2018 01:54", "Bryan Suzan"),
 																new EmployeeShift("04/22/2018 07:01", undefined, "Bryan Suzan")
 															 ];
-		this.restaurant.employees[1].shifts = [
+		this.restaurant.employees[2].shifts = [
 																new EmployeeShift("02/01/2018 00:00", "02/01/2018 23:59", "Carl Robins"),
 																new EmployeeShift("02/02/2018 23:45", "02/03/2018 00:15", "Carl Robins"),
 																new EmployeeShift("02/11/2018 08:13", "02/14/2018 13:22", "Carl Robins"),
 																new EmployeeShift("04/20/2018 18:00", "04/02/2018 18:00", "Carl Robins"),
 																new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Carl Robins")
 															 ];
-		this.restaurant.employees[2].shifts = [
+		this.restaurant.employees[3].shifts = [
 																new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Marianne Beaumont"),
 																new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Marianne Beaumont"),
 																new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Marianne Beaumont"),
 																new EmployeeShift("04/01/2018 18:00", "04/02/2018 18:00", "Marianne Beaumont"),
 																new EmployeeShift("04/20/2018 04:20", "02/01/2018 14:20", "Marianne Beaumont")
 															 ];
-		this.restaurant.employees[0].shifts = [
+		this.restaurant.employees[1].shifts = [
 																new EmployeeShift("02/01/2018 06:00", "02/01/2018 18:00", "Anna Schmidt"),
 																new EmployeeShift("02/02/2018 07:00", "02/02/2018 07:15", "Anna Schmidt"),
 																new EmployeeShift("02/14/2018 08:00", "02/14/2018 09:30", "Anna Schmidt"),
