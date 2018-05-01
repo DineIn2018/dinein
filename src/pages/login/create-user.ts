@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController, ViewController, A
 import { CreateRestaurantPage } from './create-restaurant';
 import { Restaurant } from '../util/classes';
 import { InputNumpad } from '../util/numpad';
+import { UserObject } from '../../DBAssets/DBObjects';
 
 /**
  * Generated class for the CreateUserPage page.
@@ -14,7 +15,8 @@ import { InputNumpad } from '../util/numpad';
 @IonicPage()
 @Component({
 	selector: 'page-create-user',
-	templateUrl: 'create-user.html'
+	templateUrl: 'create-user.html',
+	providers: [ DbHelperProvider ]
 })
 export class CreateUserPage {
 
@@ -39,7 +41,8 @@ export class CreateUserPage {
 							public modalCtrl: ModalController,
 							public viewCtrl: ViewController,
 							public alertCtrl: AlertController,
-							public navParams: NavParams) {
+							public navParams: NavParams,
+						  public DBHelper: DbHelperProvider) {
 
 		this.createdRestaurant = this.navParams.get('restaurant');
 		if (this.createdRestaurant) {
@@ -63,7 +66,18 @@ export class CreateUserPage {
 	}
 
 	submit() {
-		let alert = this.alertCtrl.create({
+		let newUser = UserObject();
+		newUser.email = this.email;
+		newUser.password = this.password;
+		newUser.firstName = this.firstName;
+		newUser.lastName = this.lastName;
+		newUser.phoneNo = this.phoneNo;
+		newUser.restaurant = this.restaurant;
+
+		this.DBHelper.addUser(newUser);
+
+
+			let alert = this.alertCtrl.create({
 			title: "User Account Successfully Created",
 			enableBackdropDismiss: false,
 			buttons: [
