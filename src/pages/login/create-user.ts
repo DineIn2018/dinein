@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController, ViewController, A
 import { CreateRestaurantPage } from './create-restaurant';
 import { Restaurant } from '../util/classes';
 import { InputNumpad } from '../util/numpad';
+
 import { UserObject } from '../../DBAssets/DBObjects';
 import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
 
@@ -43,7 +44,7 @@ export class CreateUserPage {
 							public viewCtrl: ViewController,
 							public alertCtrl: AlertController,
 							public navParams: NavParams,
-						  	public DBHelper: DbHelperProvider) {
+						  public DBHelper: DbHelperProvider) {
 
 		this.createdRestaurant = this.navParams.get('restaurant');
 		if (this.createdRestaurant) {
@@ -78,7 +79,7 @@ export class CreateUserPage {
 		this.DBHelper.addUser(newUser);
 
 
-			let alert = this.alertCtrl.create({
+		let alert = this.alertCtrl.create({
 			title: "User Account Successfully Created",
 			enableBackdropDismiss: false,
 			buttons: [

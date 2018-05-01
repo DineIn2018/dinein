@@ -5,10 +5,14 @@ import { CreateUserPage } from './create-user';
 import { Restaurant, Employee } from '../util/classes';
 import { InputNumpad } from '../util/numpad';
 
+import { RestaurantObject } from '../../DBAssets/DBObjects';
+import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
+
 @IonicPage()
 @Component({
 	selector: 'page-create-restaurant',
 	templateUrl: 'create-restaurant.html',
+	providers: [ DbHelperProvider ]
 })
 export class CreateRestaurantPage {
 
@@ -23,7 +27,9 @@ export class CreateRestaurantPage {
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
 							public viewCtrl: ViewController,
-							public alertCtrl: AlertController) {
+							public alertCtrl: AlertController,
+							public DBHelper: DbHelperProvider) {
+
 		this.restaurantName = null;
 		this.addrLine1 = null;
 		this.addrLine2 = null;
@@ -61,6 +67,17 @@ export class CreateRestaurantPage {
 																100000.01, 2024561111, "../assets/imgs/mikefass.jpg", 1);
 			let createdRestaurant: Restaurant = new Restaurant(
 				this.restaurantName, this.phone, owner, this.addrLine1, this.addrLine2, this.managerPin);
+
+			let newRestaurant = new RestaurantObject();
+			newRestaurant.name = this.restaurantName;
+			newRestaurant.addr1 = this.addLine1;
+			newRestaurant.addr2 = this.addrLine2;
+			newRestaurant.capacity = createdRestaurant.getCapacity();
+			newRestaurant.phoneNo = this.phone;
+			newRestaurant.totalEmploy = createdRestaurant.getNumEmployees();
+			newRestaurant.managerPIN = this.managerPin;
+
+			this.DBHelper.addRestaurant(newRestaurant);
 
 			let alert = this.alertCtrl.create({
 				title: "Restaurant Successfully Created",
