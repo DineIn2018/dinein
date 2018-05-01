@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, ModalController, ViewController } from 'ionic-angular';
-import { Employee } from '../employees/employees';
+import { Employee } from '../util/classes';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { InputNumpad } from '../util/numpad';
@@ -71,46 +71,70 @@ export class EditEmployeePage {
 			if (!this.editMode) {
 				this.employees.push(this.employee);
 			}
-			this.navCtrl.pop();
+			let alert = this.alertCtrl.create({
+				title: this.editMode? "Employee Information Successfully Saved" : "Employee Successfully Created",
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: "OK",
+						handler: () => { this.navCtrl.pop(); }
+					}
+				]
+			});
+			alert.present();
 		} else {
-
+			let alert = this.alertCtrl.create({
+				title: "Some Information is Missing!",
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: "OK",
+						handler: () => { }
+					}
+				]
+			});
+			alert.present();
 		}
 	}
 
 	presentPayNumpad() {
 		let numpadModal = this.modalCtrl.create(
-      InputNumpad, {
-                    inputField: "Pay $/hr",
-                    alertTitle: "Invalid Employee Pay",
-                    alertMsg: null,
-                    validInputCondition: function(input) { return input > 0;},
-                    secondaryValidInputCondition: null
-                   }
-    );
-    numpadModal.onDidDismiss(returnedNum => {
-      if (returnedNum != null) {
-        this.pay = returnedNum;
-      }
-    });
-    numpadModal.present();
+			InputNumpad, {
+										inputField: "Pay $/hr",
+										alertTitle: "Invalid Employee Pay",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return (input > 0) && (input < 1000000);
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				this.pay = returnedNum;
+			}
+		});
+		numpadModal.present();
 	}
 
 	presentPhoneNumpad() {
 		let numpadModal = this.modalCtrl.create(
-      InputNumpad, {
-                    inputField: "Phone Number",
-                    alertTitle: "Invalid Phone Number",
-                    alertMsg: null,
-                    validInputCondition: function(input) { return input > 0;},
-                    secondaryValidInputCondition: null
-                   }
-    );
-    numpadModal.onDidDismiss(returnedNum => {
-      if (returnedNum != null) {
-        this.phone = returnedNum;
-      }
-    });
-    numpadModal.present();
+			InputNumpad, {
+										inputField: "Phone Number",
+										alertTitle: "Invalid Phone Number",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return (input > 999999999) && (input < 10000000000);
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				this.phone = returnedNum;
+			}
+		});
+		numpadModal.present();
 	}
 
 	deleteEmployee() {

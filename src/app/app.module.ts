@@ -25,6 +25,7 @@ import { ManagementPage } from '../pages/management/management';
 import { UpdateManagementPage } from '../pages/management/update-management';
 
 import { DateTimeService } from '../pages/util/date-time';
+import { DataService } from '../pages/util/data-service';
 import { InputNumpad } from '../pages/util/numpad';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -117,7 +118,8 @@ import { Camera } from '@ionic-native/camera';
     //FileUploadOptions, //commented b/c kept causing errors
     FileTransferObject,
     File,
-    Camera
+    Camera,
+    DataService
   ]
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
 import { CreateRestaurantPage } from './create-restaurant';
-import { Restaurant } from '../management/management';
+import { Restaurant } from '../util/classes';
 import { InputNumpad } from '../util/numpad';
 
 /**
@@ -38,6 +38,7 @@ export class CreateUserPage {
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
 							public viewCtrl: ViewController,
+							public alertCtrl: AlertController,
 							public navParams: NavParams) {
 
 		this.createdRestaurant = this.navParams.get('restaurant');
@@ -61,7 +62,21 @@ export class CreateUserPage {
 		console.log('ionViewDidLoad CreateUserPage');
 	}
 
-	goToLogin() {
+	submit() {
+		let alert = this.alertCtrl.create({
+			title: "User Account Successfully Created",
+			enableBackdropDismiss: false,
+			buttons: [
+				{
+					text: "OK",
+					handler: () => { this.exit(); }
+				}
+			]
+		});
+		alert.present();
+	}
+
+	exit() {
 		this.navCtrl.pop();
 	}
 
@@ -71,7 +86,9 @@ export class CreateUserPage {
 										inputField: "Phone Number",
 										alertTitle: "Invalid Phone Number",
 										alertMsg: null,
-										validInputCondition: function(input) { return input > 0;},
+										validInputCondition: function(input) {
+											return (input > 999999999) && (input < 10000000000);
+										},
 										secondaryValidInputCondition: null
 									 }
 		);

@@ -23,6 +23,12 @@
 							*ngIf="addrLine2 != null"
 							(click)="addrLine2 = null">x</button>
 		</ion-item>
+		<button class="inputbutton" ion-button outline block
+							[ngClass]="{'inputbuttonnoval': managerPin == null,
+													'inputbuttonhasval': managerPin != null}"
+							(click)="presentPinNumpad()">
+				{{managerPin == null? "Owner/Manager access PIN" : "XXXX"}}
+		</button>
 
 		<button class="localbutton" ion-button block
 						(click)="submit()">Submit</button>

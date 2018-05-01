@@ -29,7 +29,7 @@
 			<button class="inputbutton" ion-button outline block
 							[ngClass]="{'inputbuttonnoval': phone == null,
 													'inputbuttonhasval': phone != null}"
-							(click)="presentNumpad()">
+							(click)="presentPhoneNumpad()">
 				{{phone == null? "Restaurant's Phone Number" : getPhoneStr()}}
 			</button>
 
@@ -47,6 +47,13 @@
 										*ngIf="ownerLastName != null"
 										(click)="ownerLastName = null">x</button>
 			</ion-item>
+
+			<button class="inputbutton" ion-button outline block
+							[ngClass]="{'inputbuttonnoval': managerPin == null,
+													'inputbuttonhasval': managerPin != null}"
+							(click)="presentPinNumpad()">
+				{{managerPin == null? "Owner/Manager access PIN" : "XXXX"}}
+			</button>
 
 			<button class="localbutton" ion-button block
 							(click)="create()">Create</button>

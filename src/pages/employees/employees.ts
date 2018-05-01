@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController, ViewController, App } from 'ionic-angular';
-import { List } from 'ionic-angular';
+import { NavController, NavParams, PopoverController, AlertController, ViewController, ModalController } from 'ionic-angular';
 import { EditEmployeePage } from './edit-employee';
+
+import { Restaurant, Table, Party, Employee, EmployeeShift } from '../util/classes';
+import { InputNumpad } from '../util/numpad';
+import { DataService } from '../util/data-service';
+//import { Restaurant } from '../management/management';
+//import { Table, Party } from '../tables/tables';
 
 @Component({
 	selector: 'page-employees',
@@ -13,56 +18,21 @@ export class EmployeesPage {
 
 	placeholderImg: string = "https://openskymerchants.files.wordpress.com/2013/10/smile_icon.png";
 
-	items: Employee[];
-	//editPage: any;
-	//createEmployeePage: any;
 	employees: Employee[];
 	selectedEmployee: Employee;
+	managerPin: number;
 
 	constructor(public navCtrl: NavController,
-							public popCtrl: PopoverController) {
-		//this.editPage = EditEmployeePage;
-		//this.createEmployeePage = CreateEmployeePage;
-		this.employees =
-			[
-				new Employee("Michael", "Fassbender", "Owner", 100000.01, 2024561111,
-										 "../assets/imgs/mikefass.jpg", 1),
-				new Employee("Anna", "Schmidt", "Manager", 50.00, 6086076006,
-										 "https://i.pinimg.com/736x/25/48/31/25483183a26a96adcc2b5a4002eda6ca--headshot-ideas-professional-photographer.jpg", 2),
-				new Employee("Carl", "Robins", "Assistant Manager", 30.00, 6083456789,
-										 "http://www.math.uni-frankfurt.de/~person/_4170854.jpg", 10),
-				new Employee("Marianne", "Beaumont", "Hostess", 15.00, 9119119911,
-										 "http://www.pearsonvue.com/pteprofessional/images/homepage.png"),
-				new Employee("Phil", "Scott", "Bartender", 10.00, 6083104545,
-										 "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Robert_gold_bartender.jpg/220px-Robert_gold_bartender.jpg"),
-				new Employee("Kevin", "Anderson", "Server", 5.00, 6088067777,
-										 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhJ8HaQ88jGA0Ws2WTCnI4DzSgMzvEXk4qdbQVbCAiKyP9yGl"),
-				new Employee("Daniel", "Radcliffe", "Server", 1.00, 7299389920,
-										 "https://img.buzzfeed.com/buzzfeed-static/static/2018-01/12/14/asset/buzzfeed-prod-fastlane-03/sub-buzz-18898-1515786282-5.jpg?downsize=715:*&output-format=auto&output-quality=auto"),
-				new Employee("Arnold", "Schwarznegger", "Cook", 9999.99, 9999999999,
-										 "https://upload.wikimedia.org/wikipedia/commons/1/10/Arnold_Schwarzenegger_September_2017.jpg"),
-				new Employee("Kevin", "Spacey", "Server", 0.01, 8299291834,
-										 "https://www.gannett-cdn.com/-mm-/cafa601533d164e1a938fceb66dbd9ba7dec8622/c=1252-527-2956-1808&r=x404&c=534x401/local/-/media/2017/11/08/USATODAY/USATODAY/636457309000424528-XXX-AFP-TZ54V-95172455.JPG"),
-				new Employee("Anthony", "Hopkins", "Bartender", 50.00, 7144969596,
-										 "https://www.biography.com/.image/t_share/MTE5NDg0MDU1MDAxMDczMTY3/sir-anthony-hopkins-9343556-1-402.jpg"),
-				new Employee("Cara", "Delevingne", "Server", 15.00, 6783859873,
-										 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmLg8W3_tJ--QpQhPQjFglY9G-Tu9pCyWV-5UR8FLe4lFGXJhE"),
-				new Employee("Kameron", "Young", "Server", 5.00, 6088067777,
-										 "https://scontent-ort2-1.xx.fbcdn.net/v/t1.0-9/13077027_1318802494800331_7760229749495766368_n.jpg?_nc_cat=0&oh=86e592e3eea0db57911dc21527f25dec&oe=5B965C90"),
-				new Employee("Casey", "Nitz", "Server", 5.00, 6088067777,
-										 "https://scontent-ort2-1.xx.fbcdn.net/v/t31.0-8/1511827_792745014132756_977096387972296994_o.jpg?_nc_cat=0&oh=b31aba57dc71c510bb519eb13c1a1108&oe=5B8EF421"),
-				new Employee("Suzy", "Kong", "Server", 5.00, 6088067777,
-										 "https://scontent-ort2-1.xx.fbcdn.net/v/t1.0-9/27073417_1873106099611377_6868467175191870057_n.jpg?_nc_cat=0&oh=61fe7c000239c0767dd7975c790defd0&oe=5B902065"),
-				new Employee("Jimmie", "Plautz", "Server", 5.00, 6088067777,
-										 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYKzL4WtUsWpaDI_PkYH01KiEEwByV8JDplXwvdvJfrnEYa330"),
-				new Employee("Kass", "Chupongstimun", "Server", 5.00, 6088067777,
-										 "https://scontent-ort2-1.xx.fbcdn.net/v/t1.0-9/29570700_1895844113789958_947715976665000958_n.jpg?_nc_cat=0&oh=2b736c14194f3e72574a68df67838e69&oe=5B9D77DD"),
-				new Employee("Tina", "Russo", "Head Chef", 500.00, 4149217439,
-										 "https://cdn2.goabroad.com/images/program_content/5-tips-for-teaching-english-abroad-as-a-person-of-color-2-1462426680.jpg"),
-				new Employee("Bryan", "Suzan", "DJ", 0.03, 6666666666, "../../assets/imgs/bryan.jpg")
-			];
+							public popCtrl: PopoverController,
+							public modalCtrl: ModalController,
+							public alertCtrl: AlertController,
+							public data: DataService) {
 
-		this.employees.sort(Employee.sortByLastName);
+		let restaurant = data.getRestaurant();
+		this.employees = restaurant.employees;
+		this.managerPin = restaurant.managerPin;
+
+		//this.employees.sort(Employee.sortByLastName);
 		this.selectedEmployee = this.employees[0];
 	}
 
@@ -74,40 +44,54 @@ export class EmployeesPage {
 		});
 	}
 
-	refreshSelectedEmployee() {
-		this.selectedEmployee = this.employees[0];
-		this.initializeItems();
-	}
-	initializeItems() {
-		this.items = [
-			this.selectedEmployee
-		];
-	}
-
-	/*getItems(ev: any) {
-		// Reset items back to all of the items
-		this.initializeItems();
-
-		// set val to the value of the searchbar
-		let val = ev.target.value;
-
-		//if the value is an empty string don't filter the items
-		if (val && val.trim() != '') {
-			this.items = this.items.filter((item) => {
-				return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-			})
-		}
-  }*/
-
 	onEditEmployeePress() {
-		this.navCtrl.push(EditEmployeePage, { editMode: true,
-																					employee: this.selectedEmployee,
-																					employeesList: this.employees });
+		var pin = this.managerPin;
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Enter PIN",
+										alertTitle: "Invalid PIN",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return input == pin;
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if ((returnedNum == this.managerPin) && (returnedNum != null)) {
+				console.log(returnedNum);
+				this.navCtrl.push(EditEmployeePage, { editMode: true,
+																							employee: this.selectedEmployee,
+																							employeesList: this.employees });
+			}
+		});
+		numpadModal.present();
 	}
+
 	onCreateEmployeePress() {
-		this.navCtrl.push(EditEmployeePage, { editMode: false,
-																					employee: null,
-																					employeesList: this.employees });
+		var pin = this.managerPin;
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Enter PIN",
+										alertTitle: "Invalid PIN",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return input == pin;
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			console.log(returnedNum);
+			console.log(this.managerPin);
+			if ((returnedNum == this.managerPin) && (returnedNum != null)) {
+				this.navCtrl.push(EditEmployeePage, { editMode: false,
+																							employee: null,
+																							employeesList: this.employees });
+			}
+		});
+		numpadModal.present();
+
 	}
 
 	selectEmployee(myEvent, employee) {
@@ -151,7 +135,6 @@ export class PunchPopoverPage {
 
 	constructor(public viewCtrl: ViewController,
 							public popCtl: PopoverController,
-							public appCtrl: App,
 							private navParams: NavParams) {
 
 		this.selectedEmployee = this.navParams.get("selectedEmployee");
@@ -173,181 +156,4 @@ export class PunchPopoverPage {
 	close() {
 		this.viewCtrl.dismiss();
 	}
-}
-
-export class Employee {
-
-	static ID_runner: number = 100;
-
-	ID: number;
-	firstName: string;
-	lastName: string;
-	imageSrc: string;
-	title: string;
-	pay: number;
-	phone: number;
-
-	shifts: EmployeeShift[];
-
-	constructor(firstName: string, lastName: string, title: string, pay: number,
-							phone: number, imageSrc?: string, ID?: number) {
-
-		if (ID) {
-			if (ID < 100) {
-				this.ID = ID;
-			} else {
-				this.ID = Employee.ID_runner;
-				Employee.ID_runner += 1;
-			}
-		} else {
-			this.ID = Employee.ID_runner;
-			Employee.ID_runner += 1;
-		}
-
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.title = title;
-		this.pay = pay;
-		this.phone = phone;
-		this.shifts = [];
-		if (imageSrc) {
-			this.imageSrc = imageSrc;
-		} else {
-			this.imageSrc = null;
-		}
-	}
-
-	punchIn(timeIn: string) {
-
-		// Instantiate shift object with only shift start time, no shift end time
-		// Mark new shift as incompleted/in progress
-		// Set employee status to "Currently working"
-		// Add the shift object to the employee
-		this.shifts.push(new EmployeeShift(timeIn, undefined, this.getFullName()));
-		console.log('Successfully punched in for employee: ' + this.ID);
-	}
-
-	punchOut(timeOut: string) {
-
-		// Add shift end time to the latest shift object
-		// Mark shift as completed
-		// Set employee to not be currently working
-		this.shifts[this.shifts.length-1].endShift(timeOut);
-		console.log('Successfully punched outfor employee: ' + this.ID);
-	}
-
-
-	isCurrentlyWorking(): boolean {
-		//
-		// Special case when employee newly instantiated and has empty shifts
-		// array, accessing the last element will make the app pissed
-		// In this case, just return false because a newly instantiated employee
-		// hasn't started a shift yet
-		//
-		if (this.shifts.length < 1) {
-			return false;
-		}
-		let mostRecentShift = this.shifts[this.shifts.length-1];
-		return !mostRecentShift.hasEnded();
-	}
-
-	getFullName(): string {
-		return this.firstName + " " + this.lastName;
-	}
-
-	getPhoneStr(): string {
-		if (this.phone) {
-			let phoneStr = this.phone.toString();
-			if (phoneStr.length == 10) {
-				return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
-			}
-		}
-		return null;
-	}
-
-	getIDStr() {
-		if (this.ID < 10) {
-			return '000' + this.ID;
-		}
-		if (this.ID < 100) {
-			return '00' + this.ID;
-		}
-		if (this.ID < 1000) {
-			return '0' + this.ID;
-		}
-		return this.ID.toString();
-	}
-
-	static sortByLastName(a: Employee, b: Employee): number {
-		return a.lastName.localeCompare(b.lastName);
-	}
-
-}
-
-export class EmployeeShift {
-
-	name: string;
-	startTime: string; //DateTime is just a string
-	endTime: string;
-	shiftLength: number;
-
-
-	constructor(startTime: string, endTime?: string, name?: string) {
-		this.startTime = startTime;
-
-		if(name) {
-			this.name = name;
-		}
-
-		if (endTime) {
-			this.endTime = endTime;
-			this.shiftLength = this.getDiffQuarterHour(this.startTime, this.endTime);
-		} else {
-			this.endTime = null;
-			this.shiftLength = null;
-		}
-
-	}
-
-	endShift(endTime: string) {
-		this.endTime = endTime;
-		this.shiftLength = this.getDiffQuarterHour(this.startTime, this.endTime);
-	}
-
-	hasEnded() {
-		return this.endTime != null;
-	}
-
-	getDiffQuarterHour(t1, t2): number {
-		let d1 = new Date(t1);
-		let d2 = new Date(t2);
-		let diffHours = (d2.getTime() - d1.getTime()) / 3600000;
-		return parseFloat((Math.round(diffHours * 4) / 4).toFixed(2));
-	}
-
-	static compare(s1: EmployeeShift, s2: EmployeeShift) {
-		let d1 = new Date(s1.startTime);
-		let d2 = new Date(s2.startTime);
-		let diff = (d1.getTime() - d2.getTime());
-
-		if (diff < 0) {
-			return -1;
-		}
-		if (diff > 0) {
-			return 1;
-		}
-		return 0;
-	}
-
-}
-
-export enum title {
-	Owner = 0,
-	Manager = 1,
-	Host = 2,
-	Server = 3,
-	Bartender = 4,
-	Chef = 5,
-	Cook = 6,
-	DJ = 69
 }

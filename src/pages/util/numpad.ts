@@ -44,7 +44,9 @@ export class InputNumpad {
 	}
 
 	pressButton(n: number) {
-		this.userInput = this.userInput * 10 + n;
+		if (this.userInput < 1000000000) {
+			this.userInput = this.userInput * 10 + n;
+		}
 	}
 
 	deleteButton() {

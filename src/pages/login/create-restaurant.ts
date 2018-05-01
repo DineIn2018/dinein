@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModalController, ViewController, AlertController } from 'ionic-angular';
 import { CreateUserPage } from './create-user';
-import { Employee } from '../employees/employees';
-import { Restaurant } from '../management/management';
+import { Restaurant, Employee } from '../util/classes';
 import { InputNumpad } from '../util/numpad';
 
 @IonicPage()
@@ -19,6 +18,7 @@ export class CreateRestaurantPage {
 	phone: number;
 	ownerFirstName: string;
 	ownerLastName: string;
+	managerPin: number;
 
 	constructor(public navCtrl: NavController,
 							public modalCtrl: ModalController,
@@ -30,6 +30,7 @@ export class CreateRestaurantPage {
 		this.phone = null;
 		this.ownerFirstName = null;
 		this.ownerLastName = null;
+		this.managerPin = null;
 	}
 
 	create() {
@@ -44,7 +45,8 @@ export class CreateRestaurantPage {
 					{
 						text: 'Dismiss',
 						handler: () => {
-							console.log(this.restaurantName + this.addrLine1 + this.addrLine2 + this.phone + this.ownerFirstName + this.ownerLastName);
+							console.log(this.restaurantName + this.addrLine1 + this.addrLine2
+								+ this.phone + this.ownerFirstName + this.ownerLastName);
 						}
 					}
 				]
@@ -58,8 +60,19 @@ export class CreateRestaurantPage {
 			let owner = new Employee(this.ownerFirstName, this.ownerLastName, "Owner",
 																100000.01, 2024561111, "../assets/imgs/mikefass.jpg", 1);
 			let createdRestaurant: Restaurant = new Restaurant(
-				this.restaurantName, this.phone, owner, this.addrLine1, this.addrLine2);
-			this.navCtrl.popTo(CreateUserPage);
+				this.restaurantName, this.phone, owner, this.addrLine1, this.addrLine2, this.managerPin);
+
+			let alert = this.alertCtrl.create({
+				title: "Restaurant Successfully Created",
+				enableBackdropDismiss: false,
+				buttons: [
+					{
+						text: "OK",
+						handler: () => { this.exit(); }
+					}
+				]
+			});
+			alert.present();
 		}
 	}
 
@@ -67,19 +80,41 @@ export class CreateRestaurantPage {
 		this.navCtrl.pop();
 	}
 
-	presentNumpad(field: string) {
+	presentPhoneNumpad() {
 		let numpadModal = this.modalCtrl.create(
 			InputNumpad, {
 										inputField: "Phone Number",
 										alertTitle: "Invalid Phone Number",
 										alertMsg: null,
-										validInputCondition: function(input) { return input > 0;},
+										validInputCondition: function(input) {
+											return (input > 999999999) && (input < 10000000000);
+										},
 										secondaryValidInputCondition: null
 									 }
 		);
 		numpadModal.onDidDismiss(returnedNum => {
 			if (returnedNum != null) {
 				this.phone = returnedNum;
+			}
+		});
+		numpadModal.present();
+	}
+
+	presentPinNumpad() {
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Enter 4-digit PIN",
+										alertTitle: "PIN must be 4 digits",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return (input > 999) && (input < 10000);
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				this.managerPin = returnedNum;
 			}
 		});
 		numpadModal.present();

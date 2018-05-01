@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular'
 import { ModalController, ViewController, AlertController } from 'ionic-angular';
 import { ManagementPage} from '../management/management';
 import { InputNumpad } from '../util/numpad';
-import { Restaurant } from './management';
+import { Restaurant } from '../util/classes';
 
 @IonicPage()
 @Component({
@@ -17,6 +17,7 @@ export class UpdateManagementPage {
 	phone: number;
 	addrLine1: string;
 	addrLine2: string;
+	managerPin: number;
 
 	constructor(public navCtrl: NavController,
 							public navParams: NavParams,
@@ -27,12 +28,14 @@ export class UpdateManagementPage {
 		this.phone = this.restaurant.phoneNumber;
 		this.addrLine1 = this.restaurant.addrLine1;
 		this.addrLine2 = this.restaurant.addrLine2;
+		this.managerPin = this.restaurant.managerPin;
 	}
 
 	submit() {
 		this.restaurant.phoneNumber = this.phone;
 		this.restaurant.addrLine1 = this.addrLine1;
 		this.restaurant.addrLine2 = this.addrLine2;
+		this.restaurant.managerPin = this.managerPin;
 		this.navCtrl.pop();
 	}
 
@@ -43,13 +46,35 @@ export class UpdateManagementPage {
 										inputField: "Phone Number",
 										alertTitle: "Invalid Phone Number",
 										alertMsg: null,
-										validInputCondition: function(input) { return input > 0; },
+										validInputCondition: function(input) {
+											return (input > 0) && (input < 1000000);
+										},
 										secondaryValidInputCondition: null
 									 }
 		);
 		numpadModal.onDidDismiss(returnedNum => {
 			if (returnedNum != null) {
 				this.phone = returnedNum;
+			}
+		});
+		numpadModal.present();
+	}
+
+	presentPinNumpad() {
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Enter 4-digit PIN",
+										alertTitle: "PIN must be 4 digits",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return (input > 999) && (input < 10000);
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if (returnedNum != null) {
+				this.managerPin = returnedNum;
 			}
 		});
 		numpadModal.present();

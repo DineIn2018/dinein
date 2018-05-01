@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController, AlertController } from 'ionic-angular';
 import { UpdateManagementPage } from  './update-management';
-import { Employee } from '../employees/employees';
-import { Table } from '../tables/tables';
-//import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
+import { DataService } from '../util/data-service';
+import { InputNumpad } from '../util/numpad';
+
+import { Restaurant, Table, Party, Employee, EmployeeShift } from '../util/classes';
 
 @Component({
 	selector: 'page-management',
@@ -13,92 +14,51 @@ export class ManagementPage {
 
 	restaurant: Restaurant;
 
-	constructor(public navCtrl: NavController) {
-		let owner = new Employee("Michael", "Fassbender", "Owner", 100000.01,
-															2024561111, "../assets/imgs/mikefass.jpg", 1);
-    this.restaurant = new Restaurant("Osteria Francescana", 6088060806, owner,
-			"168 World's End St.", "Nowhere, NO, 99999");
-
-    this.restaurant.employees.push(new Employee("Anna", "Schmidt", "Manager",
-    	50.00, 6086076006, "https://i.pinimg.com/736x/25/48/31/25483183a26a96adcc2b5a4002eda6ca--headshot-ideas-professional-photographer.jpg", 2));
+	constructor(public navCtrl: NavController,
+							public modalCtrl: ModalController,
+							public alertCtrl: AlertController,
+							public data: DataService) {
+		this.restaurant = this.data.getRestaurant();
 	}
 
 	executeLogout() {
-		this.navCtrl.parent.parent.pop(this);
+		let alert = this.alertCtrl.create({
+			title: "Are you sure you want to logout?",
+			enableBackdropDismiss: false,
+			buttons: [
+				{
+					text: "Logout",
+					handler: () => { this.navCtrl.parent.parent.pop(this); }
+				},
+				{
+					text: 'Cancel',
+					role: 'cancel',
+					handler: () => { }
+				}
+			]
+		});
+		alert.present();
 	}
 
 	onEditInfoPress() {
-		this.navCtrl.push(UpdateManagementPage, {restaurant: this.restaurant});
-	}
-
-}
-
-export class Restaurant {
-
-	name: string;
-	addrLine1: string;
-	addrLine2: string;
-
-	capacity: number;
-	phoneNumber: number;
-	totalEmployees: number;
-	tables: Table[];
-
-	employees: Employee[];
-
-	constructor(name: string, phoneNumber: number, owner: Employee,
-							addrLine1: string, addrLine2: string) {
-		this.name = name;
-		this.addrLine1 = addrLine1;
-		this.addrLine2 = addrLine2;
-		this.phoneNumber = phoneNumber;
-
-		this.tables = [];
-		this.employees = [];
-		this.employees.push(owner);
-	}
-
-	getPhoneStr(): string {
-		if (this.phoneNumber) {
-			let phoneStr = this.phoneNumber.toString();
-			if (phoneStr.length == 10) {
-				return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
+		var pin = this.restaurant.managerPin;
+		let numpadModal = this.modalCtrl.create(
+			InputNumpad, {
+										inputField: "Enter PIN",
+										alertTitle: "Invalid PIN",
+										alertMsg: null,
+										validInputCondition: function(input) {
+											return input == pin;
+										},
+										secondaryValidInputCondition: null
+									 }
+		);
+		numpadModal.onDidDismiss(returnedNum => {
+			if ((returnedNum == this.restaurant.managerPin) && (returnedNum != null)) {
+				this.navCtrl.push(UpdateManagementPage, {restaurant: this.restaurant});
 			}
-		}
-		return this.phoneNumber.toString();
+		});
+		numpadModal.present();
 	}
 
-	getOwner(): Employee {
-		var i;
-		for (i = 0; i < this.employees.length; i++) {
-			if (this.employees[i].ID == 1) {
-				return this.employees[i];
-			}
-		}
-	}
-	getManager(): Employee {
-		var i;
-		for (i = 0; i < this.employees.length; i++) {
-			if (this.employees[i].ID == 2) {
-				return this.employees[i];
-			}
-		}
-	}
-
-	getNumEmployees(): number {
-		return this.employees.length;
-	}
-	getNumTables(): number {
-		return this.tables.length;
-	}
-	getCapacity(): number {
-		if (this.tables.length == 0) {
-			return 0;
-		} else {
-			var i = 0;
-			for (i = 0; i < this.tables.length; i++) {
-				i += this.tables[i].capacity;
-			}
-		}
-	}
 }

@@ -5,7 +5,9 @@ import { AddPartyPage } from './add-party';
 import { DateTimeService } from '../util/date-time';
 import { InputNumpad } from '../util/numpad';
 import * as interact from 'interactjs';
-//import { Employee } from '../employees/employees';
+
+import { DataService } from '../util/data-service';
+import { Restaurant, Table, Party, Employee, EmployeeShift } from '../util/classes';
 
 /*
 	BUGS:
@@ -32,55 +34,19 @@ export class TablesPage {
 							public alertCtrl: AlertController,
 							public actionSheetCtrl: ActionSheetController,
 							public viewCtrl: ViewController,
-							private datetime: DateTimeService) {
+							private datetime: DateTimeService,
+							public data: DataService) {
 
 		this.mode = Mode.Default;
 		this.selectedParty = null;
 
-		this.tables = [
-										new Table(4, "20", "20"), new Table(4, "150", "20"),
-										new Table(6, "280", "20"), new Table(2, "410", "20"),
-										new Table(8, "540", "20"), new Table(7, "670", "20"),
-										new Table(2, "20", "150"), new Table(2, "150", "150"),
-										new Table(4, "280", "150"), new Table(4, "410", "150"),
-										new Table(8, "540", "150"), new Table(10, "670", "150"),
-										new Table(4, "20", "280"), new Table(6, "150", "280"),
-										new Table(12, "280", "280"), new Table(1, "410", "280"),
-										new Table(14, "540", "280"), new Table(4, "670", "280")
-									];
-		this.parties = [
-										 new Party("Kass", 7, "04:20", 6086095186, true),
-										 new Party("Kameron", 2, "18:15", 5065065006, false),
-										 new Party("Jimmie", 3, "21:01", 9999999999, false),
-										 new Party("Suzy", 1000, "09:00", 1234567890, false),
-										 new Party("Casey", 4, "05:55", 6667778888, true),
-										 new Party("Pete", 7, "05:54", 6969696969, false),
-										 new Party("Kay", 2, "00:59", 7773331111, false),
-										 new Party("Magaret", 4, "05:20", 9099099900, true),
-										 new Party("Joyce", 3, "05:55", 4156937782, false),
-										 new Party("Ivan", 10, "11:59", 4526565665, false),
-										 new Party("Jason", 12, "11:59", 3848892467, false),
-										 new Party("Ben", 5, "00:00", 5555555555, true),
-										 new Party("Issac", 6, "23:59", 9876543210, true),
-										 new Party("Leslie", 6, "24:59", 9119119911, false)
-									 ];
+		let restaurant = this.data.getRestaurant();
+		this.tables = restaurant.tables;
+		this.parties = restaurant.parties;
+		this.servers = restaurant.employees;
 
 		this.parties.sort(Party.compare);
 
-		this.servers = [
-										new Employee("Spongebob"),
-										new Employee("Squidward"),
-										new Employee("Patrick"),
-										new Employee("Mr. Krabs"),
-										new Employee("Plankton"),
-										new Employee("Sandy"),
-										new Employee("Pearl"),
-										new Employee("Rick"),
-										new Employee("Morty"),
-										new Employee("Beth"),
-										new Employee("Jerry"),
-										new Employee("Bird Person")
-									 ];
 		// TODO: get tables and parties from Database
 		// Filter "parties" by date, get only the ones for today
 		// Only reservations are going persist in database, grab those from database
@@ -97,6 +63,18 @@ export class TablesPage {
 	    tableElement.style.webkitTransform =
 	    tableElement.style.transform =
 	      'translate(' + table.xPos + 'px, ' + table.yPos + 'px)';
+		}
+	}
+
+	ionViewWillLeave() {
+		var i;
+		for(i = 0; i < this.tables.length; i++) {
+			let table = this.tables[i];
+			var tableElement = document.getElementById('table'+table.ID);
+			var x = tableElement.getAttribute('data-x');
+	    var y = tableElement.getAttribute('data-y');
+	    table.xPos = x;
+	    table.yPos = y;
 		}
 	}
 
@@ -356,7 +334,7 @@ export class TablesPage {
 		let modal = this.modalCtrl.create(SelectServer, {servers: this.servers});
 		modal.onDidDismiss(server => {
 			if (server != null) {
-				table.seat(numToSeat, server.name, this.datetime.getTime(), null);
+				table.seat(numToSeat, server.firstName, this.datetime.getTime(), null);
 				if (this.seatingPartyMode()) {
 					this.deleteParty(this.selectedParty);
 					this.switchModeTo(Mode.Default);
@@ -411,7 +389,9 @@ export class TablesPage {
 										inputField: "Table Capacity",
 										alertTitle: "Invalid Table Capacity",
 										alertMsg: null,
-										validInputCondition: function(input) { return input > 0; },
+										validInputCondition: function(input) {
+											return (input > 0) && (input < 100);
+										},
 										secondaryValidInputCondition: null
 									 }
 		);
@@ -568,7 +548,7 @@ export class PartyInfo {
 										[ngClass]="{'selectedserver': server === selectedServer,
 																'server': server !== selectedServer}"
 										(click)="selectServer(server)">
-							{{server.name}}
+							{{server.getFullName()}}
 						</button>
 					</ion-list>
 				</ion-content>
@@ -608,147 +588,9 @@ export class SelectServer {
 // Classes
 ////////////////////////////////////////////////////////////////////////////////
 
-export class Table {
-
-	// TODO: change from static ID runner to getting current ID runner from DB
-	static ID_runner: number = 1;
-
-	ID: number;
-	capacity: number;
-	free: boolean;
-	partySize: number;
-	timeIn: string;
-	server: string;
-	guest: string;
-
-	xPos: string;
-	yPos: string;
-
-	constructor(capacityIn: number, xPos?: string, yPos?: string) {
-		this.ID = Table.ID_runner;
-		Table.ID_runner += 1;
-		this.capacity = capacityIn;
-		this.free = true;
-		this.partySize = 0;
-		this.timeIn = "N/A";
-		this.server = "N/A";
-		this.guest = "N/A";
-
-		if (xPos) {
-			this.xPos = xPos;
-		} else {
-			this.xPos = "0";
-		}
-		if (yPos) {
-			this.yPos = yPos;
-		} else {
-			this.yPos = "0";
-		}
-	}
-
-	getStatus(): string {
-		return this.free? "Free" : "Occupied";
-	}
-
-	getButtonText(): string {
-		return this.free? String(this.capacity) : this.partySize + '/' + this.capacity
-	}
-
-	freeTable() {
-		console.log('Table ' + this.ID + ' freed');
-		this.free = true;
-		this.partySize = 0;
-		this.timeIn = "N/A";
-		this.server = "N/A";
-		this.guest = "N/A";
-	}
-
-	seat(size: number, server: string, timeIn: string, guest: string) {
-		this.free = false;
-		this.partySize = size;
-		this.timeIn = timeIn;
-		this.server = server;
-		this.guest = (guest != null)? guest : "N/A";
-		console.log('Seated ' + size + ' people at Table ' + this.ID);
-	}
-
-
-}
-
-export class Party {
-
-	static ID_runner: number = 1;
-
-	ID: number;
-	name: string;
-	size: number;
-	time: string;
-	contact: number;
-	reservation: boolean;
-
-	constructor(name: string, size: number, time: string,
-							contact: number, reservation: boolean) {
-		this.ID = Party.ID_runner;
-		Party.ID_runner += 1;
-		this.name = name;
-		this.size = size;
-		this.time = time;
-		this.contact = contact;
-		this.reservation = reservation;
-	}
-
-	getKind(): string {
-		return this.reservation? "Reservation" : "Party";
-	}
-
-	display(): string {
-		return this.time + ' | ' + this.name + ' | ' + this.size;
-	}
-
-	 getContactStr(): string {
-    if (this.contact) {
-      let phoneStr = this.contact.toString();
-      if (phoneStr.length == 10) {
-        return "("+phoneStr.slice(0,3)+") "+phoneStr.slice(3,6)+"-"+phoneStr.slice(6,10);
-      }
-    }
-    return this.contact.toString();
-  }
-
-	static compare(p1, p2) {
-		if (p1.reservation && !p2.reservation)
-			return -1;
-		if (!p1.reservation && p2.reservation)
-			return 1;
-		else {
-			var h1 = parseInt(p1.time.substring(0,2));
-			var h2 = parseInt(p2.time.substring(0,2));
-			if (h1 < h2)
-				return -1;
-			if (h1 > h2)
-				return 1;
-
-			var m1 = parseInt(p1.time.substring(3,5));
-			var m2 = parseInt(p2.time.substring(3,5));
-			if (m1 < m2)
-				return -1;
-			if (m1 > m2)
-				return 1;
-		}
-		return 0;
-	}
-}
 
 export enum Mode {
 	Default = 0,
 	SeatingParty = 1,
 	EditingLayout = 2
-}
-
-// Place holder server
-export class Employee {
-	name:string;
-	constructor(name: string) {
-		this.name = name;
-	}
 }

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
-import { Employee } from '../employees/employees';
+import { Restaurant, Table, Party, Employee, EmployeeShift } from '../util/classes';
 import { DateTimeService } from '../util/date-time';
+
+import { DataService } from '../util/data-service';
 
 @Component({
 	selector: 'page-timepunch',
@@ -18,7 +20,8 @@ export class TimePunchPage {
 
 	constructor(public navCtrl: NavController,
 							public alertCtrl: AlertController,
-							private dateTime: DateTimeService) {
+							private dateTime: DateTimeService,
+							public data: DataService) {
 
 		var source = Observable.interval(1000); // 1 second subscription
 		this.subscription = source.subscribe(() => {this.currDateTime = new Date()});

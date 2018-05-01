@@ -43,10 +43,12 @@
 			{{(phone == null)? "Phone Number" : getPhoneStr()}}
 		</button>
 
-		<button class="localbutton modalbuttonprimary" ion-button block (click)="submit()">
+		<button class="localbutton modalbuttonprimary" ion-button block
+						(click)="submit()">
 				{{editMode? "Save and Exit" : "Add Employee"}}
 			</button>
-		<button class="localbutton redbutton" ion-button block outline (click)="confirmExit()">
+		<button class="localbutton redbutton" ion-button block outline
+						(click)="confirmExit()">
 			{{editMode? "Exit Without Saving" : "Cancel"}}
 		</button>
 		<button class="localbutton dangerbutton" ion-button block
