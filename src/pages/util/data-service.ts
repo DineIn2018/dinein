@@ -51,11 +51,11 @@ export class DataService {
 			];
 
 			let tempTables = [
-										new Table(6, "20", "20"), new Table(6, "120", "20"),
+										new Table(3, "20", "20"), new Table(3, "120", "20"),
 										new Table(4, "320", "20"), new Table(2, "500", "20"),
-										new Table(8, "20", "230"), new Table(8, "20", "330"),
-										new Table(8, "120", "330"), new Table(6, "330", "230"),
-										new Table(6, "330", "330"), new Table(4, "510", "270")
+										new Table(3, "20", "230"), new Table(2, "20", "330"),
+										new Table(3, "120", "330"), new Table(3, "330", "230"),
+										new Table(3, "330", "330"), new Table(2, "510", "270")
 									];
 			let tempParties = [
 										 new Party("Kass", 7, "04:20", 6086095186, true),
