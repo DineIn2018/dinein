@@ -70,7 +70,7 @@ export class CreateRestaurantPage {
 
 			let newRestaurant = new RestaurantObject();
 			newRestaurant.name = this.restaurantName;
-			newRestaurant.addr1 = this.addLine1;
+			newRestaurant.addr1 = this.addrLine1;
 			newRestaurant.addr2 = this.addrLine2;
 			newRestaurant.capacity = createdRestaurant.getCapacity();
 			newRestaurant.phoneNo = this.phone;

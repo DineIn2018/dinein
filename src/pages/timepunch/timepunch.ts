@@ -58,7 +58,7 @@ export class TimePunchPage {
 							if (employee.isCurrentlyWorking()) {
 								employee.punchOut(currTime);
 							} else {
-								let newShift = new UserObject();
+								let newShift = new ShiftObject();
 								newShift.name = employee.getFullName();
 								newShift.startTime = currTime;
 								this.DBHelper.addShift(newShift);
