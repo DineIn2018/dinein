@@ -6,9 +6,13 @@ import { DateTimeService } from '../util/date-time';
 
 import { DataService } from '../util/data-service';
 
+import { ShiftObject } from '../../DBAssets/DBObjects';
+import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
+
 @Component({
 	selector: 'page-timepunch',
 	templateUrl: 'timepunch.html',
+	providers: [ DbHelperProvider ]
 })
 export class TimePunchPage {
 
@@ -22,7 +26,8 @@ export class TimePunchPage {
 	constructor(public navCtrl: NavController,
 							public alertCtrl: AlertController,
 							private dateTime: DateTimeService,
-							public data: DataService) {
+							public data: DataService,
+						  public DBHelper: DbHelperProvider) {
 
 		var source = Observable.interval(1000); // 1 second subscription
 		this.subscription = source.subscribe(() => {this.currDateTime = new Date()});
@@ -53,6 +58,11 @@ export class TimePunchPage {
 							if (employee.isCurrentlyWorking()) {
 								employee.punchOut(currTime);
 							} else {
+								let newShift = new UserObject();
+								newShift.name = employee.getFullName();
+								newShift.startTime = currTime;
+								this.DBHelper.addShift(newShift);
+
 								employee.punchIn(currTime);
 							}
 							this.ID = 0;

@@ -5,10 +5,14 @@ import { Party } from '../util/classes';
 import { DateTimeService } from '../util/date-time';
 import { InputNumpad } from '../util/numpad';
 
+import { PartyObject } from '../../DBAssets/DBObjects';
+import { DbHelperProvider } from '../../providers/dbhelper/dbhelper';
+
 @IonicPage()
 @Component({
 	selector: 'page-add-party',
 	templateUrl: 'add-party.html',
+	providers: [ DbHelperProvider ]
 })
 export class AddPartyPage {
 
@@ -29,7 +33,8 @@ export class AddPartyPage {
 							public viewCtrl: ViewController,
 							public alertCtrl: AlertController,
 							public navParams: NavParams,
-							private datetime: DateTimeService) {
+							private datetime: DateTimeService,
+						  public DBHelper: DbHelperProvider) {
 
 		this.editMode = this.navParams.get("edit");
 
@@ -107,6 +112,16 @@ export class AddPartyPage {
 														this.contact, this.reservation);
 				this.parties.push(party);
 				this.parties.sort(Party.compare);
+
+				let newParty = new PartyObject();
+				newParty.id = this.ID;
+				newParty.name = this.name;
+				newParty.size = this.size;
+				newParty.time = this.time;
+				newParty.phoneNo = this.contact;
+				newParty.resv = this.reservation;
+
+				this.DBHelper.addParty(newParty);
 			}
 
 			let alert = this.alertCtrl.create({

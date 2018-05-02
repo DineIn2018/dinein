@@ -1,7 +1,7 @@
 import { NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
 import { NavControllerMock, ModalControllerMock, ViewControllerMock, NavParamsMock, ModalMock } from 'ionic3-mocks';
 
-import { CreateUserPage, PhoneNumpad } from './create-user';
+import { CreateUserPage } from './create-user';
 
 describe('Create User Page', () => {
 
