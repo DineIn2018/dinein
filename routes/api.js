@@ -120,10 +120,11 @@ router.post('/restaurant/addRestaurant/:name/:addr1/:addr2/:phoneNo', function(r
 var partySchema = new Schema({
   name: String,
   size: Number,
-  time: Number,
+  time: String,
   phoneNo: Number
 });
 var Party = mongoose.model('Party', partySchema);
+
 router.post('/party/addParty/:name/:size/:time/:phoneNo', function(req,res){
   console.log("post called on party/addParty");
   Party.create({
@@ -132,8 +133,10 @@ router.post('/party/addParty/:name/:size/:time/:phoneNo', function(req,res){
     time: req.params.time,
     phoneNo: req.params.phoneNo
   }, function(err, review){
-    if(err)
+    if(err){
+      console.log("something went wrong!")
       res.send(err);
+    }
   });
 });
 
