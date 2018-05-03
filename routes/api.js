@@ -116,14 +116,27 @@ router.post('/restaurant/addRestaurant/:name/:addr1/:addr2/:phoneNo', function(r
   });
 });
 
-router.post('/party/addParty/:name/:size/:time/:phoneNo/:resv', function(req,res){
+
+var partySchema = new Schema({
+  name: String,
+  size: Number,
+  time: Number,
+  phoneNo: Number
+});
+var Party = mongoose.model('Party', partySchema);
+router.post('/party/addParty/:name/:size/:time/:phoneNo', function(req,res){
   console.log("post called on party/addParty");
+  Party.create({
+    name: req.params.name,
+    size: req.params.size,
+    time: req.params.time,
+    phoneNo: req.params.phoneNo
+  }, function(err, review){
+    if(err)
+      res.send(err);
+  });
 });
 
-//doesn't work because of special characters in date/time
-router.post('/shift/addShift/:name/:startTime/:endTime/:shiftLen', function(req,res){
-  console.log("post called on shift/addShift");
-});
 
 router.get('/user/getUsers', function(req,res){
   console.log('called user/getUsers API');
