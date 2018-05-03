@@ -84,7 +84,7 @@ router.post('/employee/addEmployee/:id/:fname/:lname/:title/:pay/:phoneNo', func
   console.log("post called on employee/addEmployee");
   Employee.create({
     id: req.params.id,
-    firstName: req.params.firstName,
+    firstName: req.params.fname,
     lastName: req.params.lname,
     title: req.params.title,
     pay: req.params.pay,
