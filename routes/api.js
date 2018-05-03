@@ -95,8 +95,25 @@ router.post('/employee/addEmployee/:id/:fname/:lname/:title/:pay/:phoneNo', func
   });
 });
 
+var restaurantSchema = new Schema({
+  name: String,
+  addr1: String,
+  addr2: String,
+  phoneNo: Number
+});
+var Restaurant = mongoose.model('Restaurant', restaurantSchema);
+
 router.post('/restaurant/addRestaurant/:name/:addr1/:addr2/:phoneNo', function(req,res){
   console.log("post called on restaurant/addRestaurant");
+  Restaurant.create({
+    name: req.params.name,
+    addr1: req.params.addr1,
+    addr2: req.params.addr2,
+    phoneNo: req.params.phoneNo
+  }, function(err, review){
+    if(err)
+      res.send(err);
+  });
 });
 
 router.post('/party/addParty/:name/:size/:time/:phoneNo/:resv', function(req,res){
