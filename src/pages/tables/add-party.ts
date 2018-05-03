@@ -84,6 +84,7 @@ export class AddPartyPage {
 					}
 				]
 			});
+			console.log(this.name);
 			alert.present();
 
 		//

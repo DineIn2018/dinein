@@ -69,6 +69,22 @@ router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', func
 
 });
 
+router.post('/employee/addEmployee/:id/:fname/:lname/:imageSource/:title/:pay/:phoneNo', function(req,res){
+  console.log("post called on employee/addEmployee");
+});
+
+router.post('restaurant/addRestarant/:name/:addr1/:addr2/:capacity/:phoneNo/:totalEmploy/:managerpin', function(req,res){
+  console.log("post called on restaurant/addRestarant");
+});
+
+router.post('party/addParty/:id/:name/:size/:time/:phoneNo/:resv', function(req,res){
+  console.log("post called on party/addParty");
+});
+
+router.post('shift/addShift/:name/:startTime/:endTime/:shiftLen', function(req,res){
+  console.log("post called on shift/addShift");
+});
+
 router.get('/user/getUsers', function(req,res){
   console.log('called user/getUsers API');
   User.find(function(err,user){

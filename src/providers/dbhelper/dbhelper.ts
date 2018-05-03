@@ -17,7 +17,6 @@ export class DbHelperProvider {
 
   constructor(public http: HttpClient) {
     console.log('Hello DbHelperProvider Provider');
-    //this.url = 'https://quiet-waters-97553.herokuapp.com/api';
     //this.url = 'http://localhost:8080/api';
     this.url = 'https://dineinapi.herokuapp.com/api'
     this.urlParser = new URLParser();
@@ -28,7 +27,7 @@ export class DbHelperProvider {
 
     let newURL = this.urlParser.addUser(this.url, newUser);
     console.log("URLparser returned " + newURL);
-    this.http.post(newURL,{}).subscribe(
+    this.http.post(newURL).subscribe(
         (val) => {
             console.log("POST call successful value returned in body",
                         val);
@@ -52,28 +51,88 @@ export class DbHelperProvider {
 
   //RESTAURANT methods
   addRestaurant(newRest: RestaurantObject){
-    return true;
+  let newURL = this.urlParser.addRestaurant(this.url, newRest);
+  console.log("URLparser returned " + newURL);
+  this.http.post(newURL).subscribe(
+      (val) => {
+          console.log("POST call successful value returned in body",
+                      val);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
   }
 
 
   //EMPLOYEE methods
   addEmployee(newEmployee: EmployeeObject){
-    return true; 
+  let newURL = this.urlParser.addEmployee(this.url, newEmployee);
+  console.log("URLparser returned " + newURL);
+  this.http.post(newURL).subscribe(
+      (val) => {
+          console.log("POST call successful value returned in body",
+                      val);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
   }
 
   //TABLE methods
   addTable(newTable: TableObject){
-    return true;
+  let newURL = this.urlParser.addTable(this.url, newTable);
+  console.log("URLparser returned " + newURL);
+  this.http.post(newURL).subscribe(
+      (val) => {
+          console.log("POST call successful value returned in body",
+                      val);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
   }
 
   //PARTY methods
   addParty(newParty: PartyObject){
-    return true;
+  let newURL = this.urlParser.addParty(this.url, newParty);
+  console.log("URLparser returned " + newURL);
+  this.http.post(newURL).subscribe(
+      (val) => {
+          console.log("POST call successful value returned in body",
+                      val);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
   }
 
 
   //PUNCh methods
   addShift(newShift: ShiftObject){
-    return true;
+  let newURL = this.urlParser.addShift(this.url, newShift);
+  console.log("URLparser returned " + newURL);
+  this.http.post(newURL).subscribe(
+      (val) => {
+          console.log("POST call successful value returned in body",
+                      val);
+      },
+      response => {
+          console.log("POST call in error", response);
+      },
+      () => {
+          console.log("The POST observable is now completed.");
+      });
   }
 }
