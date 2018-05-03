@@ -69,7 +69,7 @@ router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', func
 
 });
 
-router.post('/employee/addEmployee/:id/:fname/:lname/:imageSource/:title/:pay/:phoneNo', function(req,res){
+router.post('/employee/addEmployee/:id/:fname/:lname/:title/:pay/:phoneNo', function(req,res){
   console.log("post called on employee/addEmployee");
 });
 

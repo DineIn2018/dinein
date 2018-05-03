@@ -11,7 +11,7 @@ export class URLParser{
   }
 
   addEmployee(url:String, object){
-    let newURL = url + "/employee/addEmployee/"  + object.id + '/' + object.fName + '/' + object.lName + '/' + object.imageSource + '/' + object.title +'/' + object.pay +'/' +
+    let newURL = url + "/employee/addEmployee/"  + object.id + '/' + object.fName + '/' + object.lName + '/' + object.title +'/' + object.pay +'/' +
       object.phoneNo
       //url = newURL;
     return newURL;
