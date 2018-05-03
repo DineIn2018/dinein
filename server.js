@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 //MongoDB
-mongoose.connect('mongodb+srv://cnitz:rockyou1@startingcluster-wkejy.mongodb.net/test');
+mongoose.connect('mongodb+srv://cnitz:rockyou1@startingcluster-wkejy.mongodb.net/DineInDB');
 
 //Express
 var app = express();
