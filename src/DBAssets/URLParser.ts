@@ -11,27 +11,26 @@ export class URLParser{
   }
 
   addEmployee(url:String, object){
-    let newURL = url + "/employee/addEmployee/"  + object.id + '/' + object.fName + '/' + object.lName + '/' + object.title +'/' + object.pay +'/' +
+    let newURL = url + "/employee/addEmployee/" + object.id + '/' + object.fName + '/' + object.lName + '/' + object.title +'/' + object.pay +'/' +
       object.phoneNo
       //url = newURL;
     return newURL;
   }
 
   addRestaurant(url:String, object){
-    let newURL = url + "/restaurant/addRestarant/"  + object.name + '/' + object.addr1 + '/' + object.addr2 + '/' + object.capacity + '/' + object.phoneNo +'/' + object.totalEmploy +'/'
-      + object.managerPin;
+    let newURL = url + "/restaurant/addRestarant/" + object.name + '/' + object.addr1 + '/' + object.addr2 + '/' + object.phoneNo + '/'  + object.managerPin;
       //url = newURL;
     return newURL;
   }
 
   addParty(url:String, object){
-    let newURL = url + "/party/addParty/"  + object.id + '/' + object.name + '/' + object.size + '/' + object.time + '/' + object.phoneNo +'/' + object.resv;
+    let newURL = url + "/party/addParty/" + object.name + '/' + object.size + '/' + object.time + '/' + object.phoneNo +'/' + object.resv;
       //url = newURL;
     return newURL;
   }
 
   addShift(url: String, object){
-    let newURL = url + "/shift/addShift/"  + object.name + '/' + object.startTime + '/' + object.endTime + '/' + object.shiftLen;
+    let newURL = url + "/shift/addShift/" + object.name + '/' + object.startTime + '/' + object.endTime + '/' + object.shiftLen;
       //url = newURL;
     return newURL;
   }

@@ -73,14 +73,15 @@ router.post('/employee/addEmployee/:id/:fname/:lname/:title/:pay/:phoneNo', func
   console.log("post called on employee/addEmployee");
 });
 
-router.post('restaurant/addRestarant/:name/:addr1/:addr2/:capacity/:phoneNo/:totalEmploy/:managerpin', function(req,res){
+router.post('restaurant/addRestarant/:name/:addr1/:addr2/:phoneNo', function(req,res){
   console.log("post called on restaurant/addRestarant");
 });
 
-router.post('party/addParty/:id/:name/:size/:time/:phoneNo/:resv', function(req,res){
+router.post('party/addParty/:name/:size/:time/:phoneNo/:resv', function(req,res){
   console.log("post called on party/addParty");
 });
 
+//doesn't work because of special characters in date/time
 router.post('shift/addShift/:name/:startTime/:endTime/:shiftLen', function(req,res){
   console.log("post called on shift/addShift");
 });
