@@ -69,8 +69,30 @@ router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', func
 
 });
 
+var employeeSchema = new Schema({
+  id: Number,
+  firstName: String,
+  lastName: String,
+  title: String,
+  pay: Number,
+  phoneNo: Number
+});
+var Employee = mongoose.model('Employee', employeeSchema);
+
+
 router.post('/employee/addEmployee/:id/:fname/:lname/:title/:pay/:phoneNo', function(req,res){
   console.log("post called on employee/addEmployee");
+  Employee.create({
+    id: req.params.id,
+    firstName: req.params.firstName,
+    lastName: req.params.lname,
+    title: req.params.title,
+    pay: req.params.pay,
+    phoneNo: req.params.phoneNo
+  }, function(err, review){
+    if(err)
+      res.send(err);
+  });
 });
 
 router.post('restaurant/addRestarant/:name/:addr1/:addr2/:phoneNo', function(req,res){
