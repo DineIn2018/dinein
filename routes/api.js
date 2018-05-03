@@ -69,6 +69,78 @@ router.post('/user/addUser/:email/:pwd/:fName/:lName/:phoneNo/:restaurant', func
 
 });
 
+var employeeSchema = new Schema({
+  id: Number,
+  firstName: String,
+  lastName: String,
+  title: String,
+  pay: Number,
+  phoneNo: Number
+});
+var Employee = mongoose.model('Employee', employeeSchema);
+
+
+router.post('/employee/addEmployee/:id/:fname/:lname/:title/:pay/:phoneNo', function(req,res){
+  console.log("post called on employee/addEmployee");
+  Employee.create({
+    id: req.params.id,
+    firstName: req.params.fname,
+    lastName: req.params.lname,
+    title: req.params.title,
+    pay: req.params.pay,
+    phoneNo: req.params.phoneNo
+  }, function(err, review){
+    if(err)
+      res.send(err);
+  });
+});
+
+var restaurantSchema = new Schema({
+  name: String,
+  addr1: String,
+  addr2: String,
+  phoneNo: Number
+});
+var Restaurant = mongoose.model('Restaurant', restaurantSchema);
+
+router.post('/restaurant/addRestaurant/:name/:addr1/:addr2/:phoneNo', function(req,res){
+  console.log("post called on restaurant/addRestaurant");
+  Restaurant.create({
+    name: req.params.name,
+    addr1: req.params.addr1,
+    addr2: req.params.addr2,
+    phoneNo: req.params.phoneNo
+  }, function(err, review){
+    if(err)
+      res.send(err);
+  });
+});
+
+
+var partySchema = new Schema({
+  name: String,
+  size: Number,
+  time: String,
+  phoneNo: Number
+});
+var Party = mongoose.model('Party', partySchema);
+
+router.post('/party/addParty/:name/:size/:time/:phoneNo', function(req,res){
+  console.log("post called on party/addParty");
+  Party.create({
+    name: req.params.name,
+    size: req.params.size,
+    time: req.params.time,
+    phoneNo: req.params.phoneNo
+  }, function(err, review){
+    if(err){
+      console.log("something went wrong!")
+      res.send(err);
+    }
+  });
+});
+
+
 router.get('/user/getUsers', function(req,res){
   console.log('called user/getUsers API');
   User.find(function(err,user){

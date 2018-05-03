@@ -82,7 +82,7 @@ export class EditEmployeePage {
 				newEmployee.phoneNo = this.phone;
 
 				this.DBHelper.addEmployee(newEmployee);
-				//this.employees.push(this.employee);
+				this.employees.push(this.employee);
 			}
 			let alert = this.alertCtrl.create({
 				title: this.editMode ? "Employee Information Successfully Saved" : "Employee Successfully Created",
