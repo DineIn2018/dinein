@@ -18,7 +18,7 @@ export class URLParser{
   }
 
   addRestaurant(url:String, object){
-    let newURL = url + "/restaurant/addRestarant/" + object.name + '/' + object.addr1 + '/' + object.addr2 + '/' + object.phoneNo + '/'  + object.managerPin;
+    let newURL = url + "/restaurant/addRestaurant/" + object.name + '/' + object.addr1 + '/' + object.addr2 + '/' + object.phoneNo;
       //url = newURL;
     return newURL;
   }

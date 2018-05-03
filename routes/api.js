@@ -95,8 +95,8 @@ router.post('/employee/addEmployee/:id/:fname/:lname/:title/:pay/:phoneNo', func
   });
 });
 
-router.post('restaurant/addRestarant/:name/:addr1/:addr2/:phoneNo', function(req,res){
-  console.log("post called on restaurant/addRestarant");
+router.post('restaurant/addRestaurant/:name/:addr1/:addr2/:phoneNo', function(req,res){
+  console.log("post called on restaurant/addRestaurant");
 });
 
 router.post('party/addParty/:name/:size/:time/:phoneNo/:resv', function(req,res){
