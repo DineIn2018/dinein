@@ -81,9 +81,9 @@ export class PunchCardPage {
 		if (this.filterBySingleDate()) {
 			for (i = 0; i < tmp.length; i++) {
 				if (this.dateTime.sameDay(tmp[i].startTime, this.filterStartDate) ||
+						this.dateTime.sameDay(tmp[i].startTime, this.filterEndDate))/* ||
 						this.dateTime.sameDay(tmp[i].endTime, this.filterStartDate) ||
-						this.dateTime.sameDay(tmp[i].startTime, this.filterEndDate) ||
-						this.dateTime.sameDay(tmp[i].endTime, this.filterEndDate)) {
+						this.dateTime.sameDay(tmp[i].endTime, this.filterEndDate))*/ {
 					this.displayShiftList.push(tmp[i]);
 				}
 			}
