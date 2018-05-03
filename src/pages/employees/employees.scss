@@ -38,7 +38,7 @@ page-employees {
 	#profileleft {
 		padding-left: 75px;
 		padding-right: 25px;
-		padding-top: 10%;
+		padding-top: 23%;
 		height: 100%;
 		width: 40%;
 		float: left;
@@ -47,7 +47,7 @@ page-employees {
 	#profileright {
 		padding-left: 25px;
 		padding-right: 75px;
-		padding-top: 2%;
+		padding-top: 15%;
 		height: 100%;
 		width: 60%;
 		float: left;
@@ -107,6 +107,6 @@ page-employees {
 	}
 
 	// fix
-	$popover-ios-width: 400px; 
+	$popover-ios-width: 400px;
 
 }
