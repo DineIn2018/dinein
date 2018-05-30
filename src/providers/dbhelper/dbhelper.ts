@@ -27,7 +27,7 @@ export class DbHelperProvider {
 
     let newURL = this.urlParser.addUser(this.url, newUser);
     console.log("URLparser returned " + newURL);
-    this.http.post(newURL).subscribe(
+    this.http.post(newURL,{}).subscribe(
         (val) => {
             console.log("POST call successful value returned in body",
                         val);
@@ -53,7 +53,7 @@ export class DbHelperProvider {
   addRestaurant(newRest: RestaurantObject){
   let newURL = this.urlParser.addRestaurant(this.url, newRest);
   console.log("URLparser returned " + newURL);
-  this.http.post(newURL).subscribe(
+  this.http.post(newURL,{}).subscribe(
       (val) => {
           console.log("POST call successful value returned in body",
                       val);
@@ -71,7 +71,7 @@ export class DbHelperProvider {
   addEmployee(newEmployee: EmployeeObject){
   let newURL = this.urlParser.addEmployee(this.url, newEmployee);
   console.log("URLparser returned " + newURL);
-  this.http.post(newURL).subscribe(
+  this.http.post(newURL,{}).subscribe(
       (val) => {
           console.log("POST call successful value returned in body",
                       val);
@@ -88,7 +88,7 @@ export class DbHelperProvider {
   addTable(newTable: TableObject){
   let newURL = this.urlParser.addTable(this.url, newTable);
   console.log("URLparser returned " + newURL);
-  this.http.post(newURL).subscribe(
+  this.http.post(newURL,{}).subscribe(
       (val) => {
           console.log("POST call successful value returned in body",
                       val);
@@ -105,7 +105,7 @@ export class DbHelperProvider {
   addParty(newParty: PartyObject){
   let newURL = this.urlParser.addParty(this.url, newParty);
   console.log("URLparser returned " + newURL);
-  this.http.post(newURL).subscribe(
+  this.http.post(newURL,{}).subscribe(
       (val) => {
           console.log("POST call successful value returned in body",
                       val);
@@ -123,7 +123,7 @@ export class DbHelperProvider {
   addShift(newShift: ShiftObject){
   let newURL = this.urlParser.addShift(this.url, newShift);
   console.log("URLparser returned " + newURL);
-  this.http.post(newURL).subscribe(
+  this.http.post(newURL,{}).subscribe(
       (val) => {
           console.log("POST call successful value returned in body",
                       val);

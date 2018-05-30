@@ -34,4 +34,8 @@ export class URLParser {
     //url = newURL;
     return newURL;
   }
+
+  addTable(url: String, object){
+    
+  }
 }
