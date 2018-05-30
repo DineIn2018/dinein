@@ -1,15 +1,26 @@
-DineIn: How to Run
+Welcome to DineIn, an app built for restaurant managers. You can find our app online (for free of course)
+at https://dinein-app.herokuapp.com/
+
+Please note that since we are using Heroku's free dynos, it is likely when you first load the app that it
+will be "asleep" and could take a minute or two to boot up initially, unfortunately this is unavoidable
+without paying for upgraded dynos (maybe one day!).
+
+Also please note that this app is optimized for tablets, but is still operable on computers.
+
+
+
+How to clone and run our code on your own machine:
 
 1)  Install node.js (if you don't already have it)
     https://nodejs.org/en/
-    
+
 2)  Install Ionic
     Run:
     $ npm install -g ionic cordova
-    
+
 3)  Clone our Github repo
     https://github.com/DineIn2018/dinein.git
-    
+
 4)  Checkout the branch "TEST"
 
 5)  In terminal, cd to the directory where you have the repo cloned
@@ -17,18 +28,18 @@ DineIn: How to Run
 6)  Install all the node.js dependencies
     Run:
     $ npm install
-    
+
 7.1)  If you don't have an iPad
       Run:
       $ ionic serve
       This will open a tab in your browser, running the app.
-      
+
       * Note:
         At the login page, it is not necessary to enter a username or password.
         This will look real ugly, our application is meant to be deployed on an iPad, it will look better there
         Some scrolling also won't work in the browser, it will work on the iPad
         The browser is just a debugging platform
-      
+
       **********************************************************************************************************
       * IMPORTANT:
       * When the browser is opened with the app, an error will show initially
@@ -38,19 +49,18 @@ DineIn: How to Run
       * open up any typescript (.ts) file within the pages folder in our project and save it (no need to modify)
       * The error should go away and the app will run smoothly
       **********************************************************************************************************
-      
+
 7.2)  If you have an iPad
       Download the Ionic Dev App from the app store on your iPad
       On your laptop, in the project directory, run:
       $ ionic serve -c
       Make sure your laptop and iPad are on the same Wifi network
       Open the Ionic Dev App, DineIn should pop up, tap it to run the app
-      
+
       * Note: If you are on UW Wifi, you will have to add the IP address manually
               See the terminal running the serve for the IP address and port is always 8100
 
 Our Bug Tracker (it's github issues):
   https://github.com/DineIn2018/dinein/issues
-  
+
 If you have any problems getting it running, send us an e-mail!
-  
