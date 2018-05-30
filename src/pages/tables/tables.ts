@@ -413,7 +413,7 @@ export class TablesPage {
 
 			  	snap: {
 			      targets: [
-			        interact.createSnapGrid({ x: 10, y: 10 })
+			        { x: 10, y: 10 }
 			      ],
 			      range: Infinity,
 			      relativePoints: [ { x: 0, y: 0 } ]
@@ -435,7 +435,7 @@ export class TablesPage {
 			    onend: function (event) { }
 			  })
 		} else {
-			interact('.tablediv').draggable(false)
+			//interact('.tablediv').draggable(false)
 		}
 
 	  function dragMoveListener (event) {

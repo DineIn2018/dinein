@@ -10,7 +10,7 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "start": "ionic serve -c",
+    "start": "node server.js",
     "test": "karma start ./test-config/karma.conf.js",
     "test-ci": "karma start ./test-config/karma.conf.js --single-run",
     "testcoverage": "karma start ./test-config/karma.conf.js --coverage",
