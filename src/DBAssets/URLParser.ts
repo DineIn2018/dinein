@@ -36,6 +36,6 @@ export class URLParser {
   }
 
   addTable(url: String, object){
-    
+    return "nothing";
   }
 }
