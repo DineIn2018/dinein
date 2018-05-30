@@ -10,7 +10,7 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "start": "node server.js",
+    "start": "ionic serve -c",
     "test": "karma start ./test-config/karma.conf.js",
     "test-ci": "karma start ./test-config/karma.conf.js --single-run",
     "testcoverage": "karma start ./test-config/karma.conf.js --coverage",
@@ -27,6 +27,7 @@
     "@angular/http": "5.0.3",
     "@angular/platform-browser": "5.0.3",
     "@angular/platform-browser-dynamic": "5.0.3",
+    "@ionic/app-scripts": "^3.1.8",
     "@ionic-native/camera": "^4.7.0",
     "@ionic-native/core": "4.4.0",
     "@ionic-native/file": "^4.7.0",
@@ -68,10 +69,10 @@
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
     "ts-loader": "^3.5.0",
+    "typescript": "2.4.2",
     "zone.js": "0.8.18"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^3.1.8",
     "@types/jasmine": "^2.8.6",
     "@types/node": "^9.6.4",
     "angular2-template-loader": "^0.6.2",
@@ -86,8 +87,7 @@
     "karma-webpack": "^3.0.0",
     "null-loader": "^0.1.1",
     "protractor": "^5.3.1",
-    "ts-node": "^5.0.1",
-    "typescript": "2.4.2"
+    "ts-node": "^5.0.1"
   },
   "description": "An Ionic project",
   "cordova": {
